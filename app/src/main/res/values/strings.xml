@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">i成电</string>
+    <string name="app_version">beta 2.8.1</string>
+    <string name="developer_name">Febers</string>
+    <string name="developer_email">febers418@qq.com</string>
+    <string name="app_web">http://app.febers.tech</string>
+    <string name="sp_first_open">first_open</string>
+    <string name="sp_is_login">is_login</string>
+    <string name="sp_ecard_is_login">ecard_is_login</string>
+    <string name="sp_user_name">user_name</string>
+    <string name="sp_user_id">user_id</string>
+    <string name="sp_ecard_user_id">ecard_user_id</string>
+    <string name="sp_ecard_user_phone">ecard_user_phone</string>
+    <string name="sp_user_phone">user_phone</string>
+    <string name="sp_user_pw">user_pw</string>
+    <string name="sp_ecard_user_pw">ecard_user_pw</string>
+    <string name="sp_ecard_ec_balance">ec_balance</string>
+    <string name="sp_now_week">now_week</string>
+    <string name="sp_ecard_el_balance">el_balance</string>
+    <string name="sp_exam_final">exam_1</string>
+    <string name="sp_exam_middle">exam_2</string>
+    <string name="sp_semester">183</string>
+    <string name="sp_course_count">course_count</string>
+    <string name="sp_get_course">get_course</string>
+    <string name="sp_ecard_bind_number">ecard_bind_number</string>
+    <string name="sp_course_last_time">course_last_time</string>
+    <string name="sp_course_first_get">course_first_get</string>
+    <string name="sp_library_history">library_history</string>
+    <string name="sp_library_school_net">library_school_net</string>
+    <string name="sp_get_bus">get_bus</string>
+    <string name="sp_history_url">history_url</string>
+    <string name="navigation_drawer_open">open_drawer</string>
+    <string name="navigation_drawer_close">close_drawer</string>
+    <string name="sp_grade">grade</string>
+    <string name="sp_get_grade">get_grade</string>
+    <string name="sp_get_calender">get_calender</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

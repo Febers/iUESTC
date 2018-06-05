@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:background="@drawable/layout_click_bg">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:text="一卡通余额："/>
+
+    <TextView
+        android:id="@+id/tv_my_money"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_horizontal"
+        android:text="18.40"
+        android:textSize="50sp"/>
+
+</LinearLayout>
