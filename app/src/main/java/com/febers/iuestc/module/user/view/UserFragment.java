@@ -33,8 +33,8 @@ import com.febers.iuestc.module.user.contract.UserContract;
 import com.febers.iuestc.module.user.contract.UserPresenterImp;
 import com.febers.iuestc.utils.LogoutUtil;
 import com.febers.iuestc.home.view.HomeFragmentManager;
-import com.febers.iuestc.view.MyGridView;
-import com.febers.iuestc.view.MyLoginDialog;
+import com.febers.iuestc.view.CustomGridView;
+import com.febers.iuestc.view.CustomLoginDialog;
 import com.tencent.bugly.beta.Beta;
 
 import java.util.ArrayList;
@@ -57,11 +57,11 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
     private CardView mCardView;
     private UserContract.Presenter userPresenter = new UserPresenterImp(this);
     private LoginContract.Presenter loginPresenter = new LoginPresenterImpl(this);
-    private MyLoginDialog myLoginDialog;
+    private CustomLoginDialog customLoginDialog;
     private TextInputEditText tieId;
     private String stId;
     private String stPw;
-    private MyGridView mGridView;
+    private CustomGridView mGridView;
     private SimpleAdapter adapter;
 
     @Override
@@ -231,7 +231,7 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
     public void loginSuccess() {
         getActivity().runOnUiThread(() -> {
             dismissProgressDialog();
-            myLoginDialog.dismiss();
+            customLoginDialog.dismiss();
             userPresenter.userDetailRequest();
             Toast.makeText(getContext(), "登录成功", Toast.LENGTH_SHORT).show();
             HomeFragmentManager.clearFragment(-1);
@@ -242,7 +242,7 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
     public void loginFail(String failMsg) {
         getActivity().runOnUiThread(() -> {
             dismissProgressDialog();
-            myLoginDialog.show();
+            customLoginDialog.show();
             onError(failMsg);
         });
     }
@@ -251,7 +251,7 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
     public void loginError(String errorMsg) {
         getActivity().runOnUiThread(()-> {
             dismissProgressDialog();
-            myLoginDialog.show();
+            customLoginDialog.show();
             onError(errorMsg);
         });
     }
@@ -263,36 +263,36 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
     }
 
     public void showLoginDialog() {
-        if (myLoginDialog == null) {
-            myLoginDialog = new MyLoginDialog(getContext());
-            myLoginDialog.setShowTitle(true);
-            tieId = myLoginDialog.getTieUserId();
-            myLoginDialog.setOnLoginListener( v -> {
+        if (customLoginDialog == null) {
+            customLoginDialog = new CustomLoginDialog(getContext());
+            customLoginDialog.setShowTitle(true);
+            tieId = customLoginDialog.getTieUserId();
+            customLoginDialog.setOnLoginListener(v -> {
                 switch (v.getId()) {
                     case R.id.bt_dialog_login_enter:
                         if (!BaseApplication.checkNetConnecting()) {
                             Toast.makeText(getContext(), "当前网络不可用", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        stId = myLoginDialog.getStId();
-                        stPw = myLoginDialog.getStPw();
+                        stId = customLoginDialog.getStId();
+                        stPw = customLoginDialog.getStPw();
                         if (stId.equals("") || stPw.equals("")) {
                             Toast.makeText(getContext(), "请输入正确的格式", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         loginPresenter.loginRequest(stId, stPw);
-                        myLoginDialog.hide();
+                        customLoginDialog.hide();
                         showProgressDialog();
                         break;
                     case R.id.bt_dialog_login_cancel:
-                        myLoginDialog.dismiss();
+                        customLoginDialog.dismiss();
                         break;
                     default:
                         break;
                 }
             });
         }
-        myLoginDialog.show();
+        customLoginDialog.show();
     }
 
     private void logout() {

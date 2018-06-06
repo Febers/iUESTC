@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
  * Created by 23033 on 2018/3/27.
  */
 
-public class CheckRepeatLoginUtil {
+public class RepeatLoginUtil {
 
     public static String check(String html) {
 

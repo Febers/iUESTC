@@ -3,14 +3,14 @@ package com.febers.iuestc.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.febers.iuestc.R;
-import com.febers.iuestc.view.MyProgressDialog;
+import com.febers.iuestc.view.CustomProgressDialog;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView{
 
-    protected MyProgressDialog mProgressDialog;
+    protected CustomProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     protected abstract int setView();
-    protected abstract void findViewById();
+    protected void findViewById() {}
     protected abstract void initView();
 
     protected int getContentView() {
@@ -30,7 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     protected void showProgressDialog() {
         if (mProgressDialog == null) {
-            mProgressDialog = new MyProgressDialog(this);
+            mProgressDialog = new CustomProgressDialog(this);
         }
         mProgressDialog.show();
     }

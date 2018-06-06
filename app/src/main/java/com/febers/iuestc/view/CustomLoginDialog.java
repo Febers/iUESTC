@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.febers.iuestc.R;
 
-public class MyLoginDialog extends AlertDialog{
+public class CustomLoginDialog extends AlertDialog{
 
     private Context context;
     private TextInputEditText tieUserId, tieUserPw;
@@ -24,7 +24,7 @@ public class MyLoginDialog extends AlertDialog{
     private String stId = "";
     private String stPw = "";
 
-    public MyLoginDialog(Context context) {
+    public CustomLoginDialog(Context context) {
         super(context, R.style.Theme_AppCompat_Dialog);
         this.context = context;
         dialog = new AlertDialog.Builder(context).create();

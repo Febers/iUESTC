@@ -1,6 +1,6 @@
 package com.febers.iuestc.utils;
 
-public class TermToNum {
+public class TermToNumUtil {
     /**
      * 把本科学年转换为相应的semester.id
      * @param term 学年,上学期为0，下学年为1

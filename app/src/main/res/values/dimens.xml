@@ -5,4 +5,5 @@
     <dimen name="card_radius">1dp</dimen>
     <dimen name="card_elevation">2dp</dimen>
     <dimen name="tablayout_height">40dp</dimen>
+    <dimen name="about_margin">8dp</dimen>
 </resources>

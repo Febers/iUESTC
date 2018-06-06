@@ -15,7 +15,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.module.service.view.ServiceActivity;
-import com.febers.iuestc.utils.MySharedPreferences;
+import com.febers.iuestc.utils.CustomSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,14 +49,14 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     protected void initView() {
         mNavigationView.setNavigationItemSelectedListener(this);
         int openPosition = 0;
-        if (!MySharedPreferences.getInstance().get("is_login", false)) {
+        if (!CustomSharedPreferences.getInstance().get("is_login", false)) {
             openPosition = 3;
         }
         mBottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
         mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         mBottomNavigationBar.setAutoHideEnabled(true);
         mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.ic_course_table_bottom_black, "课程表"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_course_bottom_gray, "课程表"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_book_bottom_color, "图书馆"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_cards_bottom_black, "卡务"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_person_bottom_black, "我的"))
@@ -83,7 +83,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         mFragmentList.add(mUserFragment);
 
         //如果没登录，显示userFragment
-        if (!MySharedPreferences.getInstance().get("is_login", false)) {
+        if (!CustomSharedPreferences.getInstance().get("is_login", false)) {
             showFragment(3);
             mBottomNavigationBar.setFirstSelectedPosition(3);
         } else {

@@ -9,21 +9,17 @@ import android.widget.GridView;
  * Created by Febers on img_2018/2/4.
  */
 
-public class MyGridView extends GridView {
-    public MyGridView(Context context) {
+public class CustomGridView extends GridView {
+    public CustomGridView(Context context) {
         super(context);
     }
 
-    public MyGridView(Context context, AttributeSet attrs) {
+    public CustomGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MyGridView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    public MyGridView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override

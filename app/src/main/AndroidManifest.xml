@@ -73,11 +73,8 @@
         <activity android:name=".module.news.view.NewsDetailActivity" />
         <activity
             android:name=".module.ecard.view.ECardRecrodActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".module.user.view.AboutActivity"
-            android:theme="@style/AppTheme.MaterialAboutActivity">
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".module.user.view.AboutActivity"></activity>
     </application>
 
 </manifest>

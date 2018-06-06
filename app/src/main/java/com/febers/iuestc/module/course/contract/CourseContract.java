@@ -15,6 +15,7 @@ public interface CourseContract {
     }
 
     abstract class Presenter extends BasePresenter<CourseContract.View> {
+
         public Presenter(View view) {
             super(view);
         }

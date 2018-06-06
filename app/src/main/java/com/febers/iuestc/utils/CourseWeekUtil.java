@@ -72,7 +72,7 @@ public class CourseWeekUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String time = sdf.format(new Date());
         //获取上次时间
-        String lastTime = MySharedPreferences.getInstance().get(BaseApplication.getContext().getString(R.string.sp_course_last_time), time);
+        String lastTime = CustomSharedPreferences.getInstance().get(BaseApplication.getContext().getString(R.string.sp_course_last_time), time);
 
         try {
             date = sdf.parse(time);

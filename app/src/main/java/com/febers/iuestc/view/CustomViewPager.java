@@ -8,12 +8,12 @@ import android.view.View;
 /**
  * 解决CoordinatorLayout下ViewPager嵌套recyclerview后无法滑动的问题
  */
-public class MyViewPager extends ViewPager {
-    public MyViewPager(Context context) {
+public class CustomViewPager extends ViewPager {
+    public CustomViewPager(Context context) {
         super(context);
     }
 
-    public MyViewPager(Context context, AttributeSet attrs) {
+    public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

@@ -11,20 +11,20 @@ import java.util.Set;
  * Created by 23033 on 2018/3/5.
  */
 
-public class MySharedPreferences {
+public class CustomSharedPreferences {
 
     private SharedPreferences sharedPreferences;
 
-    public static MySharedPreferences getInstance() {
+    public static CustomSharedPreferences getInstance() {
         return SingletonHolder.INSTANCE;
     }
 
-    private MySharedPreferences() {
+    private CustomSharedPreferences() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(BaseApplication.getContext());
     }
 
     private static class SingletonHolder {
-        public static final MySharedPreferences INSTANCE = new MySharedPreferences();
+        public static final CustomSharedPreferences INSTANCE = new CustomSharedPreferences();
     }
 
     public boolean put(String key, String value) {

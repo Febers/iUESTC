@@ -2,7 +2,6 @@ package com.febers.iuestc.view;
 
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -10,17 +9,17 @@ import android.widget.ProgressBar;
 import com.febers.iuestc.R;
 
 
-public class MyProgressDialog extends AlertDialog {
+public class CustomProgressDialog extends AlertDialog {
     private Context context;
     private View view;
     private AlertDialog dialog;
     private ProgressBar progressBar;
 
-    public MyProgressDialog(Context context) {
+    public CustomProgressDialog(Context context) {
         this(context, "请稍侯");
     }
 
-    public MyProgressDialog(Context context, String title) {
+    public CustomProgressDialog(Context context, String title) {
         super(context, R.style.Theme_AppCompat_Dialog);
         this.context = context;
         dialog = new AlertDialog.Builder(context).create();

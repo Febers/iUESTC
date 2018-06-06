@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.febers.iuestc.view.MyProgressDialog;
+import com.febers.iuestc.view.CustomProgressDialog;
 
 /**
  * Fragment预加载问题的解决方案：
@@ -25,15 +24,14 @@ public abstract class BaseFragment extends Fragment implements BaseView{
     protected boolean isLoad = false;
     protected final String TAG = "BaseFragment";
     private View view;
-    protected MyProgressDialog mProgressDialog;
+    protected CustomProgressDialog mProgressDialog;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         view = inflater.inflate(setContentView(), container, false);
         isInit = true;
-        /**初始化的时候去加载数据**/
-        isCanLoadData();
         return view;
     }
 
@@ -41,6 +39,7 @@ public abstract class BaseFragment extends Fragment implements BaseView{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
+        isCanLoadData();
     }
 
     //视图是否已经对用户可见，系统的方法
@@ -102,7 +101,7 @@ public abstract class BaseFragment extends Fragment implements BaseView{
 
     protected void showProgressDialog() {
         if (mProgressDialog == null) {
-            mProgressDialog = new MyProgressDialog(getContext());
+            mProgressDialog = new CustomProgressDialog(getContext());
         }
         mProgressDialog.show();
     }
@@ -116,6 +115,7 @@ public abstract class BaseFragment extends Fragment implements BaseView{
 
     @Override
     public void onError(String error) {
+        dismissProgressDialog();
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 }

@@ -10,7 +10,7 @@ import com.febers.iuestc.module.course.contract.CourseContract;
 import com.febers.iuestc.module.login.model.ILoginModel;
 import com.febers.iuestc.module.login.model.LoginModel;
 import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.utils.MySharedPreferences;
+import com.febers.iuestc.utils.CustomSharedPreferences;
 import com.febers.iuestc.utils.ApiUtil;
 
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class CourseModel implements ICourseModel{
             Log.d(TAG, "getCourseListRequest: 未登录");
             return;
         }
-        Boolean get_course = MySharedPreferences.getInstance().get(context
+        Boolean get_course = CustomSharedPreferences.getInstance().get(context
                 .getString(R.string.sp_get_course), false);
         if (get_course && (!isRefresh)) {
             //加载本地文件
@@ -112,11 +112,11 @@ public class CourseModel implements ICourseModel{
             mCoursePresenter.errorResult("网络超时");
         } catch (IOException e) {
             e.printStackTrace();
-            MySharedPreferences.getInstance().put("get_course", false);
+            CustomSharedPreferences.getInstance().put("get_course", false);
             return;
         } catch (Exception e) {
             Log.d(TAG, "检测到异常！");
-            MySharedPreferences.getInstance().put("get_course", false);
+            CustomSharedPreferences.getInstance().put("get_course", false);
             return;
         }
         //解析源码成List格式，发送给presenter，并存储
@@ -147,7 +147,7 @@ public class CourseModel implements ICourseModel{
                 partList.add(s1.substring(pStart, pNext-1));
             }
             //保存课程数目
-            MySharedPreferences.getInstance().put("course_count", partList.size());
+            CustomSharedPreferences.getInstance().put("course_count", partList.size());
             for (int i = 0; i < partList.size(); i++) {
                 getPerCourse(partList.get(i), i);
             }
@@ -158,7 +158,7 @@ public class CourseModel implements ICourseModel{
             Log.d(TAG, "getCourseTable: 第一个解析方法出错");
             return;
         }
-        MySharedPreferences.getInstance().put("get_course", true);
+        CustomSharedPreferences.getInstance().put("get_course", true);
     }
 
     /**
@@ -215,17 +215,17 @@ public class CourseModel implements ICourseModel{
     public void loadLocalFile() {
         try {
             List<BeanCourse> courseList = new ArrayList<>();
-            int i = MySharedPreferences.getInstance().get("course_count", 10);
+            int i = CustomSharedPreferences.getInstance().get("course_count", 10);
 //            Log.d(TAG, "loadLocalFile: 课程数目为" + i);
             for (int j = 0; j < i; j++) {
                 SharedPreferences spLocalCourse = BaseApplication.getContext().getSharedPreferences("local_course", 0);
                 String s = spLocalCourse.getString("beanCourse"+j, "");
-//                String s = MySharedPreferences.getInstance().get("beanCourse"+j, "");
+//                String s = CustomSharedPreferences.getInstance().get("beanCourse"+j, "");
                 String [] ss = s.split(",");
                 ss[6] = getWeeks(ss[6]);    //转换成单双周
                 List<String> list = Arrays.asList(ss);
                 BeanCourse beanCourse = new BeanCourse(list.get(1), list.get(3), list.get(5), list.get(6), list.get(7)+list.get(8));
-//                Log.d(TAG, "loadLocalFile: " + beanCourse.getECardBalance());
+//                Log.d(TAG, "loadLocalFile: " + beanCourse.balanceService());
                 courseList.add(beanCourse);
             }
             mCoursePresenter.courseResult("本地", courseList);

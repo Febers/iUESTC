@@ -35,7 +35,8 @@
                 android:text="标题"
                 android:gravity="center"
                 android:textSize="15dp"
-                android:layout_marginBottom="3dp"/>
+                android:layout_marginBottom="3dp"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/tv_lib_history_date"

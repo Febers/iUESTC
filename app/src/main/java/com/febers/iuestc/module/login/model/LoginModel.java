@@ -7,7 +7,7 @@ import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.module.login.contract.LoginContract;
 import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.utils.MySharedPreferences;
+import com.febers.iuestc.utils.CustomSharedPreferences;
 import com.febers.iuestc.utils.ApiUtil;
 
 import org.jsoup.Jsoup;
@@ -88,12 +88,12 @@ public class LoginModel implements ILoginModel{
     @Override
     public Boolean reloginService() {
         Boolean success = false;
-        if (!MySharedPreferences.getInstance().get(context.getString(R.string.sp_is_login), false)) {
+        if (!CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_is_login), false)) {
             return false;
         }
 
-        mId = MySharedPreferences.getInstance().get(context.getString(R.string.sp_user_id), "");
-        mPw = MySharedPreferences.getInstance().get(context.getString(R.string.sp_user_pw), "");
+        mId = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_user_id), "");
+        mPw = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_user_pw), "");
         try {
             client = SingletonClient.getInstance();
             Request request = new Request.Builder()
@@ -166,9 +166,9 @@ public class LoginModel implements ILoginModel{
             }
             for(Element e:elements) {
                 if (e.text().contains("个人") || e.text().contains("教务")){
-                    MySharedPreferences.getInstance().put(context.getString(R.string.sp_user_id), mId);
-                    MySharedPreferences.getInstance().put(context.getString(R.string.sp_user_pw), mPw);
-                    MySharedPreferences.getInstance().put(context.getString(R.string.sp_is_login), true);
+                    CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_user_id), mId);
+                    CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_user_pw), mPw);
+                    CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_is_login), true);
                     getDetailForName();
                     if (loginPresenter != null) {
                         loginPresenter.loginResult(LoginResult.LOGIN_SUCCESS);
@@ -205,7 +205,7 @@ public class LoginModel implements ILoginModel{
                     return;
                 }
                 String[] detail = els.get(0).text().split(" ");
-                MySharedPreferences.getInstance().put(context.getString(R.string.sp_user_name), detail[4]);
+                CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_user_name), detail[4]);
             } catch(Exception e) {
                 e.printStackTrace();
                 Log.d(TAG, "getDetailForName: 获取姓名失败");

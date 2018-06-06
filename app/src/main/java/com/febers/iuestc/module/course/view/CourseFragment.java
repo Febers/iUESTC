@@ -3,8 +3,6 @@ package com.febers.iuestc.module.course.view;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -27,7 +25,7 @@ import com.febers.iuestc.module.course.model.BeanCourse;
 import com.febers.iuestc.module.course.model.CourseEventMessage;
 import com.febers.iuestc.module.course.contract.CoursePresenterImpl;
 import com.febers.iuestc.utils.CourseWeekUtil;
-import com.febers.iuestc.utils.MySharedPreferences;
+import com.febers.iuestc.utils.CustomSharedPreferences;
 import com.febers.iuestc.utils.RandomUtil;
 import com.febers.iuestc.base.BaseFragment;
 
@@ -105,7 +103,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
                 return;
             }
             if (message.getStatus().equals("错")) {
-                Toast.makeText(getContext(), "刷新课表出错,请联系开发者", Toast.LENGTH_SHORT).show();
+                onError("刷新课表出错,请联系开发者");
                 return;
             }
             //与上次打开相比,更新周数
@@ -123,24 +121,29 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
                 }
                 //第一个数代表数组的第一维(星期几),第二个数代表第几节课
                 //时间格式要注意每个数字前面都有一个空格
-                String s = beanCourseList.get(i).getTime();
-                String s_1 = s.substring(1,2);  //星期
-                String s_2 = s.substring(3,s.length()); //完整的节数
-                String s_3 = s.substring(3,4);  //前两节
-                int x = Integer.valueOf(s_1);
-                int y = Integer.valueOf(s_3);   //为了确定z，y取第一个数字，即第三个字符
-                int z = y/2;    //y/2是因为一节课占两格
-                if (s_2.equals("1011")) {
+                String stTime = beanCourseList.get(i).getTime();
+                //星期
+                String stWeekTime = stTime.substring(1,2);
+                //完整的节数
+                String stDetailTime = stTime.substring(3,stTime.length());
+                //前两节
+                String stPre2DetailTime = stTime.substring(3,4);
+                int positionDay = Integer.valueOf(stWeekTime);
+                //为了确定在课表中的位置，stPre2DetailTime取第一个数字
+                int positionDetailTime = Integer.valueOf(stPre2DetailTime);
+                //positionDetailTime/2 是因为一节课占两格
+                int postionDetailTimeInTable = positionDetailTime/2;
+                if (stDetailTime.equals("1011")) {
                     //解决最后两节课时 xz计算错误的问题
-                    z = 5;
+                    postionDetailTimeInTable = 5;
                 }
-                Button bt = getActivity().findViewById(courseArray[x][z]);
+                Button bt = getActivity().findViewById(courseArray[positionDay][postionDetailTimeInTable]);
                 //修改高度
-                if (y == 8 && s_2.contains("11")) {
+                if (positionDetailTime == 8 && stDetailTime.contains("11")) {
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) bt.getLayoutParams();
                     params.height = ((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2*96, getResources().getDisplayMetrics()));
                     bt.setLayoutParams(params);
-                } else if (y == 8 && s_2.contains("10")) {
+                } else if (positionDetailTime == 8 && stDetailTime.contains("10")) {
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) bt.getLayoutParams();
                     params.height = ((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 144, getResources().getDisplayMetrics()));
                     bt.setLayoutParams(params);
@@ -160,17 +163,10 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
                 //获取当前标准格式的时间并保存
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String time = sdf.format(new Date());
-                MySharedPreferences.getInstance().put(context.getString(R.string.sp_course_last_time), time);
-                MySharedPreferences.getInstance().put(context.getString(R.string.sp_now_week), nowWeek);
+                CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_course_last_time), time);
+                CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_now_week), nowWeek);
             }
         });
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        setRetainInstance(true);
     }
 
     @Override
@@ -183,13 +179,13 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_course_choose_week:
-                if (!MySharedPreferences.getInstance().get("is_login", false)) {
+                if (!CustomSharedPreferences.getInstance().get("is_login", false)) {
                     break;
                 }
                 pickerView.show();
                 break;
             case R.id.item_course_refresh:
-                if (!MySharedPreferences.getInstance().get("is_login", false)) {
+                if (!CustomSharedPreferences.getInstance().get("is_login", false)) {
                     break;
                 }
                 getCourse(true);
@@ -211,8 +207,8 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
             @Override
             public void onOptionsSelect(final int options1, int options2, int options3, View v) {
                 Toast.makeText(getContext(), "当前周数已设置为第" + (options1+1) + "周", Toast.LENGTH_SHORT).show();
-                MySharedPreferences.getInstance().put(context.getString(R.string.sp_now_week), (options1+1));
-                MySharedPreferences.getInstance().put("set_week", true);
+                CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_now_week), (options1+1));
+                CustomSharedPreferences.getInstance().put("set_week", true);
                 setTitle(options1+1);
                 getCourse(false);
             }
@@ -230,19 +226,19 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            Boolean isLogin = MySharedPreferences.getInstance().get(context.getString(R.string.sp_is_login), false);
+            Boolean isLogin = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_is_login), false);
             if (!isLogin) {
                 showCourse(new CourseEventMessage("清空", new ArrayList<>()));
                 return;
             }
-            Boolean firstGet = MySharedPreferences.getInstance().get(context
+            Boolean firstGet = CustomSharedPreferences.getInstance().get(context
                     .getString(R.string.sp_course_first_get), true);
             if (firstGet) {
                 if (!BaseApplication.checkNetConnecting()) {
                     return;
                 }
                 getCourse(true);
-                MySharedPreferences.getInstance().put(context
+                CustomSharedPreferences.getInstance().put(context
                         .getString(R.string.sp_course_first_get), false);
                 return;
             }
@@ -253,7 +249,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
     private void setTitle(int week) {
         nowWeek = 1;
         if (week == 0) {
-            nowWeek = MySharedPreferences.getInstance().get(BaseApplication.getContext().getString(R.string.sp_now_week), 1);
+            nowWeek = CustomSharedPreferences.getInstance().get(BaseApplication.getContext().getString(R.string.sp_now_week), 1);
             if (nowWeek == 0) nowWeek = 1;
         } else {
             nowWeek = week;

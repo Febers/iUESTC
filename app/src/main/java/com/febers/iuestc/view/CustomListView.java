@@ -8,17 +8,17 @@ import android.widget.ListView;
  * Created by Febers on 2018/2/4.
  */
 
-public class MyListView extends ListView {
+public class CustomListView extends ListView {
 
-    public MyListView(Context context) {
+    public CustomListView(Context context) {
         super(context);
     }
 
-    public MyListView(Context context, AttributeSet attrs) {
+    public CustomListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MyListView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

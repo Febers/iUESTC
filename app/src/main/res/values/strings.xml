@@ -4,6 +4,7 @@
     <string name="developer_name">Febers</string>
     <string name="developer_email">febers418@qq.com</string>
     <string name="app_web">http://app.febers.tech</string>
+    <string name="developer_github">https://github.com/Febers</string>
     <string name="sp_first_open">first_open</string>
     <string name="sp_is_login">is_login</string>
     <string name="sp_ecard_is_login">ecard_is_login</string>

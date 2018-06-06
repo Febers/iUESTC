@@ -29,6 +29,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:textSize="18dp"
+            android:textColor="@color/black"
             android:text="这是一段测试用的新闻标题。 如果你看到了这个标题，说明你获取新闻出错了"/>
         <TextView
             android:id="@+id/tv_news_date"
