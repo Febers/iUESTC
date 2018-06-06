@@ -1,6 +1,7 @@
 package com.febers.iuestc.home.view;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -134,8 +135,13 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
             mFragmentTransaction.hide(f);
         }
         mFragmentTransaction.show(mFragmentList.get(position));
-        mFragmentTransaction.commit();
-        //此时关闭启动画面
+        /**
+         * 不使用commit, 而是commitAllowingStateLoss()，
+         * 防止状态恢复时出现 Can not perform this action after onSaveInstanceState 异常
+         * 或者重写onSaveInstanceState(Bundle outState)方法，注释掉下面一行
+         * super.onSaveInstanceState(outState);
+         */
+        mFragmentTransaction.commitAllowingStateLoss();
     }
 
     @Override
