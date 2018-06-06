@@ -12,28 +12,31 @@ import android.view.MenuItem;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterNewsViewPager;
+import com.febers.iuestc.base.BaseActivity;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 
-public class NewsActivity extends AppCompatActivity {
+public class NewsActivity extends BaseActivity {
 
     private static final String TAG = "NewsActivity";
+    private int type = 0;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private AdapterNewsViewPager adapterNewsViewPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
-
+    protected int setView() {
         SlidrConfig config = new SlidrConfig.Builder()
                 .edge(true)
                 .build();
         Slidr.attach(this, config);
         Intent intent = getIntent();
-        int type = intent.getIntExtra("type", 0);
-        Log.d(TAG, "onCreate: type is " + type);
+        type = intent.getIntExtra("type", 0);
+        return R.layout.activity_news;
+    }
+
+    @Override
+    protected void initView() {
         if (type == 0) {
             initUnderUI();
             return;
@@ -43,6 +46,8 @@ public class NewsActivity extends AppCompatActivity {
             return;
         }
     }
+
+
 
     //本科生
     private void initUnderUI() {
