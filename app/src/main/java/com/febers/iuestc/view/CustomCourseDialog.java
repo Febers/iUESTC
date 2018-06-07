@@ -43,7 +43,7 @@ public class CustomCourseDialog extends AlertDialog {
         tvCourseName.setText(" "+course.getName());
         tvCourseClassRoom.setText("地点: "+course.getClassroom());
         tvCourseWeek.setText("周次:  "+ CourseTimeUtil.getUnderCourseWeeks(course.getWeek()));
-        tvCourseTime.setText("时间: "+ CourseTimeUtil.getTimeDes(course.getTime()));
+        tvCourseTime.setText("时间:  "+ CourseTimeUtil.getTimeDes(course.getTime()));
         tvCourseTeacher.setText("老师: "+course.getTeacher());
         dialog.setView(view);
     }
