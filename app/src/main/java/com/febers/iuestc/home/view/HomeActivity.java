@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-7 下午12:27
+ *
+ */
+
 package com.febers.iuestc.home.view;
 
 import android.content.Intent;
@@ -57,10 +65,14 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         mBottomNavigationBar.setAutoHideEnabled(true);
         mBottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.ic_course_bottom_gray, "课程表"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_book_bottom_color, "图书馆"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_cards_bottom_black, "卡务"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_person_bottom_black, "我的"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_course_bottom_gray,
+                        getString(R.string.home_course_table)))
+                .addItem(new BottomNavigationItem(R.drawable.ic_book_bottom_color,
+                        getString(R.string.home_library)))
+                .addItem(new BottomNavigationItem(R.drawable.ic_cards_bottom_black,
+                        getString(R.string.home_card)))
+                .addItem(new BottomNavigationItem(R.drawable.ic_person_bottom_black,
+                        getString(R.string.home_my)))
                 .setFirstSelectedPosition(openPosition)
                 .initialise();
         mBottomNavigationBar.setTabSelectedListener(this);

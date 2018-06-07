@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-7 下午12:57
+ *
+ */
+
 package com.febers.iuestc.module.user.view;
 
 import android.content.Intent;
@@ -8,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -124,8 +133,10 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
     private List<Map<String, Object>> getGridList() {
         List<Map<String, Object>> gridList= new ArrayList<>();
 
-        String[] titles = {"考试", "成绩", "校历", "校车"};
-        int[] images = {R.drawable.ic_exam_user_color,  R.drawable.ic_grade_trend_color, R.drawable.ic_cal_user_color, R.drawable.ic_bus_user_color};
+        String[] titles = {getString(R.string.user_exam), getString(R.string.user_grade),
+                getString(R.string.user_cal), getString(R.string.user_bus)};
+        int[] images = {R.drawable.ic_exam_user_color,  R.drawable.ic_grade_trend_color,
+                R.drawable.ic_cal_user_color, R.drawable.ic_bus_user_color};
         for (int i = 0; i < titles.length; i++) {
             Map<String , Object> map = new ArrayMap<>();
             map.put("image", images[i]);
@@ -134,13 +145,6 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
         }
         return gridList;
     }
-
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
-//        setRetainInstance(true);
-//    }
 
     /**
      * 重写此方法并注释super调用，确保activity被回收之后fragment被销毁
@@ -160,7 +164,7 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
                 HomeFragmentManager.clearFragment(99);
                 break;
             case 1:
-                if (!!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login),false)) {
+                if (!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login),false)) {
                     break;
                 }
                 startActivity(new Intent(getActivity(), GradeActivity.class));
@@ -313,16 +317,16 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.user_menu_logout:
-                if (!!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login),false)) {
+                if (!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login),false)) {
                     break;
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("您要注销信息门户登录吗?");
-                builder.setPositiveButton("注销",  (dialogInterface, i) -> {
-                        logout();
-                });
-                builder.setNegativeButton("取消", (dialogInterface, i) -> {
-                });
+                builder.setMessage("您要注销信息门户登录吗?")
+                        .setPositiveButton("注销",  (dialogInterface, i) -> {
+                            logout();
+                        })
+                        .setNegativeButton("取消", (dialogInterface, i) -> {
+                        });
                 builder.show();
                 break;
             case R.id.user_menu_update:
@@ -332,10 +336,5 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void setPresenter() {
-        presenter = loginPresenter;
     }
 }

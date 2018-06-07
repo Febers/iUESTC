@@ -1,9 +1,18 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-7 下午12:57
+ *
+ */
+
 package com.febers.iuestc.base;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +25,6 @@ public abstract class BaseFragment extends Fragment implements BaseView{
     protected boolean isInit = false;
     protected boolean isLoad = false;
     protected final String TAG = "BaseFragment";
-    protected IPresenter presenter;
     private View view;
     protected CustomProgressDialog mProgressDialog;
 
@@ -67,9 +75,6 @@ public abstract class BaseFragment extends Fragment implements BaseView{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (presenter != null) {
-            presenter.detachView();
-        }
         isInit = false;
         isLoad = false;
     }
@@ -92,12 +97,6 @@ public abstract class BaseFragment extends Fragment implements BaseView{
 
     //初始化
     protected abstract void initView();
-
-    protected abstract void setPresenter();
-
-    protected IPresenter getPresenter() {
-        return presenter;
-    }
 
     //当视图已经对用户不可见并且加载过数据，如果需要在切换到其他页面时停止加载数据，可以覆写此方法
     protected void stopLoad() { }

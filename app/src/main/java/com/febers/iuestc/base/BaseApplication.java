@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-7 上午11:30
+ *
+ */
+
 package com.febers.iuestc.base;
 
 import android.app.Application;
@@ -26,11 +34,6 @@ import com.tencent.bugly.crashreport.CrashReport;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
-
-/**
- * Created by Febers on img_2018/2/3.
- */
 
 public class BaseApplication extends Application{
 

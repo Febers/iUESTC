@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-5 下午11:24
+ *
+ */
+
 package com.febers.iuestc.module.course.model;
 
 import com.febers.iuestc.module.course.model.BeanCourse;

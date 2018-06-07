@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-7 下午12:57
+ *
+ */
+
 package com.febers.iuestc.module.course.view;
 
 import android.content.Context;
@@ -263,10 +271,5 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
     @Override
     public void onClick(View v) {
         //TODO 打开course详情dialog
-    }
-
-    @Override
-    protected void setPresenter() {
-        presenter = mPresenter;
     }
 }

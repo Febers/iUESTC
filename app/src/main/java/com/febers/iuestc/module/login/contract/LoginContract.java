@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-5 下午10:45
+ *
+ */
+
 package com.febers.iuestc.module.login.contract;
 
 import com.febers.iuestc.base.BasePresenter;

@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-6 下午11:00
+ *
+ */
+
 package com.febers.iuestc.module.news.model;
 
 import android.util.Log;

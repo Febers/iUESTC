@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-7 下午12:57
+ *
+ */
+
 package com.febers.iuestc.module.ecard.view;
 
 import android.content.Context;
@@ -24,6 +32,7 @@ import com.febers.iuestc.module.ecard.contract.ECardContract;
 import com.febers.iuestc.module.ecard.model.BeanECardPayRecord;
 import com.febers.iuestc.module.ecard.contract.ECardPresenterImp;
 import com.febers.iuestc.utils.CustomSharedPreferences;
+import com.febers.iuestc.utils.LogoutUtil;
 import com.febers.iuestc.view.CustomLoginDialog;
 import com.febers.iuestc.view.CustomProgressDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -250,7 +259,7 @@ public class ECardFragment extends BaseFragment implements ECardContract.View{
     }
 
     private void logout() {
-        mPresenter.logoutECard();
+        LogoutUtil.logoutECard();
         showECardBalance("未登录");
         showElecBalance("");
         if (list != null) {
@@ -307,10 +316,5 @@ public class ECardFragment extends BaseFragment implements ECardContract.View{
                     progressDialogLogin.dismiss()
             );
         }
-    }
-
-    @Override
-    protected void setPresenter() {
-        presenter = mPresenter;
     }
 }

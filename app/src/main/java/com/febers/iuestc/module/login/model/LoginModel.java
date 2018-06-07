@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-7 下午12:57
+ *
+ */
+
 package com.febers.iuestc.module.login.model;
 
 import android.content.Context;
@@ -138,7 +146,6 @@ public class LoginModel implements ILoginModel{
         try {
             Response response = client.newCall(request).execute();
             mLoginHtml = response.body().string();
-
         } catch (SocketTimeoutException e) {
             loginPresenter.loginResult(LoginResult.LOGIN_TIME_OUT);
             return false;
@@ -155,12 +162,15 @@ public class LoginModel implements ILoginModel{
     }
 
     private Boolean checkLogin(String html) {
+        //TODO 短时间多次登录会触发验证码条件
         try {
             Document document = Jsoup.parse(html);
             Elements elements = document.select("li");
             if (elements.size() == 0) {
                 if (loginPresenter != null) {
                     loginPresenter.loginResult(LoginResult.LOGIN_CONDITION_FAIL);
+                    SingletonClient.reset();
+
                 }
                 return false;
             }
@@ -185,15 +195,18 @@ public class LoginModel implements ILoginModel{
             if (html.contains("有误")) {
                 if (loginPresenter != null) {
                     loginPresenter.loginResult(LoginResult.LOGIN_PW_FAIL);
+                    SingletonClient.reset();
                     return false;
                 }
             }
         } catch (Exception e) {
             if (loginPresenter != null) {
                 loginPresenter.loginResult(LoginResult.LOGIN_RESOLVE_RESULT_FAIL);
+                SingletonClient.reset();
                 return false;
             }
         }
+        loginPresenter.loginResult(LoginResult.UNKNOWE_FAIL);
         return false;
     }
 

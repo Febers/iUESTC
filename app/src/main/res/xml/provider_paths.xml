@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Febers 2018.
+  ~ Copyright (c). All rights reserved.
+  ~
+  ~ Last Modified 18-4-24 下午10:58
+  ~
+  -->
+
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- /storage/emulated/0/Download/${applicationId}/.beta/apk-->
     <external-path name="beta_external_path" path="Download/"/>

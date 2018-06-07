@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-7 下午12:57
+ *
+ */
+
 package com.febers.iuestc.module.news.view;
 
 import android.os.Bundle;
@@ -75,10 +83,5 @@ public class NewsFragment extends BaseFragment implements NewsContract.View{
         rvNews = findViewById(R.id.rv_news);
         rvNews.setLayoutManager(new LinearLayoutManager(getContext()));
         rvNews.setNestedScrollingEnabled(false);
-    }
-
-    @Override
-    protected void setPresenter() {
-        presenter = newsPresenter;
     }
 }

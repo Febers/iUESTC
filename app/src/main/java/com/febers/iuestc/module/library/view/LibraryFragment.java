@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-7 下午12:58
+ *
+ */
+
 package com.febers.iuestc.module.library.view;
 
 import android.content.Context;
@@ -128,8 +136,6 @@ public class LibraryFragment extends BaseFragment {
                 startActivity(intent);
                 HomeFragmentManager.clearFragment(99);
                 break;
-            case R.id.item_library_about:
-                break;
             default:
                 break;
         }
@@ -195,10 +201,5 @@ public class LibraryFragment extends BaseFragment {
 
             }
         });
-    }
-
-    @Override
-    protected void setPresenter() {
-
     }
 }

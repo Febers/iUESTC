@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-7 下午12:57
+ *
+ */
+
 package com.febers.iuestc.module.grade.view;
 
 import android.content.Context;
@@ -85,10 +93,5 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
             adapterGrade = new AdapterGrade(tmpList);
             recyclerView.setAdapter(adapterGrade);
         });
-    }
-
-    @Override
-    protected void setPresenter() {
-        presenter = gradePresenter;
     }
 }

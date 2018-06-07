@@ -1,3 +1,11 @@
+/*
+ * Created by Febers 2018.
+ * Copyright (c). All rights reserved.
+ *
+ * Last Modified 18-6-7 下午12:40
+ *
+ */
+
 package com.febers.iuestc.module.ecard.contract;
 
 import com.febers.iuestc.base.BasePresenter;
@@ -28,6 +36,5 @@ public interface ECardContract {
         public abstract void elecBalanceResult(String result);
         public abstract void recordResult(List<BeanECardPayRecord.data.consumes> consumesList);
         public abstract void localDataRequest(int recordSize);
-        public abstract void logoutECard();
     }
 }
