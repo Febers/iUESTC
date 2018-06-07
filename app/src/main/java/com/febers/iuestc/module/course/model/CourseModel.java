@@ -32,6 +32,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.febers.iuestc.utils.CourseTimeUtil.getUnderCourseWeeks;
+
 public class CourseModel implements ICourseModel{
 
     private static final String TAG = "CourseModel";
@@ -227,16 +229,14 @@ public class CourseModel implements ICourseModel{
         try {
             List<BeanCourse> courseList = new ArrayList<>();
             int i = CustomSharedPreferences.getInstance().get("course_count", 10);
-//            Log.d(TAG, "loadLocalCourse: 课程数目为" + i);
             for (int j = 0; j < i; j++) {
                 SharedPreferences spLocalCourse = BaseApplication.getContext().getSharedPreferences("local_course", 0);
                 String s = spLocalCourse.getString("beanCourse"+j, "");
-//                String s = CustomSharedPreferences.getInstance().get("beanCourse"+j, "");
                 String [] ss = s.split(",");
                 ss[6] = getUnderCourseWeeks(ss[6]);    //转换成单双周
                 List<String> list = Arrays.asList(ss);
+                //get(6)为1-17周, get(7)为(周)0，get(8)为 01(节)
                 BeanCourse beanCourse = new BeanCourse(list.get(1), list.get(3), list.get(5), list.get(6), list.get(7)+list.get(8));
-//                Log.d(TAG, "loadLocalCourse: " + beanCourse.balanceService());
                 courseList.add(beanCourse);
             }
             mCoursePresenter.underCourseResult("本地", courseList);
@@ -245,28 +245,7 @@ public class CourseModel implements ICourseModel{
         }
     }
 
-    /**
-     *判断周数类型，返回的结果有三种类型
-     * @return  三周周类型
-     */
-    private String getUnderCourseWeeks(String rawCode) {
-        int startWeek = 1;
-        int endWeek = 2;
-        String  weekType = "";
-//        rawCode = "01010101010101010100000000000000000000000000000000000";
-        startWeek = rawCode.indexOf("1") - 1;
-        endWeek = rawCode.lastIndexOf("1") - 1;
-        String temp = rawCode.charAt(startWeek + 2) + "";
 
-        if (temp.equals("1")) {
-            weekType = "周";
-        } else if (startWeek % 2 == 0) {
-            weekType = "周(双周)";
-        } else if (startWeek % 2 != 0) {
-            weekType = "周(单周)";
-        }
-        return startWeek + "-" + endWeek + weekType;
-    }
 
     /**
      * 获取在网页中的ids

@@ -9,10 +9,12 @@
 package com.febers.iuestc.module.course.view;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,17 +34,19 @@ import com.febers.iuestc.module.course.contract.CourseContract;
 import com.febers.iuestc.module.course.model.BeanCourse;
 import com.febers.iuestc.module.course.model.CourseEventMessage;
 import com.febers.iuestc.module.course.contract.CoursePresenterImpl;
-import com.febers.iuestc.utils.CourseWeekUtil;
+import com.febers.iuestc.utils.CourseTimeUtil;
 import com.febers.iuestc.utils.CustomSharedPreferences;
 import com.febers.iuestc.utils.RandomUtil;
 import com.febers.iuestc.base.BaseFragment;
+import com.febers.iuestc.view.CustomCourseDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class CourseFragment extends BaseFragment implements CourseContract.View, View.OnClickListener{
+public class CourseFragment extends BaseFragment implements CourseContract.View {
 
     private static final String TAG = "CourseFragment";
     private CourseContract.Presenter mPresenter = new CoursePresenterImpl(this);
@@ -59,7 +63,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
     private int[] background = {R.drawable.cornerbg_blue, R.drawable.cornerbg_green, R.drawable.cornerbg_orange,
             R.drawable.cornerbg_purple, R.drawable.cornerbg_cyan};
 
-    private List<BeanCourse> beanCourseList;
+    private List<BeanCourse> beanCourseList = new ArrayList<>();
     private int nowWeek;
     private OptionsPickerView pickerView;
     private List<Integer> weeks = new ArrayList<>();
@@ -67,6 +71,8 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
     private CourseEventMessage courseEventMessage;
     private List<Button> buttonList = new ArrayList<>();
     private Context context = BaseApplication.getContext();
+    private int index = 0;
+    private CustomCourseDialog customCourseDialog;
 
     @Override
     protected int setContentView() {
@@ -115,7 +121,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
                 return;
             }
             //与上次打开相比,更新周数
-            int inteval = CourseWeekUtil.intevalWeek();
+            int inteval = CourseTimeUtil.intevalWeek();
             nowWeek = nowWeek + inteval;
 
             courseEventMessage = message;
@@ -123,7 +129,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
             for (int i = 0; i < beanCourseList.size(); i++) {
                 //通过判断周数判断是否要显示课程
                 String week = beanCourseList.get(i).getWeek();
-                String result = CourseWeekUtil.check(week, nowWeek);
+                String result = CourseTimeUtil.checkIsInNowWeek(week, nowWeek);
                 if (result.equals("false")) {
                     continue;
                 }
@@ -142,7 +148,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
                 //positionDetailTime/2 是因为一节课占两格
                 int postionDetailTimeInTable = positionDetailTime/2;
                 if (stDetailTime.equals("1011")) {
-                    //解决最后两节课时 xz计算错误的问题
+                    //解决最后两节课时坐标计算错误的问题
                     postionDetailTimeInTable = 5;
                 }
                 Button bt = findViewById(courseArray[positionDay][postionDetailTimeInTable]);
@@ -156,6 +162,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
                     params.height = ((int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 144, getResources().getDisplayMetrics()));
                     bt.setLayoutParams(params);
                 }
+
                 bt.setText(beanCourseList.get(i).getDetail());
                 bt.setTextColor(Color.parseColor("#ffffff"));
                 bt.setVisibility(View.VISIBLE);
@@ -167,7 +174,27 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
                 if (result.contains("noNow")) {
                     bt.setBackgroundResource(R.drawable.cornerbg_gray);
                 }
-                bt.setOnClickListener(this);
+
+                index = i;
+                bt.setOnClickListener(new View.OnClickListener() {
+                    int a = index;
+                    @Override
+                    public void onClick(View v) {
+                        List<BeanCourse> courseList = new ArrayList<>();
+                        int ic = CustomSharedPreferences.getInstance().get("course_count", 10);
+                        for (int jc = 0; jc < ic; jc++) {
+                            SharedPreferences spLocalCourse = BaseApplication.getContext().getSharedPreferences("local_course", 0);
+                            String s = spLocalCourse.getString("beanCourse" + jc, "");
+                            String[] ss = s.split(",");
+                            List<String> list = Arrays.asList(ss);
+                            Log.d(TAG, "onClick: " + ss.toString());
+                            BeanCourse beanCourse = new BeanCourse(list.get(1), list.get(3), list.get(5), list.get(6), list.get(7) + list.get(8));
+                            courseList.add(beanCourse);
+                        }
+                        customCourseDialog = new CustomCourseDialog(getContext(), courseList.get(a));
+                        customCourseDialog.show();
+                    }
+                });
                 buttonList.add(bt);
                 //获取当前标准格式的时间并保存
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -266,10 +293,5 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
         getActivity().runOnUiThread(()-> {
             tvNowWeek.setText("第" + nowWeek + "周");
         });
-    }
-
-    @Override
-    public void onClick(View v) {
-        //TODO 打开course详情dialog
     }
 }

@@ -27,6 +27,7 @@ public class CustomProgressDialog extends AlertDialog {
         this(context, "请稍侯");
     }
 
+
     public CustomProgressDialog(Context context, String title) {
         super(context, R.style.Theme_AppCompat_Dialog);
         this.context = context;

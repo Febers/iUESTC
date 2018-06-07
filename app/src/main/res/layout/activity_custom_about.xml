@@ -194,7 +194,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:src="@drawable/ic_classroom_black"/>
+                            android:src="@drawable/ic_email_black_24dp"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"

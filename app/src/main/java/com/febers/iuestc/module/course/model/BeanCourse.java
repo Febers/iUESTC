@@ -8,14 +8,16 @@
 
 package com.febers.iuestc.module.course.model;
 
+import android.util.Log;
+
 public class BeanCourse {
 
     private static final String TAG = "BeanCourse";
-    private String teacher;//课程老师
-    private String name;    //课程名字
-    private String classroom;   //教室
-    private String week;    //周次
-    private String time;   //时间，周一12节的格式为101，周二9、10节的格式为289
+    private String teacher = "";//课程老师
+    private String name = "";    //课程名字
+    private String classroom = "";   //教室
+    private String week = "";    //周次
+    private String time = "";   //时间，周一12节的格式为1 01，周二9、10节的格式为2 89
 
     public String getTeacher() {
         return teacher;

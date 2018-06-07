@@ -49,7 +49,7 @@ public class NewsFragment extends BaseFragment implements NewsContract.View{
         type = bundle.getInt("type");
         position = bundle.getInt("position");
         newsPresenter = new NewsPresenterImp(this, type, position);
-        return R.layout.fragment_news_fragment1;
+        return R.layout.fragment_news_fragment;
     }
 
     @Override

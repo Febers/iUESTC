@@ -8,6 +8,8 @@
 
 package com.febers.iuestc.utils;
 
+import android.util.Log;
+
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 
@@ -23,12 +25,13 @@ import java.util.Date;
  * 传入周详情和当前周
  */
 
-public class CourseWeekUtil {
+public class CourseTimeUtil {
 
-    private static final String TAG = "CourseWeekUtil";
+    private static final String TAG = "CourseTimeUtil";
 
-    public static String  check(String week, int nowWeek) {
-//        Log.d(TAG, "check: week: " + week);
+
+    public static String checkIsInNowWeek(String week, int nowWeek) {
+//        Log.d(TAG, "checkIsInNowWeek: week: " + week);
         String result = "true";
         //判断当前周为单周或者双周
         Boolean isDouble = (nowWeek%2 == 0);
@@ -58,6 +61,54 @@ public class CourseWeekUtil {
             result = "false,noNow";
         }
         return result;
+    }
+
+    /**
+     *判断周数类型，返回的结果有三种类型
+     * @return  三周周类型
+     */
+    public static String getUnderCourseWeeks(String rawCode) {
+        int startWeek = 1;
+        int endWeek = 2;
+        String  weekType = "";
+//        rawCode = "01010101010101010100000000000000000000000000000000000";
+        startWeek = rawCode.indexOf("1") - 1;
+        endWeek = rawCode.lastIndexOf("1") - 1;
+        String temp = rawCode.charAt(startWeek + 2) + "";
+
+        if (temp.equals("1")) {
+            weekType = "周";
+        } else if (startWeek % 2 == 0) {
+            weekType = "周(双周)";
+        } else if (startWeek % 2 != 0) {
+            weekType = "周(单周)";
+        }
+        return startWeek + "-" + endWeek + weekType;
+    }
+
+    /**
+     * 将 0 01 转换为（周一一二节）
+     * @param rawTime 原始
+     * @return 周一一二节
+     */
+    public static String getTimeDes(String rawTime) {
+        rawTime = rawTime.replace(" ", "");
+        Log.d(TAG, "getTimeDes:" + rawTime);
+        String describe = rawTime;
+        try {
+            int weekTime = Integer.valueOf(rawTime.charAt(0)+"") + 1;
+            int dayTime = Integer.valueOf(rawTime.charAt(1)+"") + 1;
+            describe = "周" + weekTime + "、 " + dayTime + "-" + (dayTime+1) + "节";
+            if (dayTime == 9 && rawTime.endsWith("1")) {
+                describe = "周" + weekTime + "、 " + dayTime + "-" +(dayTime+3) + "节";
+            }
+            if (dayTime == 9 && rawTime.endsWith("0")) {
+                describe = "周" + weekTime + "、 " + dayTime + "-" + (dayTime+2) + "节";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return describe;
     }
 
     /*
