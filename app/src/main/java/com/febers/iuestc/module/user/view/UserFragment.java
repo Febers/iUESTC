@@ -31,6 +31,7 @@ import com.febers.iuestc.module.user.model.BeanSetting;
 import com.febers.iuestc.adapter.AdapterSetting;
 import com.febers.iuestc.module.user.contract.UserContract;
 import com.febers.iuestc.module.user.contract.UserPresenterImp;
+import com.febers.iuestc.utils.CustomSharedPreferences;
 import com.febers.iuestc.utils.LogoutUtil;
 import com.febers.iuestc.home.view.HomeFragmentManager;
 import com.febers.iuestc.view.CustomGridView;
@@ -94,10 +95,10 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
 
         mCardView = findViewById(R.id.cv_user);
         mCardView.setOnClickListener(v ->  {
-            if (!BaseApplication.isLogin()) {
+            if (!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login), false)) {
                 showLoginDialog();
             } else {
-                //TODO,显示个人详情页
+                //显示个人详情页
             }
         });
 
@@ -152,14 +153,14 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
     private void onClickGridViewItem(int position) {
         switch (position) {
             case 0:
-                if (!BaseApplication.isLogin()) {
+                if (!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login),false)) {
                     break;
                 }
                 startActivity(new Intent(getActivity(), ExamActivity.class));
                 HomeFragmentManager.clearFragment(99);
                 break;
             case 1:
-                if (!BaseApplication.isLogin()) {
+                if (!!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login),false)) {
                     break;
                 }
                 startActivity(new Intent(getActivity(), GradeActivity.class));
@@ -312,7 +313,7 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.user_menu_logout:
-                if (!BaseApplication.isLogin()) {
+                if (!!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login),false)) {
                     break;
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -331,5 +332,10 @@ public class UserFragment extends BaseFragment implements LoginContract.View, Us
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void setPresenter() {
+        presenter = loginPresenter;
     }
 }

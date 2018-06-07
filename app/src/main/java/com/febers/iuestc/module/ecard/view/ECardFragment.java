@@ -49,7 +49,7 @@ public class ECardFragment extends BaseFragment implements ECardContract.View{
     private String stId;
     private String stPw;
     private Boolean isLogin = CustomSharedPreferences.getInstance().get("ecard_is_login", false);
-    private ECardContract.Presenter presenter = new ECardPresenterImp(this);
+    private ECardContract.Presenter mPresenter = new ECardPresenterImp(this);
 
     @Override
     protected int setContentView() {
@@ -139,7 +139,7 @@ public class ECardFragment extends BaseFragment implements ECardContract.View{
     }
 
     private void loginECard(String stId, String stPw) {
-        presenter.loginECardRequest(stId, stPw);
+        mPresenter.loginECardRequest(stId, stPw);
     }
 
     @Override
@@ -170,7 +170,7 @@ public class ECardFragment extends BaseFragment implements ECardContract.View{
         if (isRefresh) {
             showRefreshProgressDialog();
         }
-        presenter.balanceRequest();
+        mPresenter.balanceRequest();
     }
 
     @Override
@@ -216,7 +216,7 @@ public class ECardFragment extends BaseFragment implements ECardContract.View{
     }
 
     private void loadLocalDate() {
-        presenter.localDataRequest(2);
+        mPresenter.localDataRequest(2);
     }
 
     @Override
@@ -250,7 +250,7 @@ public class ECardFragment extends BaseFragment implements ECardContract.View{
     }
 
     private void logout() {
-        presenter.logoutECard();
+        mPresenter.logoutECard();
         showECardBalance("未登录");
         showElecBalance("");
         if (list != null) {
@@ -307,5 +307,10 @@ public class ECardFragment extends BaseFragment implements ECardContract.View{
                     progressDialogLogin.dismiss()
             );
         }
+    }
+
+    @Override
+    protected void setPresenter() {
+        presenter = mPresenter;
     }
 }

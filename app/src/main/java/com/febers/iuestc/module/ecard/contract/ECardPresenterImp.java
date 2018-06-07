@@ -5,6 +5,7 @@ import android.util.Log;
 import com.febers.iuestc.module.ecard.model.BeanECardPayRecord;
 import com.febers.iuestc.module.ecard.model.ECardModel;
 import com.febers.iuestc.module.ecard.model.IECardModel;
+import com.febers.iuestc.utils.LogoutUtil;
 
 import java.util.List;
 
@@ -75,11 +76,6 @@ public class ECardPresenterImp extends ECardContract.Presenter{
 
     @Override
     public void logoutECard() {
-        //TODO 注销
-    }
-
-    @Override
-    public void errorResult(String error) {
-        super.errorResult(error);
+        LogoutUtil.logoutECard();
     }
 }

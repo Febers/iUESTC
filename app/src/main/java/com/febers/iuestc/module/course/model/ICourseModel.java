@@ -5,6 +5,6 @@ package com.febers.iuestc.module.course.model;
  */
 
 public interface ICourseModel {
-    void getCourseListRequest(Boolean isRefresh) throws Exception;
-    void loadLocalFile();
+    void courseService(Boolean isRefresh) throws Exception;
+    void loadLocalCourse();
 }

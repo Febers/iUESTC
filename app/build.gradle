@@ -6,8 +6,8 @@ android {
         applicationId "com.febers.iuestc"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 10
-        versionName "beta2.8.1"
+        versionCode 11
+        versionName "beta2.8.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构

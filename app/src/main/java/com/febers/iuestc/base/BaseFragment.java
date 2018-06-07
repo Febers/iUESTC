@@ -11,18 +11,12 @@ import android.widget.Toast;
 
 import com.febers.iuestc.view.CustomProgressDialog;
 
-/**
- * Fragment预加载问题的解决方案：
- * 1.可以懒加载的Fragment
- * 2.切换到其他页面时停止加载数据（可选）
- */
 public abstract class BaseFragment extends Fragment implements BaseView{
-    /**
-     * 视图是否已经初初始化
-     */
+
     protected boolean isInit = false;
     protected boolean isLoad = false;
     protected final String TAG = "BaseFragment";
+    protected IPresenter presenter;
     private View view;
     protected CustomProgressDialog mProgressDialog;
 
@@ -73,6 +67,9 @@ public abstract class BaseFragment extends Fragment implements BaseView{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (presenter != null) {
+            presenter.detachView();
+        }
         isInit = false;
         isLoad = false;
     }
@@ -95,6 +92,12 @@ public abstract class BaseFragment extends Fragment implements BaseView{
 
     //初始化
     protected abstract void initView();
+
+    protected abstract void setPresenter();
+
+    protected IPresenter getPresenter() {
+        return presenter;
+    }
 
     //当视图已经对用户不可见并且加载过数据，如果需要在切换到其他页面时停止加载数据，可以覆写此方法
     protected void stopLoad() { }

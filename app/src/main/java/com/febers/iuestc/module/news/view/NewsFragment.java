@@ -76,4 +76,9 @@ public class NewsFragment extends BaseFragment implements NewsContract.View{
         rvNews.setLayoutManager(new LinearLayoutManager(getContext()));
         rvNews.setNestedScrollingEnabled(false);
     }
+
+    @Override
+    protected void setPresenter() {
+        presenter = newsPresenter;
+    }
 }

@@ -133,4 +133,9 @@ public class GradeImgFragment extends BaseFragment implements GradeContract.View
         scatterChart.setData(scatterData);
         scatterChart.invalidate();
     }
+
+    @Override
+    protected void setPresenter() {
+        presenter = gradePresenter;
+    }
 }

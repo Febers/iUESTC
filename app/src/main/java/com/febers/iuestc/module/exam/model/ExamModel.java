@@ -48,62 +48,67 @@ public class ExamModel implements IExamModel {
     @Override
     public void examService(Boolean isRefresh, int type) {
         mType = type;
-        if (!BaseApplication.isLogin()) {
-            return;
-        }
         if (CustomSharedPreferences.getInstance().get("exam_"+mType, false) && (!isRefresh)) {
             loadLocalExam(mType);
             return;
         }
-        getExamHtml(mType);
-    }
-
-    private void getExamHtml(final int type) {
+        int studentType = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_student_type), 0);
         new Thread( () -> {
-            try {
-                OkHttpClient client = SingletonClient.getInstance();
-                String examUrl = "http://eams.uestc.edu.cn/eams/stdExamTable!examTable.action?" +
-                        "semester.id="+context.getString(R.string.sp_semester)+"&examType.id="+type;
-                Request request = new Request.Builder()
-                        .url(examUrl)
-                        .get()
-                        .build();
-                Response examRes = client.newCall(request).execute();
-                String result = examRes.body().string();
-                if (result.contains("登录规则")) {
-                    ILoginModel loginModel = new LoginModel();
-                    if (tryTime == 1) {
-                        Boolean reLogin  = loginModel.reloginService();
-                        if (!reLogin) {
-                            examPresenter.errorResult("登录状态发生改变，请重新登录");
-                            return;
-                        }
-                        tryTime++;
-                        getExamHtml(type);
-                        return;
-                    }
-                }else if (result.contains("重复登录")) {
-                    request = new Request.Builder()
-                            .url(examUrl)
-                            .get()
-                            .build();
-                    examRes = client.newCall(request).execute();
-                    result = examRes.body().string();
-                }
-                resolveExam(result);
-            } catch (SocketTimeoutException e) {
-                examPresenter.errorResult("网络超时");
-            } catch (IOException e) {
-                e.printStackTrace();
-                examPresenter.errorResult("检测到异常");
-            } catch (Exception e) {
-                e.printStackTrace();
-                examPresenter.errorResult("检测到异常");
+            if (studentType == 0) {
+                getUnderExam();
+            } else if (studentType == 1) {
+                getPostExam();
             }
         }).start();
     }
 
-    private void resolveExam(String sourceCode) {
+    /**
+     * 本科生考试
+     */
+    private void getUnderExam() {
+        try {
+            OkHttpClient client = SingletonClient.getInstance();
+            String examUrl = "http://eams.uestc.edu.cn/eams/stdExamTable!examTable.action?" +
+                    "semester.id="+context.getString(R.string.sp_semester)+"&examType.id="+mType;
+            Request request = new Request.Builder()
+                    .url(examUrl)
+                    .get()
+                    .build();
+            Response examRes = client.newCall(request).execute();
+            String result = examRes.body().string();
+            if (result.contains("登录规则")) {
+                ILoginModel loginModel = new LoginModel();
+                if (tryTime == 1) {
+                    Boolean reLogin  = loginModel.reloginService();
+                    if (!reLogin) {
+                        examPresenter.errorResult("登录状态发生改变，请重新登录");
+                        return;
+                    }
+                    tryTime++;
+                    getUnderExam();
+                    return;
+                }
+            }else if (result.contains("重复登录")) {
+                request = new Request.Builder()
+                        .url(examUrl)
+                        .get()
+                        .build();
+                examRes = client.newCall(request).execute();
+                result = examRes.body().string();
+            }
+            resolveUnderExamHtml(result);
+        } catch (SocketTimeoutException e) {
+            examPresenter.errorResult("网络超时");
+        } catch (IOException e) {
+            e.printStackTrace();
+            examPresenter.errorResult("检测到异常");
+        } catch (Exception e) {
+            e.printStackTrace();
+            examPresenter.errorResult("检测到异常");
+        }
+    }
+
+    private void resolveUnderExamHtml(String sourceCode) {
         Document docFinal = Jsoup.parse(sourceCode);
         Elements elsFinal = docFinal.select("tr[align=\"center\"][onclick=\"onRowChange(event)\"]");
         for (int i = 0; i < elsFinal.size(); i++) {
@@ -136,12 +141,12 @@ public class ExamModel implements IExamModel {
                 examList.add(exam);
             }
         }
-        saveExam(examList);
+        saveUnderExam(examList);
         examPresenter.examResult(getPostExams(examList));
         examList.clear();
     }
 
-    private void saveExam(List<BeanExam> list) {
+    private void saveUnderExam(List<BeanExam> list) {
         SharedPreferences.Editor editor = BaseApplication.getContext().getSharedPreferences("exam_"+mType,
                 0).edit();
         for (int i = 0; i < list.size(); i++) {
@@ -152,6 +157,13 @@ public class ExamModel implements IExamModel {
         editor.putInt("size", list.size());
         editor.commit();
         CustomSharedPreferences.getInstance().put("exam_"+mType, true);
+    }
+
+    /**
+     * 研究生
+     */
+    private void getPostExam() {
+        //TODO 获取和解析研究生考试
     }
 
     private void loadLocalExam(int type) {

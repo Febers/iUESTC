@@ -110,7 +110,7 @@ public class CustomLoginDialog extends AlertDialog{
     }
 
     public void hide() {
-        dialog.dismiss();
+        dialog.hide();
     }
 
     @Override

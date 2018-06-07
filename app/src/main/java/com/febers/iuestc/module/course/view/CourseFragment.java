@@ -34,10 +34,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CourseFragment extends BaseFragment implements CourseContract.View{
+public class CourseFragment extends BaseFragment implements CourseContract.View, View.OnClickListener{
 
     private static final String TAG = "CourseFragment";
-    private CourseContract.Presenter presenter = new CoursePresenterImpl(this);
+    private CourseContract.Presenter mPresenter = new CoursePresenterImpl(this);
 
     private int[][] courseArray = {
             {R.id.bt_course_001, R.id.bt_course_023, R.id.bt_course_045, R.id.bt_course_067, R.id.bt_course_089, R.id.bt_course_01011},
@@ -89,11 +89,11 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
             }
             showProgressDialog();
         }
-        presenter.courseRequest(isRefresh);
+        mPresenter.courseRequest(isRefresh);
     }
 
     @Override
-    public void showCourse(CourseEventMessage message) {
+    public void showUnderCourse(CourseEventMessage message) {
         dismissProgressDialog();
         getActivity().runOnUiThread( () -> {
             if (message.getStatus().equals("清空")) {
@@ -137,7 +137,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
                     //解决最后两节课时 xz计算错误的问题
                     postionDetailTimeInTable = 5;
                 }
-                Button bt = getActivity().findViewById(courseArray[positionDay][postionDetailTimeInTable]);
+                Button bt = findViewById(courseArray[positionDay][postionDetailTimeInTable]);
                 //修改高度
                 if (positionDetailTime == 8 && stDetailTime.contains("11")) {
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) bt.getLayoutParams();
@@ -159,6 +159,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
                 if (result.contains("noNow")) {
                     bt.setBackgroundResource(R.drawable.cornerbg_gray);
                 }
+                bt.setOnClickListener(this);
                 buttonList.add(bt);
                 //获取当前标准格式的时间并保存
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -228,7 +229,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
         if (!hidden) {
             Boolean isLogin = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_is_login), false);
             if (!isLogin) {
-                showCourse(new CourseEventMessage("清空", new ArrayList<>()));
+                showUnderCourse(new CourseEventMessage("清空", new ArrayList<>()));
                 return;
             }
             Boolean firstGet = CustomSharedPreferences.getInstance().get(context
@@ -259,4 +260,13 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        //TODO 打开course详情dialog
+    }
+
+    @Override
+    protected void setPresenter() {
+        presenter = mPresenter;
+    }
 }

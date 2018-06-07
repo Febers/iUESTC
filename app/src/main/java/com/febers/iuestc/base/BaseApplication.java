@@ -47,10 +47,6 @@ public class BaseApplication extends Application{
         return sContext;
     }
 
-    public static Boolean isLogin() {
-        return CustomSharedPreferences.getInstance().get("is_login", false);
-    }
-
     //static 代码段可以防止内存泄露
     static {
         //设置全局的Header构建器

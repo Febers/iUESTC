@@ -75,4 +75,9 @@ public class HomeFragment extends BaseFragment{
         }
         return gridList;
     }
+
+    @Override
+    protected void setPresenter() {
+
+    }
 }

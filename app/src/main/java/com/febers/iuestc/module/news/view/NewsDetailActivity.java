@@ -12,12 +12,13 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.febers.iuestc.R;
+import com.febers.iuestc.base.BaseActivity;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
-public class NewsDetailActivity extends AppCompatActivity {
+public class NewsDetailActivity extends BaseActivity {
 
     private static final String TAG = "NewsDetailActivity";
     private WebView webView;
@@ -27,29 +28,28 @@ public class NewsDetailActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_detail);
-
-        SlidrConfig config = new SlidrConfig.Builder()
-                                .edge(true)
-                                .build();
-        Slidr.attach(this, config);
+    protected int setView() {
         Intent intent = getIntent();
         newsText = intent.getStringExtra("text");
         newsTitle = intent.getStringExtra("title");
         newsUrl = intent.getStringExtra("url");
-        initUI();
+
+        SlidrConfig config = new SlidrConfig.Builder()
+                .edge(true)
+                .build();
+        Slidr.attach(this, config);
+
+        return R.layout.activity_news_detail;
     }
 
-    private void initUI() {
+    @Override
+    protected void initView() {
         Toolbar toolbar = findViewById(R.id.tb_news_detail);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
         collapsingToolbarLayout = findViewById(R.id.ctl_news);
         collapsingToolbarLayout.setTitle(newsTitle);
         webView = findViewById(R.id.webview_news);

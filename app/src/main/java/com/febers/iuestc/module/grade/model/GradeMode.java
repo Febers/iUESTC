@@ -41,61 +41,67 @@ public class GradeMode implements IGradeModel {
     }
 
     @Override
-    public void getGrade(Boolean isRefresh, String semester) throws Exception {
+    public void gradeService(Boolean isRefresh, String semester) throws Exception {
         if (!isRefresh) {
-            loadGrade();
+            loadLocalGrade();
             return;
         }
-        getGradeHtml();
-    }
-
-    private void getGradeHtml() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                OkHttpClient client = SingletonClient.getInstance();
-                try {
-                    Request request = new Request.Builder()
-                            .url(ApiUtil.ALL_GRADE_URL)
-                            .get()
-                            .build();
-                    Response response = client.newCall(request).execute();
-                    String stRes = response.body().string();
-                    Log.d(TAG, "stRes:" + stRes);
-                    if (stRes.contains("登录规则")) {
-                        ILoginModel loginModel = new LoginModel();
-                        if (tryTime == 1) {
-                            Boolean reLogin  = loginModel.reloginService();
-                            if (!reLogin) {
-                                gradePresenter.errorResult("登录状态发生改变，请重新登录");
-                                return;
-                            }
-                            tryTime++;
-                            getGradeHtml();
-                            return;
-                        }
-                    } else if (stRes.contains("重复登录")) {
-                        String url = RepeatLoginUtil.check(stRes);
-                        request = new Request.Builder()
-                                .url(url)
-                                .get()
-                                .build();
-                        response = client.newCall(request).execute();
-                        stRes = response.body().string();
-                    }
-                    resolveGrade(stRes);
-                } catch (SocketTimeoutException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        int studentType = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_student_type), 0);
+        new Thread( () -> {
+            if (studentType == 0) {
+                getUnderGrade();
+            } else if (studentType == 1) {
+                getPostGrade();
             }
         }).start();
+
     }
 
-    private void resolveGrade(String souceCode) {
+    /**
+     * 本科生
+     */
+    private void getUnderGrade() {
+        OkHttpClient client = SingletonClient.getInstance();
+        try {
+            Request request = new Request.Builder()
+                    .url(ApiUtil.ALL_GRADE_URL)
+                    .get()
+                    .build();
+            Response response = client.newCall(request).execute();
+            String stRes = response.body().string();
+            Log.d(TAG, "stRes:" + stRes);
+            if (stRes.contains("登录规则")) {
+                ILoginModel loginModel = new LoginModel();
+                if (tryTime == 1) {
+                    Boolean reLogin  = loginModel.reloginService();
+                    if (!reLogin) {
+                        gradePresenter.errorResult("登录状态发生改变，请重新登录");
+                        return;
+                    }
+                    tryTime++;
+                    getUnderGrade();
+                    return;
+                }
+            } else if (stRes.contains("重复登录")) {
+                String url = RepeatLoginUtil.check(stRes);
+                request = new Request.Builder()
+                        .url(url)
+                        .get()
+                        .build();
+                response = client.newCall(request).execute();
+                stRes = response.body().string();
+            }
+            resolveUnderGradeHtml(stRes);
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void resolveUnderGradeHtml(String souceCode) {
         List<BeanAllGrade> allGradeList = new ArrayList<>();
         List<BeanGrade> gradeList = new ArrayList<>();
         if (souceCode.equals("")) {
@@ -144,7 +150,7 @@ public class GradeMode implements IGradeModel {
                 }
                 gradeList.add(grade);
             }
-            saveGrade(souceCode);
+            saveUnderGrade(souceCode);
             CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_get_grade), true);
             Collections.sort(allGradeList);
             gradePresenter.gradeResult("成功", allGradeList, gradeList);
@@ -155,17 +161,21 @@ public class GradeMode implements IGradeModel {
         }
     }
 
-    private void saveGrade(String sourceCode) {
+    private void getPostGrade() {
+        //TODO 研究生成绩
+    }
+
+    private void saveUnderGrade(String sourceCode) {
         SharedPreferences.Editor editor = context.getSharedPreferences(context.getString(R.string.sp_grade), 0).edit();
-        editor.putString("sourceCode", sourceCode);
+        editor.putString("sourceCode", sourceCode); //暂时先保存源码,偷懒
         editor.apply();
     }
 
-    private void loadGrade() {
+    private void loadLocalGrade() {
         new Thread(()-> {
             SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.sp_grade), 0);
             String sourceCode = preferences.getString("sourceCode", "");
-            resolveGrade(sourceCode);
+            resolveUnderGradeHtml(sourceCode);
         }).start();
     }
 }

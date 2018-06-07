@@ -27,7 +27,7 @@ public class CoursePresenterImpl extends CourseContract.Presenter{
     @Override
     public void courseRequest(Boolean isRefresh) {
         try {
-            courseModel.getCourseListRequest(isRefresh);
+            courseModel.courseService(isRefresh);
         } catch (Exception e) {
             e.printStackTrace();
             if (mView != null) {
@@ -38,11 +38,11 @@ public class CoursePresenterImpl extends CourseContract.Presenter{
 
     //网络请求获得的课程列表
     @Override
-    public void courseResult(String status, List<BeanCourse> beanCourseList) {
+    public void underCourseResult(String status, List<BeanCourse> beanCourseList) {
         mBeanCourseList = beanCourseList;
         if (mView != null) {
-            Log.d(TAG, "courseResult: "+status);
-            mView.showCourse(new CourseEventMessage(status, beanCourseList));
+            Log.d(TAG, "underCourseResult: "+status);
+            mView.showUnderCourse(new CourseEventMessage(status, beanCourseList));
         }
         mBeanCourseList.clear();
     }

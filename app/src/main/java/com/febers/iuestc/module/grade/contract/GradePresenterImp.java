@@ -20,7 +20,7 @@ public class GradePresenterImp extends GradeContract.Presenter {
     @Override
     public void gradeRequest(Boolean isRefresh) {
         try {
-            gradeModel.getGrade(isRefresh, "");
+            gradeModel.gradeService(isRefresh, "");
         } catch (Exception e) {
             e.printStackTrace();
             mView.onError("获取成绩出现错误");

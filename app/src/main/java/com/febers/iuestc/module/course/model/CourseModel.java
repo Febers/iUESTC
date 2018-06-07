@@ -42,27 +42,34 @@ public class CourseModel implements ICourseModel{
     }
 
     @Override
-    public void getCourseListRequest(final Boolean isRefresh) throws Exception{
+    public void courseService(final Boolean isRefresh) throws Exception{
         beanCourseList.clear();
-        if (!BaseApplication.isLogin()) {
-            Log.d(TAG, "getCourseListRequest: 未登录");
+        if (!CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_is_login), false)) {
             return;
         }
         Boolean get_course = CustomSharedPreferences.getInstance().get(context
                 .getString(R.string.sp_get_course), false);
         if (get_course && (!isRefresh)) {
             //加载本地文件
-            loadLocalFile();
+            loadLocalCourse();
             return;
         }
-        //否则请求数据
+        int studentType = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_student_type), 0);
+        /**
+         * 本科生课表
+         * 另有研究生课表
+         */
         new Thread( () ->{
-            getCourseHtml();
+            if (studentType == 0) {
+                getUnderCourseHtml();
+            } else if (studentType == 1) {
+                getPostCourseHtml();
+            }
         }).start();
     }
 
     /**
-     * 获取课表信息
+     * 获取本科生课表信息
      * post格式如下
      ignoreHead:1
      setting.kind:std
@@ -71,7 +78,7 @@ public class CourseModel implements ICourseModel{
      ids:143831
      ids来自http://eams.uestc.edu.cn/eams/courseTableForStd.action里的一行代码
      */
-    private void getCourseHtml() {
+    private void getUnderCourseHtml() {
         try {
             OkHttpClient client = SingletonClient.getInstance();
             Request request = new Request.Builder()
@@ -79,7 +86,7 @@ public class CourseModel implements ICourseModel{
                     .build();
             Response response_ids = client.newCall(request).execute();
             String text_ids = response_ids.body().string();
-            String ids = getIds(text_ids);
+            String ids = getUnderIds(text_ids);
 
             FormBody body = new FormBody.Builder()
                     .add("ignoreHead", "1")
@@ -103,7 +110,7 @@ public class CourseModel implements ICourseModel{
                         mCoursePresenter.errorResult("登录状态发生改变，请重新登录");
                         return;
                     }
-                    getCourseHtml();
+                    getUnderCourseHtml();
                     tryTime++;
                     return;
                 }
@@ -120,14 +127,14 @@ public class CourseModel implements ICourseModel{
             return;
         }
         //解析源码成List格式，发送给presenter，并存储
-        getCourseTable(courseHtml);
+        resolveUnderCourseHtml(courseHtml);
     }
 
-    private void getCourseTable(String html) {
+    private void resolveUnderCourseHtml(String html) {
         try {
             int pStart = html.indexOf("activity = new TaskActivity");
             if (pStart == -1) {
-                mCoursePresenter.courseResult("课表为空", new ArrayList<BeanCourse>());
+                mCoursePresenter.underCourseResult("课表为空", new ArrayList<BeanCourse>());
                 return;
             }
             int pEnd = html.lastIndexOf("table0.marshalTable");
@@ -149,13 +156,13 @@ public class CourseModel implements ICourseModel{
             //保存课程数目
             CustomSharedPreferences.getInstance().put("course_count", partList.size());
             for (int i = 0; i < partList.size(); i++) {
-                getPerCourse(partList.get(i), i);
+                getPerUnderCourse(partList.get(i), i);
             }
-            mCoursePresenter.courseResult("更新", beanCourseList);
+            mCoursePresenter.underCourseResult("更新", beanCourseList);
         } catch (Exception e) {
             e.printStackTrace();
             mCoursePresenter.errorResult("获取课表出错");
-            Log.d(TAG, "getCourseTable: 第一个解析方法出错");
+            Log.d(TAG, "resolveUnderCourseHtml: 第一个解析方法出错");
             return;
         }
         CustomSharedPreferences.getInstance().put("get_course", true);
@@ -165,7 +172,7 @@ public class CourseModel implements ICourseModel{
      * 通过传入的每节课的字符串，提取每节课
      * 通过循环的方式先获取前几个属性
      */
-    private void getPerCourse(String stCourse, int i) {
+    private void getPerUnderCourse(String stCourse, int i) {
         List<String> courseDetail = new ArrayList<>();
         try {
             int pStart = stCourse.indexOf("\"");
@@ -196,7 +203,7 @@ public class CourseModel implements ICourseModel{
             courseDetail.add(stTime);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d(TAG, "getPerCourse: 第二个解析方法出错");
+            Log.d(TAG, "getPerUnderCourse: 第二个解析方法出错");
             return;
         }
         //保存每节课的信息,同时去掉两边的[]以便还原
@@ -206,31 +213,31 @@ public class CourseModel implements ICourseModel{
         editor.commit();
 
         //teacher, name, classroom, week, time
-        BeanCourse beanCourse = new BeanCourse(courseDetail.get(1), courseDetail.get(3), courseDetail.get(5), getWeeks(courseDetail.get(6)), " "+courseDetail.get(7)+" "+courseDetail.get(8));
+        BeanCourse beanCourse = new BeanCourse(courseDetail.get(1), courseDetail.get(3), courseDetail.get(5), getUnderCourseWeeks(courseDetail.get(6)), " "+courseDetail.get(7)+" "+courseDetail.get(8));
         beanCourseList.add(beanCourse);
     }
 
     //加载本地文件获得的课程列表
     @Override
-    public void loadLocalFile() {
+    public void loadLocalCourse() {
         try {
             List<BeanCourse> courseList = new ArrayList<>();
             int i = CustomSharedPreferences.getInstance().get("course_count", 10);
-//            Log.d(TAG, "loadLocalFile: 课程数目为" + i);
+//            Log.d(TAG, "loadLocalCourse: 课程数目为" + i);
             for (int j = 0; j < i; j++) {
                 SharedPreferences spLocalCourse = BaseApplication.getContext().getSharedPreferences("local_course", 0);
                 String s = spLocalCourse.getString("beanCourse"+j, "");
 //                String s = CustomSharedPreferences.getInstance().get("beanCourse"+j, "");
                 String [] ss = s.split(",");
-                ss[6] = getWeeks(ss[6]);    //转换成单双周
+                ss[6] = getUnderCourseWeeks(ss[6]);    //转换成单双周
                 List<String> list = Arrays.asList(ss);
                 BeanCourse beanCourse = new BeanCourse(list.get(1), list.get(3), list.get(5), list.get(6), list.get(7)+list.get(8));
-//                Log.d(TAG, "loadLocalFile: " + beanCourse.balanceService());
+//                Log.d(TAG, "loadLocalCourse: " + beanCourse.balanceService());
                 courseList.add(beanCourse);
             }
-            mCoursePresenter.courseResult("本地", courseList);
+            mCoursePresenter.underCourseResult("本地", courseList);
         } catch (Exception e) {
-            Log.d(TAG, "loadLocalFile: 读取本地文件出现错误");
+            Log.d(TAG, "loadLocalCourse: 读取本地文件出现错误");
         }
     }
 
@@ -238,7 +245,7 @@ public class CourseModel implements ICourseModel{
      *判断周数类型，返回的结果有三种类型
      * @return  三周周类型
      */
-    private String getWeeks(String rawCode) {
+    private String getUnderCourseWeeks(String rawCode) {
         int startWeek = 1;
         int endWeek = 2;
         String  weekType = "";
@@ -261,10 +268,14 @@ public class CourseModel implements ICourseModel{
      * 获取在网页中的ids
      * http://eams.uestc.edu.cn/eams/courseTableForStd.action?_=1524663800243
      */
-    private String getIds(String sourceCode) {
+    private String getUnderIds(String sourceCode) {
         int a = sourceCode.indexOf("ids");
         int start = sourceCode.indexOf("\"", a+4);
         int end = sourceCode.indexOf("\"", start+1);
         return sourceCode.substring(start+1, end);
+    }
+
+    private void getPostCourseHtml() {
+        //TODO 获取并解析研究生课表
     }
 }

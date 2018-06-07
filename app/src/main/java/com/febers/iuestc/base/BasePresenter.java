@@ -1,6 +1,6 @@
 package com.febers.iuestc.base;
 
-public abstract class BasePresenter<V extends BaseView> {
+public abstract class BasePresenter<V extends BaseView> implements IPresenter{
 
     protected V mView;
 
@@ -8,7 +8,8 @@ public abstract class BasePresenter<V extends BaseView> {
         mView = view;
     }
 
-    protected void dettchView() {
+    @Override
+    public void detachView() {
         mView = null;
     }
 

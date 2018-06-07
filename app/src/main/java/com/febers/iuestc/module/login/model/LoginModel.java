@@ -173,6 +173,12 @@ public class LoginModel implements ILoginModel{
                     if (loginPresenter != null) {
                         loginPresenter.loginResult(LoginResult.LOGIN_SUCCESS);
                     }
+                    /**
+                     * TODO 判断学生属性
+                     * 然后保存
+                     * 本科生(0)、研究生(1)
+                     */
+                    CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_student_type), 0);
                     return true;
                 }
             }

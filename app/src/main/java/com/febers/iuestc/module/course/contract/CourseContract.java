@@ -11,7 +11,7 @@ public interface CourseContract {
 
     interface View extends BaseView {
         void getCourse(Boolean isRefresh);
-        void showCourse(CourseEventMessage message);
+        void showUnderCourse(CourseEventMessage message);
     }
 
     abstract class Presenter extends BasePresenter<CourseContract.View> {
@@ -22,6 +22,6 @@ public interface CourseContract {
 
         public abstract void courseRequest(Boolean isRefresh);
 
-        public abstract void courseResult(String status, List<BeanCourse> beanCourseList);
+        public abstract void underCourseResult(String status, List<BeanCourse> beanCourseList);
     }
 }

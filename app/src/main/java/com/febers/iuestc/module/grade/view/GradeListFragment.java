@@ -86,4 +86,9 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
             recyclerView.setAdapter(adapterGrade);
         });
     }
+
+    @Override
+    protected void setPresenter() {
+        presenter = gradePresenter;
+    }
 }

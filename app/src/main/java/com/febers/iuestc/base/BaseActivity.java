@@ -46,8 +46,4 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public void onError(String error) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
-
-    protected String getStringById(int stringId) {
-        return BaseApplication.getContext().getString(stringId);
-    }
 }
