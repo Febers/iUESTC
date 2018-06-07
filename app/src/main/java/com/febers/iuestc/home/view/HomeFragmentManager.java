@@ -15,10 +15,6 @@ import com.febers.iuestc.module.ecard.view.ECardFragment;
 import com.febers.iuestc.module.library.view.LibraryFragment;
 import com.febers.iuestc.module.user.view.UserFragment;
 
-/**
- * Created by Febers on img_2018/2/3.
- */
-
 public class HomeFragmentManager {
 
     private static final String TAG = "HomeFragmentManager";

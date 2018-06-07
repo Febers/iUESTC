@@ -12,10 +12,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
-/**
- * Created by Febers on 2018/2/4.
- */
-
 public class CustomListView extends ListView {
 
     public CustomListView(Context context) {

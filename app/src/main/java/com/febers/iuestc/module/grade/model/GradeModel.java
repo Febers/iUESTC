@@ -37,14 +37,14 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class GradeMode implements IGradeModel {
+public class GradeModel implements IGradeModel {
 
-    private static final String TAG = "GradeMode";
+    private static final String TAG = "GradeModel";
     private Context context = BaseApplication.getContext();
     private GradeContract.Presenter gradePresenter;
     private int tryTime = 1;
 
-    public GradeMode(GradeContract.Presenter gradePresenter) {
+    public GradeModel(GradeContract.Presenter gradePresenter) {
         this.gradePresenter = gradePresenter;
     }
 

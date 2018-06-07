@@ -32,10 +32,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * Created by 23033 on 2018/3/23.
- */
-
 public class CourseModel implements ICourseModel{
 
     private static final String TAG = "CourseModel";

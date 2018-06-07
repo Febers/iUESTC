@@ -15,10 +15,6 @@ import com.febers.iuestc.base.BaseApplication;
 
 import java.util.Set;
 
-/**
- * Created by 23033 on 2018/3/5.
- */
-
 public class CustomSharedPreferences {
 
     private SharedPreferences sharedPreferences;

@@ -21,7 +21,6 @@ import java.util.Date;
  * 通过课程的周数判断是否在当前周
  * 三种情况 1-17周(单周)，1-17周
  * 传入周详情和当前周
- * Created by 23033 on 2018/3/31.
  */
 
 public class CourseWeekUtil {

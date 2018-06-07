@@ -14,7 +14,6 @@ import android.widget.GridView;
 
 /**scrollview中嵌套gridView时，只显示一行
  * 重写onMeasure方法
- * Created by Febers on img_2018/2/4.
  */
 
 public class CustomGridView extends GridView {

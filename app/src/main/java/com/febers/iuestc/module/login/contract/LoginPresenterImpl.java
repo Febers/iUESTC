@@ -14,10 +14,6 @@ import com.febers.iuestc.module.login.model.ILoginModel;
 import com.febers.iuestc.module.login.model.LoginModel;
 import com.febers.iuestc.module.login.model.LoginResult;
 
-/**
- * Created by 23033 on 2018/3/13.
- */
-
 public class LoginPresenterImpl extends LoginContract.Presenter {
 
     private static final String TAG = "LoginPresenterImpl";

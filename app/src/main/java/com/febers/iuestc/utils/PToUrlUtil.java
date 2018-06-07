@@ -2,11 +2,11 @@
  * Created by Febers 2018.
  * Copyright (c). All rights reserved.
  *
- * Last Modified 18-6-6 下午9:37
+ * Last Modified 18-6-7 下午1:05
  *
  */
 
-package com.febers.iuestc.module.service.model;
+package com.febers.iuestc.utils;
 
 /**
  * 将pisition转换为对应的url地址返回

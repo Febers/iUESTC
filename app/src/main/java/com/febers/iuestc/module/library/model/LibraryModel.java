@@ -14,7 +14,6 @@ import android.util.Log;
 
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
-import com.febers.iuestc.module.library.contract.ILibraryPresenter;
 import com.febers.iuestc.module.library.contract.LibraryContract;
 import com.febers.iuestc.net.SingletonClient;
 import com.febers.iuestc.utils.CustomSharedPreferences;

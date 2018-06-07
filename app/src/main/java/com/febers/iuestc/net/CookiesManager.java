@@ -16,10 +16,6 @@ import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 
-/**
- * Created by 23033 on 2018/3/13.
- */
-
 public class CookiesManager implements CookieJar {
 
     private static final String TAG = "CookiesManager";

@@ -11,19 +11,14 @@ package com.febers.iuestc.module.library.view;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,18 +28,11 @@ import android.widget.Toast;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseFragment;
-import com.febers.iuestc.module.library.model.BeanBook;
-import com.febers.iuestc.module.library.contract.ILibraryPresenter;
-import com.febers.iuestc.module.library.contract.LibraryPresenterImp;
 import com.febers.iuestc.utils.CustomSharedPreferences;
 import com.febers.iuestc.home.view.HomeFragmentManager;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by Febers on img_2018/2/3.
- */
 
 public class LibraryFragment extends BaseFragment {
 

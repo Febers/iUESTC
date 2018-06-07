@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-4 下午10:04
- *
- */
-
 package com.febers.iuestc.view;
 
 import android.animation.ValueAnimator;

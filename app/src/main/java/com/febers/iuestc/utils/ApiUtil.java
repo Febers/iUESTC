@@ -8,10 +8,6 @@
 
 package com.febers.iuestc.utils;
 
-/**
- * Created by 23033 on 2018/3/28.
- */
-
 public class ApiUtil {
     public final static String BEFORE_LOGIN_URL = "http://portal.uestc.edu.cn/";   //主页
     public final static String LOGIN_URL = "http://idas.uestc.edu.cn/authserver/login?service=http%3A%2F%2Fportal.uestc.edu.cn%2F";    //登录

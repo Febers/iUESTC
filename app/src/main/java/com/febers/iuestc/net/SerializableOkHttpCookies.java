@@ -15,10 +15,6 @@ import java.io.Serializable;
 
 import okhttp3.Cookie;
 
-/**
- * Created by 23033 on 2018/3/13.
- */
-
 public class SerializableOkHttpCookies implements Serializable {
 
     private transient final Cookie cookies;

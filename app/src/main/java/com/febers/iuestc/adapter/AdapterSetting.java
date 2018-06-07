@@ -23,10 +23,6 @@ import com.febers.iuestc.module.user.model.BeanSetting;
 
 import java.util.List;
 
-/**
- * Created by Febers on 2018/2/4.
- */
-
 public class AdapterSetting extends ArrayAdapter<BeanSetting> {
 
     private int resourceId;

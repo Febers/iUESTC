@@ -15,7 +15,6 @@ import java.util.List;
 /**
  * 课表的Event类
  * 使用链表传递课表信息
- * Created by 23033 on 2018/3/25.
  */
 
 public class CourseEventMessage {

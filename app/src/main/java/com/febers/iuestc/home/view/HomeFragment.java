@@ -23,11 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 废弃的Fragment
- * Created by Febers on img_2018/2/3.
- */
-
 public class HomeFragment extends BaseFragment{
 
     private static final String TAG = "HomeFragment";

@@ -18,7 +18,6 @@ import org.jsoup.select.Elements;
  * 检查重复登录的类，只有一个方法
  * 如果重复登录则返回新的网页值
  * 否则返回no
- * Created by 23033 on 2018/3/27.
  */
 
 public class RepeatLoginUtil {

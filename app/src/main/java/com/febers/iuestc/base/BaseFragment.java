@@ -112,12 +112,13 @@ public abstract class BaseFragment extends Fragment implements BaseView{
         if (mProgressDialog == null) {
             return;
         }
-        mProgressDialog.dismiss();
+        getActivity().runOnUiThread( () -> mProgressDialog.dismiss());
+
     }
 
     @Override
     public void onError(String error) {
         dismissProgressDialog();
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+        getActivity().runOnUiThread( () -> Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show());
     }
 }

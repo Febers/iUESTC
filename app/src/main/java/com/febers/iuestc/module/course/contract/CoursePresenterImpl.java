@@ -18,10 +18,6 @@ import com.febers.iuestc.module.course.model.ICourseModel;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 23033 on 2018/3/23.
- */
-
 public class CoursePresenterImpl extends CourseContract.Presenter{
 
     private static final String TAG = "CoursePresenterImpl";

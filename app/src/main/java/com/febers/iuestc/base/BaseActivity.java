@@ -47,11 +47,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         if (mProgressDialog == null) {
             return;
         }
-        mProgressDialog.dismiss();
+        runOnUiThread( () -> mProgressDialog.dismiss());
+
     }
 
     @Override
     public void onError(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        runOnUiThread( () -> Toast.makeText(this, error, Toast.LENGTH_SHORT).show());
+
     }
 }
