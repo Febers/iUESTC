@@ -165,7 +165,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
 
         //如果是从lib_activity跳转过来，显示libraryFragment
         if (fromLib) {
-            Log.d(TAG, "onResume: lib");
             showFragment(1);
             mBottomNavigationBar.selectTab(1);
             fromLib = false;
