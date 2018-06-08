@@ -93,7 +93,6 @@ public class CourseTimeUtil {
      */
     public static String getTimeDes(String rawTime) {
         rawTime = rawTime.replace(" ", "");
-        Log.d(TAG, "getTimeDes:" + rawTime);
         String describe = rawTime;
         try {
             int weekTime = Integer.valueOf(rawTime.charAt(0)+"") + 1;

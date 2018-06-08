@@ -162,20 +162,21 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         Intent intent = getIntent();
         Boolean fromLib = intent.getBooleanExtra("lib_activity", false);
         Boolean fromUser = intent.getBooleanExtra("user_activity", false);
+        intent.removeExtra("lib_activity");
 
         //如果是从lib_activity跳转过来，显示libraryFragment
         if (fromLib) {
             showFragment(1);
             mBottomNavigationBar.selectTab(1);
-            fromLib = false;
+            return;
         }
         if (fromUser) {
             showFragment(3);
             mBottomNavigationBar.selectTab(3);
-            fromUser = false;
+            return;
         }
     }
-
+    
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (mDrawerLayout.isDrawerOpen(Gravity.END)) {

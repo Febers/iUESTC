@@ -187,7 +187,6 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
                             String s = spLocalCourse.getString("beanCourse" + jc, "");
                             String[] ss = s.split(",");
                             List<String> list = Arrays.asList(ss);
-                            Log.d(TAG, "onClick: " + ss.toString());
                             BeanCourse beanCourse = new BeanCourse(list.get(1), list.get(3), list.get(5), list.get(6), list.get(7) + list.get(8));
                             courseList.add(beanCourse);
                         }
