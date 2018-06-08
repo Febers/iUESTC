@@ -14,6 +14,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -164,14 +165,18 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
 
         //如果是从lib_activity跳转过来，显示libraryFragment
         if (fromLib) {
+            Log.d(TAG, "onResume: lib");
             showFragment(1);
             mBottomNavigationBar.selectTab(1);
+            fromLib = false;
         }
         if (fromUser) {
             showFragment(3);
             mBottomNavigationBar.selectTab(3);
+            fromUser = false;
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (mDrawerLayout.isDrawerOpen(Gravity.END)) {
