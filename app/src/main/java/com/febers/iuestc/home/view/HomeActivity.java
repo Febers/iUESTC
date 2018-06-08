@@ -9,7 +9,6 @@
 package com.febers.iuestc.home.view;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -23,7 +22,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
-import com.febers.iuestc.module.service.view.ServiceActivity;
+import com.febers.iuestc.modules.service.view.ServiceActivity;
 import com.febers.iuestc.utils.CustomSharedPreferences;
 
 import java.util.ArrayList;

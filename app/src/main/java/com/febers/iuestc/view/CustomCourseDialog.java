@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.module.course.model.BeanCourse;
+import com.febers.iuestc.modules.course.model.BeanCourse;
 import com.febers.iuestc.utils.CourseTimeUtil;
 
 public class CustomCourseDialog extends AlertDialog {

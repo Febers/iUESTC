@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.module.grade.model.BeanGrade;
+import com.febers.iuestc.modules.grade.model.BeanGrade;
 
 import java.util.List;
 

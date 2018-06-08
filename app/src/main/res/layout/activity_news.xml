@@ -12,7 +12,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".module.news.view.NewsActivity"
+    tools:context=".modules.news.view.NewsActivity"
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <android.support.design.widget.AppBarLayout

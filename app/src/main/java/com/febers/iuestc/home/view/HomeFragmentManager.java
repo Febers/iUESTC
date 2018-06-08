@@ -10,10 +10,10 @@ package com.febers.iuestc.home.view;
 
 import android.support.v4.app.Fragment;
 
-import com.febers.iuestc.module.course.view.CourseFragment;
-import com.febers.iuestc.module.ecard.view.ECardFragment;
-import com.febers.iuestc.module.library.view.LibraryFragment;
-import com.febers.iuestc.module.user.view.UserFragment;
+import com.febers.iuestc.modules.course.view.CourseFragment;
+import com.febers.iuestc.modules.ecard.view.ECardFragment;
+import com.febers.iuestc.modules.library.view.LibraryFragment;
+import com.febers.iuestc.modules.user.view.UserFragment;
 
 public class HomeFragmentManager {
 
