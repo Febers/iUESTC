@@ -12,7 +12,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".modules.grade.view.GradeListFragment"
+    tools:context=".module.grade.view.GradeListFragment"
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView

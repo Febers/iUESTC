@@ -33,10 +33,10 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".modules.library.view.LibQueryActivity"
+            android:name=".module.library.view.LibQueryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".modules.exam.view.ExamActivity"
+            android:name=".module.exam.view.ExamActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
@@ -55,13 +55,13 @@
         </provider>
 
         <activity
-            android:name=".modules.grade.view.GradeActivity"
+            android:name=".module.grade.view.GradeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".modules.service.view.ServiceActivity"
+            android:name=".module.service.view.ServiceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".modules.service.view.BusActivity"
+            android:name=".module.service.view.BusActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".home.view.SplashActivity"
@@ -73,16 +73,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".modules.service.view.CalActivity"
+            android:name=".module.service.view.CalActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".modules.news.view.NewsActivity"
+            android:name=".module.news.view.NewsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".modules.news.view.NewsDetailActivity" />
+        <activity android:name=".module.news.view.NewsDetailActivity" />
         <activity
-            android:name=".modules.ecard.view.ECardRecrodActivity"
+            android:name=".module.ecard.view.ECardRecrodActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".modules.user.view.AboutActivity"></activity>
+        <activity android:name=".module.user.view.AboutActivity"></activity>
     </application>
 
 </manifest>

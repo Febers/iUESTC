@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.modules.user.model.BeanSetting;
+import com.febers.iuestc.entity.BeanSetting;
 
 import java.util.List;
 

@@ -11,10 +11,9 @@ package com.febers.iuestc.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
-
 import com.febers.iuestc.view.CustomProgressDialog;
+
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView{
 
@@ -44,16 +43,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     protected void dismissProgressDialog() {
-        if (mProgressDialog == null) {
-            return;
+        if (mProgressDialog != null) {
+            runOnUiThread( () -> mProgressDialog.dismiss());
         }
-        runOnUiThread( () -> mProgressDialog.dismiss());
-
     }
 
     @Override
     public void onError(String error) {
         runOnUiThread( () -> Toast.makeText(this, error, Toast.LENGTH_SHORT).show());
-
     }
+
 }

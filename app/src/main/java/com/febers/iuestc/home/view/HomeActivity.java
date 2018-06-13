@@ -14,7 +14,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -23,8 +22,8 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
-import com.febers.iuestc.modules.service.view.ServiceActivity;
-import com.febers.iuestc.utils.CustomSharedPreferences;
+import com.febers.iuestc.module.service.view.ServiceActivity;
+import com.febers.iuestc.util.CustomSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -176,7 +175,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
             return;
         }
     }
-    
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (mDrawerLayout.isDrawerOpen(Gravity.END)) {

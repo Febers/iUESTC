@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.modules.exam.model.BeanExam;
+import com.febers.iuestc.entity.BeanExam;
 
 import java.util.List;
 

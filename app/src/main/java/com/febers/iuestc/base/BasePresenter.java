@@ -8,12 +8,10 @@
 
 package com.febers.iuestc.base;
 
-import android.util.Log;
 
 public abstract class BasePresenter<V extends BaseView> {
 
     protected V mView;
-    private static final String TAG = "BasePresenter";
 
     public BasePresenter(V view) {
         mView = view;

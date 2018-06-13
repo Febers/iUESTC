@@ -18,8 +18,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.modules.news.model.BeanNews;
-import com.febers.iuestc.modules.news.view.NewsDetailActivity;
+import com.febers.iuestc.entity.BeanNews;
+import com.febers.iuestc.module.news.view.NewsDetailActivity;
 
 import java.util.List;
 

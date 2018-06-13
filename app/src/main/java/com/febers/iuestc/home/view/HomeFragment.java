@@ -44,9 +44,9 @@ public class HomeFragment extends BaseFragment{
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
 
         String[] from = {"image", "title"};
-        int[] to = {R.id.home_grid_image, R.id.home_grid_text};
+        int[] to = {R.id.user_grid_image, R.id.user_grid_text};
         mGridView = findViewById(R.id.home_grid_view);
-        adapter = new SimpleAdapter(getActivity(), getGridList(), R.layout.item_home_grid, from, to);
+        adapter = new SimpleAdapter(getActivity(), getGridList(), R.layout.item_user_grid, from, to);
         mGridView.setAdapter(adapter);
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -17,8 +17,7 @@ import android.text.TextUtils;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.home.view.HomeActivity;
-import com.febers.iuestc.utils.CustomBugly;
-import com.febers.iuestc.utils.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomBugly;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;

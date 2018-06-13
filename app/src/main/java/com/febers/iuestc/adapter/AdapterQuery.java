@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.modules.library.model.BeanBook;
+import com.febers.iuestc.entity.BeanBook;
 
 import java.util.List;
 

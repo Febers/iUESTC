@@ -8,6 +8,7 @@
 
 package com.febers.iuestc.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,11 +23,12 @@ import com.febers.iuestc.view.CustomProgressDialog;
 
 public abstract class BaseFragment extends Fragment implements BaseView{
 
+    protected final String TAG = "BaseFragment";
+    protected Context mContext = BaseApplication.getContext();
+    protected CustomProgressDialog mProgressDialog;
     protected boolean isInit = false;
     protected boolean isLoad = false;
-    protected final String TAG = "BaseFragment";
     private View view;
-    protected CustomProgressDialog mProgressDialog;
 
     @Nullable
     @Override

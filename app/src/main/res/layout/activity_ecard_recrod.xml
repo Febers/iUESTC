@@ -13,7 +13,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".modules.library.view.LibQueryActivity"
+    tools:context=".module.library.view.LibQueryActivity"
     android:background="@color/lightgray">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
