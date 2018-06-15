@@ -42,12 +42,11 @@ public class LibraryModel implements ILibraryModel {
 
     private static final String TAG = "LibraryModel";
     private LibraryContract.Presenter libraryPresenter;
-    private OkHttpClient client;
+    private OkHttpClient mClient;
     private List<BeanBook> bookList = new ArrayList<>();
     private String result = "";
     private String nextPageUrl = "";
     private Context context = BaseApplication.getContext();
-    private int tryTime = 1;
 
     public LibraryModel(LibraryContract.Presenter presenter) {
         libraryPresenter = presenter;
@@ -83,7 +82,6 @@ public class LibraryModel implements ILibraryModel {
             try {
                 Response response = client.newCall(request).execute();
                 String result = response.body().string();
-
                 //验证登录
                 Document document = Jsoup.parse(result);
                 Elements els = document.select("span[class=\"loggedInMessage\"]");
@@ -140,7 +138,7 @@ public class LibraryModel implements ILibraryModel {
             bookList.add(book);
         }
         if (bookList.size() != 0) {
-            SharedPreferences preferences = BaseApplication.getContext().getSharedPreferences("book_history", 0);
+            SharedPreferences preferences = context.getSharedPreferences("book_history", 0);
             SharedPreferences.Editor editor = preferences.edit();
             int size = preferences.getInt("size", 0);
             int i = size;
@@ -150,7 +148,7 @@ public class LibraryModel implements ILibraryModel {
             editor.putInt("size", i);
             editor.commit();
         }
-        CustomSharedPreferences.getInstance().put(BaseApplication.getContext().getString(R.string.sp_library_history), true);
+        CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_library_history), true);
         libraryPresenter.historyResult(bookList);
     }
 
@@ -164,7 +162,7 @@ public class LibraryModel implements ILibraryModel {
     @Override
     public void queryBook(final String keyword, final String  type, final String  postion,
                           int status, final int page, final String nextPage) throws Exception{
-        client = SingletonClient.getInstance();
+        mClient = SingletonClient.getInstance();
         new Thread( () -> {
             String url = nextPage;
             if (!nextPage.equals("null")) {
@@ -187,7 +185,7 @@ public class LibraryModel implements ILibraryModel {
                     .get()
                     .build();
             try {
-                Response response = client.newCall(request).execute();
+                Response response = mClient.newCall(request).execute();
                 result = response.body().string();
             } catch (SocketTimeoutException e) {
                 libraryPresenter.errorResult("请求超时,可能需要校园网");

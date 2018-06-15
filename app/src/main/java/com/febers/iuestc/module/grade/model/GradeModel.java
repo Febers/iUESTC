@@ -159,7 +159,7 @@ public class GradeModel extends BaseModel implements IGradeModel {
                 gradeList.add(grade);
             }
             saveUnderGrade(souceCode);
-            CustomSharedPreferences.getInstance().put(mContext.getString(R.string.sp_get_grade), true);
+            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_get_grade), true);
             Collections.sort(allGradeList);
             gradePresenter.gradeResult("成功", allGradeList, gradeList);
         }catch (NullPointerException e) {
@@ -174,14 +174,14 @@ public class GradeModel extends BaseModel implements IGradeModel {
     }
 
     private void saveUnderGrade(String sourceCode) {
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(mContext.getString(R.string.sp_grade), 0).edit();
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(getStringById(R.string.sp_grade), 0).edit();
         editor.putString("sourceCode", sourceCode); //暂时先保存源码,偷懒
         editor.apply();
     }
 
     private void loadLocalGrade() {
         new Thread(()-> {
-            SharedPreferences preferences = mContext.getSharedPreferences(mContext.getString(R.string.sp_grade), 0);
+            SharedPreferences preferences = mContext.getSharedPreferences(getStringById(R.string.sp_grade), 0);
             String sourceCode = preferences.getString("sourceCode", "");
             resolveUnderGradeHtml(sourceCode);
         }).start();

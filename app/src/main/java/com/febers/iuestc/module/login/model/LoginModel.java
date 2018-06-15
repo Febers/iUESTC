@@ -93,12 +93,12 @@ public class LoginModel extends BaseModel implements ILoginModel{
     @Override
     public Boolean reloginService() {
         Boolean success = false;
-        if (!CustomSharedPreferences.getInstance().get(mContext.getString(R.string.sp_is_login), false)) {
+        if (!CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_is_login), false)) {
             return false;
         }
 
-        mId = CustomSharedPreferences.getInstance().get(mContext.getString(R.string.sp_user_id), "");
-        mPw = CustomSharedPreferences.getInstance().get(mContext.getString(R.string.sp_user_pw), "");
+        mId = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_user_id), "");
+        mPw = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_user_pw), "");
         try {
             mClient = SingletonClient.getInstance();
             Request request = new Request.Builder()
@@ -175,9 +175,9 @@ public class LoginModel extends BaseModel implements ILoginModel{
             }
             for(Element e:elements) {
                 if (e.text().contains("个人") || e.text().contains("教务")){
-                    CustomSharedPreferences.getInstance().put(mContext.getString(R.string.sp_user_id), mId);
-                    CustomSharedPreferences.getInstance().put(mContext.getString(R.string.sp_user_pw), mPw);
-                    CustomSharedPreferences.getInstance().put(mContext.getString(R.string.sp_is_login), true);
+                    CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_user_id), mId);
+                    CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_user_pw), mPw);
+                    CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_is_login), true);
                     getDetailForName();
                     if (loginPresenter != null) {
                         loginPresenter.loginResult(LoginResult.LOGIN_SUCCESS);
@@ -187,7 +187,7 @@ public class LoginModel extends BaseModel implements ILoginModel{
                      * 然后保存
                      * 本科生(0)、研究生(1)
                      */
-                    CustomSharedPreferences.getInstance().put(mContext.getString(R.string.sp_student_type), 0);
+                    CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_student_type), 0);
                     return true;
                 }
             }
@@ -223,7 +223,7 @@ public class LoginModel extends BaseModel implements ILoginModel{
                     return;
                 }
                 String[] detail = els.get(0).text().split(" ");
-                CustomSharedPreferences.getInstance().put(mContext.getString(R.string.sp_user_name), detail[4]);
+                CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_user_name), detail[4]);
             } catch(Exception e) {
                 e.printStackTrace();
                 Log.d(TAG, "getDetailForName: 获取姓名失败");

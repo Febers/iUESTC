@@ -77,7 +77,7 @@ public class ExamModel extends BaseModel implements IExamModel {
         try {
             OkHttpClient client = SingletonClient.getInstance();
             String examUrl = "http://eams.uestc.edu.cn/eams/stdExamTable!examTable.action?" +
-                    "semester.id="+mContext.getString(R.string.sp_semester)+"&examType.id="+mType;
+                    "semester.id="+getStringById(R.string.sp_semester)+"&examType.id="+mType;
             Request request = new Request.Builder()
                     .url(examUrl)
                     .get()
