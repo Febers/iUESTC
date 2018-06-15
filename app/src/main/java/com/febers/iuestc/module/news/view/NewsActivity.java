@@ -31,10 +31,6 @@ public class NewsActivity extends BaseActivity {
 
     @Override
     protected int setView() {
-        SlidrConfig config = new SlidrConfig.Builder()
-                .edge(true)
-                .build();
-        Slidr.attach(this, config);
         Intent intent = getIntent();
         type = intent.getIntExtra("type", 0);
         return R.layout.activity_news;

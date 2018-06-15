@@ -66,10 +66,6 @@ public class LibQueryActivity extends BaseActivity implements LibraryContract.Vi
 
     @Override
     protected int setView() {
-        SlidrConfig config = new SlidrConfig.Builder()
-            .edge(true)
-            .build();
-        Slidr.attach(this, config);
         return R.layout.activity_lib_query;
     }
 

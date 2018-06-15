@@ -51,10 +51,6 @@ public class ExamActivity extends BaseActivity implements ExamContract.View{
 
     @Override
     protected int setView() {
-        SlidrConfig config = new SlidrConfig.Builder()
-                .edge(true)
-                .build();
-        Slidr.attach(this, config);
         return R.layout.activity_exam;
     }
 

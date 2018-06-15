@@ -37,10 +37,6 @@ public class GradeActivity extends BaseActivity implements NavigationView.OnNavi
 
     @Override
     protected int setView() {
-        SlidrConfig config = new SlidrConfig.Builder()
-                .edge(true)
-                .build();
-        Slidr.attach(this, config);
         return R.layout.activity_grade;
     }
 

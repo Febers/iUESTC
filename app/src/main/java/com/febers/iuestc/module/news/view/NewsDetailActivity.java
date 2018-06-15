@@ -39,12 +39,6 @@ public class NewsDetailActivity extends BaseActivity {
         newsText = intent.getStringExtra("text");
         newsTitle = intent.getStringExtra("title");
         newsUrl = intent.getStringExtra("url");
-
-        SlidrConfig config = new SlidrConfig.Builder()
-                .edge(true)
-                .build();
-        Slidr.attach(this, config);
-
         return R.layout.activity_news_detail;
     }
 

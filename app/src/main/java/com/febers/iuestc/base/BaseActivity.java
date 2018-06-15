@@ -13,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import com.febers.iuestc.view.CustomProgressDialog;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrConfig;
 
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView{
@@ -23,6 +25,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
+        if (isSlideBack()) {
+            SlidrConfig config = new SlidrConfig.Builder()
+                    .edge(true)
+                    .build();
+            Slidr.attach(this, config);
+        }
         findViewById();
         initView();
     }
@@ -53,4 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         runOnUiThread( () -> Toast.makeText(this, error, Toast.LENGTH_SHORT).show());
     }
 
+    protected Boolean isSlideBack() {
+        return true;
+    }
 }

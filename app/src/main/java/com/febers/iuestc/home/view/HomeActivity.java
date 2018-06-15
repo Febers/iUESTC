@@ -221,4 +221,9 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         }
         return true;
     }
+
+    @Override
+    protected Boolean isSlideBack() {
+        return false;
+    }
 }
