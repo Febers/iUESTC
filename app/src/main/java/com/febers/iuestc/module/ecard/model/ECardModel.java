@@ -43,6 +43,7 @@ public class ECardModel extends BaseModel implements IECardModel{
     private String loginResultMsg;
 
     public ECardModel(ECardContract.Presenter presenter) {
+        super(presenter);
         eCardPresenter = presenter;
     }
 
@@ -417,10 +418,5 @@ public class ECardModel extends BaseModel implements IECardModel{
         }
         eCardPresenter.errorResult(LOGIN_STATUS_ERRO);
         return false;
-    }
-
-    @Override
-    protected void serviceError(String error) {
-        eCardPresenter.errorResult(error);
     }
 }

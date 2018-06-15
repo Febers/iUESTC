@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
+import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.module.exam.presenter.ExamContract;
 import com.febers.iuestc.module.login.model.ILoginModel;
@@ -37,16 +38,15 @@ import okhttp3.Response;
 /**
  * 按照semester的形式获取、存储考试内容
  */
-public class ExamModel implements IExamModel {
+public class ExamModel extends BaseModel implements IExamModel {
 
     private static final String TAG = "ExamModel";
     private ExamContract.Presenter examPresenter;
     private List<BeanExam> examList = new ArrayList<>();
-    private int tryTime = 1;
     private int mType;
-    private Context context = BaseApplication.getContext();
 
     public ExamModel(ExamContract.Presenter presenter) {
+        super(presenter);
         examPresenter = presenter;
     }
 
@@ -61,11 +61,10 @@ public class ExamModel implements IExamModel {
             loadLocalExam(mType);
             return;
         }
-        int studentType = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_student_type), 0);
         new Thread( () -> {
-            if (studentType == 0) {
+            if (mStudentType == UNDERGRADUATE) {
                 getUnderExam();
-            } else if (studentType == 1) {
+            } else if (mStudentType == POSTGRADUATE) {
                 getPostExam();
             }
         }).start();
@@ -78,7 +77,7 @@ public class ExamModel implements IExamModel {
         try {
             OkHttpClient client = SingletonClient.getInstance();
             String examUrl = "http://eams.uestc.edu.cn/eams/stdExamTable!examTable.action?" +
-                    "semester.id="+context.getString(R.string.sp_semester)+"&examType.id="+mType;
+                    "semester.id="+mContext.getString(R.string.sp_semester)+"&examType.id="+mType;
             Request request = new Request.Builder()
                     .url(examUrl)
                     .get()
@@ -87,13 +86,13 @@ public class ExamModel implements IExamModel {
             String result = examRes.body().string();
             if (result.contains("登录规则")) {
                 ILoginModel loginModel = new LoginModel();
-                if (tryTime == 1) {
+                if (FIRST_TRY) {
                     Boolean reLogin  = loginModel.reloginService();
                     if (!reLogin) {
-                        examPresenter.errorResult("登录状态发生改变，请重新登录");
+                        serviceError(LOGIN_STATUS_ERRO);
                         return;
                     }
-                    tryTime++;
+                    FIRST_TRY = false;
                     getUnderExam();
                     return;
                 }
@@ -107,13 +106,13 @@ public class ExamModel implements IExamModel {
             }
             resolveUnderExamHtml(result);
         } catch (SocketTimeoutException e) {
-            examPresenter.errorResult("网络超时");
+            serviceError(NET_TIMEOUT);
         } catch (IOException e) {
             e.printStackTrace();
-            examPresenter.errorResult("检测到异常");
+            serviceError(NET_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            examPresenter.errorResult("检测到异常");
+            serviceError(UNKONOW_ERROR);
         }
     }
 

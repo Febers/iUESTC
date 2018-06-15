@@ -48,6 +48,7 @@ public class CourseModel extends BaseModel implements ICourseModel{
     private String mCourseHtml;
 
     public CourseModel(CourseContract.Presenter coursePresenter) {
+        super(coursePresenter);
         mCoursePresenter = coursePresenter;
     }
 
@@ -253,10 +254,5 @@ public class CourseModel extends BaseModel implements ICourseModel{
 
     private void getPostCourseHtml() {
         //TODO 获取并解析研究生课表
-    }
-
-    @Override
-    protected void serviceError(String error) {
-        mCoursePresenter.errorResult(error);
     }
 }

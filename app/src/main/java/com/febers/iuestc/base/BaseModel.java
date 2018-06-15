@@ -13,9 +13,17 @@ import android.content.Context;
 import com.febers.iuestc.R;
 import com.febers.iuestc.util.CustomSharedPreferences;
 
-public abstract class BaseModel {
+public abstract class BaseModel<P extends BasePresenter> {
 
     protected Boolean FIRST_TRY = true;
+    protected P presenter;
+
+    public BaseModel(P presnter) {
+        this.presenter = presnter;
+    }
+
+    public BaseModel() {
+    }
 
     public static final String NET_TIMEOUT = "网络超时";
     public static final String NET_ERROR = "网络错误";
@@ -26,6 +34,7 @@ public abstract class BaseModel {
     public static final int POSTGRADUATE = 1;
 
     protected Context mContext = BaseApplication.getContext();
+
     protected int mStudentType = CustomSharedPreferences.getInstance()
             .get(mContext.getString(R.string.sp_student_type), 0);
 
@@ -37,5 +46,7 @@ public abstract class BaseModel {
         return mContext.getString(id);
     }
 
-    protected abstract void serviceError(String error);
+    protected void serviceError(String error) {
+        presenter.errorResult(error);
+    }
 }

@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
+import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanGradeSummary;
 import com.febers.iuestc.entity.BeanGrade;
 import com.febers.iuestc.module.grade.presenter.GradeContract;
@@ -38,14 +39,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class GradeModel implements IGradeModel {
+public class GradeModel extends BaseModel implements IGradeModel {
 
     private static final String TAG = "GradeModel";
-    private Context mContext = BaseApplication.getContext();
     private GradeContract.Presenter gradePresenter;
-    private int tryTime = 1;
 
     public GradeModel(GradeContract.Presenter gradePresenter) {
+        super(gradePresenter);
         this.gradePresenter = gradePresenter;
     }
 
@@ -55,11 +55,10 @@ public class GradeModel implements IGradeModel {
             loadLocalGrade();
             return;
         }
-        int studentType = CustomSharedPreferences.getInstance().get(mContext.getString(R.string.sp_student_type), 0);
         new Thread( () -> {
-            if (studentType == 0) {
+            if (mStudentType == UNDERGRADUATE) {
                 getUnderGrade();
-            } else if (studentType == 1) {
+            } else if (mStudentType == POSTGRADUATE) {
                 getPostGrade();
             }
         }).start();
@@ -79,13 +78,13 @@ public class GradeModel implements IGradeModel {
             String stRes = response.body().string();
             if (stRes.contains("登录规则")) {
                 ILoginModel loginModel = new LoginModel();
-                if (tryTime == 1) {
+                if (FIRST_TRY) {
                     Boolean reLogin  = loginModel.reloginService();
                     if (!reLogin) {
-                        gradePresenter.errorResult("登录状态发生改变，请重新登录");
+                        serviceError(LOGIN_STATUS_ERRO);
                         return;
                     }
-                    tryTime++;
+                    FIRST_TRY = false;
                     getUnderGrade();
                     return;
                 }
@@ -100,11 +99,13 @@ public class GradeModel implements IGradeModel {
             }
             resolveUnderGradeHtml(stRes);
         } catch (SocketTimeoutException e) {
-            e.printStackTrace();
+            serviceError(NET_TIMEOUT);
         } catch (IOException e) {
             e.printStackTrace();
+            serviceError(NET_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
+            serviceError(UNKONOW_ERROR);
         }
     }
 
