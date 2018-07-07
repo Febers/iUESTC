@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-import com.febers.iuestc.view.CustomProgressDialog;
+import com.febers.iuestc.view.custom.CustomProgressDialog;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 

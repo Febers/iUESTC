@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".module.service.view.CalActivity">
+    tools:context=".mvp.view.CalActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             app:popupTheme="@style/Theme.AppCompat.Light"
             app:layout_scrollFlags="enterAlways"/>
     </android.support.design.widget.AppBarLayout>
-    <com.febers.iuestc.view.PinchImageView
+    <com.febers.iuestc.view.custom.PinchImageView
         android:id="@+id/imgview_calender"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

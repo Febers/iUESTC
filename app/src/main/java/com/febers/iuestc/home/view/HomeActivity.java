@@ -22,8 +22,9 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
-import com.febers.iuestc.module.service.view.ServiceActivity;
+import com.febers.iuestc.mvp.view.ServiceActivity;
 import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.view.manager.HomeFragmentManager;
 
 import java.util.ArrayList;
 import java.util.List;

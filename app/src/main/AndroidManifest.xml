@@ -33,10 +33,10 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.library.view.LibQueryActivity"
+            android:name=".mvp.view.LibQueryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.exam.view.ExamActivity"
+            android:name=".mvp.view.ExamActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
@@ -55,13 +55,13 @@
         </provider>
 
         <activity
-            android:name=".module.grade.view.GradeActivity"
+            android:name=".mvp.view.GradeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.service.view.ServiceActivity"
+            android:name=".mvp.view.ServiceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.service.view.BusActivity"
+            android:name=".mvp.view.BusActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".home.view.SplashActivity"
@@ -73,16 +73,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".module.service.view.CalActivity"
+            android:name=".mvp.view.CalActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.news.view.NewsActivity"
+            android:name=".mvp.view.NewsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.news.view.NewsDetailActivity" />
+        <activity android:name=".mvp.view.NewsDetailActivity" />
         <activity
-            android:name=".module.ecard.view.ECardRecrodActivity"
+            android:name=".mvp.view.ECardRecrodActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".module.user.view.AboutActivity"></activity>
+        <activity android:name=".mvp.view.AboutActivity"></activity>
     </application>
 
 </manifest>

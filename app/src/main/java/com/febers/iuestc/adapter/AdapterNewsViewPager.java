@@ -12,7 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.febers.iuestc.module.news.view.NewsFragmentManager;
+import com.febers.iuestc.view.manager.NewsFragmentManager;
 
 public class AdapterNewsViewPager extends FragmentPagerAdapter {
 

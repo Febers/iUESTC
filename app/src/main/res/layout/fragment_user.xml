@@ -115,25 +115,25 @@
                     android:layout_height="4dp"
                     android:background="@color/lightgray" />
 
-                <com.febers.iuestc.view.CustomGridView
+                <com.febers.iuestc.view.custom.CustomGridView
                     android:id="@+id/grid_view_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="2"
                     android:clickable="true">
-                </com.febers.iuestc.view.CustomGridView>
+                </com.febers.iuestc.view.custom.CustomGridView>
 
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:background="@color/lightgray" />
-            <com.febers.iuestc.view.CustomListView
+            <com.febers.iuestc.view.custom.CustomListView
                 android:id="@+id/lv_user_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false">
-            </com.febers.iuestc.view.CustomListView>
+            </com.febers.iuestc.view.custom.CustomListView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

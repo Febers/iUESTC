@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanECardPayRecord;
-import com.febers.iuestc.module.ecard.view.ECardRecrodActivity;
+import com.febers.iuestc.mvp.view.ECardRecrodActivity;
 
 import java.util.List;
 
