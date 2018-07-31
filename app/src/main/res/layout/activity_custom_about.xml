@@ -13,7 +13,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightgray">
+    android:background="?attr/myBackgroundColorSecond">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,186 +36,74 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/about_margin"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv_about_app"
+            android:orientation="vertical"
+            android:background="?attr/myBackgroundColor">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/CardViewClick">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginLeft="10dp">
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/ginkgo_blue"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/app_name"
-                            android:textSize="25dp"
-                            android:paddingLeft="10dp"
-                            android:textColor="@color/black"
-                            android:layout_gravity="center_vertical"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginLeft="18dp">
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_about_about_black"/>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="20dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="版本"
-                                android:textSize="12dp"
-                                android:textColor="@color/black"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/app_version"
-                                android:textSize="10dp"/>
-                        </LinearLayout>
-                    </LinearLayout>
+                android:orientation="horizontal"
+                android:layout_marginLeft="0dp"
+                android:clickable="true">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ginkgo_blue"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textSize="25dp"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginLeft="18dp">
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_classroom_black"/>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="20dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="主页"
-                                android:textSize="12dp"
-                                android:textColor="@color/black"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/app_web"
-                                android:textSize="10dp"/>
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv_about_developer"
+            <com.lucasurbas.listitemview.ListItemView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/about_margin"
-                android:layout_marginBottom="@dimen/about_margin"
-                style="@style/CardViewClick">
+                app:liv_title="版本"
+                app:liv_subtitle="@string/app_version"
+                app:liv_icon="@drawable/ic_about_about_black"
+                app:liv_displayMode="icon"
+                android:clickable="true"/>
+            <com.lucasurbas.listitemview.ListItemView
+                android:id="@+id/item_view_web_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:liv_title="主页"
+                app:liv_icon="@drawable/ic_classroom_black"
+                app:liv_subtitle="@string/app_web"
+                android:clickable="true"
+                app:liv_displayMode="icon" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginLeft="10dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="开发者"
-                            android:textSize="10dp"
-                            android:paddingLeft="2dp"
-                            android:textColor="@color/black"
-                            android:layout_gravity="center_vertical"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginLeft="18dp">
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_person_black_24dp"/>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="20dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Febers"
-                                android:textSize="12dp"
-                                android:textColor="@color/black"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="UESTC"
-                                android:textSize="10dp"/>
-                        </LinearLayout>
-                    </LinearLayout>
+            <include layout="@layout/layout_divide_line"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginLeft="18dp">
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_email_black_24dp"/>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="20dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Email"
-                                android:textSize="12dp"
-                                android:textColor="@color/black"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/developer_email"
-                                android:textSize="10dp"/>
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="开发者"
+                android:textSize="12dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"/>
+            <com.lucasurbas.listitemview.ListItemView
+                android:id="@+id/item_view_developer"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:liv_title="@string/developer_name"
+                app:liv_subtitle="UESTC"
+                app:liv_icon="@drawable/ic_person_black_24dp"
+                app:liv_displayMode="icon"
+                android:clickable="true"/>
+            <com.lucasurbas.listitemview.ListItemView
+                android:id="@+id/item_view_email"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:liv_title="Email"
+                app:liv_subtitle="@string/developer_email"
+                app:liv_icon="@drawable/ic_email_black_24dp"
+                app:liv_displayMode="icon"
+                android:clickable="true"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -16,9 +16,11 @@
     <string name="home_course_table">课表</string>
     <string name="home_library">图书馆</string>
     <string name="home_card">卡务</string>
-    <string name="home_my">我的</string>
+    <string name="home_more">更多</string>
     <string name="user_exam">考试</string>
     <string name="user_grade">成绩</string>
+    <string name="user_detail">个人</string>
+    <string name="user_ecard">一卡通</string>
     <string name="user_cal">校历</string>
     <string name="user_bus">校车</string>
     <string name="sp_student_type">0</string>

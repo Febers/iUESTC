@@ -174,7 +174,6 @@ public class PersistentCookieStore {
         } catch (ClassNotFoundException e) {
             Log.d(LOG_TAG, "ClassNotFoundException in decodeCookie", e);
         }
-
         return cookie;
     }
 

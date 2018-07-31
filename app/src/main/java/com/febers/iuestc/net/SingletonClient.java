@@ -8,11 +8,18 @@
 
 package com.febers.iuestc.net;
 
+import android.os.Build;
+import android.util.Log;
+import android.webkit.CookieManager;
+import android.webkit.ValueCallback;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 
 public class SingletonClient {
+
+    private static final String TAG = "SingletonClient";
 
     private static OkHttpClient singletonClient;
 
@@ -26,7 +33,7 @@ public class SingletonClient {
                     singletonClient = new OkHttpClient.Builder()
                             .connectTimeout(10, TimeUnit.SECONDS)
                             .readTimeout(10, TimeUnit.SECONDS)
-                            .cookieJar(new CookiesManager())
+                            .cookieJar(new CustomCookiesManager())
                             .build();
                 }
             }
@@ -36,5 +43,11 @@ public class SingletonClient {
 
     public static void reset() {
         singletonClient = null;
+        CookieManager.getInstance().removeAllCookie();
+        if (Build.VERSION.SDK_INT > 21) {
+            CookieManager.getInstance().removeAllCookies((Boolean value) -> {
+                    Log.i(TAG, "onReceiveValue: " + value);
+            });
+        }
     }
 }

@@ -24,7 +24,7 @@
             android:id="@+id/fragment_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/lightgray">
+            android:background="?attr/myBackgroundColor">
         </FrameLayout>
 
         <com.ashokvarma.bottomnavigation.BottomNavigationBar
@@ -32,7 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom">
+            android:layout_gravity="bottom"
+            app:bnbBackgroundColor="?attr/myBackgroundColor">
         </com.ashokvarma.bottomnavigation.BottomNavigationBar>
     </android.support.design.widget.CoordinatorLayout>
 

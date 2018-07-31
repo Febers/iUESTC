@@ -17,4 +17,8 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+    <attr name="myTextColorPrimary" format="color" />
+    <attr name="myTextColorSecond" format="color" />
+    <attr name="myBackgroundColor" format="color" />
+    <attr name="myBackgroundColorSecond" format="color" />
 </resources>

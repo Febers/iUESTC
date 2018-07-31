@@ -13,17 +13,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="90dp"
-    app:cardCornerRadius="@dimen/card_radius"
-    app:cardElevation="@dimen/card_elevation"
     android:layout_marginTop="3dp"
     android:layout_marginLeft="5dp"
     android:layout_marginBottom="3dp"
     android:layout_marginRight="5dp"
-    android:clickable="true"
-    android:focusable="true"
-    style="@style/CardView"
-    android:background="@drawable/item_selector"
-    android:foreground="?android:attr/selectableItemBackground">
+    style="@style/CardViewClick">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -55,7 +49,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:text="课程名称:"
-            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

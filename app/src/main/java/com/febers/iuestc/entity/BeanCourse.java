@@ -76,6 +76,6 @@ public class BeanCourse {
      */
     private String  simpleName(String oldName) {
         int start = oldName.indexOf("(");
-        return oldName.substring(1,start);
+        return oldName.substring(0,start);
     }
 }

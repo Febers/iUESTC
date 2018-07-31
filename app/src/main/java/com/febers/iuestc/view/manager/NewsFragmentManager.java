@@ -11,7 +11,7 @@ package com.febers.iuestc.view.manager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.febers.iuestc.mvp.view.NewsFragment;
+import com.febers.iuestc.module.news.view.NewsFragment;
 
 /**
  * 返回三个Fragment

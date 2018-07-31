@@ -14,17 +14,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/card_radius"
-    app:cardElevation="@dimen/card_elevation"
     android:layout_marginTop="3dp"
     android:layout_marginLeft="5dp"
     android:layout_marginBottom="3dp"
     android:layout_marginRight="5dp"
-    android:clickable="true"
-    android:focusable="true"
-    style="@style/CardView"
-    android:background="@drawable/item_selector"
-    android:foreground="?android:attr/selectableItemBackground">
+    style="@style/CardViewClick">
 
     <LinearLayout
         android:orientation="vertical"
@@ -37,7 +31,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:textSize="18dp"
-            android:textColor="@color/black"
+            android:textStyle="bold"
             android:text="这是一段测试用的新闻标题。 如果你看到了这个标题，说明你获取新闻出错了"/>
         <TextView
             android:id="@+id/tv_news_date"

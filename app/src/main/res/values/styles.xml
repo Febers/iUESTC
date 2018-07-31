@@ -22,11 +22,27 @@
     </style>
 
     <style name="BlueTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#0078D7</item>
-        <item name="colorPrimaryDark">#0078D7</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="myBackgroundColor">@color/lightWindowBackground</item>
+        <item name="myBackgroundColorSecond">@color/lightWindowBackgroundSecond</item>
+    </style>
+
+    <style name="NightTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/darkColorPrimary</item>
+        <item name="colorPrimaryDark">@color/darkColorPrimary</item>
+        <item name="colorAccent">@color/darkColorAccent</item>
+        <item name="android:itemBackground">@color/darkWindowBackground</item>
+        <item name="android:background">@color/darkWindowBackground</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textColorPrimary">@color/gray</item>
+        <item name="android:textColorSecondary">@color/gray</item>
+        <item name="myBackgroundColor">@color/darkWindowBackground</item>
+        <item name="myBackgroundColorSecond">@color/darkWindowBackgroundSecond</item>
     </style>
 
     <style name="CardViewClick" parent="CardView">

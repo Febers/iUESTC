@@ -22,7 +22,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
-import com.febers.iuestc.mvp.view.ServiceActivity;
+import com.febers.iuestc.module.service.view.ServiceActivity;
 import com.febers.iuestc.util.CustomSharedPreferences;
 import com.febers.iuestc.view.manager.HomeFragmentManager;
 
@@ -39,7 +39,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     private Fragment mUserFragment;
     private List<Fragment> mFragmentList = new ArrayList<>();
     private Fragment mCourseFragment;
-    private Fragment mECardFragment;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
 
@@ -59,7 +58,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         mNavigationView.setNavigationItemSelectedListener(this);
         int openPosition = 0;
         if (!CustomSharedPreferences.getInstance().get("is_login", false)) {
-            openPosition = 3;
+            openPosition = 2;
         }
         mBottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
         mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
@@ -67,41 +66,29 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         mBottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.ic_course_bottom_gray,
                         getString(R.string.home_course_table)))
-                .addItem(new BottomNavigationItem(R.drawable.ic_book_bottom_color,
+                .addItem(new BottomNavigationItem(R.drawable.ic_all_pink,
                         getString(R.string.home_library)))
-                .addItem(new BottomNavigationItem(R.drawable.ic_cards_bottom_black,
-                        getString(R.string.home_card)))
-                .addItem(new BottomNavigationItem(R.drawable.ic_person_bottom_black,
-                        getString(R.string.home_my)))
+                .addItem(new BottomNavigationItem(R.drawable.ic_more_bottom_gray,
+                        getString(R.string.home_more)))
                 .setFirstSelectedPosition(openPosition)
                 .initialise();
         mBottomNavigationBar.setTabSelectedListener(this);
 
         mLibraryFragment  = HomeFragmentManager.getInstance(1);
         mUserFragment  = HomeFragmentManager.getInstance(2);
-        mECardFragment = HomeFragmentManager.getInstance(3);
-        mCourseFragment = HomeFragmentManager.getInstance(-1);
+        mCourseFragment = HomeFragmentManager.getInstance(0);
 
         android.support.v4.app.FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.add(R.id.fragment_layout, mLibraryFragment);
         mFragmentTransaction.add(R.id.fragment_layout, mUserFragment);
-        mFragmentTransaction.add(R.id.fragment_layout, mECardFragment);
         mFragmentTransaction.add(R.id.fragment_layout, mCourseFragment);
         mFragmentTransaction.commit();
 
         mFragmentList.add(mCourseFragment);
         mFragmentList.add(mLibraryFragment);
-        mFragmentList.add(mECardFragment);
         mFragmentList.add(mUserFragment);
-
-        //如果没登录，显示userFragment
-        if (!CustomSharedPreferences.getInstance().get("is_login", false)) {
-            showFragment(3);
-            mBottomNavigationBar.setFirstSelectedPosition(3);
-        } else {
-            showFragment(0);
-        }
+        showFragment(openPosition);
     }
 
     /**
@@ -119,12 +106,8 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                 showFragment(1);
                 break;
             case 2:
-                //一卡通
-                showFragment(2);
-                break;
-            case 3:
                 //我的
-                showFragment(3);
+                showFragment(2);
             default:
                 break;
         }

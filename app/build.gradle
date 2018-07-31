@@ -42,19 +42,21 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
     implementation 'com.android.support:design:26.1.0'
-    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.4'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
     implementation 'org.jsoup:jsoup:1.11.2'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.contrarywind:Android-PickerView:4.1.0'
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-3'
     implementation 'com.google.code.gson:gson:2.8.2'
+
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+
+    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.0.4'
+    implementation 'com.contrarywind:Android-PickerView:4.1.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-3'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'net.opacapp:multiline-collapsingtoolbar:27.1.1'
     implementation 'com.r0adkll:slidableactivity:2.0.6'
+    implementation 'com.lucasurbas:listitemview:1.1.1'
 }

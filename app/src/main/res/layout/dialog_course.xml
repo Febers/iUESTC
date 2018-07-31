@@ -4,14 +4,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="?attr/myBackgroundColor">
     <TextView
         android:id="@+id/tv_dialog_course_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/about_margin"
         android:layout_marginTop="@dimen/about_margin"
-        android:textColor="@color/black"
+        android:textStyle="bold"
         android:textSize="15dp"
         android:text="电磁场与波"/>
     <TextView

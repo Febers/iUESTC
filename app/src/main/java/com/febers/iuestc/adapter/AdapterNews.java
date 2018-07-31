@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanNews;
-import com.febers.iuestc.mvp.view.NewsDetailActivity;
+import com.febers.iuestc.module.news.view.NewsDetailActivity;
 
 import java.util.List;
 

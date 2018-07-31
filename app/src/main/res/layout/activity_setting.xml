@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Febers 2018.
+  ~ Copyright (c). All rights reserved.
+  ~
+  ~ Last Modified 18-7-30 下午8:09
+  ~
+  -->
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/myBackgroundColor">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb_setting"
+            app:title="设置"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/Theme.AppCompat.Light"
+            app:layout_scrollFlags="enterAlways"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/myBackgroundColorSecond"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:background="?attr/myBackgroundColor">
+            <com.lucasurbas.listitemview.ListItemView
+                android:id="@+id/item_view_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:liv_title="切换主题"
+                app:liv_icon="@drawable/ic_theme_color"
+                app:liv_multiline="false"
+                app:liv_displayMode="icon"
+                android:clickable="true"/>
+
+            <include layout="@layout/layout_divide_line"/>
+
+            <com.lucasurbas.listitemview.ListItemView
+                android:id="@+id/item_view_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:liv_title="检查更新"
+                app:liv_icon="@drawable/ic_update_color"
+                app:liv_multiline="false"
+                android:clickable="true"
+                app:liv_displayMode="icon"/>
+
+            <include layout="@layout/layout_divide_line"/>
+
+            <com.lucasurbas.listitemview.ListItemView
+                android:id="@+id/item_view_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:liv_title="关于"
+                app:liv_icon="@drawable/ic_bulb_ecard_pink"
+                app:liv_multiline="false"
+                android:clickable="true"
+                app:liv_displayMode="icon"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

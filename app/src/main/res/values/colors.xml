@@ -13,6 +13,15 @@
     <color name="colorPrimary">#0078D7</color>
     <color name="colorPrimaryDark">#0078D7</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="lightWindowBackground">#FFFFFF</color>
+    <color name="lightWindowBackgroundSecond">#EEEEEE</color>
+
+    <color name="darkColorPrimary">#37474f</color>
+    <color name="darkColorPrimaryDark">#455a64</color>
+    <color name="darkColorAccent">#eceff1</color>
+    <color name="darkWindowBackground">#263238</color>
+    <color name="darkWindowBackgroundSecond">#37474f</color>
+
     <color name="black">#000000</color>
     <color name="ligthBlue">#14aff5</color>
     <color name="blue">#03A9F4</color>

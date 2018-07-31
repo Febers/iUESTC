@@ -12,14 +12,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mvp.view.ECardFragment"
+    tools:context=".module.ecard.view.ECardFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:background="?attr/myBackgroundColor">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <android.support.v7.widget.Toolbar
-            android:id="@+id/tb_ecard"
+            android:id="@+id/tb_ecard_fragment"
             app:title="i成电"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
@@ -81,7 +82,7 @@
                         android:layout_marginLeft="100dp"
                         android:text="未登录"
                         android:textSize="40dp"
-                        android:textColor="@color/royalBlue"/>
+                        android:textColor="@color/colorPrimary"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView

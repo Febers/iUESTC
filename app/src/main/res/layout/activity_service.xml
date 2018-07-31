@@ -19,7 +19,7 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="?attr/myBackgroundColor">
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
         android:layout_height="match_parent"
         app:menu="@menu/service_nav_menu"
         app:itemIconTint="@color/colorAccent"
-        android:background="@color/white"
+        android:background="?attr/myBackgroundColor"
         app:headerLayout="@layout/layout_home_header">
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
