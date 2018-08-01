@@ -16,7 +16,6 @@ import android.webkit.WebView;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.net.CustomWebViewClient;
-import com.febers.iuestc.net.HtmlJSInterface;
 
 public class ECardActivity extends BaseActivity {
 
@@ -39,8 +38,8 @@ public class ECardActivity extends BaseActivity {
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        HtmlJSInterface htmlJSInterface = new HtmlJSInterface();
-        webView.addJavascriptInterface(htmlJSInterface, "HTMLOUT");
+
+//        webView.addJavascriptInterface(loginJSInterface, "HTMLOUT");
         webView.setWebViewClient(new CustomWebViewClient());
         webView.loadUrl("http://ecard.uestc.edu.cn/");
         webView.loadUrl("http://ecard.uestc.edu.cn/web/guest/personal");

@@ -8,7 +8,7 @@
 
 package com.febers.iuestc.module.login.model;
 
-public interface ILoginModel {
+public interface BeforeILoginModel {
     void loginService(String id , String pw) throws Exception;
     Boolean reloginService() throws Exception;
 }

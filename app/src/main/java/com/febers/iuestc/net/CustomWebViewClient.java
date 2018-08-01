@@ -23,7 +23,6 @@ public class CustomWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         view.loadUrl(url);
-        Log.i(TAG, "shouldOverrideUrlLoading: 1");
         return true;
     }
 
@@ -31,7 +30,6 @@ public class CustomWebViewClient extends WebViewClient {
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
         if (Build.VERSION.SDK_INT > 21) {
             view.loadUrl(request.getUrl().toString());
-            Log.i(TAG, "shouldOverrideUrlLoading: 2");
         }
         return true;
     }

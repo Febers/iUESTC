@@ -30,9 +30,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class LoginModel extends BaseModel implements ILoginModel {
+public class BeforeLoginModel extends BaseModel implements BeforeILoginModel {
 
-    private static final String TAG = "LoginModel";
+    private static final String TAG = "BeforeLoginModel";
     private String mLt;
     private String mExecution;
     private String mId;
@@ -41,12 +41,12 @@ public class LoginModel extends BaseModel implements ILoginModel {
     private OkHttpClient mClient;
     private LoginContract.Presenter loginPresenter;
 
-    public LoginModel(LoginContract.Presenter presenter) {
+    public BeforeLoginModel(LoginContract.Presenter presenter) {
         super(presenter);
         this.loginPresenter = presenter;
     }
 
-    public LoginModel() {}
+    public BeforeLoginModel() {}
 
     @Override
     public void loginService(String id, String pw) {
@@ -70,14 +70,14 @@ public class LoginModel extends BaseModel implements ILoginModel {
 
                 loginWithLAndE(mId, mPw, mLt, mExecution);
             } catch (SocketTimeoutException e) {
-                loginPresenter.loginResult(LoginResult.LOGIN_TIMEOUT);
+                //loginPresenter.loginResult(LoginResult.LOGIN_TIMEOUT);
                 e.printStackTrace();
             }catch (IOException e) {
-                loginPresenter.loginResult(LoginResult.LOGIN_CONDITION_FAIL);
+                //loginPresenter.loginResult(LoginResult.LOGIN_CONDITION_FAIL);
                 e.printStackTrace();
                 return;
             } catch (IndexOutOfBoundsException e) {
-                loginPresenter.loginResult(LoginResult.LOGIN_CONDITION_FAIL);
+                //loginPresenter.loginResult(LoginResult.LOGIN_CONDITION_FAIL);
                 e.printStackTrace();
                 return;
             }
@@ -144,14 +144,14 @@ public class LoginModel extends BaseModel implements ILoginModel {
             Response response = client.newCall(request).execute();
             mLoginHtml = response.body().string();
         } catch (SocketTimeoutException e) {
-            loginPresenter.loginResult(LoginResult.LOGIN_TIME_OUT);
+            //loginPresenter.loginResult(LoginResult.LOGIN_TIME_OUT);
             return false;
         } catch (IOException e){
-            loginPresenter.loginResult(LoginResult.LOGIN_CONDITION_FAIL);
+            //loginPresenter.loginResult(LoginResult.LOGIN_CONDITION_FAIL);
             e.printStackTrace();
             return false;
         } catch (NullPointerException e) {
-            loginPresenter.loginResult(LoginResult.LOGIN_CONDITION_FAIL);
+            //loginPresenter.loginResult(LoginResult.LOGIN_CONDITION_FAIL);
             e.printStackTrace();
             return false;
         }
@@ -165,7 +165,7 @@ public class LoginModel extends BaseModel implements ILoginModel {
             Elements elements = document.select("li");
             if (elements.size() == 0) {
                 if (loginPresenter != null) {
-                    loginPresenter.loginResult(LoginResult.LOGIN_CONDITION_FAIL);
+                    //loginPresenter.loginResult(LoginResult.LOGIN_CONDITION_FAIL);
                     SingletonClient.reset();
 
                 }
@@ -178,7 +178,7 @@ public class LoginModel extends BaseModel implements ILoginModel {
                     CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_is_login), true);
                     getDetailForName();
                     if (loginPresenter != null) {
-                        loginPresenter.loginResult(LoginResult.LOGIN_SUCCESS);
+                        //loginPresenter.loginResult(LoginResult.LOGIN_SUCCESS);
                     }
                     /**
                      * TODO 判断学生属性
@@ -191,19 +191,19 @@ public class LoginModel extends BaseModel implements ILoginModel {
             }
             if (html.contains("有误")) {
                 if (loginPresenter != null) {
-                    loginPresenter.loginResult(LoginResult.LOGIN_PW_FAIL);
+                    //loginPresenter.loginResult(LoginResult.LOGIN_PW_FAIL);
                     SingletonClient.reset();
                     return false;
                 }
             }
         } catch (Exception e) {
             if (loginPresenter != null) {
-                loginPresenter.loginResult(LoginResult.LOGIN_RESOLVE_RESULT_FAIL);
+                //loginPresenter.loginResult(LoginResult.LOGIN_RESOLVE_RESULT_FAIL);
                 SingletonClient.reset();
                 return false;
             }
         }
-        loginPresenter.loginResult(LoginResult.UNKNOWE_FAIL);
+        //loginPresenter.loginResult(LoginResult.UNKNOWE_FAIL);
         return false;
     }
 

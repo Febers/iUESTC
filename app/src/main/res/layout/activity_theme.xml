@@ -3,49 +3,47 @@
   ~ Created by Febers 2018.
   ~ Copyright (c). All rights reserved.
   ~
-  ~ Last Modified 18-6-6 下午5:07
+  ~ Last Modified 18-8-2 上午1:58
   ~
   -->
 
 <android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".module.news.view.NewsActivity"
     android:background="?attr/myBackgroundColor"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    tools:context=".module.service.view.CalActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <android.support.v7.widget.Toolbar
-            android:id="@+id/tb_news"
+            android:id="@+id/tb_theme"
+            app:title="主题风格"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/Theme.AppCompat.Light"
-            app:layout_scrollFlags="scroll|enterAlways|snap"/>
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tl_news"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabTextColor="@color/grey"
-            app:tabSelectedTextColor="@color/white">
-        </android.support.design.widget.TabLayout>
+            app:layout_scrollFlags="enterAlways|snap"/>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:fillViewport="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <com.febers.iuestc.view.custom.CustomViewPager
-            android:id="@+id/vp_news"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </com.febers.iuestc.view.custom.CustomViewPager>
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_theme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
 </android.support.design.widget.CoordinatorLayout>

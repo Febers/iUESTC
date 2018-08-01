@@ -22,6 +22,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.module.more.ThemeChangeListener;
 import com.febers.iuestc.module.service.view.ServiceActivity;
 import com.febers.iuestc.util.CustomSharedPreferences;
 import com.febers.iuestc.view.manager.HomeFragmentManager;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener
-        , NavigationView.OnNavigationItemSelectedListener{
+        , NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "HomeActivity";
 
@@ -144,7 +145,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         super.onResume();
         Intent intent = getIntent();
         Boolean fromLib = intent.getBooleanExtra("lib_activity", false);
-        Boolean fromUser = intent.getBooleanExtra("user_activity", false);
+        Boolean fromTheme = intent.getBooleanExtra("theme_activity", false);
         intent.removeExtra("lib_activity");
 
         //如果是从lib_activity跳转过来，显示libraryFragment
@@ -153,9 +154,10 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
             mBottomNavigationBar.selectTab(1);
             return;
         }
-        if (fromUser) {
-            showFragment(3);
-            mBottomNavigationBar.selectTab(3);
+
+        if (fromTheme) {
+            showFragment(2);
+            mBottomNavigationBar.selectTab(2);
             return;
         }
     }
@@ -205,6 +207,8 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         }
         return true;
     }
+
+
 
     @Override
     protected Boolean isSlideBack() {

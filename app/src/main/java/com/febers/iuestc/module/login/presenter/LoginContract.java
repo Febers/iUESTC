@@ -26,7 +26,6 @@ public interface LoginContract {
             super(view);
         }
 
-        public abstract void loginRequest(String id, String pw);
-        public abstract void loginResult(LoginResult loginResult);
+        public abstract void loginResult(BaseEvent event);
     }
 }

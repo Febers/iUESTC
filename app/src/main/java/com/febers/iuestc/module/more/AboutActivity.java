@@ -11,10 +11,7 @@ package com.febers.iuestc.module.more;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.febers.iuestc.R;
@@ -28,7 +25,7 @@ public class AboutActivity extends BaseActivity implements ListItemView.OnClickL
 
     @Override
     protected int setView() {
-        return R.layout.activity_custom_about;
+        return R.layout.activity_about;
     }
 
     @Override

@@ -14,8 +14,8 @@ import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanExam;
-import com.febers.iuestc.module.login.model.ILoginModel;
-import com.febers.iuestc.module.login.model.LoginModel;
+import com.febers.iuestc.module.login.model.BeforeLoginModel;
+import com.febers.iuestc.module.login.model.BeforeILoginModel;
 import com.febers.iuestc.module.exam.presenter.ExamContract;
 import com.febers.iuestc.net.SingletonClient;
 import com.febers.iuestc.util.CustomSharedPreferences;
@@ -84,7 +84,7 @@ public class ExamModel extends BaseModel implements IExamModel {
             Response examRes = client.newCall(request).execute();
             String result = examRes.body().string();
             if (result.contains("登录规则")) {
-                ILoginModel loginModel = new LoginModel();
+                BeforeILoginModel loginModel = new BeforeLoginModel();
                 if (FIRST_TRY) {
                     Boolean reLogin  = loginModel.reloginService();
                     if (!reLogin) {

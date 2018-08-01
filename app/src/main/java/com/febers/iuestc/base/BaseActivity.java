@@ -15,13 +15,14 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.febers.iuestc.R;
+import com.febers.iuestc.module.more.ThemeChangeListener;
 import com.febers.iuestc.util.CustomSharedPreferences;
 import com.febers.iuestc.view.custom.CustomProgressDialog;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseView{
+public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
     protected CustomProgressDialog mProgressDialog;
 
@@ -72,10 +73,36 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     private void choiceTheme() {
         int themeCode = CustomSharedPreferences.getInstance().get("theme_code", 0);
-        if (themeCode == 0) {
-            setTheme(R.style.BlueTheme);
-        } else {
-            setTheme(R.style.NightTheme);
+        switch (themeCode) {
+            case 0:
+                setTheme(R.style.BlueTheme);
+                break;
+            case 1:
+                setTheme(R.style.NightTheme);
+                break;
+            case 2:
+                setTheme(R.style.GreenTheme);
+                break;
+            case 3:
+                setTheme(R.style.RedTheme);
+                break;
+            case 4:
+                setTheme(R.style.PurpleTheme);
+                break;
+            case 5:
+                setTheme(R.style.OrangeTheme);
+                break;
+            case 6:
+                setTheme(R.style.GreyTheme);
+                break;
+            case 7:
+                setTheme(R.style.TealTheme);
+                break;
+            case 8:
+                setTheme(R.style.PinkTheme);
+                break;
+            default:
+                setTheme(R.style.BlueTheme);
         }
     }
 

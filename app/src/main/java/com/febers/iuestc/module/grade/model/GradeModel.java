@@ -14,8 +14,8 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanGradeSummary;
 import com.febers.iuestc.entity.BeanGrade;
-import com.febers.iuestc.module.login.model.ILoginModel;
-import com.febers.iuestc.module.login.model.LoginModel;
+import com.febers.iuestc.module.login.model.BeforeILoginModel;
+import com.febers.iuestc.module.login.model.BeforeLoginModel;
 import com.febers.iuestc.module.grade.presenter.GradeContract;
 import com.febers.iuestc.net.SingletonClient;
 import com.febers.iuestc.util.RepeatLoginUtil;
@@ -75,7 +75,7 @@ public class GradeModel extends BaseModel implements IGradeModel {
             Response response = client.newCall(request).execute();
             String stRes = response.body().string();
             if (stRes.contains("登录规则")) {
-                ILoginModel loginModel = new LoginModel();
+                BeforeILoginModel loginModel = new BeforeLoginModel();
                 if (FIRST_TRY) {
                     Boolean reLogin  = loginModel.reloginService();
                     if (!reLogin) {

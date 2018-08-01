@@ -207,7 +207,12 @@ public class MoreFragment extends BaseFragment {
                 HomeFragmentManager.clearFragment(99);
                 break;
             case 5:
-                startActivity(new Intent(getActivity(), SettingActivity.class));
+                startActivity(new Intent(getActivity(), ThemeActivity.class));
+                HomeFragmentManager.clearFragment(99);
+                getActivity().finish();
+                break;
+            case 6:
+                startActivity(new Intent(getActivity(), AboutActivity.class));
                 HomeFragmentManager.clearFragment(99);
                 break;
             default:
@@ -221,14 +226,16 @@ public class MoreFragment extends BaseFragment {
         BeanSetting stPostJW = new BeanSetting("研究生教务", R.drawable.ic_postgraduate_user_color);
         BeanSetting stBus = new BeanSetting("校车服务", R.drawable.ic_bus_user_color);
         BeanSetting stCalendar = new BeanSetting("校历", R.drawable.ic_cal_user_color);
-        BeanSetting stSetting = new BeanSetting("设置", R.drawable.ic_setting_color);
+        BeanSetting stTheme = new BeanSetting("主题风格", R.drawable.ic_theme_color);
+        BeanSetting stAbout = new BeanSetting("关于", R.drawable.ic_bulb_color);
 
         beanSettingList.add(stService);
         beanSettingList.add(stUnderJW);
         beanSettingList.add(stPostJW);
         beanSettingList.add(stBus);
         beanSettingList.add(stCalendar);
-        beanSettingList.add(stSetting);
+        beanSettingList.add(stTheme);
+        beanSettingList.add(stAbout);
     }
 
     @Override

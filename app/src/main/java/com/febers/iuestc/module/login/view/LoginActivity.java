@@ -19,7 +19,7 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.home.view.HomeActivity;
-import com.febers.iuestc.net.HtmlJSInterface;
+import com.febers.iuestc.module.login.presenter.LoginJSInterface;
 import com.febers.iuestc.module.login.presenter.LoginContract;
 import com.febers.iuestc.net.CustomWebViewClient;
 import com.febers.iuestc.util.CustomSharedPreferences;
@@ -28,7 +28,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View{
 
     private static final String TAG = "LoginActivity";
     private WebView webView;
-    private HtmlJSInterface htmlJSInterface;
+    private LoginJSInterface loginJSInterface;
 
     @Override
     protected int setView() {
@@ -50,8 +50,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View{
     private void loginByWebView() {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        htmlJSInterface = new HtmlJSInterface(this);
-        webView.addJavascriptInterface(htmlJSInterface, "HTMLOUT");
+        loginJSInterface = new LoginJSInterface(this);
+        webView.addJavascriptInterface(loginJSInterface, "HTMLOUT");
 
         webView.setWebViewClient(new CustomWebViewClient());
         webView.loadUrl("http://portal.uestc.edu.cn");

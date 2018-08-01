@@ -17,7 +17,7 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:background">@color/blue</item>
+        <item name="android:background">@color/white</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
@@ -37,12 +37,92 @@
         <item name="colorAccent">@color/darkColorAccent</item>
         <item name="android:itemBackground">@color/darkWindowBackground</item>
         <item name="android:background">@color/darkWindowBackground</item>
-        <item name="android:textColor">@color/gray</item>
-        <item name="android:textColorHint">@color/gray</item>
-        <item name="android:textColorPrimary">@color/gray</item>
-        <item name="android:textColorSecondary">@color/gray</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="android:textColorPrimary">@color/grey</item>
+        <item name="android:textColorSecondary">@color/grey</item>
         <item name="myBackgroundColor">@color/darkWindowBackground</item>
         <item name="myBackgroundColorSecond">@color/darkWindowBackgroundSecond</item>
+    </style>
+
+    <style name="GreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/green</item>
+        <item name="colorAccent">@color/greenAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="myBackgroundColor">@color/lightWindowBackground</item>
+        <item name="myBackgroundColorSecond">@color/lightWindowBackgroundSecond</item>
+    </style>
+
+    <style name="RedTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/red</item>
+        <item name="colorAccent">@color/redAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="myBackgroundColor">@color/lightWindowBackground</item>
+        <item name="myBackgroundColorSecond">@color/lightWindowBackgroundSecond</item>
+    </style>
+
+    <style name="PurpleTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryDark">@color/purple</item>
+        <item name="colorAccent">@color/purpleAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="myBackgroundColor">@color/lightWindowBackground</item>
+        <item name="myBackgroundColorSecond">@color/lightWindowBackgroundSecond</item>
+    </style>
+
+    <style name="OrangeTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryDark">@color/orange</item>
+        <item name="colorAccent">@color/orangeAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="myBackgroundColor">@color/lightWindowBackground</item>
+        <item name="myBackgroundColorSecond">@color/lightWindowBackgroundSecond</item>
+    </style>
+
+    <style name="GreyTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/grey</item>
+        <item name="colorPrimaryDark">@color/grey</item>
+        <item name="colorAccent">@color/greyAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="myBackgroundColor">@color/lightWindowBackground</item>
+        <item name="myBackgroundColorSecond">@color/lightWindowBackgroundSecond</item>
+    </style>
+
+    <style name="TealTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/teal</item>
+        <item name="colorPrimaryDark">@color/teal</item>
+        <item name="colorAccent">@color/tealAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="myBackgroundColor">@color/lightWindowBackground</item>
+        <item name="myBackgroundColorSecond">@color/lightWindowBackgroundSecond</item>
+    </style>
+
+    <style name="PinkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimaryDark">@color/pink</item>
+        <item name="colorAccent">@color/pinkAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="myBackgroundColor">@color/lightWindowBackground</item>
+        <item name="myBackgroundColorSecond">@color/lightWindowBackgroundSecond</item>
+    </style>
+
+    <style name="WhiteTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/lightgray</item>
+        <item name="colorAccent">@color/lightgray</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="myBackgroundColor">@color/lightWindowBackground</item>
+        <item name="myBackgroundColorSecond">@color/lightWindowBackgroundSecond</item>
     </style>
 
     <style name="CardViewClick" parent="CardView">

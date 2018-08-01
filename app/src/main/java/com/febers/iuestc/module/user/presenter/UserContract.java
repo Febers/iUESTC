@@ -10,13 +10,15 @@ package com.febers.iuestc.module.user.presenter;
 
 import com.febers.iuestc.base.BaseEduPresenter;
 import com.febers.iuestc.base.BaseEduView;
+import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BasePresenter;
 import com.febers.iuestc.base.BaseView;
+import com.febers.iuestc.entity.BeanUser;
 
 public interface UserContract {
 
     interface View extends BaseEduView {
-        void showUserDetail(String name, String id);
+        void showUserDetail(BaseEvent<BeanUser> event);
     }
 
     abstract class Presenter extends BaseEduPresenter<View> {
