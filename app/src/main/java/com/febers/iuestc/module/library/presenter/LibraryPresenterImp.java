@@ -8,6 +8,7 @@
 
 package com.febers.iuestc.module.library.presenter;
 
+import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanBook;
 import com.febers.iuestc.module.library.model.ILibraryModel;
 import com.febers.iuestc.module.library.model.LibraryModel;
@@ -25,9 +26,9 @@ public class LibraryPresenterImp extends LibraryContract.Presenter {
     }
 
     @Override
-    public void queryRequest(String keyword, String type, String postion, int status, int page, String nextPage) {
+    public void queryRequest(String keyword, int type, int page) {
         try {
-            libraryModel.queryBookService(keyword, type, postion, status, page, nextPage);
+            libraryModel.queryBookService(keyword, type, page);
         } catch (Exception e) {
             e.printStackTrace();
             if (mView != null) {
@@ -37,9 +38,9 @@ public class LibraryPresenterImp extends LibraryContract.Presenter {
     }
 
     @Override
-    public void queryResult(String status, String nextPageUrl, List<BeanBook> bookList) {
+    public void queryResult(BaseEvent<List<BeanBook>> event) {
         if (mView != null) {
-            mView.showQuery(status, nextPageUrl, bookList);
+            mView.showQuery(event);
         }
     }
 
@@ -55,7 +56,23 @@ public class LibraryPresenterImp extends LibraryContract.Presenter {
     @Override
     public void historyResult(List<BeanBook> list) {
         if (mView != null) {
-            mView.showHistory(list);
+        }
+    }
+
+    @Override
+    public void bookDetailRequest(String url) {
+        try {
+            libraryModel.bookDetailService(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mView.onError("获取图书详情失败");
+        }
+    }
+
+    @Override
+    public void bookDetailResult(BaseEvent<String> event) {
+        if (mView != null) {
+            mView.showBookDetail(event);
         }
     }
 }

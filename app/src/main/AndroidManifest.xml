@@ -85,7 +85,8 @@
         <activity android:name=".module.login.view.LoginActivity" />
         <activity android:name=".module.ecard.view.ECardActivity" />
         <activity android:name=".module.user.view.UserActivity" />
-        <activity android:name=".module.more.ThemeActivity"></activity>
+        <activity android:name=".module.more.ThemeActivity" />
+        <activity android:name=".module.library.view.LibDetailActivity"></activity>
     </application>
 
 </manifest>

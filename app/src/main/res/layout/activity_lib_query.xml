@@ -26,20 +26,6 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/Theme.AppCompat.Light"
             app:layout_scrollFlags="scroll|enterAlways|snap"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp">
-            <android.support.v7.widget.SearchView
-                android:id="@+id/sv_activity_query"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:imeOptions="actionSearch"
-                app:commitIcon="@color/white">
-            </android.support.v7.widget.SearchView>
-        </LinearLayout>
     </android.support.design.widget.AppBarLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout

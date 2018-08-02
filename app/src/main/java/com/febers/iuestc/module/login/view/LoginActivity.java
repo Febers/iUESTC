@@ -24,6 +24,8 @@ import com.febers.iuestc.module.login.presenter.LoginContract;
 import com.febers.iuestc.net.CustomWebViewClient;
 import com.febers.iuestc.util.CustomSharedPreferences;
 
+import java.util.Base64;
+
 public class LoginActivity extends BaseActivity implements LoginContract.View{
 
     private static final String TAG = "LoginActivity";
@@ -52,8 +54,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View{
         webSettings.setJavaScriptEnabled(true);
         loginJSInterface = new LoginJSInterface(this);
         webView.addJavascriptInterface(loginJSInterface, "HTMLOUT");
-
         webView.setWebViewClient(new CustomWebViewClient());
+
         webView.loadUrl("http://portal.uestc.edu.cn");
     }
 

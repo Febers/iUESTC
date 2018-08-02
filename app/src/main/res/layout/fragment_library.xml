@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <!--
-  ~ Created by Febers 2018.
-  ~ Copyright (c). All rights reserved.
-  ~
-  ~ Last Modified 18-6-5 下午11:37
-  ~
-  -->
+<!--
+~ Created by Febers 2018.
+~ Copyright (c). All rights reserved.
+~
+~ Last Modified 18-6-5 下午11:37
+~
+-->
 
 <android.support.design.widget.CoordinatorLayout
     android:layout_width="match_parent"
@@ -34,91 +34,79 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-                android:orientation="vertical">
+            android:layout_margin="18dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:src="@drawable/ic_books_grey"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_search_black_24dp"/>
+                <EditText
+                    android:id="@+id/et_library_fragemnt"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:src="@drawable/ic_book_lib_pink" />
-                <android.support.v7.widget.SearchView
-                    android:id="@+id/library_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    app:defaultQueryHint="请输入查询内容"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:imeOptions="actionSearch"
-                    android:layout_marginTop="30dp"
-                    app:commitIcon="@color/white">
-                </android.support.v7.widget.SearchView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
-                    android:layout_marginTop="30dp">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.5"
-                        android:text="搜索类型"
-                        android:gravity="center_vertical"/>
-                    <Spinner
-                        android:id="@+id/sp_type"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1">
-                    </Spinner>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.5"
-                        android:text="校区"
-                        android:gravity="center_vertical"/>
-                    <Spinner
-                        android:id="@+id/sp_location"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1">
-                    </Spinner>
-                </LinearLayout>
-
-                <!--<android.support.v7.widget.CardView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="160dp"-->
-                    <!--android:layout_marginTop="20dp"-->
-                    <!--app:cardElevation="4dp"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--app:cardCornerRadius="4dp">-->
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:layout_marginLeft="10dp">-->
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="我的借阅"-->
-                        <!--android:textSize="15dp"-->
-                        <!--android:layout_marginTop="10dp"/>-->
-                    <!--<android.support.v7.widget.RecyclerView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content">-->
-                    <!--</android.support.v7.widget.RecyclerView>-->
-                <!--</LinearLayout>-->
-                <!--</android.support.v7.widget.CardView>-->
+                    android:singleLine="true"/>
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <RadioGroup
+                    android:id="@+id/rg_library_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/rb_lib_keyword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:checked="true"
+                        android:text="关键字"/>
+                    <RadioButton
+                        android:id="@+id/rb_lib_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="作者"/>
+                    <RadioButton
+                        android:id="@+id/rb_lib_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="题名"/>
+                    <RadioButton
+                        android:id="@+id/rb_lib_theme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="主题"/>
+                    <RadioButton
+                        android:id="@+id/rb_lib_isbn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="ISBN"/>
+                </RadioGroup>
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_lib_query"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="搜索"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

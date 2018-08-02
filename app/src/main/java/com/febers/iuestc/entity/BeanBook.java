@@ -20,6 +20,34 @@ public class BeanBook {
     private String status = "";
     private String bookID = "";
     private String date= "";
+    //移动图书馆
+    private String name = "";
+    private String infor = "";
+    private String url = "";
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getInfor() {
+        return infor;
+    }
+
+    public void setInfor(String infor) {
+        this.infor = infor;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getDate() {
         return date;

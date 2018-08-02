@@ -10,5 +10,6 @@ package com.febers.iuestc.module.library.model;
 
 public interface ILibraryModel {
     void readHistoryService(Boolean isRefresh, int page) throws Exception;
-    void queryBookService(String keyword, String  type, String postion, int status, int page, String nextPage) throws Exception;
+    void queryBookService(String keyword, int type,int page) throws Exception;
+    void bookDetailService(String url) throws Exception;
 }

@@ -9,7 +9,11 @@
 package com.febers.iuestc.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +21,13 @@ import android.widget.TextView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanBook;
+import com.febers.iuestc.module.library.view.LibDetailActivity;
 
 import java.util.List;
 
 public class AdapterQuery extends RecyclerView.Adapter<AdapterQuery.ViewHolder> {
 
+    private static final String TAG = "AdapterQuery";
     private Context mContext;
     private List<BeanBook> bookList;
     private String keyword;
@@ -32,18 +38,16 @@ public class AdapterQuery extends RecyclerView.Adapter<AdapterQuery.ViewHolder> 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvBookTitle;
-        TextView tvBookPosition;
-        TextView tvBookDetailPosition;
-        TextView tvBookGetBookCode;
+        TextView tvBookName;
+        TextView tvBookInfo;
+        CardView cvBookItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            tvBookTitle = itemView.findViewById(R.id.tv_lib_query_title);
-            tvBookPosition = itemView.findViewById(R.id.tv_lib_query_position);
-            tvBookDetailPosition = itemView.findViewById(R.id.tv_lib_query_detail_position);
-            tvBookGetBookCode = itemView.findViewById(R.id.tv_lib_query_get_book_code);
+            tvBookName = itemView.findViewById(R.id.tv_item_lib_name);
+            tvBookInfo = itemView.findViewById(R.id.tv_item_lib_info);
+            cvBookItem = itemView.findViewById(R.id.cv_book_item);
         }
     }
     @Override
@@ -60,17 +64,22 @@ public class AdapterQuery extends RecyclerView.Adapter<AdapterQuery.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         BeanBook book = bookList.get(position);
-//        holder.tvBookTitle.setText(Html.fromHtml(keywordToRed(book.getTitle())));
-        holder.tvBookTitle.setText(book.getTitle());
-        holder.tvBookPosition.setText(book.getPosition());
-        holder.tvBookDetailPosition.setText(book.getDetailPosition());
-        holder.tvBookGetBookCode.setText("索书号: "+book.getGetBookCode());
+//        holder.tvBookName.setText(Html.fromHtml(keywordToRed(book.getTitle())));
+        holder.tvBookName.setText(Html.fromHtml(book.getName()));
+        holder.tvBookInfo.setText(book.getInfor());
+        holder.cvBookItem.setOnClickListener( (View v) -> {
+            Log.i(TAG, "onBindViewHolder: click");
+            Intent intent = new Intent(mContext, LibDetailActivity.class);
+            intent.putExtra("url", bookList.get(position).getUrl());
+            mContext.startActivity(intent);
+        });
     }
 
     public void removeAll() {
         bookList.clear();
         notifyDataSetChanged();
     }
+
     @Override
     public int getItemCount() {
         return bookList.size();

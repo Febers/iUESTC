@@ -14,6 +14,8 @@ import android.util.Log;
 
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
+import com.febers.iuestc.base.BaseCode;
+import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanBook;
 import com.febers.iuestc.entity.BeanBookPosition;
 import com.febers.iuestc.module.library.presenter.LibraryContract;
@@ -44,9 +46,6 @@ public class LibraryModel implements ILibraryModel {
     private LibraryContract.Presenter libraryPresenter;
     private OkHttpClient mClient;
     private List<BeanBook> bookList = new ArrayList<>();
-    private String result = "";
-    private String nextPageUrl = "";
-    private Context context = BaseApplication.getContext();
 
     public LibraryModel(LibraryContract.Presenter presenter) {
         libraryPresenter = presenter;
@@ -63,12 +62,12 @@ public class LibraryModel implements ILibraryModel {
                     return;
                 }
             }
-            String stId = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_user_id), "");
-            String stPw = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_user_pw), "");
+//            String stId = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_user_id), "");
+//            String stPw = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_user_pw), "");
             OkHttpClient client = SingletonClient.getInstance();
             FormBody formLogin = new FormBody.Builder()
-                    .add("extpatid", stId)
-                    .add("extpatpw", stPw)
+//                    .add("extpatid", stId)
+//                    .add("extpatpw", stPw)
                     .add("code", "")
                     .add("pin", "")
                     .add("submit.x", RandomUtil.getRandomFrom0(100)+"")
@@ -138,7 +137,8 @@ public class LibraryModel implements ILibraryModel {
             bookList.add(book);
         }
         if (bookList.size() != 0) {
-            SharedPreferences preferences = context.getSharedPreferences("book_history", 0);
+            SharedPreferences preferences = BaseApplication.getContext()
+                    .getSharedPreferences("book_history", 0);
             SharedPreferences.Editor editor = preferences.edit();
             int size = preferences.getInt("size", 0);
             int i = size;
@@ -148,106 +148,95 @@ public class LibraryModel implements ILibraryModel {
             editor.putInt("size", i);
             editor.commit();
         }
-        CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_library_history), true);
+        CustomSharedPreferences.getInstance().put(BaseApplication.getContext()
+                .getString(R.string.sp_library_history), true);
         libraryPresenter.historyResult(bookList);
     }
 
-    /**
-     * X(关键字) t(题名) a(作者)
-     * charg 关键词
-     * shscope 校区 1(全部), 2(沙河), 3(清水河)
-     * sortdropdown -(相关度)
-     * SORT 排序依据 AXZ(题名) D(相关度)
-     */
     @Override
-    public void queryBookService(final String keyword, final String  type, final String  postion,
-                                 int status, final int page, final String nextPage) throws Exception{
+    public void queryBookService(final String keyword, final int type, final int page) throws Exception{
         mClient = SingletonClient.getInstance();
         new Thread( () -> {
-            String url = nextPage;
-            if (!nextPage.equals("null")) {
-                url = "https://webpac.uestc.edu.cn" + nextPage;
-            } else {
-                url = "https://webpac.uestc.edu.cn/search~S3*chx/?searchtype=X" +
-                        "&searcharg=" + keyword +
-                        "&searchscope=" + postion +
-                        "&sortdropdown=t" +
-                        "&SORT=DZ" +
-                        "&extended=0" +
-                        "&SUBMIT=%E6%A3%80%E7%B4%A2" +
-                        "&searchlimits=" +
-                        "&searchorigarg=" + type + keyword;
-            }
-            Log.d(TAG, "url: " + url);
-
+            String url = "http://222.197.165.97:8080/search?" +
+                        "kw=" + keyword + "&" +
+                        "searchtype=" + queryTypeChange(type) + "&" +
+                        "page=" + page + "&" +
+                        "xc=6";
+            Log.i(TAG, "queryBookService: "+queryTypeChange(type));
             Request request = new Request.Builder()
                     .url(url)
                     .get()
                     .build();
             try {
                 Response response = mClient.newCall(request).execute();
-                result = response.body().string();
+                String result = response.body().string();
+                resolveQueryHtml(page, result);
             } catch (SocketTimeoutException e) {
                 libraryPresenter.errorResult("请求超时,可能需要校园网");
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-                libraryPresenter.errorResult("搜索出错，请联系开发者");
+                libraryPresenter.errorResult("搜索出错");
             }
-
-            Document document = Jsoup.parse(result);
-            Elements elements = document.select("td.briefCitRow");
-            for (Element e:elements) {
-                BeanBook book = new BeanBook();
-                book.setTitle(e.select("span.briefcitTitle").text());
-                try{
-                    book.setPosition(e.select("[width=27%]").get(1).text());
-                    book.setGetBookCode(e.select("[width=20%]").get(1).text());
-                    book.setStatus(e.select("[width=15%]").get(1).text());
-                    book.setBookID(e.select("[width=30%]").get(1).text());
-                    book.setDetailPosition(getPosition(book.getBookID()));
-                    bookList.add(book);
-                }catch (IndexOutOfBoundsException ie) {
-                    continue;
-                }
-            }
-
-            String next = page+1+"";
-            Elements elsPage = document.select("a");
-            for (Element element:elsPage) {
-                if (element.text().equals(next)) {
-                    nextPageUrl = element.attr("href");
-                    break;
-                }
-            }
-            libraryPresenter.queryResult("成功", nextPageUrl, bookList);
         }).start();
     }
 
-    private String  getPosition(String bookID) {
-        String url = "http://222.197.165.95:81/RFIDTest/WebServiceByBookID.asmx/" +
-                "GetBookCaseTransByBookID?jsoncallback=jsonp1524200829325&_=1524200829334&szBookID=" + bookID;
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(3, TimeUnit.SECONDS)
-                .readTimeout(3, TimeUnit.SECONDS)
-                .build();
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
+    private void resolveQueryHtml(int page, String html) {
+        if (!isInQuery(page, html)) {
+            return;
+        }
+        List<BeanBook> bookList = new ArrayList<>();
+        Document document = Jsoup.parse(html);
+        Elements elements = document.select("li");
+        for (int i = 0; i < elements.size(); i++) {
+            BeanBook book = new BeanBook();
+            String code = elements.get(i).select("font[color=\"black\"]").text();
+            book.setUrl("http://222.197.165.97:8080"+elements.get(i).select("a[href]").attr("href"));
+            book.setName(elements.get(i).select("a[class=\"title\"]").text());
+            book.setInfor(elements.get(i).text()
+                    .replace(code, "")
+                    .replace(book.getName(), "")
+                    .replace("   ", ""));
+            bookList.add(book);
+        }
+        BaseEvent<List<BeanBook>> event = new BaseEvent<>(BaseCode.UPDATE, bookList);
+        libraryPresenter.queryResult(event);
+    }
+
+    @Override
+    public void bookDetailService(String url) {
+        mClient = SingletonClient.getInstance();
+        new Thread( () -> {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .get()
+                    .build();
+            try {
+                Response response = mClient.newCall(request).execute();
+                String result = response.body().string();
+                resolveBookDetail(result);
+            } catch (SocketTimeoutException e) {
+                libraryPresenter.errorResult("请求超时");
+            } catch (IOException e) {
+                e.printStackTrace();
+                libraryPresenter.errorResult("获取图书详情出错");
+            }
+        }).start();
+    }
+
+
+    private void resolveBookDetail(String html) {
         try {
-            Response response = client.newCall(request).execute();
-            String result = response.body().string();
-            int s = result.indexOf("{");
-            result = result.substring(s, result.length()-1);
-            Gson gson = new Gson();
-            BeanBookPosition bookPosition = gson.fromJson(result, BeanBookPosition.class);
-            return bookPosition.getResponseData().replace(":", "");
-        } catch (SocketTimeoutException e) {
+            StringBuilder builder = new StringBuilder();
+            int startHeader = html.indexOf("<div class=\"header\">");
+            int endHeader = html.indexOf("</div>", startHeader);
+            int startBottom = html.indexOf("<div class=\"bottom\">");
+            int endBottom = html.lastIndexOf("</div>");
+            builder.append(html.substring(0, startHeader+1));
+            builder.append(html.substring(endHeader+1, startBottom));
+            libraryPresenter.bookDetailResult(new BaseEvent<>(BaseCode.UPDATE, builder.toString()));
+        } catch (Exception e) {
             e.printStackTrace();
-            return "查询超时";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
+            libraryPresenter.bookDetailResult(new BaseEvent<>(BaseCode.UPDATE, html));
         }
     }
 
@@ -269,4 +258,35 @@ public class LibraryModel implements ILibraryModel {
         return true;
     }
 
+    private String  queryTypeChange(int type) {
+        if (type == 0) {
+            return "X";  //关键字
+        }
+        if (type == 1) {
+            return "a";  //作者
+        }
+        if (type == 2) {
+            return "t";  //题名
+        }
+        if (type == 3) {
+            return "d";  //主题
+        }
+        if (type == 4) {
+            return "i";  //ISBN
+        }
+        return "X";
+    }
+
+    private Boolean isInQuery(int page, String html) {
+        Document document = Jsoup.parse(html);
+        Elements elements = document.select("td[align=\"center\"]");
+        int startPage = elements.text().indexOf("共");
+        int endPage = elements.text().indexOf("页");
+        try {
+            int pages = Integer.parseInt(elements.text().substring(startPage+1, endPage));
+            return page <= pages;
+        } catch (Exception e) {
+        }
+        return false;
+    }
 }

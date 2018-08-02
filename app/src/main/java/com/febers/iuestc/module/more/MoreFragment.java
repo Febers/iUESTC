@@ -192,26 +192,26 @@ public class MoreFragment extends BaseFragment {
                 startActivity(i1);
                 HomeFragmentManager.clearFragment(99);
                 break;
-            case 2:
-                Intent i2 = new Intent(getActivity(), NewsActivity.class);
-                i2.putExtra("type", 1);
-                startActivity(i2);
-                HomeFragmentManager.clearFragment(99);
-                break;
-            case 3:
+//            case 2:
+//                Intent i2 = new Intent(getActivity(), NewsActivity.class);
+//                i2.putExtra("type", 1);
+//                startActivity(i2);
+//                HomeFragmentManager.clearFragment(99);
+//                break;
+            case 3-1:
                 startActivity(new Intent(getActivity(), BusActivity.class));
                 HomeFragmentManager.clearFragment(99);
                 break;
-            case 4:
+            case 4-1:
                 startActivity(new Intent(getActivity(), CalActivity.class));
                 HomeFragmentManager.clearFragment(99);
                 break;
-            case 5:
+            case 5-1:
                 startActivity(new Intent(getActivity(), ThemeActivity.class));
                 HomeFragmentManager.clearFragment(99);
                 getActivity().finish();
                 break;
-            case 6:
+            case 6-1:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
                 HomeFragmentManager.clearFragment(99);
                 break;
@@ -231,7 +231,7 @@ public class MoreFragment extends BaseFragment {
 
         beanSettingList.add(stService);
         beanSettingList.add(stUnderJW);
-        beanSettingList.add(stPostJW);
+//        beanSettingList.add(stPostJW);
         beanSettingList.add(stBus);
         beanSettingList.add(stCalendar);
         beanSettingList.add(stTheme);
