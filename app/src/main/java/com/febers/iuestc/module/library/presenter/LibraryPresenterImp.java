@@ -8,11 +8,13 @@
 
 package com.febers.iuestc.module.library.presenter;
 
+import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanBook;
 import com.febers.iuestc.module.library.model.ILibraryModel;
 import com.febers.iuestc.module.library.model.LibraryModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LibraryPresenterImp extends LibraryContract.Presenter {
@@ -33,6 +35,7 @@ public class LibraryPresenterImp extends LibraryContract.Presenter {
             e.printStackTrace();
             if (mView != null) {
                 mView.onError("查询图书出现异常");
+                queryResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
             }
         }
     }

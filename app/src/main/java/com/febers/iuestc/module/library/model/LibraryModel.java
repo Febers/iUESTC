@@ -162,7 +162,6 @@ public class LibraryModel implements ILibraryModel {
                         "searchtype=" + queryTypeChange(type) + "&" +
                         "page=" + page + "&" +
                         "xc=6";
-            Log.i(TAG, "queryBookService: "+queryTypeChange(type));
             Request request = new Request.Builder()
                     .url(url)
                     .get()
@@ -173,15 +172,18 @@ public class LibraryModel implements ILibraryModel {
                 resolveQueryHtml(page, result);
             } catch (SocketTimeoutException e) {
                 libraryPresenter.errorResult("请求超时,可能需要校园网");
+                libraryPresenter.queryResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
             } catch (IOException e) {
                 e.printStackTrace();
                 libraryPresenter.errorResult("搜索出错");
+                libraryPresenter.queryResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
             }
         }).start();
     }
 
     private void resolveQueryHtml(int page, String html) {
-        if (!isInQuery(page, html)) {
+        if (html.contains("暂无馆藏") || (!isInQuery(page, html))) {
+            libraryPresenter.queryResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
             return;
         }
         List<BeanBook> bookList = new ArrayList<>();
@@ -286,7 +288,8 @@ public class LibraryModel implements ILibraryModel {
             int pages = Integer.parseInt(elements.text().substring(startPage+1, endPage));
             return page <= pages;
         } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
     }
 }

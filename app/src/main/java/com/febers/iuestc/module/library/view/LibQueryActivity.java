@@ -22,12 +22,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
+import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.home.view.HomeActivity;
 import com.febers.iuestc.adapter.AdapterHistory;
@@ -52,6 +54,7 @@ public class LibQueryActivity extends BaseActivity implements LibraryContract.Vi
     private SmartRefreshLayout smartRefreshLayout;
     private RecyclerView rvLibQuery;
     private AdapterQuery adapterQuery;
+    private ImageView imgNull;
     private String keyword;
     private int page=1;
     private int type;
@@ -92,6 +95,8 @@ public class LibQueryActivity extends BaseActivity implements LibraryContract.Vi
             sendQueryRequest(true, keyword, type, page);
         });
         sendQueryRequest(false, keyword, type, page);
+
+        imgNull = findViewById(R.id.iv_null_lib_query);
     }
 
     @Override
@@ -102,14 +107,16 @@ public class LibQueryActivity extends BaseActivity implements LibraryContract.Vi
         if (!(event.getDate().size()<12)) {
             smartRefreshLayout.setEnableLoadMore(true);
         }
-        if (page!=1) {
-            runOnUiThread( () -> {
-                adapterQuery.notifyDataSetChanged();
-            });
-            return;
-        }
         runOnUiThread( () -> {
-            adapterQuery = new AdapterQuery(event.getDate());
+            if (page ==1 && event.getCode() == BaseCode.ERROR) {
+                imgNull.setVisibility(View.VISIBLE);
+                return;
+            }
+            if (page!=1) {
+                adapterQuery.notifyDataSetChanged();
+                return;
+            }
+            adapterQuery = new AdapterQuery(bookList);
             rvLibQuery.setAdapter(adapterQuery);
         });
     }

@@ -37,18 +37,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_lib_query"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:nestedScrollingEnabled="false">
-            </android.support.v7.widget.RecyclerView>
-
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/iv_null_lib_query"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="50dp"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_null_black_line"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_lib_query"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false">
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srlAccentColor="@color/colorAccent"
+            app:srlAccentColor="?attr/colorAccent"
             app:srlClassicsSpinnerStyle="Translate">
         </com.scwang.smartrefresh.layout.footer.ClassicsFooter>
 

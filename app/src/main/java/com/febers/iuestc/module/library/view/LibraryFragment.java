@@ -95,8 +95,12 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
     }
 
     private void queryQuest() {
+        String keyword = etLibFragment.getText().toString();
+        if (keyword ==null || keyword.trim().isEmpty()) {
+            return;
+        }
         Intent intent = new Intent(getContext(), LibQueryActivity.class);
-        intent.putExtra("keyword", etLibFragment.getText().toString());
+        intent.putExtra("keyword", keyword);
         intent.putExtra("type", mType);
         startActivity(intent);
         getActivity().finish();
