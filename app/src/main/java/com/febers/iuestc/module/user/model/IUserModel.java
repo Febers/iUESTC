@@ -9,5 +9,5 @@
 package com.febers.iuestc.module.user.model;
 
 public interface IUserModel {
-    void userDetailService(Boolean isRefresh);
+    void userDetailService(Boolean isRefresh) throws Exception;
 }

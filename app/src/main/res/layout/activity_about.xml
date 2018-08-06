@@ -42,27 +42,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="0dp"
+                android:layout_marginBottom="15dp"
                 android:clickable="true">
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_margin="5dp"
                     android:src="@drawable/ginkgo_blue"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_name"
                     android:textSize="25dp"
-                    android:paddingLeft="20dp"
-                    android:textColor="@color/black"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
 
             <com.lucasurbas.listitemview.ListItemView
+                android:id="@+id/item_view_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:liv_title="版本"
-                app:liv_subtitle="@string/app_version"
+                app:liv_title="@string/app_version"
+                app:liv_subtitle="检查更新"
                 app:liv_icon="@drawable/ic_about_about_black"
                 app:liv_displayMode="icon"
                 android:clickable="true"/>

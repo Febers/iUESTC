@@ -10,6 +10,10 @@ package com.febers.iuestc.module.user.presenter;
 
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
+import com.febers.iuestc.base.BaseEvent;
+import com.febers.iuestc.entity.BeanUser;
+import com.febers.iuestc.module.user.model.IUserModel;
+import com.febers.iuestc.module.user.model.UserModel;
 import com.febers.iuestc.module.user.presenter.UserContract;
 import com.febers.iuestc.util.CustomSharedPreferences;
 
@@ -25,7 +29,17 @@ public class UserPresenterImpl extends UserContract.Presenter{
     }
 
     @Override
-    public void userDetailRequest() {
+    public void userDetailRequest(Boolean isRefresh) {
+        IUserModel userModel = new UserModel(this);
+        try {
+            userModel.userDetailService(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    public void userDetailResult(BaseEvent<BeanUser> event) {
+        mEduView.showUserDetail(event);
     }
 }

@@ -2,39 +2,29 @@
  * Created by Febers 2018.
  * Copyright (c). All rights reserved.
  *
- * Last Modified 18-6-17 下午2:22
+ * Last Modified 18-8-5 上午2:46
  *
  */
 
 package com.febers.iuestc.module.ecard.presenter;
 
-import com.febers.iuestc.base.BasePresenter;
-import com.febers.iuestc.base.BaseView;
-import com.febers.iuestc.entity.BeanECardPayRecord;
-
-import java.util.List;
+import com.febers.iuestc.base.BaseEduPresenter;
+import com.febers.iuestc.base.BaseEduView;
+import com.febers.iuestc.base.BaseEvent;
+import com.febers.iuestc.entity.BeanEduECard;
 
 public interface ECardContract {
 
-    interface View extends BaseView {
-        void showLoginResult(String msg);
-        void showECardBalance(String balance);
-        void showElecBalance(String balance);
-        void showPayRecord(List<BeanECardPayRecord.data.consumes> consumesList);
+    interface View extends BaseEduView {
+        void showhomePageResult(BaseEvent event);
+        void showDetailPageResult(BaseEvent<BeanEduECard> event);
     }
 
-    abstract class Presenter extends BasePresenter<ECardContract.View> {
-
+    abstract class Presenter extends BaseEduPresenter<ECardContract.View> {
         public Presenter(View view) {
             super(view);
         }
-
-        public abstract void loginECardRequest(String phone, String pw);
-        public abstract void loginResult(String result);
-        public abstract void balanceRequest();
-        public abstract void eCardBalanceResult(String result);
-        public abstract void elecBalanceResult(String result);
-        public abstract void recordResult(List<BeanECardPayRecord.data.consumes> consumesList);
-        public abstract void localDataRequest(int recordSize);
+        public abstract void homePageResult(BaseEvent event);
+        public abstract void DetailPageResult(BaseEvent<BeanEduECard> event);
     }
 }

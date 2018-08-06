@@ -8,6 +8,7 @@
 
 package com.febers.iuestc.module.exam.presenter;
 
+import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.module.exam.model.ExamModel;
 import com.febers.iuestc.module.exam.model.IExamModel;
@@ -29,16 +30,16 @@ public class ExamPresenterImpl extends ExamContract.Presenter {
             examModel.examService(isRefresh, type);
         } catch (Exception e) {
             e.printStackTrace();
-            if (mView != null) {
-                mView.onError("获取考试信息出现异常，请联系开发者");
+            if (mEduView != null) {
+                mEduView.onError("获取考试信息出现异常，请联系开发者");
             }
         }
     }
 
     @Override
-    public void examResult(List<BeanExam> examList) {
-        if (mView != null) {
-            mView.showExam(examList);
+    public void examResult(BaseEvent<List<BeanExam>> event) {
+        if (mEduView != null) {
+            mEduView.showExam(event);
         }
     }
 }

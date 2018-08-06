@@ -53,13 +53,14 @@ public class CalActivity extends BaseActivity implements SchoolCalendarContact.V
         imageViewCal = findViewById(R.id.imgview_calender);
         if (!CustomSharedPreferences.getInstance()
                 .get(BaseApplication.getContext().getString(R.string.sp_get_calender), false)) {
-            getCalender(true);
+            dateRequest(true);
             return;
         }
-        getCalender(false);
+        dateRequest(false);
     }
 
-    private void getCalender(Boolean isRefresh) {
+    @Override
+    public void dateRequest(Boolean isRefresh) {
         if (isRefresh) {
             showProgressDialog();
         }
@@ -93,7 +94,7 @@ public class CalActivity extends BaseActivity implements SchoolCalendarContact.V
                 finish();
                 break;
             case R.id.item_calender_refresh:
-                getCalender(true);
+                dateRequest(true);
                 break;
             case R.id.item_calender_open_web:
                 Intent intent = new Intent(Intent.ACTION_VIEW,

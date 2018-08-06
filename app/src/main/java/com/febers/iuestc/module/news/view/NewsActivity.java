@@ -48,7 +48,6 @@ public class NewsActivity extends BaseActivity {
     }
 
 
-
     //本科生
     private void initUnderUI() {
         Toolbar toolbar = findViewById(R.id.tb_news);
@@ -84,6 +83,10 @@ public class NewsActivity extends BaseActivity {
 
         adapterNewsViewPager = new AdapterNewsViewPager(getSupportFragmentManager(), new String[]{"通知公告", "思想教育", "学生管理"}, 1);
         viewPager.setAdapter(adapterNewsViewPager);
+    }
+
+    @Override
+    public void dateRequest(Boolean isRefresh) {
     }
 
     /**

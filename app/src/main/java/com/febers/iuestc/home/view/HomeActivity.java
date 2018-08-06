@@ -208,7 +208,9 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         return true;
     }
 
-
+    @Override
+    public void dateRequest(Boolean isRefresh) {
+    }
 
     @Override
     protected Boolean isSlideBack() {

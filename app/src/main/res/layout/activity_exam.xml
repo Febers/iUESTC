@@ -28,15 +28,15 @@
             app:layout_scrollFlags="scroll|enterAlways|snap"/>
     </android.support.design.widget.AppBarLayout>
 
-    <!--<com.scwang.smartrefresh.layout.SmartRefreshLayout-->
-        <!--android:id="@+id/srl_exam"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_exam"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:scrollbars="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -83,5 +83,5 @@
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-    <!--</com.scwang.smartrefresh.layout.SmartRefreshLayout>-->
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </android.support.design.widget.CoordinatorLayout>

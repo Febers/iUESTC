@@ -13,9 +13,12 @@ import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Response;
 
 public class SingletonClient {
 
@@ -31,7 +34,7 @@ public class SingletonClient {
             synchronized (SingletonClient.class) {
                 if (singletonClient == null) {
                     singletonClient = new OkHttpClient.Builder()
-                            .connectTimeout(10, TimeUnit.SECONDS)
+                            .connectTimeout(20, TimeUnit.SECONDS)
                             .readTimeout(10, TimeUnit.SECONDS)
                             .cookieJar(new CustomCookiesManager())
                             .build();

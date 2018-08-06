@@ -8,6 +8,8 @@
 
 package com.febers.iuestc.module.login.presenter;
 
+import com.febers.iuestc.base.BaseEduPresenter;
+import com.febers.iuestc.base.BaseEduView;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BasePresenter;
 import com.febers.iuestc.base.BaseView;
@@ -15,13 +17,11 @@ import com.febers.iuestc.module.login.model.LoginResult;
 
 public interface LoginContract {
 
-    interface View extends BaseView{
-        void loginSuccess(BaseEvent event);
-        void loginFail(String failMsg);
-        void loginError(String errorMsg);
+    interface View extends BaseEduView {
+        void loginResult(BaseEvent event);
     }
 
-    abstract class Presenter extends BasePresenter<LoginContract.View> {
+    abstract class Presenter extends BaseEduPresenter<View> {
         public Presenter(View view) {
             super(view);
         }

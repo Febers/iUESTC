@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Febers 2018.
+  ~ Copyright (c). All rights reserved.
+  ~
+  ~ Last Modified 18-8-3 下午3:03
+  ~
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="44dp">
+    <TextView
+        android:id="@+id/tv_item_user_param"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:layout_marginLeft="2dp"
+        android:layout_gravity="center_vertical"
+        android:text="通讯地址"/>
+
+    <TextView
+        android:id="@+id/tv_item_user_value"
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textSize="16dp"
+        android:maxLines="2"
+        android:gravity="end"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        android:text="张三" />
+</LinearLayout>

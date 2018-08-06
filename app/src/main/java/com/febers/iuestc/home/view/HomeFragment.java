@@ -78,4 +78,8 @@ public class HomeFragment extends BaseFragment{
         }
         return gridList;
     }
+
+    @Override
+    public void dateRequest(Boolean isRefresh) {
+    }
 }

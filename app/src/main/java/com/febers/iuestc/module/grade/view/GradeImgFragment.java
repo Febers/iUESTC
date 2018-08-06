@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.febers.iuestc.R;
+import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.module.grade.presenter.GradeContract;
 import com.febers.iuestc.entity.BeanGradeSummary;
@@ -52,7 +53,7 @@ public class GradeImgFragment extends BaseFragment implements GradeContract.View
 
     @Override
     protected void lazyLoad() {
-        getGrade();
+        dateRequest(false);
     }
 
     @Override
@@ -61,8 +62,9 @@ public class GradeImgFragment extends BaseFragment implements GradeContract.View
         initScatterChart();
     }
 
-    private void getGrade() {
-        gradePresenter.gradeRequest(false);
+    @Override
+    public void dateRequest(Boolean isRefresh) {
+        gradePresenter.gradeRequest(isRefresh);
     }
 
     /**
@@ -147,14 +149,6 @@ public class GradeImgFragment extends BaseFragment implements GradeContract.View
     }
 
     @Override
-    public void statusToSuccess() {
-
-    }
-
-    @Override
     public void statusToFail() {
-        //登录状态失效，需要重新登录
-        Log.i(TAG, "statusToFail: ");
-        startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 }

@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -43,7 +44,6 @@ import com.febers.iuestc.util.LogoutUtil;
 import com.febers.iuestc.view.manager.HomeFragmentManager;
 import com.febers.iuestc.view.custom.CustomGridView;
 import com.febers.iuestc.view.custom.CustomLoginDialog;
-import com.tencent.bugly.beta.Beta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,16 +57,11 @@ public class MoreFragment extends BaseFragment {
 
     private static final String TAG = "MoreFragment";
 
-    private Toolbar mToolbar;
     private List<BeanSetting> beanSettingList = new ArrayList<>();
     private ListView mListView;
     private TextView tvName;
     private TextView tvId;
     private CardView mCardView;
-    private CustomLoginDialog customLoginDialog;
-    private TextInputEditText tieId;
-    private String stId;
-    private String stPw;
     private CustomGridView mGridView;
     private SimpleAdapter adapter;
 
@@ -83,16 +78,15 @@ public class MoreFragment extends BaseFragment {
     @Override
     protected void initView() {
         setHasOptionsMenu(true);
-        mToolbar = findViewById(R.id.user_toolbar);
+        Toolbar mToolbar = findViewById(R.id.user_toolbar);
         mToolbar.setTitle("i成电");
         mToolbar.inflateMenu(R.menu.more_menu);
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
-        tvName = findViewById(R.id.tv_user_name);
-        tvId = findViewById(R.id.tv_user_id);
-
+        tvName = findViewById(R.id.tv_fragment_user_name);
+        tvId = findViewById(R.id.tv_fragment_user_id);
         mListView = findViewById(R.id.lv_user_setting);
         AdapterSetting adapterSetting = new AdapterSetting(getActivity(),
-                R.layout.item_user_setting, beanSettingList);
+                R.layout.item_more_setting, beanSettingList);
         mListView.setAdapter(adapterSetting);
         mListView.setOnItemClickListener( (adapterView, view, i, l) ->{
             onClickListViewItem(i);
@@ -100,12 +94,8 @@ public class MoreFragment extends BaseFragment {
 
         mCardView = findViewById(R.id.cv_user);
         mCardView.setOnClickListener(v ->  {
-            if (!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login), false)) {
-//                showLoginDialog();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-            } else {
-                //显示个人详情页
-            }
+            startActivity(new Intent(getActivity(), UserActivity.class));
+            HomeFragmentManager.clearFragment(99);
         });
 
         String[] from = {"image", "title"};
@@ -116,11 +106,9 @@ public class MoreFragment extends BaseFragment {
         mGridView.setOnItemClickListener( (adapterView, view, i, l) -> {
                 onClickGridViewItem(i);
         });
-
         initSettingList();
+        dateRequest(true);
     }
-
-
 
     /**
      * GridView显示
@@ -152,16 +140,10 @@ public class MoreFragment extends BaseFragment {
     private void onClickGridViewItem(int position) {
         switch (position) {
             case 0:
-                if (!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login),false)) {
-                    break;
-                }
                 startActivity(new Intent(getActivity(), ExamActivity.class));
                 HomeFragmentManager.clearFragment(99);
                 break;
             case 1:
-                if (!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login),false)) {
-                    break;
-                }
                 startActivity(new Intent(getActivity(), GradeActivity.class));
                 HomeFragmentManager.clearFragment(99);
                 break;
@@ -246,38 +228,6 @@ public class MoreFragment extends BaseFragment {
         HomeFragmentManager.clearFragment(99);
     }
 
-    public void showLoginDialog() {
-        if (customLoginDialog == null) {
-            customLoginDialog = new CustomLoginDialog(getContext());
-            customLoginDialog.setShowTitle(true);
-            tieId = customLoginDialog.getTieUserId();
-            customLoginDialog.setOnLoginListener(v -> {
-                switch (v.getId()) {
-                    case R.id.bt_dialog_login_enter:
-                        if (!BaseApplication.checkNetConnecting()) {
-                            Toast.makeText(getContext(), "当前网络不可用", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        stId = customLoginDialog.getStId();
-                        stPw = customLoginDialog.getStPw();
-                        if (stId.equals("") || stPw.equals("")) {
-                            Toast.makeText(getContext(), "请输入正确的格式", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        customLoginDialog.hide();
-                        showProgressDialog();
-                        break;
-                    case R.id.bt_dialog_login_cancel:
-                        customLoginDialog.dismiss();
-                        break;
-                    default:
-                        break;
-                }
-            });
-        }
-        customLoginDialog.show();
-    }
-
     private void logout() {
         LogoutUtil.logoutSchool();
         HomeFragmentManager.clearFragment(-1);
@@ -295,7 +245,8 @@ public class MoreFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.user_menu_logout:
-                if (!CustomSharedPreferences.getInstance().get(getContext().getString(R.string.sp_is_login),false)) {
+                if (!CustomSharedPreferences.getInstance()
+                        .get(getContext().getString(R.string.sp_is_login),false)) {
                     break;
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -311,5 +262,24 @@ public class MoreFragment extends BaseFragment {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void dateRequest(Boolean isRefresh) {
+        if (CustomSharedPreferences.getInstance()
+                .get(getContext().getString(R.string.sp_is_login),false)) {
+            String userName = CustomSharedPreferences.getInstance()
+                    .get(getContext().getString(R.string.sp_user_name), "");
+            String userId = CustomSharedPreferences.getInstance()
+                    .get(getContext().getString(R.string.sp_user_id), "");
+            if (userName.trim().isEmpty()) {
+                userName = "已登录";
+            }
+            if (userName.trim().isEmpty()) {
+                userName = "";
+            }
+            tvName.setText(userName);
+            tvId.setText(userId);
+        }
     }
 }

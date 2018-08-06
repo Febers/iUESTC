@@ -24,11 +24,15 @@ import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterExam;
+import com.febers.iuestc.base.BaseCode;
+import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.module.exam.presenter.ExamContract;
 import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.module.exam.presenter.ExamPresenterImpl;
 import com.febers.iuestc.module.login.view.LoginActivity;
 import com.febers.iuestc.util.CustomSharedPreferences;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,13 +44,12 @@ public class ExamActivity extends BaseActivity implements ExamContract.View{
 
     private static final String TAG = "ExamActivity";
     private RecyclerView rvExam;
-    private LinearLayoutManager llmExam;
     private AdapterExam adapterExam;
     private List<BeanExam> mExamList = new ArrayList<>();
     private Toolbar toolbar;
+    private SmartRefreshLayout smartRefreshLayout;
     private ExamContract.Presenter examPresenter = new ExamPresenterImpl(this);
     private RadioGroup rgExam;
-    private RadioButton rbMiddle, rbFinal;
     private int mType = 1;
     private String examName = "exam_1";
 
@@ -59,9 +62,8 @@ public class ExamActivity extends BaseActivity implements ExamContract.View{
     protected void findViewById() {
         toolbar = findViewById(R.id.tb_exam);
         rvExam = findViewById(R.id.rv_exam);
-        rbMiddle = findViewById(R.id.rb_exam_middle);
-        rbFinal = findViewById(R.id.rb_exam_final);
         rgExam = findViewById(R.id.rg_exam);
+        smartRefreshLayout = findViewById(R.id.srl_exam);
     }
 
     @Override
@@ -93,23 +95,35 @@ public class ExamActivity extends BaseActivity implements ExamContract.View{
         } else {
             getExam(false, mType);
         }
+        smartRefreshLayout.setEnableLoadMore(false);
+        smartRefreshLayout.autoRefresh();
+        smartRefreshLayout.setOnRefreshListener( (RefreshLayout refreshLayout) -> {
+           getExam(true, mType);
+        });
     }
 
     @Override
-    public void showExam(List<BeanExam> examList) {
-        dismissProgressDialog();
+    public void showExam(BaseEvent<List<BeanExam>> event) {
         mExamList.clear();
-        mExamList.addAll(examList);
+        mExamList.addAll(event.getDate());
         runOnUiThread( () -> {
             adapterExam = new AdapterExam(mExamList);
             rvExam.setAdapter(adapterExam);
+            if (event.getCode() == BaseCode.UPDATE) {
+                smartRefreshLayout.finishRefresh(true);
+            }
         });
+    }
+
+    @Override
+    public void dateRequest(Boolean isRefresh) {
+        getExam(isRefresh, mType);
     }
 
     private void getExam(Boolean isRefresh, int type) {
         if (isRefresh) {
             if (!BaseApplication.checkNetConnecting()) {
-                Toast.makeText(ExamActivity.this, "当前网络不可用", Toast.LENGTH_SHORT).show();
+                onError("当前网络不可用");
                 return;
             }
         }
@@ -118,9 +132,9 @@ public class ExamActivity extends BaseActivity implements ExamContract.View{
         } else if (type == 1) {
             examName = "exam_1";
         }
-        if ((!CustomSharedPreferences.getInstance().get(examName, false)) || (isRefresh)) {
-            showProgressDialog();
-        }
+//        if ((!CustomSharedPreferences.getInstance().get(examName, false)) || (isRefresh)) {
+//            showProgressDialog();
+//        }
         examPresenter.examRequest(isRefresh, type);
     }
 
@@ -143,14 +157,14 @@ public class ExamActivity extends BaseActivity implements ExamContract.View{
     }
 
     @Override
-    public void statusToSuccess() {
-
+    public void statusToFail() {
+        smartRefreshLayout.finishRefresh(false);
+        startActivityForResult(new Intent(ExamActivity.this, LoginActivity.class), BaseCode.STATUS);
     }
 
     @Override
-    public void statusToFail() {
-        //登录状态失效，需要重新登录
-        Log.i(TAG, "statusToFail: ");
-        startActivity(new Intent(ExamActivity.this, LoginActivity.class));
+    public void onError(String error) {
+        smartRefreshLayout.finishRefresh(false);
+        super.onError(error);
     }
 }

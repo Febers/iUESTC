@@ -27,9 +27,9 @@ import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterRecord;
 import com.febers.iuestc.base.BaseFragment;
-import com.febers.iuestc.module.ecard.presenter.ECardContract;
+import com.febers.iuestc.module.ecard.presenter.BeforeECardContract;
 import com.febers.iuestc.entity.BeanECardPayRecord;
-import com.febers.iuestc.module.ecard.presenter.ECardPresenterImpl;
+import com.febers.iuestc.module.ecard.presenter.BeforeECardPresenterImpl;
 import com.febers.iuestc.util.CustomSharedPreferences;
 import com.febers.iuestc.util.LogoutUtil;
 import com.febers.iuestc.view.custom.CustomLoginDialog;
@@ -38,11 +38,11 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
-public class ECardFragment extends BaseFragment implements ECardContract.View{
+public class ECardFragment extends BaseFragment implements BeforeECardContract.View{
 
     private static final String TAG = "ECardFragment";
 
-    private ECardContract.Presenter mPresenter = new ECardPresenterImpl(this);
+    private BeforeECardContract.Presenter mPresenter = new BeforeECardPresenterImpl(this);
     private Boolean isLogin = CustomSharedPreferences.getInstance()
             .get(mContext.getString(R.string.sp_ecard_is_login), false);
     private List<BeanECardPayRecord.data.consumes> list;
@@ -97,7 +97,7 @@ public class ECardFragment extends BaseFragment implements ECardContract.View{
                 showLoginDialog();
             }
         });
-        mSmartRefreshLayout = findViewById(R.id.srl_ecard);
+        mSmartRefreshLayout = findViewById(R.id.srl_ecard_fragment);
         mSmartRefreshLayout.setEnableRefresh(true);
         mSmartRefreshLayout.setEnableLoadMore(false);
         mSmartRefreshLayout.setOnRefreshListener( (refreshLayout) -> {
@@ -107,6 +107,11 @@ public class ECardFragment extends BaseFragment implements ECardContract.View{
             }
             getECardBalance(true);
         });
+    }
+
+    @Override
+    public void dateRequest(Boolean isRefresh) {
+
     }
 
     private void showLoginDialog() {

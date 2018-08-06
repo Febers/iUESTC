@@ -64,6 +64,10 @@ public class GradeActivity extends BaseActivity implements NavigationView.OnNavi
     }
 
     @Override
+    public void dateRequest(Boolean isRefresh) {
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         GradeListFragment listFragment = (GradeListFragment) GradeFragmentManager.getInstance(0);
         switch (item.getItemId()) {
@@ -122,7 +126,7 @@ public class GradeActivity extends BaseActivity implements NavigationView.OnNavi
             case R.id.item_grade_refresh:
                 navigationView.setCheckedItem(R.id.item_grade_all);
                 GradeListFragment listFragment = (GradeListFragment) GradeFragmentManager.getInstance(0);
-                listFragment.getGrade(true);
+                listFragment.dateRequest(true);
                 break;
             default:
                 break;

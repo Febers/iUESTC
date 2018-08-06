@@ -10,7 +10,9 @@ package com.febers.iuestc.module.login.model;
 
 import android.util.Log;
 
+import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
+import com.febers.iuestc.module.login.presenter.LoginContract;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,6 +22,11 @@ import org.jsoup.select.Elements;
 public class LoginResolver implements ILoginResolver{
 
     private static final String TAG = "LoginResolver";
+    private LoginContract.Presenter loginPresenter;
+
+    public LoginResolver(LoginContract.Presenter presenter) {
+        loginPresenter = presenter;
+    }
 
     @Override
     public void resolve(String html) {
@@ -33,6 +40,7 @@ public class LoginResolver implements ILoginResolver{
             for(Element e:elements) {
                 if (e.text().contains("个人") || e.text().contains("教务")){
                     Log.i(TAG, "checkLoginResult: 登录成功");
+                    loginPresenter.loginResult(new BaseEvent(BaseCode.UPDATE, "成功"));
                 }
             }
 

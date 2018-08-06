@@ -12,6 +12,8 @@ import android.content.SharedPreferences;
 
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
+import com.febers.iuestc.base.BaseCode;
+import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.module.login.model.BeforeLoginModel;
@@ -83,25 +85,18 @@ public class ExamModel extends BaseModel implements IExamModel {
                     .build();
             Response examRes = client.newCall(request).execute();
             String result = examRes.body().string();
-            if (result.contains("登录规则")) {
-                BeforeILoginModel loginModel = new BeforeLoginModel();
-                if (FIRST_TRY) {
-                    Boolean reLogin  = loginModel.reloginService();
-                    if (!reLogin) {
-                        serviceError(LOGIN_STATUS_ERRO);
-                        return;
-                    }
-                    FIRST_TRY = false;
+            if (result.contains("重复登录")) {
+                if (TRY_TIMES <= 2) {
                     getUnderExam();
-                    return;
+                    TRY_TIMES++;
+                } else {
+                    examPresenter.errorResult("获取考试信息出错");
                 }
-            }else if (result.contains("重复登录")) {
-                request = new Request.Builder()
-                        .url(examUrl)
-                        .get()
-                        .build();
-                examRes = client.newCall(request).execute();
-                result = examRes.body().string();
+                return;
+            }
+            if (result.contains("登录规则")) {
+                examPresenter.loginStatusFail();
+                return;
             }
             resolveUnderExamHtml(result);
         } catch (SocketTimeoutException e) {
@@ -149,7 +144,7 @@ public class ExamModel extends BaseModel implements IExamModel {
             }
         }
         saveUnderExam(examList);
-        examPresenter.examResult(getPostExams(examList));
+        examPresenter.examResult(new BaseEvent<>(BaseCode.UPDATE, getPostExams(examList)));
         examList.clear();
     }
 
@@ -196,7 +191,7 @@ public class ExamModel extends BaseModel implements IExamModel {
             exam.setNoPost(Boolean.valueOf(ss[8]));
             list.add(exam);
         }
-        examPresenter.examResult(getPostExams(list));
+        examPresenter.examResult(new BaseEvent<>(BaseCode.LOCAL, getPostExams(list)));
     }
 
     /**

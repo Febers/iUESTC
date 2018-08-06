@@ -20,7 +20,6 @@ import java.util.List;
 public interface CourseContract {
 
     interface View extends BaseEduView {
-        void getCourse(Boolean isRefresh);
         void showUnderCourse(BaseEvent<List<BeanCourse>> event);
     }
 

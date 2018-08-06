@@ -12,11 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -24,12 +20,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseFragment;
-import com.febers.iuestc.util.CustomSharedPreferences;
-import com.febers.iuestc.view.manager.HomeFragmentManager;
 
 public class LibraryFragment extends BaseFragment implements EditText.OnEditorActionListener {
 
@@ -81,20 +74,12 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
         );
         btnQuery = findViewById(R.id.btn_lib_query);
         btnQuery.setOnClickListener( (View v) -> {
-            queryQuest();
+            dateRequest(true);
         });
     }
 
     @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            queryQuest();
-            return true;
-        }
-        return false;
-    }
-
-    private void queryQuest() {
+    public void dateRequest(Boolean isRefresh) {
         String keyword = etLibFragment.getText().toString();
         if (keyword ==null || keyword.trim().isEmpty()) {
             return;
@@ -108,5 +93,14 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
                 Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
                 getActivity().getCurrentFocus().getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            dateRequest(true);
+            return true;
+        }
+        return false;
     }
 }

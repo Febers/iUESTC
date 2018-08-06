@@ -89,9 +89,9 @@ public class CourseModel extends BaseModel implements ICourseModel {
             Response response_ids = client.newCall(request).execute();
             String text_ids = response_ids.body().string();
             if (text_ids.contains("重复登录")) {
-                if (FIRST_TRY) {
+                if (TRY_TIMES <= 2) {
                     getUnderCourseHtml();
-                    FIRST_TRY = false;
+                    TRY_TIMES++;
                     return;
                 } else {
                     mCoursePresenter.loginStatusFail();

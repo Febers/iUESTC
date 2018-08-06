@@ -100,6 +100,10 @@ public class LibQueryActivity extends BaseActivity implements LibraryContract.Vi
     }
 
     @Override
+    public void dateRequest(Boolean isRefresh) {
+    }
+
+    @Override
     public void showQuery(BaseEvent<List<BeanBook>> event) {
         dismissProgressDialog();
         smartRefreshLayout.finishLoadMore();

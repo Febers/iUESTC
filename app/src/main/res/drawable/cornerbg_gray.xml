@@ -9,7 +9,7 @@
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="@color/grey" />
+    <solid android:color="#9E9E9E" />
     <stroke
         android:width="0.01dp"
         android:color="#bfbfbf" />

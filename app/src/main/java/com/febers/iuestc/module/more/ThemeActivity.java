@@ -54,7 +54,7 @@ public class ThemeActivity extends BaseActivity implements ThemeChangeListener {
     private List<BeanTheme> initThemeDate() {
         List<BeanTheme> themeList = new ArrayList<>();
         BeanTheme Blue = new BeanTheme(R.color.blue, "蓝色");
-        BeanTheme night = new BeanTheme(R.color.black, "夜间");
+        BeanTheme night = new BeanTheme(R.color.black, "夜间(实验性)");
         BeanTheme Green = new BeanTheme(R.color.green, "绿色");
         BeanTheme Red = new BeanTheme(R.color.red, "红色");
         BeanTheme purple = new BeanTheme(R.color.purple, "紫色");
@@ -113,5 +113,9 @@ public class ThemeActivity extends BaseActivity implements ThemeChangeListener {
     @Override
     protected Boolean isSlideBack() {
         return false;
+    }
+
+    @Override
+    public void dateRequest(Boolean isRefresh) {
     }
 }

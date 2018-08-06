@@ -25,23 +25,30 @@
             android:layout_height="?android:attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/Theme.AppCompat.Light"
-            app:layout_scrollFlags="enterAlways"/>
+            app:layout_scrollFlags="scroll|enterAlways|snap"/>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_user"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <WebView
-                android:id="@+id/web_user"
+            android:layout_height="match_parent">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </WebView>
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="5dp">
+                <com.febers.iuestc.view.custom.CustomListView
+                    android:id="@+id/list_view_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </com.febers.iuestc.view.custom.CustomListView>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

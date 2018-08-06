@@ -37,10 +37,10 @@
         <item name="colorAccent">@color/darkColorAccent</item>
         <item name="android:itemBackground">@color/darkWindowBackground</item>
         <item name="android:background">@color/darkWindowBackground</item>
-        <item name="android:textColor">@color/grey</item>
-        <item name="android:textColorHint">@color/grey</item>
-        <item name="android:textColorPrimary">@color/grey</item>
-        <item name="android:textColorSecondary">@color/grey</item>
+        <item name="android:textColor">@color/lightgray</item>
+        <item name="android:textColorHint">@color/lightgray</item>
+        <item name="android:textColorPrimary">@color/lightgray</item>
+        <item name="android:textColorSecondary">@color/lightgray</item>
         <item name="myBackgroundColor">@color/darkWindowBackground</item>
         <item name="myBackgroundColorSecond">@color/darkWindowBackgroundSecond</item>
     </style>

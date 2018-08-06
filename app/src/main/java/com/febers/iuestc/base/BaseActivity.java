@@ -8,6 +8,7 @@
 
 package com.febers.iuestc.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -116,5 +117,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Boolean isLogin = data.getBooleanExtra("status", false);
+        if (isLogin) {
+            dateRequest(true);
+        }
     }
 }

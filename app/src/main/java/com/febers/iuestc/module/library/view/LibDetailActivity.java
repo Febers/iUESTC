@@ -27,6 +27,7 @@ import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanBook;
 import com.febers.iuestc.module.library.presenter.LibraryContract;
 import com.febers.iuestc.module.library.presenter.LibraryPresenterImp;
+import com.febers.iuestc.util.DestroyWebViewUtil;
 
 import java.util.List;
 
@@ -53,6 +54,10 @@ public class LibDetailActivity extends BaseActivity implements LibraryContract.V
         sendQuest(url);
     }
 
+    @Override
+    public void dateRequest(Boolean isRefresh) {
+    }
+
     private void sendQuest(String url) {
         showProgressDialog();
         LibraryContract.Presenter presenter = new LibraryPresenterImp(this);
@@ -70,5 +75,11 @@ public class LibDetailActivity extends BaseActivity implements LibraryContract.V
             webView.loadDataWithBaseURL(null, event.getDate(),
                     "text/html","UTF-8", null);
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        DestroyWebViewUtil.destroy(webView);
+        super.onDestroy();
     }
 }

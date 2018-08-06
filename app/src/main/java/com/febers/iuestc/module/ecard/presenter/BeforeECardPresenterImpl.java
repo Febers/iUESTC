@@ -9,25 +9,25 @@
 package com.febers.iuestc.module.ecard.presenter;
 
 import com.febers.iuestc.entity.BeanECardPayRecord;
-import com.febers.iuestc.module.ecard.model.ECardModel;
-import com.febers.iuestc.module.ecard.model.IECardModel;
+import com.febers.iuestc.module.ecard.model.BeforeECardModelBefore;
+import com.febers.iuestc.module.ecard.model.BeforeIECardModel;
 
 import java.util.List;
 
-public class ECardPresenterImpl extends ECardContract.Presenter{
+public class BeforeECardPresenterImpl extends BeforeECardContract.Presenter{
 
-    private static final String TAG = "ECardPresenterImpl";
+    private static final String TAG = "BeforeECardPresenterImpl";
 
-    private IECardModel ieCardModel = new ECardModel(this);
+    private BeforeIECardModel beforeIeCardModel = new BeforeECardModelBefore(this);
 
-    public ECardPresenterImpl(ECardContract.View view) {
+    public BeforeECardPresenterImpl(BeforeECardContract.View view) {
         super(view);
     }
 
     @Override
     public void loginECardRequest(String phone, String pw) {
         try{
-            ieCardModel.loginECardService(phone, pw);
+            beforeIeCardModel.loginECardService(phone, pw);
         } catch (Exception e) {
             e.printStackTrace();
             mView.onError("绑定账号出错");
@@ -37,7 +37,7 @@ public class ECardPresenterImpl extends ECardContract.Presenter{
     @Override
     public void balanceRequest() {
         try {
-            ieCardModel.balanceService();
+            beforeIeCardModel.balanceService();
         } catch (Exception e) {
             e.printStackTrace();
             mView.onError("获取一卡通数据出错");
@@ -46,7 +46,7 @@ public class ECardPresenterImpl extends ECardContract.Presenter{
 
     @Override
     public void localDataRequest(int recordSize) {
-        ieCardModel.localDataService(recordSize);
+        beforeIeCardModel.localDataService(recordSize);
     }
 
     @Override

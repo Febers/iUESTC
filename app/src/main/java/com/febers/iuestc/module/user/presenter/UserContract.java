@@ -27,6 +27,7 @@ public interface UserContract {
             super(view);
         }
 
-        public abstract void userDetailRequest();
+        public abstract void userDetailRequest(Boolean isRefresh);
+        public abstract void userDetailResult(BaseEvent<BeanUser> event);
     }
 }

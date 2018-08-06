@@ -16,6 +16,7 @@ import com.febers.iuestc.util.CustomSharedPreferences;
 public abstract class BaseModel<P extends BasePresenter> {
 
     protected Boolean FIRST_TRY = true;
+    protected int TRY_TIMES = 1;
     protected P presenter;
 
     public BaseModel(P presnter) {

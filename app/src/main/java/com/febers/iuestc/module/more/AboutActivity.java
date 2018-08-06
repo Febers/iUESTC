@@ -17,11 +17,12 @@ import android.view.View;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
 import com.lucasurbas.listitemview.ListItemView;
+import com.tencent.bugly.beta.Beta;
 
 public class AboutActivity extends BaseActivity implements ListItemView.OnClickListener {
 
     private static final String TAG = "AboutActivity";
-    private ListItemView itemViewWebHome, itemViewVersion, itemViewDeveloper, itemViewEmail;
+    private ListItemView itemViewWebHome, itemViewUpdate, itemViewDeveloper, itemViewEmail;
 
     @Override
     protected int setView() {
@@ -30,6 +31,7 @@ public class AboutActivity extends BaseActivity implements ListItemView.OnClickL
 
     @Override
     protected void findViewById() {
+        itemViewUpdate = findViewById(R.id.item_view_update);
         itemViewWebHome = findViewById(R.id.item_view_web_home);
         itemViewDeveloper = findViewById(R.id.item_view_developer);
     }
@@ -42,13 +44,21 @@ public class AboutActivity extends BaseActivity implements ListItemView.OnClickL
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        itemViewUpdate.setOnClickListener(this);
         itemViewWebHome.setOnClickListener(this);
         itemViewDeveloper.setOnClickListener(this);
     }
 
     @Override
+    public void dateRequest(Boolean isRefresh) {
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.item_view_update:
+                Beta.checkUpgrade();
+                break;
             case R.id.item_view_web_home:
                 Intent i1 = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_web)));
                 startActivity(Intent.createChooser(i1, "访问App主页"));

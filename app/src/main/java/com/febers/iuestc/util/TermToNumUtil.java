@@ -49,4 +49,8 @@ public class TermToNumUtil {
         }
         return "";
     }
+
+    public static String dependOnDate() {
+        return "";
+    }
 }

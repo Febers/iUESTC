@@ -17,6 +17,7 @@ import android.util.Log;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterGrade;
+import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.module.grade.presenter.GradeContract;
 import com.febers.iuestc.entity.BeanGradeSummary;
@@ -44,7 +45,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
 
     @Override
     protected void lazyLoad() {
-        getGrade(false);
+        dateRequest(false);
     }
 
     @Override
@@ -54,7 +55,8 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
         recyclerView.setLayoutManager(llmGrade);
     }
 
-    public void getGrade(Boolean isRefresh) {
+    @Override
+    public void dateRequest(Boolean isRefresh) {
         if (!CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_get_grade), false)) {
             isRefresh = true;
         }
@@ -99,14 +101,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
     }
 
     @Override
-    public void statusToSuccess() {
-
-    }
-
-    @Override
     public void statusToFail() {
-        //登录状态失效，需要重新登录
-        Log.i(TAG, "statusToFail: ");
-        startActivity(new Intent(getActivity(), LoginActivity.class));
+        startActivityForResult(new Intent(getActivity(), LoginActivity.class), BaseCode.STATUS);
     }
 }

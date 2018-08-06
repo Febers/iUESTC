@@ -94,7 +94,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
     }
 
     @Override
-    public void getCourse(Boolean isRefresh) {
+    public void dateRequest(Boolean isRefresh) {
         if (isRefresh) {
             if (!BaseApplication.checkNetConnecting()) {
                 onError("当前网络不可用");
@@ -226,7 +226,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
                 if (!CustomSharedPreferences.getInstance().get("is_login", false)) {
                     break;
                 }
-                getCourse(true);
+                dateRequest(true);
                 break;
             default:
                 break;
@@ -246,7 +246,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
             CustomSharedPreferences.getInstance().put(mContext.getString(R.string.sp_now_week), (options1+1));
             CustomSharedPreferences.getInstance().put("set_week", true);
             setTitle(options1+1);
-            getCourse(false);
+            dateRequest(false);
         })
                 .setTitleText("选择当前周数")
                 .setOutSideCancelable(false)
@@ -272,12 +272,12 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
                 if (!BaseApplication.checkNetConnecting()) {
                     return;
                 }
-                getCourse(true);
+                dateRequest(true);
                 CustomSharedPreferences.getInstance().put(mContext
                         .getString(R.string.sp_course_first_get), false);
                 return;
             }
-            getCourse(false);
+            dateRequest(false);
         }
     }
 
@@ -293,14 +293,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
     }
 
     @Override
-    public void statusToSuccess() {
-        
-    }
-
-    @Override
     public void statusToFail() {
-        //登录状态失效，需要重新登录
-        Log.i(TAG, "statusToFail: ");
         startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 }

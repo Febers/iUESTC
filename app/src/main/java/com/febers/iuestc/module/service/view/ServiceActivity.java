@@ -9,10 +9,6 @@
 package com.febers.iuestc.module.service.view;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.net.http.SslError;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -22,18 +18,13 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.net.WebViewConfigure;
+import com.febers.iuestc.util.DestroyWebViewUtil;
 import com.febers.iuestc.util.PToUrlUtil;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
@@ -44,7 +35,6 @@ public class ServiceActivity extends BaseActivity implements NavigationView.OnNa
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private WebView webView;
-    private WebSettings webSettings;
     private int position;
     private Toolbar mToolbar;
     private ProgressBar progressBar;
@@ -79,74 +69,16 @@ public class ServiceActivity extends BaseActivity implements NavigationView.OnNa
     }
 
     private void initWebView() {
-        webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        webSettings.setAppCacheEnabled(true);//开启 Application Caches 功能
-        String cacheDirPath = getFilesDir().getAbsolutePath() + "_cache";
-        webSettings.setAppCachePath(cacheDirPath); //设置Application Caches 缓存目录
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setDatabaseEnabled(true);
+        new WebViewConfigure.Builder(this, webView)
+                .setOpenUrlOut(false)
+                .setSupportWindow(true)
+                .setSupportLoadingBar(true, progressBar)
+                .builder();
+        dateRequest(true);
+    }
 
-        webSettings.setUseWideViewPort(true);  //将图片调整到适当的大小
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setSupportZoom(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(false);
-
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);//支持打开窗口
-        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-
-        webView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress == 100) {
-                    progressBar.setVisibility(View.GONE);
-                } else {
-                    progressBar.setVisibility(View.VISIBLE);
-                    progressBar.setProgress(newProgress);
-                }
-            }
-        });
-
-        webView.setDownloadListener( (String url, String userAgent, String contentDisposition,
-                                      String mimetype, long contentLength) -> {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                if (intent.resolveActivity(getPackageManager())!=null) {
-                    startActivity(intent);
-                }
-        });
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-
-            @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                handler.proceed();  //忽略SSL证书错误，加载页面
-            }
-
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                if (!webSettings.getLoadsImagesAutomatically()) {
-                    webSettings.setLoadsImagesAutomatically(true);
-                }
-            }
-
-        });
-        //延迟加载图片,对于4.4直接加载
-        if (Build.VERSION.SDK_INT >= 19) {
-            webSettings.setLoadsImagesAutomatically(true);
-        } else {
-            webSettings.setLoadsImagesAutomatically(false);
-        }
+    @Override
+    public void dateRequest(Boolean isRefresh) {
         webView.loadUrl(PToUrlUtil.getUrl(position));
     }
 
@@ -212,22 +144,7 @@ public class ServiceActivity extends BaseActivity implements NavigationView.OnNa
      */
     @Override
     protected void onDestroy() {
-        if (webView != null) {
-            // 如果先调用destroy()方法，则会命中if (isDestroyed()) return;这一行代码
-            // 需要先onDetachedFromWindow()，再destory()
-            ViewParent parent = webView.getParent();
-            if (parent != null) {
-                ((ViewGroup) parent).removeView(webView);
-            }
-
-            webView.stopLoading();
-            // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
-            webView.getSettings().setJavaScriptEnabled(false);
-            webView.clearHistory();
-            webView.clearView();
-            webView.removeAllViews();
-            webView.destroy();
-            super.onDestroy();
-        }
+        DestroyWebViewUtil.destroy(webView);
+        super.onDestroy();
     }
 }

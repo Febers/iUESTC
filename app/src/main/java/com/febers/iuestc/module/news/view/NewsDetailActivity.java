@@ -87,6 +87,10 @@ public class NewsDetailActivity extends BaseActivity {
     }
 
     @Override
+    public void dateRequest(Boolean isRefresh) {
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         webView.destroy();

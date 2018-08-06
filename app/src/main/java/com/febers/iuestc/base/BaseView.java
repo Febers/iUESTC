@@ -9,5 +9,6 @@
 package com.febers.iuestc.base;
 
 public interface BaseView {
+    void dateRequest(Boolean isRefresh);
     void onError(String error);
 }

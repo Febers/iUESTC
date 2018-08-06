@@ -16,20 +16,20 @@ import android.view.MenuItem;
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterRecord;
 import com.febers.iuestc.base.BaseActivity;
-import com.febers.iuestc.module.ecard.presenter.ECardContract;
+import com.febers.iuestc.module.ecard.presenter.BeforeECardContract;
 import com.febers.iuestc.entity.BeanECardPayRecord;
-import com.febers.iuestc.module.ecard.presenter.ECardPresenterImpl;
+import com.febers.iuestc.module.ecard.presenter.BeforeECardPresenterImpl;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 
 import java.util.List;
 
-public class ECardRecrodActivity extends BaseActivity implements ECardContract.View{
+public class ECardRecrodActivity extends BaseActivity implements BeforeECardContract.View{
 
     private Toolbar mToolbar;
     private RecyclerView mRVECardeRecord;
     private AdapterRecord mAdapterRecord;
-    private ECardContract.Presenter mECardPresenter = new ECardPresenterImpl(this);
+    private BeforeECardContract.Presenter mECardPresenter = new BeforeECardPresenterImpl(this);
 
     @Override
     protected int setView() {
@@ -54,11 +54,12 @@ public class ECardRecrodActivity extends BaseActivity implements ECardContract.V
         }
         mRVECardeRecord.setLayoutManager(new LinearLayoutManager(this));
         new Thread(()-> {
-            getRecord();
+            dateRequest(false);
         }).start();
     }
 
-    private void getRecord() {
+    @Override
+    public void dateRequest(Boolean isRefresh) {
         mECardPresenter.localDataRequest(100);
     }
 

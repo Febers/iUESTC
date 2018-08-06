@@ -9,52 +9,60 @@
 package com.febers.iuestc.entity;
 
 public class BeanUser {
-    private String userChineseName;
-    private String userEnglishName;
-    private String userId;
-    private String userGrade;   //年级
+    private String ChineseName;
+    private String EnglishName;
+    private String id;
+    private String sex;
+    private String grade;   //年级
     private String studyYear;   //学制
-    private String userType;    //学生类别
-    private String userSchool;  //学院
-    private String userMajor;   //专业
-    private String userIntoTime;    //入校时间
-    private String userOutTime; //离校时间
+    private String type;    //学生类别
+    private String school;  //学院
+    private String major;   //专业
+    private String intoTime;    //入校时间
+    private String outTime; //离校时间
     private String userClass;   //行政班级
-    private String userPosition;    //校区
-    private String userPhone;   //移动电话
-    private String userAddress; //联系地址
+    private String position;    //校区
+    private String phone;   //移动电话
+    private String address; //联系地址
 
-
-    public String getUserChineseName() {
-        return userChineseName;
+    public String getSex() {
+        return sex;
     }
 
-    public void setUserChineseName(String userChineseName) {
-        this.userChineseName = userChineseName;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public String getUserEnglishName() {
-        return userEnglishName;
+    public String getChineseName() {
+        return ChineseName;
     }
 
-    public void setUserEnglishName(String userEnglishName) {
-        this.userEnglishName = userEnglishName;
+    public void setChineseName(String chineseName) {
+        this.ChineseName = chineseName;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getEnglishName() {
+        return EnglishName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setEnglishName(String englishName) {
+        this.EnglishName = englishName;
     }
 
-    public String getUserGrade() {
-        return userGrade;
+    public String getId() {
+        return id;
     }
 
-    public void setUserGrade(String userGrade) {
-        this.userGrade = userGrade;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
     public String getStudyYear() {
@@ -65,44 +73,44 @@ public class BeanUser {
         this.studyYear = studyYear;
     }
 
-    public String getUserType() {
-        return userType;
+    public String getType() {
+        return type;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getUserSchool() {
-        return userSchool;
+    public String getSchool() {
+        return school;
     }
 
-    public void setUserSchool(String userSchool) {
-        this.userSchool = userSchool;
+    public void setSchool(String school) {
+        this.school = school;
     }
 
-    public String getUserMajor() {
-        return userMajor;
+    public String getMajor() {
+        return major;
     }
 
-    public void setUserMajor(String userMajor) {
-        this.userMajor = userMajor;
+    public void setMajor(String major) {
+        this.major = major;
     }
 
-    public String getUserIntoTime() {
-        return userIntoTime;
+    public String getIntoTime() {
+        return intoTime;
     }
 
-    public void setUserIntoTime(String userIntoTime) {
-        this.userIntoTime = userIntoTime;
+    public void setIntoTime(String intoTime) {
+        this.intoTime = intoTime;
     }
 
-    public String getUserOutTime() {
-        return userOutTime;
+    public String getOutTime() {
+        return outTime;
     }
 
-    public void setUserOutTime(String userOutTime) {
-        this.userOutTime = userOutTime;
+    public void setOutTime(String outTime) {
+        this.outTime = outTime;
     }
 
     public String getUserClass() {
@@ -113,27 +121,27 @@ public class BeanUser {
         this.userClass = userClass;
     }
 
-    public String getUserPosition() {
-        return userPosition;
+    public String getPosition() {
+        return position;
     }
 
-    public void setUserPosition(String userPosition) {
-        this.userPosition = userPosition;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    public String getUserPhone() {
-        return userPhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getUserAddress() {
-        return userAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

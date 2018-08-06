@@ -11,20 +11,16 @@ package com.febers.iuestc.module.login.view;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
-import com.febers.iuestc.home.view.HomeActivity;
 import com.febers.iuestc.module.login.presenter.LoginJSInterface;
 import com.febers.iuestc.module.login.presenter.LoginContract;
-import com.febers.iuestc.net.CustomWebViewClient;
+import com.febers.iuestc.net.WebViewConfigure;
 import com.febers.iuestc.util.CustomSharedPreferences;
-
-import java.util.Base64;
 
 public class LoginActivity extends BaseActivity implements LoginContract.View{
 
@@ -46,34 +42,33 @@ public class LoginActivity extends BaseActivity implements LoginContract.View{
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         webView = findViewById(R.id.web_login);
-        loginByWebView();
+        dateRequest(true);
     }
 
-    private void loginByWebView() {
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+    @Override
+    public void dateRequest(Boolean isRefresh) {
         loginJSInterface = new LoginJSInterface(this);
-        webView.addJavascriptInterface(loginJSInterface, "HTMLOUT");
-        webView.setWebViewClient(new CustomWebViewClient());
-
+        new WebViewConfigure.Builder(this, webView)
+                .setOpenUrlOut(false)
+                .setProcessHtml(true, loginJSInterface, "HTMLOUT")
+                .builder();
         webView.loadUrl("http://portal.uestc.edu.cn");
     }
 
     @Override
-    public void loginSuccess(BaseEvent event) {
-        Log.i(TAG, "loginSuccess: ");
-        CustomSharedPreferences.getInstance().put(getString(R.string.sp_is_login), true);
-        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+    public void loginResult(BaseEvent event) {
+        Intent intent = new Intent();
+        if (event.getCode() == BaseCode.UPDATE) {
+            CustomSharedPreferences.getInstance().put(getString(R.string.sp_is_login), true);
+            intent.putExtra("status", true);
+        } else {
+            intent.putExtra("status", false);
+        }
+        this.setResult(BaseCode.STATUS, intent);
         finish();
     }
 
     @Override
-    public void loginFail(String failMsg) {
-
-    }
-
-    @Override
-    public void loginError(String errorMsg) {
-
+    public void statusToFail() {
     }
 }

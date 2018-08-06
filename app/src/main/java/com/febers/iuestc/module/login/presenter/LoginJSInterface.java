@@ -12,18 +12,13 @@ import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.febers.iuestc.base.BaseEvent;
-import com.febers.iuestc.base.BaseJSInterface;
-import com.febers.iuestc.module.login.presenter.LoginContract;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import com.febers.iuestc.module.login.model.ILoginResolver;
+import com.febers.iuestc.module.login.model.LoginResolver;
 
 /**
  * JS接口，用来解析登录之后浏览器返回的HTML源码
  */
-public class LoginJSInterface extends LoginContract.Presenter implements BaseJSInterface {
+public class LoginJSInterface extends LoginContract.Presenter {
 
     private static final String TAG = "LoginJSInterface";
 
@@ -31,13 +26,17 @@ public class LoginJSInterface extends LoginContract.Presenter implements BaseJSI
         super(view);
     }
 
-    @Override
+    @JavascriptInterface
+    @SuppressWarnings("unused")
     public void processHTML(String html) {
-
+        ILoginResolver loginResolver = new LoginResolver(this);
+        loginResolver.resolve(html);
     }
 
     @Override
     public void loginResult(BaseEvent event) {
-        mView.loginSuccess(new BaseEvent(0, ""));
+        if (mEduView!=null) {
+            mEduView.loginResult(event);
+        }
     }
 }
