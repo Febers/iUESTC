@@ -222,7 +222,7 @@ public class NewsModel implements INewsModel {
             e.printStackTrace();
             Log.d(TAG, "suitText: 剪切新闻原网页时出现异常");
         }
-        result = result.replaceAll("href", "");
+        //result = result.replaceAll("href", "");
         result = suitMeta + result;
         return result;
     }

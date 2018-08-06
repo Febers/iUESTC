@@ -66,7 +66,7 @@ public class AdapterQuery extends RecyclerView.Adapter<AdapterQuery.ViewHolder> 
         BeanBook book = bookList.get(position);
 //        holder.tvBookName.setText(Html.fromHtml(keywordToRed(book.getTitle())));
         holder.tvBookName.setText(Html.fromHtml(book.getName()));
-        holder.tvBookInfo.setText(book.getInfor());
+        holder.tvBookInfo.setText(book.getInfo());
         holder.cvBookItem.setOnClickListener( (View v) -> {
             Log.i(TAG, "onBindViewHolder: click");
             Intent intent = new Intent(mContext, LibDetailActivity.class);

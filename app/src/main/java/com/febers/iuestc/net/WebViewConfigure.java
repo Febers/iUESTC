@@ -15,7 +15,9 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
+import android.webkit.DownloadListener;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -25,8 +27,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-public class WebViewConfigure {
+import com.febers.iuestc.base.BaseApplication;
 
+public class WebViewConfigure {
+    private static final String TAG = "WebViewConfigure";
     private WebViewConfigure(){}
 
     public static class Builder {
@@ -104,6 +108,12 @@ public class WebViewConfigure {
 
         public Builder setSupportWindow(Boolean supportWindow) {
             webSettings.setJavaScriptCanOpenWindowsAutomatically(supportWindow);
+            return this;
+        }
+
+        public Builder setDomEnabled(Boolean domEnabled) {
+            webSettings.setDatabaseEnabled(true);
+            webSettings.setDomStorageEnabled(domEnabled);
             return this;
         }
 
@@ -243,4 +253,6 @@ public class WebViewConfigure {
             return webView;
         }
     }
+
+
 }

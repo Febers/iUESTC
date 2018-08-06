@@ -282,4 +282,12 @@ public class MoreFragment extends BaseFragment {
             tvId.setText(userId);
         }
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            dateRequest(false);
+        }
+    }
 }

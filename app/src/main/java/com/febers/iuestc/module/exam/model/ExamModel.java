@@ -9,6 +9,7 @@
 package com.febers.iuestc.module.exam.model;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
@@ -95,6 +96,7 @@ public class ExamModel extends BaseModel implements IExamModel {
                 return;
             }
             if (result.contains("登录规则")) {
+                Log.i(TAG, "getUnderExam: 规则");
                 examPresenter.loginStatusFail();
                 return;
             }

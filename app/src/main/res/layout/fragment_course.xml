@@ -109,6 +109,14 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <include layout="@layout/layout_course_time"/>
+            <ImageView
+                android:id="@+id/iv_null_course"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_null_black_line"
+                android:gravity="center"
+                android:visibility="gone"/>
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

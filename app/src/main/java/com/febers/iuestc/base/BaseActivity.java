@@ -121,7 +121,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Boolean isLogin = data.getBooleanExtra("status", false);
+        Boolean isLogin = false;
+        try {
+            isLogin = data.getBooleanExtra("status", false);
+        } catch (Exception e) {
+        }
         if (isLogin) {
             dateRequest(true);
         }

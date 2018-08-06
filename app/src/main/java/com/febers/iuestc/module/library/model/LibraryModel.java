@@ -8,7 +8,6 @@
 
 package com.febers.iuestc.module.library.model;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -17,12 +16,10 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanBook;
-import com.febers.iuestc.entity.BeanBookPosition;
 import com.febers.iuestc.module.library.presenter.LibraryContract;
 import com.febers.iuestc.net.SingletonClient;
 import com.febers.iuestc.util.CustomSharedPreferences;
 import com.febers.iuestc.util.RandomUtil;
-import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -33,7 +30,6 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -194,7 +190,7 @@ public class LibraryModel implements ILibraryModel {
             String code = elements.get(i).select("font[color=\"black\"]").text();
             book.setUrl("http://222.197.165.97:8080"+elements.get(i).select("a[href]").attr("href"));
             book.setName(elements.get(i).select("a[class=\"title\"]").text());
-            book.setInfor(elements.get(i).text()
+            book.setInfo(elements.get(i).text()
                     .replace(code, "")
                     .replace(book.getName(), "")
                     .replace("   ", ""));

@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +71,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
     private CustomCourseDialog customCourseDialog;
     private OptionsPickerView mPickerView;
     private TextView tvNowWeek;
+    private ImageView ivNull;
     private int index = 0;
     private int nowWeek;
 
@@ -90,6 +92,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         initPicker();
         tvNowWeek = findViewById(R.id.tv_course_title);
+        ivNull = findViewById(R.id.iv_null_course);
         setTitle(0);
     }
 
@@ -121,6 +124,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
                 return;
             }
             if (event.getCode() == BaseCode.UPDATE) {
+                ivNull.setVisibility(View.GONE);
                 onError("刷新课表成功");
             }
             //与上次打开相比,更新周数
@@ -264,6 +268,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
             Boolean isLogin = CustomSharedPreferences.getInstance().get(mContext.getString(R.string.sp_is_login), false);
             if (!isLogin) {
                 showUnderCourse(new BaseEvent<>(BaseCode.CLEAR, new ArrayList<>()));
+                ivNull.setVisibility(View.VISIBLE);
                 return;
             }
             Boolean firstGet = CustomSharedPreferences.getInstance().get(mContext

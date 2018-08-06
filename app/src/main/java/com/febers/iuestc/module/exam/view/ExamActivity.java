@@ -80,25 +80,26 @@ public class ExamActivity extends BaseActivity implements ExamContract.View{
                 switch (checkedId) {
                     case R.id.rb_exam_final:
                         mType = 1;
-                        getExam(false, mType);
+                        dateRequest(false);
                         break;
                     case R.id.rb_exam_middle:
                         mType = 2;
-                        getExam(false, mType);
+                        dateRequest(false);
                         break;
                     default:
                         break;
                 }
         });
-        if (!CustomSharedPreferences.getInstance().get("exam_1", false)) {
-            getExam(true, mType);
-        } else {
-            getExam(false, mType);
-        }
+//        if (!CustomSharedPreferences.getInstance().get("exam_1", false)) {
+//            dateRequest(true);
+//        } else {
+//            dateRequest(false);
+//        }
+        dateRequest(false);
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.autoRefresh();
         smartRefreshLayout.setOnRefreshListener( (RefreshLayout refreshLayout) -> {
-           getExam(true, mType);
+           dateRequest(true);
         });
     }
 
@@ -117,6 +118,13 @@ public class ExamActivity extends BaseActivity implements ExamContract.View{
 
     @Override
     public void dateRequest(Boolean isRefresh) {
+        if (!CustomSharedPreferences.getInstance().get(getString(R.string.sp_is_login), false)) {
+            if (isRefresh) {
+                statusToFail();
+                return;
+            }
+            return;
+        }
         getExam(isRefresh, mType);
     }
 

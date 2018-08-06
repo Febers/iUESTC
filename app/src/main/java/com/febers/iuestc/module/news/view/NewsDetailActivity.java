@@ -10,19 +10,28 @@ package com.febers.iuestc.module.news.view;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.DownloadListener;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.net.WebViewConfigure;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public class NewsDetailActivity extends BaseActivity {
 
@@ -53,17 +62,13 @@ public class NewsDetailActivity extends BaseActivity {
         collapsingToolbarLayout = findViewById(R.id.ctl_news);
         collapsingToolbarLayout.setTitle(newsTitle);
         webView = findViewById(R.id.webview_news);
-        webView.loadDataWithBaseURL(null, newsText, "text/html","UTF-8", null);
 
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setDatabaseEnabled(true);
+        new WebViewConfigure.Builder(this, webView)
+                .setOpenUrlOut(true)
+                .setDomEnabled(true)
+                .builder();
 
-        webSettings.setUseWideViewPort(true);  //将图片调整到适当的大小
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setSupportZoom(true);
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);//支持打开窗口
+        webView.loadDataWithBaseURL("http://www.jwc.uestc.edu.cn", newsText, "text/html","UTF-8", null);
     }
 
     @Override

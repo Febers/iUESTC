@@ -22,7 +22,7 @@ public class BeanBook {
     private String date= "";
     //移动图书馆
     private String name = "";
-    private String infor = "";
+    private String info = "";
     private String url = "";
 
     public String getName() {
@@ -33,12 +33,12 @@ public class BeanBook {
         this.name = name;
     }
 
-    public String getInfor() {
-        return infor;
+    public String getInfo() {
+        return info;
     }
 
-    public void setInfor(String infor) {
-        this.infor = infor;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public String getUrl() {
