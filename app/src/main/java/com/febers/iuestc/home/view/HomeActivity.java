@@ -17,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -74,7 +75,6 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                 .setFirstSelectedPosition(openPosition)
                 .initialise();
         mBottomNavigationBar.setTabSelectedListener(this);
-
         mLibraryFragment  = HomeFragmentManager.getInstance(1);
         mUserFragment  = HomeFragmentManager.getInstance(2);
         mCourseFragment = HomeFragmentManager.getInstance(0);

@@ -8,6 +8,8 @@
 
 package com.febers.iuestc.util;
 
+import android.util.Log;
+
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 
@@ -66,6 +68,7 @@ public class CourseTimeUtil {
      * @return  三周周类型
      */
     public static String getUnderCourseWeeks(String rawCode) {
+        Log.i(TAG, "getUnderCourseWeeks: " + rawCode);
         int startWeek = 1;
         int endWeek = 2;
         String  weekType = "";
@@ -81,6 +84,7 @@ public class CourseTimeUtil {
         } else if (startWeek % 2 != 0) {
             weekType = "周(单周)";
         }
+        Log.i(TAG, "getUnderCourseWeeks: " + startWeek + "-" + endWeek + weekType);
         return startWeek + "-" + endWeek + weekType;
     }
 

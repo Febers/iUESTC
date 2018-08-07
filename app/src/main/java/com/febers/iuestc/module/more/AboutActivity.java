@@ -34,6 +34,7 @@ public class AboutActivity extends BaseActivity implements ListItemView.OnClickL
         itemViewUpdate = findViewById(R.id.item_view_update);
         itemViewWebHome = findViewById(R.id.item_view_web_home);
         itemViewDeveloper = findViewById(R.id.item_view_developer);
+        itemViewEmail = findViewById(R.id.item_view_email);
     }
 
     @Override
@@ -47,6 +48,7 @@ public class AboutActivity extends BaseActivity implements ListItemView.OnClickL
         itemViewUpdate.setOnClickListener(this);
         itemViewWebHome.setOnClickListener(this);
         itemViewDeveloper.setOnClickListener(this);
+        itemViewEmail.setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +68,12 @@ public class AboutActivity extends BaseActivity implements ListItemView.OnClickL
             case R.id.item_view_developer:
                 Intent i2 = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.developer_github)));
                 startActivity(Intent.createChooser(i2, "访问开发者Github主页"));
+                break;
+            case R.id.item_view_email:
+                Intent i3 = new Intent(Intent.ACTION_SENDTO);
+                i3.setData(Uri.parse("mailto:febers418@qq.com"));
+                i3.putExtra(Intent.EXTRA_SUBJECT, "i成电用户反馈");
+                startActivity(i3);
                 break;
             default:
                 break;

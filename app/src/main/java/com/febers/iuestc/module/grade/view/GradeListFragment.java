@@ -25,6 +25,7 @@ import com.febers.iuestc.entity.BeanGrade;
 import com.febers.iuestc.module.grade.presenter.GradePresenterImpl;
 import com.febers.iuestc.module.login.view.LoginActivity;
 import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.view.custom.CustomViewPager;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -23,11 +23,11 @@ public class CustomCourseDialog extends AlertDialog {
     private static final String TAG = "CustomCourseDialog";
     private AlertDialog dialog;
     private View view;
-    private TextView tvCourseName;
-    private TextView tvCourseClassRoom;
-    private TextView tvCourseWeek;
-    private TextView tvCourseTime;
-    private TextView tvCourseTeacher;
+    private TextView tvCourseName, tvCourseName2;
+    private TextView tvCourseClassRoom, tvCourseClassRoom2;
+    private TextView tvCourseWeek, tvCourseWeek2;
+    private TextView tvCourseTime, tvCourseTime2;
+    private TextView tvCourseTeacher, tvCourseTeacher2;
     private Context context;
 
     public CustomCourseDialog(Context context, BeanCourse course) {
@@ -42,9 +42,40 @@ public class CustomCourseDialog extends AlertDialog {
         tvCourseTeacher = view.findViewById(R.id.tv_dialog_course_teacher);
         tvCourseName.setText(" "+course.getName());
         tvCourseClassRoom.setText("地点: "+course.getClassroom());
-        tvCourseWeek.setText("周次:  "+ CourseTimeUtil.getUnderCourseWeeks(course.getWeek()));
+        tvCourseWeek.setText("周次:  "+ course.getWeek());
         tvCourseTime.setText("时间:  "+ CourseTimeUtil.getTimeDes(course.getTime()));
         tvCourseTeacher.setText("老师: "+course.getTeacher());
+        dialog.setView(view);
+    }
+
+    public CustomCourseDialog(Context context, BeanCourse course1, BeanCourse course2) {
+        super(context, R.style.Theme_AppCompat_Dialog);
+        dialog = new AlertDialog.Builder(context).create();
+        this.context = context;
+        view = LayoutInflater.from(context).inflate(R.layout.dialog_course_two, null);
+        tvCourseName = view.findViewById(R.id.tv_dialog_course_one_name);
+        tvCourseClassRoom = view.findViewById(R.id.tv_dialog_course_one_classroom);
+        tvCourseWeek = view.findViewById(R.id.tv_dialog_course_one_week);
+        tvCourseTime = view.findViewById(R.id.tv_dialog_course_one_time);
+        tvCourseTeacher = view.findViewById(R.id.tv_dialog_course_one_teacher);
+
+        tvCourseName2 = view.findViewById(R.id.tv_dialog_course_two_name);
+        tvCourseClassRoom2 = view.findViewById(R.id.tv_dialog_course_two_classroom);
+        tvCourseWeek2 = view.findViewById(R.id.tv_dialog_course_two_week);
+        tvCourseTime2 = view.findViewById(R.id.tv_dialog_course_two_time);
+        tvCourseTeacher2 = view.findViewById(R.id.tv_dialog_course_two_teacher);
+
+        tvCourseName.setText(" "+course1.getName());
+        tvCourseClassRoom.setText("地点: "+course1.getClassroom());
+        tvCourseWeek.setText("周次:  "+ course1.getWeek());
+        tvCourseTime.setText("时间:  "+ CourseTimeUtil.getTimeDes(course1.getTime()));
+        tvCourseTeacher.setText("老师: "+course1.getTeacher());
+
+        tvCourseName2.setText(" "+course2.getName());
+        tvCourseClassRoom2.setText("地点: "+course2.getClassroom());
+        tvCourseWeek2.setText("周次:  "+ course2.getWeek());
+        tvCourseTime2.setText("时间:  "+ CourseTimeUtil.getTimeDes(course2.getTime()));
+        tvCourseTeacher2.setText("老师: "+course2.getTeacher());
         dialog.setView(view);
     }
 
@@ -54,5 +85,9 @@ public class CustomCourseDialog extends AlertDialog {
 
     public void dismiss() {
         dialog.dismiss();
+    }
+
+    public void hide() {
+        dialog.hide();
     }
 }

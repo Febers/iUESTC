@@ -3,17 +3,19 @@
   ~ Created by Febers 2018.
   ~ Copyright (c). All rights reserved.
   ~
-  ~ Last Modified 18-3-31 下午6:25
+  ~ Last Modified 18-8-7 下午11:06
   ~
   -->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="@color/purple" />
+    <solid android:color="@color/pink" />
     <stroke
         android:width="0.01dp"
         android:color="#bfbfbf" />
     <corners
-        android:radius="8dp"
+        android:topRightRadius="8dp"
+        android:bottomLeftRadius="8dp"
+        android:bottomRightRadius="8dp"
         />
 </shape>

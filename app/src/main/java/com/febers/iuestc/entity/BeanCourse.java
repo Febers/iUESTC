@@ -16,6 +16,9 @@ public class BeanCourse {
     private String classroom = "";   //教室
     private String week = "";    //周次
     private String time = "";   //时间，周一12节的格式为1 01，周二9、10节的格式为2 89
+    private Boolean isRepeat = false;
+
+
 
     public String getTeacher() {
         return teacher;
@@ -55,6 +58,14 @@ public class BeanCourse {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public Boolean getRepeat() {
+        return isRepeat;
+    }
+
+    public void setRepeat(Boolean repeat) {
+        isRepeat = repeat;
     }
 
     public BeanCourse(String teacher, String name, String classroom, String week, String time) {

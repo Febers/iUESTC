@@ -45,13 +45,16 @@
             android:scrollbars="vertical"
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
                 <com.febers.iuestc.view.custom.CustomViewPager
                     android:id="@+id/vp_grade"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </com.febers.iuestc.view.custom.CustomViewPager>
+            </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView

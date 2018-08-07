@@ -11,17 +11,21 @@ package com.febers.iuestc.module.grade.view;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterGradeViewPager;
 import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.view.custom.CustomViewPager;
 import com.febers.iuestc.view.manager.GradeFragmentManager;
 
 public class GradeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -29,7 +33,7 @@ public class GradeActivity extends BaseActivity implements NavigationView.OnNavi
     private static final String TAG = "GradeActivity";
     private Toolbar toolbar;
     private TabLayout tlGrade;
-    private ViewPager vpGrade;
+    private CustomViewPager vpGrade;
     private AdapterGradeViewPager adapterGradeViewPager;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -43,6 +47,7 @@ public class GradeActivity extends BaseActivity implements NavigationView.OnNavi
     protected void findViewById() {
         toolbar = findViewById(R.id.tb_grade);
         vpGrade = findViewById(R.id.vp_grade);
+
         tlGrade = findViewById(R.id.tl_grade);
         navigationView = findViewById(R.id.nv_grade);
     }
@@ -55,6 +60,23 @@ public class GradeActivity extends BaseActivity implements NavigationView.OnNavi
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        vpGrade.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                vpGrade.resetHeight(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        vpGrade.setOffscreenPageLimit(2);
         adapterGradeViewPager = new AdapterGradeViewPager(getSupportFragmentManager());
         vpGrade.setAdapter(adapterGradeViewPager);
         tlGrade.setupWithViewPager(vpGrade);

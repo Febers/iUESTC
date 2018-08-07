@@ -160,7 +160,7 @@ public class CourseModel extends BaseModel implements ICourseModel {
             for (int i = 0; i < partList.size(); i++) {
                 getPerUnderCourse(partList.get(i), i);
             }
-            BaseEvent<List<BeanCourse>> event = new BaseEvent(BaseCode.UPDATE, mCourseList);
+            BaseEvent<List<BeanCourse>> event = new BaseEvent(BaseCode.UPDATE, resolveRepeatCourse(mCourseList));
             mCoursePresenter.underCourseResult(event);
         } catch (Exception e) {
             e.printStackTrace();
@@ -238,7 +238,7 @@ public class CourseModel extends BaseModel implements ICourseModel {
                 BeanCourse beanCourse = new BeanCourse(list.get(1), list.get(3), list.get(5), list.get(6), list.get(7)+list.get(8));
                 courseList.add(beanCourse);
             }
-            mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.LOCAL, courseList));
+            mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.LOCAL, resolveRepeatCourse(courseList)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -256,5 +256,17 @@ public class CourseModel extends BaseModel implements ICourseModel {
 
     private void getPostCourseHtml() {
         //TODO 获取并解析研究生课表
+    }
+
+    private List<BeanCourse> resolveRepeatCourse(List<BeanCourse> courseList) {
+        for (int i = 0; i < courseList.size(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (courseList.get(i).getTime().equals(courseList.get(j).getTime())) {
+                    courseList.get(i).setRepeat(true);
+                    courseList.get(j).setRepeat(true);
+                }
+            }
+        }
+        return courseList;
     }
 }

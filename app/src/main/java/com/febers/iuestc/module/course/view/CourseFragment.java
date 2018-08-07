@@ -9,7 +9,6 @@
 package com.febers.iuestc.module.course.view;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -44,11 +43,10 @@ import com.febers.iuestc.view.custom.CustomCourseDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class CourseFragment extends BaseFragment implements CourseContract.View{
+public class CourseFragment extends BaseFragment implements CourseContract.View, View.OnClickListener {
 
     private static final String TAG = "CourseFragment";
 
@@ -60,10 +58,8 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
             {R.id.bt_course_401, R.id.bt_course_423, R.id.bt_course_445, R.id.bt_course_467, R.id.bt_course_489, R.id.bt_course_41011},
             {R.id.bt_course_501, R.id.bt_course_523, R.id.bt_course_545, R.id.bt_course_567, R.id.bt_course_589, R.id.bt_course_51011},
             {R.id.bt_course_601, R.id.bt_course_623, R.id.bt_course_645, R.id.bt_course_667, R.id.bt_course_689, R.id.bt_course_61011}};
-
     private int[] mBackground = {R.drawable.cornerbg_blue, R.drawable.cornerbg_green, R.drawable.cornerbg_orange,
             R.drawable.cornerbg_purple, R.drawable.cornerbg_cyan};
-
     private CourseContract.Presenter mPresenter = new CoursePresenterImpl(this);
     private List<BeanCourse> mCourseList = new ArrayList<>();
     private List<Button> buttonList = new ArrayList<>();
@@ -157,6 +153,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
                     postionDetailTimeInTable = 5;
                 }
                 Button btn = findViewById(mCourseArray[positionDay][postionDetailTimeInTable]);
+                btn.setTag(R.id.btn_course_name, mCourseList.get(i).getName());
                 //修改高度
                 if (positionDetailTime == 8 && stDetailTime.contains("11")) {
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) btn.getLayoutParams();
@@ -176,31 +173,19 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
                 if (Build.VERSION.SDK_INT >= 17) {
                     btn.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 }
-                btn.setBackgroundResource(mBackground[RandomUtil.getRandomFrom0(5)]);
+
+                if (mCourseList.get(i).getRepeat()) {
+                    btn.setBackgroundResource(R.drawable.corner_with_rectangle);
+                } else {
+                    btn.setBackgroundResource(mBackground[RandomUtil.getRandomFrom0(5)]);
+                }
+
                 if (result.contains("noNow")) {
                     btn.setBackgroundResource(R.drawable.cornerbg_gray);
                 }
                 btn.setVisibility(View.VISIBLE);
                 index = i;
-                btn.setOnClickListener(new View.OnClickListener() {
-                    int a = index;
-                    @Override
-                    public void onClick(View v) {
-                        List<BeanCourse> courseList = new ArrayList<>();
-                        int ic = CustomSharedPreferences.getInstance().get("course_count", 10);
-                        for (int jc = 0; jc < ic; jc++) {
-                            SharedPreferences spLocalCourse = getContext().getSharedPreferences("local_course", 0);
-                            String s = spLocalCourse.getString("beanCourse" + jc, "");
-                            String[] ss = s.split(",");
-                            List<String> list = Arrays.asList(ss);
-                            BeanCourse beanCourse = new BeanCourse(list.get(1), list.get(3),
-                                    list.get(5), list.get(6), list.get(7) + list.get(8));
-                            courseList.add(beanCourse);
-                        }
-                        customCourseDialog = new CustomCourseDialog(getContext(), courseList.get(a));
-                        customCourseDialog.show();
-                    }
-                });
+                btn.setOnClickListener(this);
                 buttonList.add(btn);
                 //获取当前标准格式的时间并保存
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -262,6 +247,32 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
     }
 
     @Override
+    public void onClick(View v) {
+        String name = v.getTag(R.id.btn_course_name).toString();
+        for (int i = 0; i < mCourseList.size(); i++) {
+            if (mCourseList.get(i).getName().equals(name)) {
+                if (!mCourseList.get(i).getRepeat()) {
+                    customCourseDialog = new CustomCourseDialog(getContext(), mCourseList.get(i));
+                    customCourseDialog.show();
+                    return;
+                } else {
+                    for (int j = 0; j < mCourseList.size(); j++) {
+                        if (i == j) {
+                            continue;
+                        }
+                        if (mCourseList.get(i).getTime().equals(mCourseList.get(j).getTime())) {
+                            customCourseDialog = new CustomCourseDialog(getContext(),
+                                    mCourseList.get(i), mCourseList.get(j));
+                            customCourseDialog.show();
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
@@ -283,6 +294,11 @@ public class CourseFragment extends BaseFragment implements CourseContract.View{
                 return;
             }
             dateRequest(false);
+        } else {
+            buttonList.clear();
+            for (int i = 0; i < buttonList.size(); i++) {
+                buttonList.get(i).setTag(R.id.btn_course_distribute, "false");
+            }
         }
     }
 

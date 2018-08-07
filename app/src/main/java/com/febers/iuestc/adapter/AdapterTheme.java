@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BeanTheme;
+import com.febers.iuestc.entity.BeanTheme;
 import com.febers.iuestc.module.more.ThemeChangeListener;
 
 import java.util.List;

@@ -18,13 +18,14 @@ import android.view.MenuItem;
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterNewsViewPager;
 import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.view.custom.CustomViewPager;
 import com.febers.iuestc.view.manager.NewsFragmentManager;
 
 public class NewsActivity extends BaseActivity {
 
     private static final String TAG = "NewsActivity";
     private int type = 0;
-    private ViewPager viewPager;
+    private CustomViewPager viewPager;
     private TabLayout tabLayout;
     private AdapterNewsViewPager adapterNewsViewPager;
 
@@ -60,6 +61,21 @@ public class NewsActivity extends BaseActivity {
 
         viewPager = findViewById(R.id.vp_news);
         viewPager.setOffscreenPageLimit(3);//非常重要
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                viewPager.resetHeight(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         tabLayout = findViewById(R.id.tl_news);
         adapterNewsViewPager = new AdapterNewsViewPager(getSupportFragmentManager(), new String[]{"重要公告", "教学新闻", "实践教学"}, 0);
         viewPager.setAdapter(adapterNewsViewPager);

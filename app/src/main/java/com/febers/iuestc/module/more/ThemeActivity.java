@@ -20,7 +20,7 @@ import android.view.MenuItem;
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterTheme;
 import com.febers.iuestc.base.BaseActivity;
-import com.febers.iuestc.base.BeanTheme;
+import com.febers.iuestc.entity.BeanTheme;
 import com.febers.iuestc.home.view.HomeActivity;
 import com.febers.iuestc.util.CustomSharedPreferences;
 
