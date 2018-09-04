@@ -9,5 +9,6 @@
 package com.febers.iuestc.module.ecard.model;
 
 public interface IECardModel {
-    void resolveHtml(String html) throws Exception;
+    void localDateService() throws Exception;
+    void resolveHtmlService(String html) throws Exception;
 }

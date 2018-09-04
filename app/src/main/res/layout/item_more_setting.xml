@@ -18,7 +18,7 @@
         android:layout_height="26dp"
         android:src="@drawable/ic_all_pink"
         android:scaleType="centerCrop"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="12dp"
         android:layout_gravity="center_vertical"/>
 
     <TextView
@@ -28,5 +28,5 @@
         android:text="主题风格"
         android:layout_gravity="center_vertical"
         android:textSize="17sp"
-        android:paddingLeft="10dp"/>
+        android:paddingLeft="20dp"/>
 </LinearLayout>

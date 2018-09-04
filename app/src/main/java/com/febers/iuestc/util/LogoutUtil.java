@@ -36,19 +36,22 @@ public class LogoutUtil {
 
         SharedPreferences.Editor editor = context.getSharedPreferences("local_course", 0).edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
         editor = context.getSharedPreferences("exam_1", 0).edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
         editor = context.getSharedPreferences("exam_2", 0).edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
         editor = context.getSharedPreferences("book_history", 0).edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
         editor = context.getSharedPreferences(context.getString(R.string.sp_grade), 0).edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
+        editor = context.getSharedPreferences("user", 0).edit();
+        editor.clear();
+        editor.apply();
         SingletonClient.reset();
         return true;
     }
@@ -60,7 +63,7 @@ public class LogoutUtil {
         CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_ecard_bind_number), "");
         CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_ecard_user_phone), "");
         CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_ecard_el_balance), "");
-        CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_ecard_ec_balance), "");
+        CustomSharedPreferences.getInstance().put(context.getString(R.string.sp_ecard_balance), "");
         SharedPreferences.Editor editor = context.getSharedPreferences("local_pay_record", 0).edit();
         editor.clear();
         editor.commit();

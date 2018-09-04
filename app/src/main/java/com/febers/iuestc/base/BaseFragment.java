@@ -51,7 +51,6 @@ public abstract class BaseFragment extends Fragment implements BaseView{
         super.setUserVisibleHint(isVisibleToUser);
         isCanLoadData();
     }
-
     /**
      * 是否可以加载数据
      * 可以加载数据的条件：

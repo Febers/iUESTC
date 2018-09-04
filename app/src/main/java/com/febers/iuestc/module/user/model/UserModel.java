@@ -8,7 +8,8 @@
 
 package com.febers.iuestc.module.user.model;
 
-import android.util.Log;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
@@ -42,6 +43,10 @@ public class UserModel extends BaseModel implements IUserModel {
     @Override
     public void userDetailService(Boolean isRefresh) {
         new Thread(()-> {
+            if (!isRefresh) {
+                localDateService();
+                return;
+            }
             OkHttpClient client = SingletonClient.getInstance();
             Request request = new Request.Builder()
                     .url("http://eams.uestc.edu.cn/eams/stdDetail.action")
@@ -151,5 +156,41 @@ public class UserModel extends BaseModel implements IUserModel {
                 .put(getStringById(R.string.sp_user_name), user.getChineseName());
         CustomSharedPreferences.getInstance()
                 .put(getStringById(R.string.sp_user_id), user.getId());
+        saveUser(user);
+    }
+
+    private void saveUser(BeanUser user) {
+        SharedPreferences.Editor editor = mContext.getSharedPreferences("user", Context.MODE_PRIVATE).edit();
+        editor.putString(getStringById(R.string.sp_user_name), user.getChineseName());
+        editor.putString(getStringById(R.string.sp_user_en_name), user.getEnglishName());
+        editor.putString(getStringById(R.string.sp_user_id), user.getId());
+        editor.putString(getStringById(R.string.sp_user_type), user.getType());
+        editor.putString(getStringById(R.string.sp_user_school), user.getSchool());
+        editor.putString(getStringById(R.string.sp_user_major), user.getMajor());
+        editor.putString(getStringById(R.string.sp_user_class), user.getUserClass());
+        editor.putString(getStringById(R.string.sp_user_in_time), user.getIntoTime());
+        editor.putString(getStringById(R.string.sp_user_out_time), user.getOutTime());
+        editor.putString(getStringById(R.string.sp_user_position), user.getPosition());
+        editor.putString(getStringById(R.string.sp_user_phone), user.getPhone());
+        editor.putString(getStringById(R.string.sp_user_address), user.getAddress());
+        editor.apply();
+    }
+
+    private void localDateService() {
+        SharedPreferences spUser = mContext.getSharedPreferences("user", Context.MODE_PRIVATE);
+        BeanUser user = new BeanUser();
+        user.setChineseName(spUser.getString(getStringById(R.string.sp_user_name), ""));
+        user.setEnglishName(spUser.getString(getStringById(R.string.sp_user_en_name), ""));
+        user.setId(spUser.getString(getStringById(R.string.sp_user_id), ""));
+        user.setType(spUser.getString(getStringById(R.string.sp_user_type), ""));
+        user.setSchool(spUser.getString(getStringById(R.string.sp_user_school), ""));
+        user.setMajor(spUser.getString(getStringById(R.string.sp_user_major), ""));
+        user.setUserClass(spUser.getString(getStringById(R.string.sp_user_class), ""));
+        user.setIntoTime(spUser.getString(getStringById(R.string.sp_user_in_time), ""));
+        user.setOutTime(spUser.getString(getStringById(R.string.sp_user_out_time), ""));
+        user.setPosition(spUser.getString(getStringById(R.string.sp_user_position), ""));
+        user.setPhone(spUser.getString(getStringById(R.string.sp_user_phone), ""));
+        user.setAddress(spUser.getString(getStringById(R.string.sp_user_address), ""));
+        userPresenter.userDetailResult(new BaseEvent<>(BaseCode.LOCAL, user));
     }
 }

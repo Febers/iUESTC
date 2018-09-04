@@ -13,19 +13,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterExam;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
+import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.module.exam.presenter.ExamContract;
 import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.module.exam.presenter.ExamPresenterImpl;
@@ -40,7 +36,7 @@ import java.util.List;
 /**
  * mType 1为期末考试， 2为期中考试
  */
-public class ExamActivity extends BaseActivity implements ExamContract.View{
+public class ExamActivity extends BaseSwipeActivity implements ExamContract.View{
 
     private static final String TAG = "ExamActivity";
     private RecyclerView rvExam;
@@ -56,6 +52,11 @@ public class ExamActivity extends BaseActivity implements ExamContract.View{
     @Override
     protected int setView() {
         return R.layout.activity_exam;
+    }
+
+    @Override
+    protected int setMenu() {
+        return R.menu.exam_menu;
     }
 
     @Override
@@ -144,12 +145,6 @@ public class ExamActivity extends BaseActivity implements ExamContract.View{
 //            showProgressDialog();
 //        }
         examPresenter.examRequest(isRefresh, type);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.exam_menu, menu);
-        return true;
     }
 
     @Override

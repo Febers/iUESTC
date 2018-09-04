@@ -8,20 +8,28 @@
 
 package com.febers.iuestc.module.ecard.presenter;
 
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanEduECard;
 import com.febers.iuestc.module.ecard.model.ECardModel;
 import com.febers.iuestc.module.ecard.model.IECardModel;
-import com.febers.iuestc.module.ecard.view.ECardActivity;
 
 public class ECardJSInterface extends ECardContract.Presenter {
 
     private static final String TAG = "ECardJSInterface";
     public ECardJSInterface(ECardContract.View view) {
         super(view);
+    }
+
+    @Override
+    public void localDateRequest() {
+        IECardModel eCardModel = new ECardModel(this);
+        try {
+            eCardModel.localDateService();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -39,7 +47,7 @@ public class ECardJSInterface extends ECardContract.Presenter {
     public void processHTML(String html) {
         IECardModel eCardModel = new ECardModel(this);
         try {
-            eCardModel.resolveHtml(html);
+            eCardModel.resolveHtmlService(html);
         } catch (Exception e) {
             e.printStackTrace();
             mEduView.onError("获取一卡通信息出错");

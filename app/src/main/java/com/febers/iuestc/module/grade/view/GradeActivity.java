@@ -11,24 +11,21 @@ package com.febers.iuestc.module.grade.view;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterGradeViewPager;
-import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.base._BaseActivity;
 import com.febers.iuestc.view.custom.CustomViewPager;
 import com.febers.iuestc.view.manager.GradeFragmentManager;
 
-public class GradeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class GradeActivity extends _BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = "GradeActivity";
     private Toolbar toolbar;

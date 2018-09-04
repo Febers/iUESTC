@@ -252,7 +252,7 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
                 return false;
             }
             //保存到本地
-            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_ec_balance), data.getBalance());
+            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_balance), data.getBalance());
             eCardPresenter.eCardBalanceResult(data.getBalance());
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -305,7 +305,7 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
         if (!CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_is_login), false)) {
             return;
         }
-        String localBalance = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_ec_balance), "0.0");
+        String localBalance = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_balance), "0.0");
         String localElecBalance = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_el_balance), "0.0");
         eCardPresenter.eCardBalanceResult(localBalance);
         eCardPresenter.elecBalanceResult(localElecBalance);

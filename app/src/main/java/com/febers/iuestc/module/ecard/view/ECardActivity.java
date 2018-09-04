@@ -9,7 +9,6 @@
 package com.febers.iuestc.module.ecard.view;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,7 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.adapter.AdaperUser;
+import com.febers.iuestc.adapter.AdapterUser;
 import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.base.BaseCode;
@@ -28,13 +27,11 @@ import com.febers.iuestc.entity.BeanUserItem;
 import com.febers.iuestc.module.ecard.presenter.ECardContract;
 import com.febers.iuestc.module.ecard.presenter.ECardJSInterface;
 import com.febers.iuestc.module.login.view.LoginActivity;
-import com.febers.iuestc.module.user.view.UserActivity;
 import com.febers.iuestc.net.WebViewConfigure;
 import com.febers.iuestc.util.DestroyWebViewUtil;
 import com.febers.iuestc.view.custom.CustomListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +40,10 @@ import java.util.List;
  * 直接使用userDetail的Adapter
  */
 public class ECardActivity extends BaseActivity implements ECardContract.View{
+    private static final String TAG = "ECardActivity";
 
     private List<BeanUserItem> ecardItemList = new ArrayList<>();
-    private AdaperUser adaperECard;
+    private AdapterUser adapterECard;
     private WebView webView;
     private TextView tvBalance;
     private Button btnLost;
@@ -71,8 +69,8 @@ public class ECardActivity extends BaseActivity implements ECardContract.View{
         btnLost = findViewById(R.id.btn_ecard_lost);
         webView = findViewById(R.id.web_ecard);
         CustomListView listView = findViewById(R.id.lv_ecard_item);
-        adaperECard = new AdaperUser(this, R.layout.item_user_detail, initList());
-        listView.setAdapter(adaperECard);
+        adapterECard = new AdapterUser(this, R.layout.item_user_detail, initList());
+        listView.setAdapter(adapterECard);
         btnLost.setOnClickListener((View v) -> {
 
         });
@@ -81,16 +79,21 @@ public class ECardActivity extends BaseActivity implements ECardContract.View{
         smartRefreshLayout.setOnRefreshListener((RefreshLayout refreshLayout) -> {
                 dateRequest(true);
         });
+        dateRequest(false);
     }
 
     @Override
     public void dateRequest(Boolean isRefresh) {
+        ECardJSInterface eCardJSInterface = new ECardJSInterface(this);
+        if (!isRefresh) {
+            eCardJSInterface.localDateRequest();
+            return;
+        }
         if (!BaseApplication.checkNetConnecting()) {
             onError("当前网络无连接");
             return;
         }
-        ECardJSInterface eCardJSInterface = new ECardJSInterface(this);
-        eCardJSInterface.processHTML("");
+
         new WebViewConfigure.Builder(this, webView)
                 .setOpenUrlOut(false)
                 .setNoImgClient()
@@ -108,11 +111,14 @@ public class ECardActivity extends BaseActivity implements ECardContract.View{
 
     @Override
     public void showDetailPageResult(BaseEvent<BeanEduECard> event) {
-        if (event.getCode()!= BaseCode.UPDATE) {
+        if (event.getCode() == BaseCode.ERROR) {
             onError("获取一卡通信息失败");
             return;
         }
-        smartRefreshLayout.finishRefresh(true);
+        if (event.getCode() == BaseCode.UPDATE) {
+            smartRefreshLayout.finishRefresh(true);
+        }
+
         BeanEduECard eCard = event.getDate();
         item1.setValue(eCard.getNumber());
         item2.setValue(eCard.getStatus());
@@ -120,7 +126,7 @@ public class ECardActivity extends BaseActivity implements ECardContract.View{
         item4.setValue(eCard.getNoGet());
         runOnUiThread( ()-> {
             tvBalance.setText(eCard.getBalance());
-            adaperECard.notifyDataSetChanged();
+            adapterECard.notifyDataSetChanged();
         });
     }
 

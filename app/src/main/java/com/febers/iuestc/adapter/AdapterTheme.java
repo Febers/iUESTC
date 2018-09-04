@@ -11,7 +11,6 @@ package com.febers.iuestc.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,9 @@ import android.widget.TextView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanTheme;
-import com.febers.iuestc.module.more.ThemeChangeListener;
+import com.febers.iuestc.entity.EventTheme;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -28,11 +29,9 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.ViewHolder> 
 
     private static final String TAG = "AdapterTheme";
     private Context mContext;
-    private ThemeChangeListener listener;
     private List<BeanTheme> themeList;
 
-    public AdapterTheme(ThemeChangeListener listener, List<BeanTheme> themeList) {
-        this.listener = listener;
+    public AdapterTheme(List<BeanTheme> themeList) {
         this.themeList = themeList;
     }
 
@@ -75,13 +74,14 @@ public class AdapterTheme extends RecyclerView.Adapter<AdapterTheme.ViewHolder> 
             holder.tvIsUsing.setText("");
         }
         holder.itemView.setOnClickListener( (View view) -> {
-            listener.onThemeChange(position);
+            if (!theme.getUsing()) {
+                EventBus.getDefault().post(new EventTheme(true, position));
+            }
         });
     }
 
     @Override
     public int getItemCount() {
-        Log.i(TAG, "getItemCount: " + themeList.size());
         return themeList.size();
     }
 }

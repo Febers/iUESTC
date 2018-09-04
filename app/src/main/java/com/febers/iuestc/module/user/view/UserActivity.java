@@ -9,20 +9,14 @@
 package com.febers.iuestc.module.user.view;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.adapter.AdaperUser;
-import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.adapter.AdapterUser;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
+import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.entity.BeanUser;
 import com.febers.iuestc.entity.BeanUserItem;
 import com.febers.iuestc.module.login.view.LoginActivity;
@@ -31,15 +25,14 @@ import com.febers.iuestc.module.user.presenter.UserPresenterImpl;
 import com.febers.iuestc.view.custom.CustomListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserActivity extends BaseActivity implements UserContract.View {
+public class UserActivity extends BaseSwipeActivity implements UserContract.View {
 
     private List<BeanUserItem> userItemList = new ArrayList<>();
-    private AdaperUser adaperUser;
+    private AdapterUser adapterUser;
     private CustomListView lvUserDetail;
     private SmartRefreshLayout smartRefreshLayout;
     BeanUserItem item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12;
@@ -64,9 +57,10 @@ public class UserActivity extends BaseActivity implements UserContract.View {
         });
 
         lvUserDetail = findViewById(R.id.list_view_user);
-        adaperUser = new AdaperUser(this,
+        adapterUser = new AdapterUser(this,
                 R.layout.item_user_detail, initList());
-        lvUserDetail.setAdapter(adaperUser);
+        lvUserDetail.setAdapter(adapterUser);
+        dateRequest(false);
     }
 
     @Override
@@ -77,7 +71,9 @@ public class UserActivity extends BaseActivity implements UserContract.View {
 
     @Override
     public void showUserDetail(BaseEvent<BeanUser> event) {
-        smartRefreshLayout.finishRefresh(true);
+        if (event.getCode() == BaseCode.UPDATE) {
+            smartRefreshLayout.finishRefresh(true);
+        }
         BeanUser user = event.getDate();
         item1.setValue(user.getChineseName());
         item2.setValue(user.getEnglishName());
@@ -92,7 +88,7 @@ public class UserActivity extends BaseActivity implements UserContract.View {
         item11.setValue(user.getPhone());
         item12.setValue(user.getAddress());
         runOnUiThread( () -> {
-            adaperUser.notifyDataSetChanged();
+            adapterUser.notifyDataSetChanged();
         });
     }
 

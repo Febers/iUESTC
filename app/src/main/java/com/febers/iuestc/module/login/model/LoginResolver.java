@@ -10,9 +10,12 @@ package com.febers.iuestc.module.login.model;
 
 import android.util.Log;
 
+import com.febers.iuestc.R;
+import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.module.login.presenter.LoginContract;
+import com.febers.iuestc.util.CustomSharedPreferences;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,6 +34,10 @@ public class LoginResolver implements ILoginResolver{
     @Override
     public void resolve(String html) {
         try {
+            if (html.contains("mobileUsername")) {
+                loginPresenter.sendIdAndPwFunc(new BaseEvent<>(BaseCode.UPDATE, idAndPwFunc()));
+                return;
+            }
             Document document = Jsoup.parse(html);
             Elements elements = document.select("li");
             if (elements.size() == 0) {
@@ -47,5 +54,19 @@ public class LoginResolver implements ILoginResolver{
         } catch (Exception e) {
             Log.i(TAG, "checkLoginResult: 登录出错");
         }
+    }
+
+    /**
+     * 向login界面的用户名输入框注入id
+     *
+     * @return js函数
+     */
+    private String  idAndPwFunc() {
+        String userId = CustomSharedPreferences.getInstance().get(BaseApplication.getContext()
+                .getString(R.string.sp_user_id), "");
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("javascript:function fun(){document.getElementById('mobileUsername').value='"+userId+"';");
+        stringBuffer.append("document.getElementById('mobilePassword').value='" + "" + "';}");
+        return stringBuffer.toString();
     }
 }

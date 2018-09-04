@@ -15,14 +15,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.base.BaseSwipeActivity;
+import com.febers.iuestc.view.custom.CustomUpdateDialog;
 import com.lucasurbas.listitemview.ListItemView;
 import com.tencent.bugly.beta.Beta;
 
-public class AboutActivity extends BaseActivity implements ListItemView.OnClickListener {
+public class AboutActivity extends BaseSwipeActivity implements ListItemView.OnClickListener {
 
     private static final String TAG = "AboutActivity";
     private ListItemView itemViewWebHome, itemViewUpdate, itemViewDeveloper, itemViewEmail;
+    private CustomUpdateDialog updateDialog;
 
     @Override
     protected int setView() {
@@ -49,10 +51,6 @@ public class AboutActivity extends BaseActivity implements ListItemView.OnClickL
         itemViewWebHome.setOnClickListener(this);
         itemViewDeveloper.setOnClickListener(this);
         itemViewEmail.setOnClickListener(this);
-    }
-
-    @Override
-    public void dateRequest(Boolean isRefresh) {
     }
 
     @Override

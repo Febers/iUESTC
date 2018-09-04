@@ -24,6 +24,7 @@ public interface ECardContract {
         public Presenter(View view) {
             super(view);
         }
+        public abstract void localDateRequest();
         public abstract void homePageResult(BaseEvent event);
         public abstract void DetailPageResult(BaseEvent<BeanEduECard> event);
     }

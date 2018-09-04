@@ -18,6 +18,7 @@ import com.febers.iuestc.module.login.model.LoginResult;
 public interface LoginContract {
 
     interface View extends BaseEduView {
+        void loadIdAndPwFunc(BaseEvent<String> event);
         void loginResult(BaseEvent event);
     }
 
@@ -26,6 +27,7 @@ public interface LoginContract {
             super(view);
         }
 
+        public abstract void sendIdAndPwFunc(BaseEvent<String> event);
         public abstract void loginResult(BaseEvent event);
     }
 }

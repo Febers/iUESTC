@@ -13,15 +13,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterNewsViewPager;
-import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.base._BaseActivity;
 import com.febers.iuestc.view.custom.CustomViewPager;
 import com.febers.iuestc.view.manager.NewsFragmentManager;
 
-public class NewsActivity extends BaseActivity {
+public class NewsActivity extends _BaseActivity {
 
     private static final String TAG = "NewsActivity";
     private int type = 0;

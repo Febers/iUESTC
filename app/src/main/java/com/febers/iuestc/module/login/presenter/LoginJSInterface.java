@@ -8,7 +8,6 @@
 
 package com.febers.iuestc.module.login.presenter;
 
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.febers.iuestc.base.BaseEvent;
@@ -37,6 +36,13 @@ public class LoginJSInterface extends LoginContract.Presenter {
     public void loginResult(BaseEvent event) {
         if (mEduView!=null) {
             mEduView.loginResult(event);
+        }
+    }
+
+    @Override
+    public void sendIdAndPwFunc(BaseEvent<String> event) {
+        if (mEduView != null) {
+            mEduView.loadIdAndPwFunc(event);
         }
     }
 }

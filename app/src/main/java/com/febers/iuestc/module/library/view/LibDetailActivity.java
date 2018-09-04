@@ -9,21 +9,13 @@
 package com.febers.iuestc.module.library.view;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ImageView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.base.BaseEvent;
+import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.entity.BeanBook;
 import com.febers.iuestc.module.library.presenter.LibraryContract;
 import com.febers.iuestc.module.library.presenter.LibraryPresenterImp;
@@ -31,7 +23,7 @@ import com.febers.iuestc.util.DestroyWebViewUtil;
 
 import java.util.List;
 
-public class LibDetailActivity extends BaseActivity implements LibraryContract.View {
+public class LibDetailActivity extends BaseSwipeActivity implements LibraryContract.View {
 
     private WebView webView;
 
@@ -52,10 +44,6 @@ public class LibDetailActivity extends BaseActivity implements LibraryContract.V
         String url = intent.getStringExtra("url");
         webView = findViewById(R.id.webview_lib_detail);
         sendQuest(url);
-    }
-
-    @Override
-    public void dateRequest(Boolean isRefresh) {
     }
 
     private void sendQuest(String url) {

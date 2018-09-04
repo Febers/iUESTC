@@ -22,14 +22,12 @@ import android.webkit.WebView;
 import android.widget.ProgressBar;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.net.WebViewConfigure;
 import com.febers.iuestc.util.DestroyWebViewUtil;
 import com.febers.iuestc.util.PToUrlUtil;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
 
-public class ServiceActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class ServiceActivity extends BaseSwipeActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "ServiceActivity";
     private DrawerLayout drawerLayout;
@@ -41,30 +39,30 @@ public class ServiceActivity extends BaseActivity implements NavigationView.OnNa
 
     @Override
     protected int setView() {
-        SlidrConfig config = new SlidrConfig.Builder()
-                .edge(true)
-                .build();
-        Slidr.attach(this, config);
         Intent intent = getIntent();
         position = intent.getIntExtra("position", 0);
         return R.layout.activity_service;
     }
 
     @Override
-    protected void initView() {
+    protected void findViewById() {
         mToolbar = findViewById(R.id.tb_service);
+        progressBar = findViewById(R.id.progressbar_service);
+        drawerLayout = findViewById(R.id.dl_service);
+        navigationView = findViewById(R.id.nv_service);
+        webView = findViewById(R.id.web_service);
+    }
+
+    @Override
+    protected void initView() {
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        progressBar = findViewById(R.id.progressbar_service);
-        drawerLayout = findViewById(R.id.dl_service);
-        navigationView = findViewById(R.id.nv_service);
         navigationView.setCheckedItem(position);
         navigationView.setNavigationItemSelectedListener(this);
-        webView = findViewById(R.id.web_service);
         initWebView();
     }
 

@@ -32,7 +32,7 @@ public class UserPresenterImpl extends UserContract.Presenter{
     public void userDetailRequest(Boolean isRefresh) {
         IUserModel userModel = new UserModel(this);
         try {
-            userModel.userDetailService(true);
+            userModel.userDetailService(isRefresh);
         } catch (Exception e) {
             e.printStackTrace();
         }

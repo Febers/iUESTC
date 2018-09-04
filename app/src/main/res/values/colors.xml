@@ -8,25 +8,22 @@
   -->
 
 <resources>
-    <!--<color name="colorPrimary">#3F51B5</color>-->
-    <!--<color name="colorPrimaryDark">#303F9F</color>-->
-    <color name="colorPrimary">#0078D7</color>
-    <color name="colorPrimaryDark">#0078D7</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="lightWindowBackground">#FFFFFF</color>
     <color name="lightWindowBackgroundSecond">#EEEEEE</color>
 
-    <color name="darkColorPrimary">#37474f</color>
-    <color name="darkColorPrimaryDark">#455a64</color>
+    <color name="darkColorPrimary">#2D3035</color>
+    <color name="darkColorPrimaryDark">#2D3035</color>
     <color name="darkColorAccent">#eceff1</color>
-    <color name="darkWindowBackground">#263238</color>
-    <color name="darkWindowBackgroundSecond">#37474f</color>
-
+    <color name="darkWindowBackground">#22252A</color>
+    <color name="darkWindowBackgroundSecond">#2D3000</color>
     <color name="black">#000000</color>
 
     <color name="ligthBlue">#03A9F4</color>
     <color name="lightBlueAccent">#40C4FF</color>
-    <color name="blue">#2196F3</color>
+    <color name="blue">#0078D7</color>
     <color name="blueAccent">#448AFF</color>
     <color name="royalBlue">#4169E1</color>
 
@@ -61,4 +58,5 @@
     <color name="cyan">#00acc1</color>
 
     <color name="black_overlay">#66000000</color>
+
 </resources>

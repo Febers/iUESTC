@@ -10,30 +10,21 @@ package com.febers.iuestc.module.service.view;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.net.WebViewConfigure;
 import com.febers.iuestc.util.DestroyWebViewUtil;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 
-public class BusActivity extends BaseActivity {
+public class BusActivity extends BaseSwipeActivity {
 
     private static final String TAG = "BusActivity";
     private WebView webView;
@@ -43,6 +34,11 @@ public class BusActivity extends BaseActivity {
     @Override
     protected int setView() {
         return R.layout.activity_bus;
+    }
+
+    @Override
+    protected int setMenu() {
+        return R.menu.calender_menu;
     }
 
     @Override
@@ -79,17 +75,8 @@ public class BusActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.calender_menu, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
             case R.id.item_calender_refresh:
                 webView.loadUrl("https://uestc.ga/api/extra/traffic");
                 break;

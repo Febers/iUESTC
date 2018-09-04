@@ -167,7 +167,7 @@ public class LibraryModel implements ILibraryModel {
                 String result = response.body().string();
                 resolveQueryHtml(page, result);
             } catch (SocketTimeoutException e) {
-                libraryPresenter.errorResult("请求超时,可能需要校园网");
+                libraryPresenter.errorResult("请求超时");
                 libraryPresenter.queryResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
             } catch (IOException e) {
                 e.printStackTrace();

@@ -129,7 +129,7 @@ public class CustomLoginDialog extends AlertDialog{
 
     @Override
     public boolean isShowing() {
-        return super.isShowing();
+        return dialog.isShowing();
     }
 
     //定义点击监听接口

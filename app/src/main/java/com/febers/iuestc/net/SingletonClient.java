@@ -14,11 +14,15 @@ import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.CipherSuite;
+import okhttp3.ConnectionSpec;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+import okhttp3.TlsVersion;
 
 public class SingletonClient {
 
@@ -41,6 +45,7 @@ public class SingletonClient {
                 }
             }
         }
+
         return singletonClient;
     }
 

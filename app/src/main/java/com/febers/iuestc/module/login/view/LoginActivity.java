@@ -14,15 +14,15 @@ import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
+import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.module.login.presenter.LoginJSInterface;
 import com.febers.iuestc.module.login.presenter.LoginContract;
 import com.febers.iuestc.net.WebViewConfigure;
 import com.febers.iuestc.util.CustomSharedPreferences;
 
-public class LoginActivity extends BaseActivity implements LoginContract.View{
+public class LoginActivity extends BaseSwipeActivity implements LoginContract.View {
 
     private static final String TAG = "LoginActivity";
     private WebView webView;
@@ -53,6 +53,15 @@ public class LoginActivity extends BaseActivity implements LoginContract.View{
                 .setProcessHtml(true, loginJSInterface, "HTMLOUT")
                 .builder();
         webView.loadUrl("http://portal.uestc.edu.cn");
+    }
+
+
+    @Override
+    public void loadIdAndPwFunc(BaseEvent<String> event) {
+        runOnUiThread( () -> {
+            webView.loadUrl(event.getDate());
+            webView.loadUrl("javascript:fun();");
+        });
     }
 
     @Override

@@ -13,33 +13,31 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
-import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
+import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.module.service.presenter.CalPresenterImpl;
 import com.febers.iuestc.module.service.presenter.SchoolCalendarContact;
 import com.febers.iuestc.util.CustomSharedPreferences;
 import com.febers.iuestc.view.custom.PinchImageView;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
 
-public class CalActivity extends BaseActivity implements SchoolCalendarContact.View {
+public class CalActivity extends BaseSwipeActivity implements SchoolCalendarContact.View {
 
     private SchoolCalendarContact.Presenter calPresenter = new CalPresenterImpl(this);
     private PinchImageView imageViewCal;
 
     @Override
     protected int setView() {
-        SlidrConfig config = new SlidrConfig.Builder()
-            .edge(true)
-            .build();
-        Slidr.attach(this, config);
         return R.layout.activity_cal;
+    }
+
+    @Override
+    protected int setMenu() {
+        return R.menu.calender_menu;
     }
 
     @Override
@@ -79,12 +77,6 @@ public class CalActivity extends BaseActivity implements SchoolCalendarContact.V
         runOnUiThread( () ->
                 imageViewCal.setImageBitmap(bitmap)
         );
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.calender_menu, menu);
-        return true;
     }
 
     @Override

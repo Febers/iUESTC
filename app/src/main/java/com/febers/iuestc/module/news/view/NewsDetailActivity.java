@@ -10,30 +10,19 @@ package com.febers.iuestc.module.news.view;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.DownloadListener;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.base._BaseActivity;
 import com.febers.iuestc.net.WebViewConfigure;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-public class NewsDetailActivity extends BaseActivity {
+public class NewsDetailActivity extends _BaseActivity {
 
     private static final String TAG = "NewsDetailActivity";
     private WebView webView;

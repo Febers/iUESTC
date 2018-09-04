@@ -2,52 +2,78 @@
  * Created by Febers 2018.
  * Copyright (c). All rights reserved.
  *
- * Last Modified 18-6-7 上午11:30
+ * Last Modified 18-9-3 下午11:02
  *
  */
 
 package com.febers.iuestc.base;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.module.more.ThemeChangeListener;
 import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.ThemeUtil;
 import com.febers.iuestc.view.custom.CustomProgressDialog;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
 
+import org.greenrobot.eventbus.EventBus;
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseView {
+public abstract class BaseActivity extends MySupportActivity implements BaseView {
 
     protected CustomProgressDialog mProgressDialog;
+
+    protected abstract int setView();
+
+    protected void findViewById(){}
+
+    protected int setMenu() {
+        return R.menu.default_menu;
+    }
+
+    protected Boolean registerEventBus() {
+        return false;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        choiceTheme();
-        setContentView(getContentView());
-        if (isSlideBack()) {
-            SlidrConfig config = new SlidrConfig.Builder()
-                    .edge(true)
-                    .build();
-            Slidr.attach(this, config);
-        }
+        chooseTheme();
+        setContentView(setView());
         findViewById();
         initView();
+        if (registerEventBus()) {
+            if (!EventBus.getDefault().isRegistered(this)) {
+                EventBus.getDefault().register(this);
+            }
+        }
     }
 
-    protected abstract int setView();
-    protected void findViewById() {}
     protected abstract void initView();
 
-    protected int getContentView() {
-        return setView();
+    private void chooseTheme() {
+        int themeCode = CustomSharedPreferences.getInstance().get("theme_code", 9);
+        setTheme(ThemeUtil.getTheme(themeCode));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(setMenu(), menu);
+        return true;
     }
 
     protected void showProgressDialog() {
@@ -64,70 +90,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void onError(String error) {
-        runOnUiThread( () -> Toast.makeText(this, error, Toast.LENGTH_SHORT).show());
-    }
-
-    protected Boolean isSlideBack() {
-        return true;
-    }
-
-    private void choiceTheme() {
-        int themeCode = CustomSharedPreferences.getInstance().get("theme_code", 0);
-        switch (themeCode) {
-            case 0:
-                setTheme(R.style.BlueTheme);
-                break;
-            case 1:
-                setTheme(R.style.NightTheme);
-                break;
-            case 2:
-                setTheme(R.style.GreenTheme);
-                break;
-            case 3:
-                setTheme(R.style.RedTheme);
-                break;
-            case 4:
-                setTheme(R.style.PurpleTheme);
-                break;
-            case 5:
-                setTheme(R.style.OrangeTheme);
-                break;
-            case 6:
-                setTheme(R.style.GreyTheme);
-                break;
-            case 7:
-                setTheme(R.style.TealTheme);
-                break;
-            case 8:
-                setTheme(R.style.PinkTheme);
-                break;
-            default:
-                setTheme(R.style.BlueTheme);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Boolean isLogin = false;
-        try {
-            isLogin = data.getBooleanExtra("status", false);
-        } catch (Exception e) {
-        }
-        if (isLogin) {
-            dateRequest(true);
-        }
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 }

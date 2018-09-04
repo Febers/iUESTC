@@ -10,12 +10,14 @@ package com.febers.iuestc.module.ecard.model;
 
 import android.util.Log;
 
+import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanEduECard;
 import com.febers.iuestc.module.ecard.presenter.ECardJSInterface;
 import com.febers.iuestc.net.SingletonClient;
+import com.febers.iuestc.util.CustomSharedPreferences;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -40,9 +42,15 @@ public class ECardModel extends BaseModel implements IECardModel {
     }
 
     @Override
-    public void resolveHtml(String html) {
-        if (html.contains("登录规则")) {
+    public void resolveHtmlService(String html) {
+        Log.i(TAG, "resolveHtmlService: " + html);
+        if (html.contains("身份认证")) {
             eCardJSInterface.loginStatusFail();
+            return;
+        }
+        if (html.contains("没有所需角色")) {
+            Log.i(TAG, "resolveHtmlService: 没有portlet");
+            eCardJSInterface.DetailPageResult(new BaseEvent<>(BaseCode.ERROR, new BeanEduECard()));
             return;
         }
         if (html.contains("重复登录")) {
@@ -89,11 +97,34 @@ public class ECardModel extends BaseModel implements IECardModel {
                         }
                     }
                     eCardJSInterface.DetailPageResult(new BaseEvent<>(BaseCode.UPDATE, eCard));
-                } catch (StringIndexOutOfBoundsException e) {
+                    saveECard(eCard);
+                } catch (Exception e) {
                     eCardJSInterface.DetailPageResult(new BaseEvent<>(BaseCode.ERROR, new BeanEduECard()));
                     e.printStackTrace();
                 }
             }).start();
         }
+    }
+
+    @Override
+    public void localDateService() throws Exception {
+        Log.i(TAG, "localDateService: ");
+        BeanEduECard eCard = new BeanEduECard();
+        eCard.setBalance(CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_balance), "..."));
+        eCard.setNumber(CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_number), "..."));
+        eCard.setStatus(CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_status), "..."));
+        eCard.setValueDate(CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_value_date), "..."));
+        eCard.setNoGet(CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_no_get), "..."));
+        eCardJSInterface.DetailPageResult(new BaseEvent<>(BaseCode.LOCAL, eCard));
+    }
+
+    private void saveECard(BeanEduECard eCard) {
+        new Thread(()-> {
+            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_balance), eCard.getBalance());
+            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_number), eCard.getNumber());
+            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_status), eCard.getStatus());
+            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_value_date), eCard.getValueDate());
+            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_no_get), eCard.getNoGet());
+        }).start();
     }
 }

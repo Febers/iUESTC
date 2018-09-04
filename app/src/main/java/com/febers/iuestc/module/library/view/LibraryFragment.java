@@ -44,7 +44,7 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
 
     @Override
     protected void initView() {
-        Toolbar mToolbar = getActivity().findViewById(R.id.library_toolbar);
+        Toolbar mToolbar = findViewById(R.id.library_toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
 
         etLibFragment = findViewById(R.id.et_library_fragemnt);

@@ -15,7 +15,7 @@ import android.view.MenuItem;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterRecord;
-import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.base._BaseActivity;
 import com.febers.iuestc.module.ecard.presenter.BeforeECardContract;
 import com.febers.iuestc.entity.BeanECardPayRecord;
 import com.febers.iuestc.module.ecard.presenter.BeforeECardPresenterImpl;
@@ -24,7 +24,7 @@ import com.r0adkll.slidr.model.SlidrConfig;
 
 import java.util.List;
 
-public class ECardRecrodActivity extends BaseActivity implements BeforeECardContract.View{
+public class ECardRecrodActivity extends _BaseActivity implements BeforeECardContract.View{
 
     private Toolbar mToolbar;
     private RecyclerView mRVECardeRecord;
