@@ -22,6 +22,7 @@ import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
+import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.entity.BeanEduECard;
 import com.febers.iuestc.entity.BeanUserItem;
 import com.febers.iuestc.module.ecard.presenter.ECardContract;
@@ -39,7 +40,7 @@ import java.util.List;
 /**
  * 直接使用userDetail的Adapter
  */
-public class ECardActivity extends BaseActivity implements ECardContract.View{
+public class ECardActivity extends BaseSwipeActivity implements ECardContract.View{
     private static final String TAG = "ECardActivity";
 
     private List<BeanUserItem> ecardItemList = new ArrayList<>();

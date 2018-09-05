@@ -17,9 +17,10 @@ import android.support.v7.widget.Toolbar;
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterNewsViewPager;
 import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.view.custom.CustomViewPager;
 
-public class NewsActivity extends BaseActivity {
+public class NewsActivity extends BaseSwipeActivity {
 
     private static final String TAG = "NewsActivity";
     private int type = 0;

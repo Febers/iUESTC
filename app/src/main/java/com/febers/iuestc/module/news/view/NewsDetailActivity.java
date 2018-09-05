@@ -18,11 +18,12 @@ import android.webkit.WebView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.net.WebViewConfigure;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
-public class NewsDetailActivity extends BaseActivity {
+public class NewsDetailActivity extends BaseSwipeActivity {
 
     private static final String TAG = "NewsDetailActivity";
     private WebView webView;

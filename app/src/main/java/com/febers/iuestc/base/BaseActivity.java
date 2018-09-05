@@ -8,6 +8,7 @@
 
 package com.febers.iuestc.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
@@ -93,6 +94,18 @@ public abstract class BaseActivity extends MySupportActivity implements BaseView
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Boolean isLogin = false;
+        try {
+            isLogin = data.getBooleanExtra("status", false);
+        } catch (Exception e) {
+        }
+        if (isLogin) {
+            dateRequest(true);
+        }
     }
 
     @Override

@@ -56,7 +56,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
             {R.id.bt_course_501, R.id.bt_course_523, R.id.bt_course_545, R.id.bt_course_567, R.id.bt_course_589, R.id.bt_course_51011},
             {R.id.bt_course_601, R.id.bt_course_623, R.id.bt_course_645, R.id.bt_course_667, R.id.bt_course_689, R.id.bt_course_61011}};
     private int[] mBackground = {R.drawable.cornerbg_blue, R.drawable.cornerbg_green, R.drawable.cornerbg_orange,
-            R.drawable.cornerbg_teal, R.drawable.cornerbg_cyan};
+            R.drawable.cornerbg_teal, R.drawable.cornerbg_cyan, R.drawable.cornerbg_red};
     private CourseContract.Presenter mPresenter = new CoursePresenterImpl(this);
     private List<BeanCourse> mCourseList = new ArrayList<>();
     private List<Button> buttonList = new ArrayList<>();
@@ -175,7 +175,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
                 if (mCourseList.get(i).getRepeat()) {
                     btn.setBackgroundResource(R.drawable.corner_with_rectangle);
                 } else {
-                    btn.setBackgroundResource(mBackground[RandomUtil.getRandomFrom0(5)]);
+                    btn.setBackgroundResource(mBackground[RandomUtil.getRandomFrom0(6)]);
                 }
 
                 if (result.contains("noNow")) {

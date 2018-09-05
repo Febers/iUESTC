@@ -9,9 +9,12 @@
 package com.febers.iuestc.home.view;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 
@@ -34,6 +37,9 @@ import me.yokeyword.fragmentation.ISupportFragment;
 public class HomeActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener
         , NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "HomeActivity";
+
+    private Boolean mThemeChange = false;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private BottomNavigationBar mBottomNavigationBar;
@@ -142,9 +148,27 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("theme_change", mThemeChange);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mThemeChange = savedInstanceState.getBoolean("theme_change", false);
+            if (mThemeChange) {
+                mBottomNavigationBar.selectTab(2);
+            }
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void themeChange(EventTheme eventTheme) {
         if (eventTheme.getThemeChanged()) {
+            mThemeChange = true;
             recreate();
         }
     }

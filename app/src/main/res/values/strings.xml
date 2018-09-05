@@ -56,7 +56,7 @@
     <string name="sp_exam_final">exam_1</string>
     <string name="sp_exam_middle">exam_2</string>
 
-    <string name="sp_semester">183</string>
+    <string name="sp_semester">203</string>
     <string name="sp_now_week">now_week</string>
     <string name="sp_course_count">course_count</string>
     <string name="sp_get_course">get_course</string>
