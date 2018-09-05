@@ -16,7 +16,8 @@ public class PToUrlUtil {
         switch (position) {
             //教室查询
             case 0:
-               return "https://jwc.uestc.ga/wx/SchAbout!toClassroom.action";
+                return "https://jwc.uestc.ga/wx/SchAbout!toClassroom.action";
+               //return "http://wx.jwc.uestc.edu.cn/wx/SchAbout!toClassroom.action";
             case 1:
                 return "https://jwc.uestc.ga/wx/CourseAbout!toTodayCourse.action";
             case 2:

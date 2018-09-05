@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterSetting;
-import com.febers.iuestc.base.BaseFragment2;
+import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.entity.BeanSetting;
 import com.febers.iuestc.module.ecard.view.ECardActivity;
 import com.febers.iuestc.module.exam.view.ExamActivity;
@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MoreFragment extends BaseFragment2 {
+public class MoreFragment extends BaseFragment {
 
     private List<BeanSetting> beanSettingList = new ArrayList<>();
     private ListView mListView;

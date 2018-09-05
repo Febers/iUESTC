@@ -8,17 +8,15 @@
 
 package com.febers.iuestc.module.grade.view;
 
-import android.content.Intent;
-import android.util.Log;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.module.grade.presenter.GradeContract;
 import com.febers.iuestc.entity.BeanGradeSummary;
 import com.febers.iuestc.entity.BeanGrade;
 import com.febers.iuestc.module.grade.presenter.GradePresenterImpl;
-import com.febers.iuestc.module.login.view.LoginActivity;
 import com.febers.iuestc.util.GradeUtil;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.ScatterChart;
@@ -52,14 +50,15 @@ public class GradeImgFragment extends BaseFragment implements GradeContract.View
     }
 
     @Override
-    protected void lazyLoad() {
-        dateRequest(false);
-    }
-
-    @Override
     protected void initView() {
         initLineChart();
         initScatterChart();
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        dateRequest(false);
     }
 
     @Override

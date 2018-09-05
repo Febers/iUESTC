@@ -16,11 +16,10 @@ import android.support.v7.widget.Toolbar;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterNewsViewPager;
-import com.febers.iuestc.base._BaseActivity;
+import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.view.custom.CustomViewPager;
-import com.febers.iuestc.view.manager.NewsFragmentManager;
 
-public class NewsActivity extends _BaseActivity {
+public class NewsActivity extends BaseActivity {
 
     private static final String TAG = "NewsActivity";
     private int type = 0;
@@ -100,10 +99,6 @@ public class NewsActivity extends _BaseActivity {
         viewPager.setAdapter(adapterNewsViewPager);
     }
 
-    @Override
-    public void dateRequest(Boolean isRefresh) {
-    }
-
     /**
      * 在结束activity的时候调用FragmentManager的清除所有Fragment的方法
      * 重置所有的fragment
@@ -112,6 +107,6 @@ public class NewsActivity extends _BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        NewsFragmentManager.clearAllFragment();
+        //NewsFragmentManager.clearAllFragment();
     }
 }

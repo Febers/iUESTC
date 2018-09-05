@@ -21,11 +21,11 @@ import android.view.MenuItem;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterGradeViewPager;
-import com.febers.iuestc.base._BaseActivity;
+import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.view.custom.CustomViewPager;
 import com.febers.iuestc.view.manager.GradeFragmentManager;
 
-public class GradeActivity extends _BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class GradeActivity extends BaseSwipeActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = "GradeActivity";
     private Toolbar toolbar;

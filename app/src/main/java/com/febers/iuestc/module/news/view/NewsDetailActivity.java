@@ -17,12 +17,12 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base._BaseActivity;
+import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.net.WebViewConfigure;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
-public class NewsDetailActivity extends _BaseActivity {
+public class NewsDetailActivity extends BaseActivity {
 
     private static final String TAG = "NewsDetailActivity";
     private WebView webView;
@@ -78,10 +78,6 @@ public class NewsDetailActivity extends _BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void dateRequest(Boolean isRefresh) {
     }
 
     @Override

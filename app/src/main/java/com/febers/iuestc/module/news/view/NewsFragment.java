@@ -73,11 +73,8 @@ public class NewsFragment extends BaseFragment implements NewsContract.View{
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
-    }
-
-    @Override
-    protected void lazyLoad() {
+    public void onSupportVisible() {
+        super.onSupportVisible();
         if (gotNews) {
             return;
         }

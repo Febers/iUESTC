@@ -87,6 +87,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
                 .setFirstSelectedPosition(openPosition)
                 .initialise();
         mBottomNavigationBar.setTabSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -146,6 +147,5 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
         if (eventTheme.getThemeChanged()) {
             recreate();
         }
-        mBottomNavigationBar.selectTab(2);
     }
 }

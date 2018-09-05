@@ -29,7 +29,7 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
-import com.febers.iuestc.base.BaseFragment2;
+import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.entity.BeanCourse;
 import com.febers.iuestc.module.course.presenter.CourseContract;
 import com.febers.iuestc.module.course.presenter.CoursePresenterImpl;
@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CourseFragment extends BaseFragment2 implements CourseContract.View, View.OnClickListener {
+public class CourseFragment extends BaseFragment implements CourseContract.View, View.OnClickListener {
 
     private static final String TAG = "CourseFragment";
     private int[][] mCourseArray = {
@@ -95,6 +95,7 @@ public class CourseFragment extends BaseFragment2 implements CourseContract.View
         Toolbar toolbar = findViewById(R.id.tb_course);
         toolbar.setTitle("");
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.course_menu);    //防止activity销毁之后menu消失
         initPicker();
         tvNowWeek = findViewById(R.id.tv_course_title);
         ivNull = findViewById(R.id.iv_null_course);

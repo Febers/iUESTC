@@ -10,9 +10,10 @@ package com.febers.iuestc.module.grade.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
@@ -25,7 +26,6 @@ import com.febers.iuestc.entity.BeanGrade;
 import com.febers.iuestc.module.grade.presenter.GradePresenterImpl;
 import com.febers.iuestc.module.login.view.LoginActivity;
 import com.febers.iuestc.util.CustomSharedPreferences;
-import com.febers.iuestc.view.custom.CustomViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,8 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
     }
 
     @Override
-    protected void lazyLoad() {
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
         dateRequest(false);
     }
 

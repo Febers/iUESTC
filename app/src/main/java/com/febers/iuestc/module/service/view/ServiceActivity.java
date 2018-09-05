@@ -9,6 +9,7 @@
 package com.febers.iuestc.module.service.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -36,12 +37,18 @@ public class ServiceActivity extends BaseSwipeActivity implements NavigationView
     private int position;
     private Toolbar mToolbar;
     private ProgressBar progressBar;
+    private String mUrl = PToUrlUtil.getUrl(0);
 
     @Override
     protected int setView() {
         Intent intent = getIntent();
         position = intent.getIntExtra("position", 0);
         return R.layout.activity_service;
+    }
+
+    @Override
+    protected int setMenu() {
+        return R.menu.service_menu;
     }
 
     @Override
@@ -68,6 +75,7 @@ public class ServiceActivity extends BaseSwipeActivity implements NavigationView
 
     private void initWebView() {
         new WebViewConfigure.Builder(this, webView)
+                .enableJS(true)
                 .setOpenUrlOut(false)
                 .setSupportWindow(true)
                 .setSupportLoadingBar(true, progressBar)
@@ -96,35 +104,34 @@ public class ServiceActivity extends BaseSwipeActivity implements NavigationView
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Log.d(TAG, "onNavigationItemSelected: ");
         switch (item.getItemId()) {
             case R.id.item_nav_query_classroom:
                 webView.clearHistory();
-                webView.loadUrl(PToUrlUtil.getUrl(0));
+                mUrl = PToUrlUtil.getUrl(0);
                 navigationView.setCheckedItem(R.id.item_nav_query_classroom);
                 drawerLayout.closeDrawer(Gravity.END);
                 break;
             case R.id.item_nav_query_today_class:
                 webView.clearHistory();
-                webView.loadUrl(PToUrlUtil.getUrl(1));
+                mUrl = PToUrlUtil.getUrl(1);
                 navigationView.setCheckedItem(R.id.item_nav_query_today_class);
                 drawerLayout.closeDrawer(Gravity.END);
                 break;
             case R.id.item_nav_query_all_class:
                 webView.clearHistory();
-                webView.loadUrl(PToUrlUtil.getUrl(2));
+                mUrl = PToUrlUtil.getUrl(2);
                 navigationView.setCheckedItem(R.id.item_nav_query_all_class);
                 drawerLayout.closeDrawer(Gravity.END);
                 break;
             case R.id.item_nav_query_teacher:
                 webView.clearHistory();
-                webView.loadUrl(PToUrlUtil.getUrl(3));
+                mUrl = PToUrlUtil.getUrl(3);
                 navigationView.setCheckedItem(R.id.item_nav_query_teacher);
                 drawerLayout.closeDrawer(Gravity.END);
                 break;
             case R.id.item_nav_lxfs:
                 webView.clearHistory();
-                webView.loadUrl(PToUrlUtil.getUrl(9));
+                mUrl = PToUrlUtil.getUrl(9);
                 navigationView.setCheckedItem(R.id.item_nav_lxfs);
                 drawerLayout.closeDrawer(Gravity.END);
                 break;
@@ -134,7 +141,18 @@ public class ServiceActivity extends BaseSwipeActivity implements NavigationView
             default:
                 break;
         }
+        webView.loadUrl(mUrl);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.item_service_source) {
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mUrl));
+            startActivity(Intent.createChooser(intent, "请选择浏览器"));
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

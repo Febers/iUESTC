@@ -82,9 +82,6 @@ public class CalActivity extends BaseSwipeActivity implements SchoolCalendarCont
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
             case R.id.item_calender_refresh:
                 dateRequest(true);
                 break;

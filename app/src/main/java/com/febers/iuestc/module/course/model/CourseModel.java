@@ -213,6 +213,7 @@ public class CourseModel extends BaseModel implements ICourseModel {
         //保存每节课的信息,同时去掉两边的[]以便还原
         SharedPreferences spLocalCourse = mContext.getSharedPreferences("local_course", 0);
         SharedPreferences.Editor editor = spLocalCourse.edit();
+        editor.clear();
         editor.putString("beanCourse" + i, courseDetail.toString().replace("[", "").replace("]", ""));
         editor.commit();
 
