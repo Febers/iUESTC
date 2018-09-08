@@ -8,7 +8,7 @@
 
 <resources>
     <string name="app_name">i成电</string>
-    <string name="app_version">beta 3.0</string>
+    <string name="app_version">beta 3.1</string>
     <string name="developer_name">Febers</string>
     <string name="developer_email">febers418@qq.com</string>
     <string name="app_web">http://app.febers.tech</string>
@@ -76,5 +76,5 @@
     <string name="sp_get_bus">get_bus</string>
     <string name="sp_history_url">history_url</string>
 
-    <item name="btn_course_name" type="id" />
+    <item name="btn_course_day_time" type="id" />
 </resources>

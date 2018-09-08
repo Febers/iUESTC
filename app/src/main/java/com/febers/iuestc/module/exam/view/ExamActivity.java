@@ -13,12 +13,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 
+import com.febers.iuestc.adapter.AdapterExam;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
-import com.febers.iuestc.adapter.AdapterExam;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseSwipeActivity;
@@ -26,7 +29,7 @@ import com.febers.iuestc.module.exam.presenter.ExamContract;
 import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.module.exam.presenter.ExamPresenterImpl;
 import com.febers.iuestc.module.login.view.LoginActivity;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -39,12 +42,16 @@ import java.util.List;
 public class ExamActivity extends BaseSwipeActivity implements ExamContract.View{
 
     private static final String TAG = "ExamActivity";
-    private RecyclerView rvExam;
-    private AdapterExam adapterExam;
-    private List<BeanExam> mExamList = new ArrayList<>();
-    private Toolbar toolbar;
-    private SmartRefreshLayout smartRefreshLayout;
+
     private ExamContract.Presenter examPresenter = new ExamPresenterImpl(this);
+    private List<BeanExam> mExamList = new ArrayList<>();
+    private SmartRefreshLayout smartRefreshLayout;
+    private AdapterExam adapterExam;
+    private RecyclerView rvExam;
+    private ImageView ivEmpty;
+    private Toolbar mToolbar;
+
+
     private RadioGroup rgExam;
     private int mType = 1;
     private String examName = "exam_1";
@@ -61,22 +68,25 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
 
     @Override
     protected void findViewById() {
-        toolbar = findViewById(R.id.tb_exam);
+        mToolbar = findViewById(R.id.tb_exam);
         rvExam = findViewById(R.id.rv_exam);
         rgExam = findViewById(R.id.rg_exam);
+        ivEmpty = findViewById(R.id.iv_exam_empty);
         smartRefreshLayout = findViewById(R.id.srl_exam);
     }
 
     @Override
     protected void initView() {
-        toolbar.setTitle("我的考试");
-        setSupportActionBar(toolbar);
+        mToolbar.setTitle("我的考试");
+        setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        adapterExam = new AdapterExam(this, mExamList);
         rvExam.setLayoutManager(new LinearLayoutManager(this));
         rvExam.setNestedScrollingEnabled(false);
+        rvExam.setAdapter(adapterExam);
         rgExam.setOnCheckedChangeListener( (RadioGroup group, int checkedId) -> {
                 switch (checkedId) {
                     case R.id.rb_exam_final:
@@ -91,11 +101,7 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
                         break;
                 }
         });
-//        if (!CustomSharedPreferences.getInstance().get("exam_1", false)) {
-//            dateRequest(true);
-//        } else {
-//            dateRequest(false);
-//        }
+
         dateRequest(false);
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.autoRefresh();
@@ -106,20 +112,22 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
 
     @Override
     public void showExam(BaseEvent<List<BeanExam>> event) {
-        mExamList.clear();
-        mExamList.addAll(event.getDate());
         runOnUiThread( () -> {
-            adapterExam = new AdapterExam(mExamList);
-            rvExam.setAdapter(adapterExam);
+            if (event.getDate().size() == 0) {
+                ivEmpty.setVisibility(View.VISIBLE);
+            } else {
+                ivEmpty.setVisibility(View.GONE);
+            }
             if (event.getCode() == BaseCode.UPDATE) {
                 smartRefreshLayout.finishRefresh(true);
             }
+            adapterExam.setNewData(event.getDate());
         });
     }
 
     @Override
     public void dateRequest(Boolean isRefresh) {
-        if (!CustomSharedPreferences.getInstance().get(getString(R.string.sp_is_login), false)) {
+        if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
             if (isRefresh) {
                 statusToFail();
                 return;
@@ -136,14 +144,6 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
                 return;
             }
         }
-        if (type == 2) {
-            examName = "exam_2";
-        } else if (type == 1) {
-            examName = "exam_1";
-        }
-//        if ((!CustomSharedPreferences.getInstance().get(examName, false)) || (isRefresh)) {
-//            showProgressDialog();
-//        }
         examPresenter.examRequest(isRefresh, type);
     }
 

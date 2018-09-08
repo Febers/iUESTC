@@ -9,17 +9,13 @@
 package com.febers.iuestc.module.course.view;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,38 +30,23 @@ import com.febers.iuestc.entity.BeanCourse;
 import com.febers.iuestc.module.course.presenter.CourseContract;
 import com.febers.iuestc.module.course.presenter.CoursePresenterImpl;
 import com.febers.iuestc.module.login.view.LoginActivity;
-import com.febers.iuestc.util.CourseTimeUtil;
-import com.febers.iuestc.util.CustomSharedPreferences;
-import com.febers.iuestc.util.RandomUtil;
-import com.febers.iuestc.view.custom.CustomCourseDialog;
+import com.febers.iuestc.util.CustomSPUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
-public class CourseFragment extends BaseFragment implements CourseContract.View, View.OnClickListener {
+public class CourseFragment extends BaseFragment implements CourseContract.View {
 
     private static final String TAG = "CourseFragment";
-    private int[][] mCourseArray = {
-            {R.id.bt_course_001, R.id.bt_course_023, R.id.bt_course_045, R.id.bt_course_067, R.id.bt_course_089, R.id.bt_course_01011},
-            {R.id.bt_course_101, R.id.bt_course_123, R.id.bt_course_145, R.id.bt_course_167, R.id.bt_course_189, R.id.bt_course_11011},
-            {R.id.bt_course_201, R.id.bt_course_223, R.id.bt_course_245, R.id.bt_course_267, R.id.bt_course_289, R.id.bt_course_21011},
-            {R.id.bt_course_301, R.id.bt_course_323, R.id.bt_course_345, R.id.bt_course_367, R.id.bt_course_389, R.id.bt_course_31011},
-            {R.id.bt_course_401, R.id.bt_course_423, R.id.bt_course_445, R.id.bt_course_467, R.id.bt_course_489, R.id.bt_course_41011},
-            {R.id.bt_course_501, R.id.bt_course_523, R.id.bt_course_545, R.id.bt_course_567, R.id.bt_course_589, R.id.bt_course_51011},
-            {R.id.bt_course_601, R.id.bt_course_623, R.id.bt_course_645, R.id.bt_course_667, R.id.bt_course_689, R.id.bt_course_61011}};
-    private int[] mBackground = {R.drawable.cornerbg_blue, R.drawable.cornerbg_green, R.drawable.cornerbg_orange,
-            R.drawable.cornerbg_teal, R.drawable.cornerbg_cyan, R.drawable.cornerbg_red};
+
     private CourseContract.Presenter mPresenter = new CoursePresenterImpl(this);
-    private List<BeanCourse> mCourseList = new ArrayList<>();
+
     private List<Button> buttonList = new ArrayList<>();
     private List<Integer> weeks = new ArrayList<>();
-    private CustomCourseDialog customCourseDialog;
     private OptionsPickerView mPickerView;
     private TextView tvNowWeek;
     private ImageView ivNull;
-    private int index = 0;
     private int nowWeek;
 
     @Override
@@ -104,107 +85,43 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
 
     @Override
     public void showUnderCourse(BaseEvent<List<BeanCourse>> event) {
-        mCourseList = event.getDate();
         dismissProgressDialog();
         getActivity().runOnUiThread( () -> {
+            if (event.getCode() == BaseCode.ERROR) {
+                onError("刷新课表出错,请尝试再次获取");
+                return;
+            }
             if (event.getCode() == BaseCode.CLEAR) {
                 for (int i = 0; i < buttonList.size(); i++) {
                     buttonList.get(i).setVisibility(View.GONE);
                 }
+                ivNull.setVisibility(View.VISIBLE);
                 return;
             }
-            if (event.getCode() == BaseCode.ERROR) {
-                onError("刷新课表出错,请尝试再次获取");
-                return;
+            for (int i = 0; i < buttonList.size(); i++) {
+                buttonList.get(i).setVisibility(View.INVISIBLE);
             }
             if (event.getCode() == BaseCode.UPDATE) {
                 ivNull.setVisibility(View.GONE);
                 onError("刷新课表成功");
             }
-            //与上次打开相比,更新周数
-            int inteval = CourseTimeUtil.intevalWeek();
-            nowWeek = nowWeek + inteval;
-
-            for (int i = 0; i < mCourseList.size(); i++) {
-                //通过判断周数判断是否要显示课程
-                String week = mCourseList.get(i).getWeek();
-                String result = CourseTimeUtil.checkIsInNowWeek(week, nowWeek);
-                if (result.equals("false")) {
-                    continue;
-                }
-                //第一个数代表数组的第一维(星期几),第二个数代表第几节课
-                //时间格式要注意每个数字前面都有一个空格
-                String stTime = mCourseList.get(i).getTime();
-                //星期
-                String stWeekTime = stTime.substring(1,2);
-                //完整的节数
-                String stDetailTime = stTime.substring(3,stTime.length());
-                //前两节
-                String stPre2DetailTime = stTime.substring(3,4);
-                int positionDay = Integer.valueOf(stWeekTime);
-                //为了确定在课表中的位置，stPre2DetailTime取第一个数字
-                int positionDetailTime = Integer.valueOf(stPre2DetailTime);
-                //positionDetailTime/2 是因为一节课占两格
-                int postionDetailTimeInTable = positionDetailTime/2;
-                if (stDetailTime.equals("1011")) {
-                    //解决最后两节课时坐标计算错误的问题
-                    postionDetailTimeInTable = 5;
-                }
-                Button btn = findViewById(mCourseArray[positionDay][postionDetailTimeInTable]);
-                btn.setTag(R.id.btn_course_name, mCourseList.get(i).getName());
-                //修改高度
-                if (positionDetailTime == 8 && stDetailTime.contains("11")) {
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) btn.getLayoutParams();
-                    params.height = ((int) TypedValue.applyDimension(
-                            TypedValue.COMPLEX_UNIT_DIP, 2*96, getResources().getDisplayMetrics()));
-                    btn.setLayoutParams(params);
-                } else if (positionDetailTime == 8 && stDetailTime.contains("10")) {
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) btn.getLayoutParams();
-                    params.height = ((int)TypedValue.applyDimension(
-                            TypedValue.COMPLEX_UNIT_DIP, 144, getResources().getDisplayMetrics()));
-                    btn.setLayoutParams(params);
-                }
-
-                btn.setText(mCourseList.get(i).getDetail());
-                btn.setTextColor(Color.parseColor("#ffffff"));
-                btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-                if (Build.VERSION.SDK_INT >= 17) {
-                    btn.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                }
-
-                if (mCourseList.get(i).getRepeat()) {
-                    btn.setBackgroundResource(R.drawable.corner_with_rectangle);
-                } else {
-                    btn.setBackgroundResource(mBackground[RandomUtil.getRandomFrom0(6)]);
-                }
-
-                if (result.contains("noNow")) {
-                    btn.setBackgroundResource(R.drawable.cornerbg_gray);
-                }
-                btn.setVisibility(View.VISIBLE);
-                index = i;
-                btn.setOnClickListener(this);
-                buttonList.add(btn);
-                //获取当前标准格式的时间并保存
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String time = sdf.format(new Date());
-                CustomSharedPreferences.getInstance().put(mContext.getString(R.string.sp_course_last_time), time);
-                CustomSharedPreferences.getInstance().put(mContext.getString(R.string.sp_now_week), nowWeek);
-            }
+            CourseViewHelper helper = new CourseViewHelper(_mActivity);
+            helper.create(event.getDate(), nowWeek, buttonList);
         });
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Boolean isLogin = CustomSPUtil.getInstance().get("is_login", false);
         switch (item.getItemId()) {
             case R.id.item_course_choose_week:
-                if (!CustomSharedPreferences.getInstance().get("is_login", false)) {
+                if (!isLogin) {
                     break;
                 }
                 mPickerView.show();
                 break;
             case R.id.item_course_refresh:
-                if (!CustomSharedPreferences.getInstance().get("is_login", false)) {
+                if (!isLogin) {
                     break;
                 }
                 dateRequest(true);
@@ -216,54 +133,26 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
     }
 
     @Override
-    public void onClick(View v) {
-        String name = v.getTag(R.id.btn_course_name).toString();
-        for (int i = 0; i < mCourseList.size(); i++) {
-            if (mCourseList.get(i).getName().equals(name)) {
-                if (!mCourseList.get(i).getRepeat()) {
-                    customCourseDialog = new CustomCourseDialog(getContext(), mCourseList.get(i));
-                    customCourseDialog.show();
-                    return;
-                } else {
-                    for (int j = 0; j < mCourseList.size(); j++) {
-                        if (i == j) {
-                            continue;
-                        }
-                        if (mCourseList.get(i).getTime().equals(mCourseList.get(j).getTime())) {
-                            customCourseDialog = new CustomCourseDialog(getContext(),
-                                    mCourseList.get(i), mCourseList.get(j));
-                            customCourseDialog.show();
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
     public void onSupportVisible() {
         super.onSupportVisible();
         buttonList.clear();
-        Boolean isLogin = CustomSharedPreferences.getInstance().get(mContext.getString(R.string.sp_is_login), false);
+        Boolean isLogin = CustomSPUtil.getInstance().get(mContext.getString(R.string.sp_is_login), false);
         if (!isLogin) {
             showUnderCourse(new BaseEvent<>(BaseCode.CLEAR, new ArrayList<>()));
-            ivNull.setVisibility(View.VISIBLE);
             return;
         }
-        Boolean firstGet = CustomSharedPreferences.getInstance().get(mContext
+        Boolean firstGet = CustomSPUtil.getInstance().get(mContext
                 .getString(R.string.sp_course_first_get), true);
         if (firstGet) {
             if (!BaseApplication.checkNetConnecting()) {
                 return;
             }
             dateRequest(true);
-            CustomSharedPreferences.getInstance().put(mContext
+            CustomSPUtil.getInstance().put(mContext
                     .getString(R.string.sp_course_first_get), false);
             return;
         }
         dateRequest(false);
-
     }
 
     @Override
@@ -281,15 +170,15 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
         }
         mPickerView = new OptionsPickerBuilder(getContext(), (options1, options2, options3, v) -> {
             Toast.makeText(getContext(), "当前周数已设置为第" + (options1+1) + "周", Toast.LENGTH_SHORT).show();
-            CustomSharedPreferences.getInstance().put(mContext.getString(R.string.sp_now_week), (options1+1));
-            CustomSharedPreferences.getInstance().put("set_week", true);
+            CustomSPUtil.getInstance().put(mContext.getString(R.string.sp_now_week), (options1+1));
+            CustomSPUtil.getInstance().put("set_week", true);
             setTitle(options1+1);
             dateRequest(false);
         })
                 .setTitleText("选择当前周数")
                 .setOutSideCancelable(false)
                 .setCyclic(true, false, false)
-                .setCancelColor(getResources().getColor(R.color.colorAccent))
+                //.setCancelColor(AttrUtil.getColor(getContext(), R.color.colorAccent))
                 .setBgColor(getResources().getColor(R.color.lightgray))
                 .build();
         mPickerView.setPicker(weeks);
@@ -298,12 +187,12 @@ public class CourseFragment extends BaseFragment implements CourseContract.View,
     private void setTitle(int week) {
         nowWeek = 1;
         if (week == 0) {
-            nowWeek = CustomSharedPreferences.getInstance().get(BaseApplication.getContext().getString(R.string.sp_now_week), 1);
+            nowWeek = CustomSPUtil.getInstance().get(BaseApplication.getContext().getString(R.string.sp_now_week), 1);
             if (nowWeek == 0) nowWeek = 1;
         } else {
             nowWeek = week;
         }
-        getActivity().runOnUiThread(()-> tvNowWeek.setText("第" + nowWeek + "周"));
+        Objects.requireNonNull(getActivity()).runOnUiThread(()-> tvNowWeek.setText("第" + nowWeek + "周"));
     }
 
     public static CourseFragment newInstance(String param1) {

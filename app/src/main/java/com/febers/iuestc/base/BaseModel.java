@@ -11,7 +11,7 @@ package com.febers.iuestc.base;
 import android.content.Context;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 
 public abstract class BaseModel<P extends BasePresenter> {
 
@@ -36,11 +36,11 @@ public abstract class BaseModel<P extends BasePresenter> {
 
     protected Context mContext = BaseApplication.getContext();
 
-    protected int mStudentType = CustomSharedPreferences.getInstance()
+    protected int mStudentType = CustomSPUtil.getInstance()
             .get(mContext.getString(R.string.sp_student_type), 0);
 
     protected Boolean isLogin() {
-        return CustomSharedPreferences.getInstance().get(mContext.getString(R.string.sp_is_login), false);
+        return CustomSPUtil.getInstance().get(mContext.getString(R.string.sp_is_login), false);
     }
 
     protected String getStringById(int id) {

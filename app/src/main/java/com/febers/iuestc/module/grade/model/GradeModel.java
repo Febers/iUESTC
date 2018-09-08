@@ -18,8 +18,8 @@ import com.febers.iuestc.module.login.model.BeforeILoginModel;
 import com.febers.iuestc.module.login.model.BeforeLoginModel;
 import com.febers.iuestc.module.grade.presenter.GradeContract;
 import com.febers.iuestc.net.SingletonClient;
+import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.util.RepeatLoginUtil;
-import com.febers.iuestc.util.CustomSharedPreferences;
 import com.febers.iuestc.util.ApiUtil;
 
 import org.jsoup.Jsoup;
@@ -157,7 +157,7 @@ public class GradeModel extends BaseModel implements IGradeModel {
                 gradeList.add(grade);
             }
             saveUnderGrade(souceCode);
-            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_get_grade), true);
+            CustomSPUtil.getInstance().put(getStringById(R.string.sp_get_grade), true);
             Collections.sort(allGradeList);
             gradePresenter.gradeResult("成功", allGradeList, gradeList);
         }catch (NullPointerException e) {

@@ -65,8 +65,6 @@
         <activity
             android:name=".module.news.view.NewsActivity" />
         <activity android:name=".module.news.view.NewsDetailActivity" />
-        <activity
-            android:name=".module.ecard.view.ECardRecrodActivity"/>
         <activity android:name=".module.more.AboutActivity" />
         <activity android:name=".module.login.view.LoginActivity" />
         <activity android:name=".module.ecard.view.ECardActivity" />

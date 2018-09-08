@@ -16,6 +16,10 @@ import java.util.List;
 
 public interface NewsContract {
 
+    interface INewsModel {
+        void newsService(Boolean isRefresh, int type, int position) throws Exception;
+    }
+
     interface View extends BaseView {
         void showNews(List<BeanNews> newsList);
     }

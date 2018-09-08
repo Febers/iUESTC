@@ -11,7 +11,6 @@ package com.febers.iuestc.module.news.presenter;
 import android.util.Log;
 
 import com.febers.iuestc.entity.BeanNews;
-import com.febers.iuestc.module.news.model.INewsModel;
 import com.febers.iuestc.module.news.model.NewsModel;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class NewsPresenterImpl extends NewsContract.Presenter {
 
     @Override
     public void newsRequest(Boolean isRefresh) {
-        INewsModel newsModel = new NewsModel(this);
+        NewsContract.INewsModel newsModel = new NewsModel(this);
         try {
             newsModel.newsService(isRefresh, type, position);
         } catch (Exception e) {

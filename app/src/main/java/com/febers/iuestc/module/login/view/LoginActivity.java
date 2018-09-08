@@ -20,7 +20,7 @@ import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.module.login.presenter.LoginJSInterface;
 import com.febers.iuestc.module.login.presenter.LoginContract;
 import com.febers.iuestc.net.WebViewConfigure;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 
 public class LoginActivity extends BaseSwipeActivity implements LoginContract.View {
 
@@ -68,7 +68,7 @@ public class LoginActivity extends BaseSwipeActivity implements LoginContract.Vi
     public void loginResult(BaseEvent event) {
         Intent intent = new Intent();
         if (event.getCode() == BaseCode.UPDATE) {
-            CustomSharedPreferences.getInstance().put(getString(R.string.sp_is_login), true);
+            CustomSPUtil.getInstance().put(getString(R.string.sp_is_login), true);
             intent.putExtra("status", true);
         } else {
             intent.putExtra("status", false);

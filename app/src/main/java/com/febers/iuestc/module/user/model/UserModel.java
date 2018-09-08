@@ -18,7 +18,7 @@ import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanUser;
 import com.febers.iuestc.module.user.presenter.UserContract;
 import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -152,9 +152,9 @@ public class UserModel extends BaseModel implements IUserModel {
             }
         }
         userPresenter.userDetailResult(new BaseEvent<>(BaseCode.UPDATE, user));
-        CustomSharedPreferences.getInstance()
+        CustomSPUtil.getInstance()
                 .put(getStringById(R.string.sp_user_name), user.getChineseName());
-        CustomSharedPreferences.getInstance()
+        CustomSPUtil.getInstance()
                 .put(getStringById(R.string.sp_user_id), user.getId());
         saveUser(user);
     }

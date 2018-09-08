@@ -14,7 +14,9 @@ public class BeanCourse {
     private String teacher = "";//课程老师
     private String name = "";    //课程名字
     private String classroom = "";   //教室
+    private String rawWeek = "";  //原始week串
     private String week = "";    //周次
+    private String day = "";
     private String time = "";   //时间，周一12节的格式为1 01，周二9、10节的格式为2 89
     private Boolean isRepeat = false;
 
@@ -44,12 +46,28 @@ public class BeanCourse {
         this.classroom = classroom;
     }
 
+    public String getRawWeek() {
+        return rawWeek;
+    }
+
+    public void setRawWeek(String rawWeek) {
+        this.rawWeek = rawWeek;
+    }
+
     public String getWeek() {
         return week;
     }
 
     public void setWeek(String week) {
         this.week = week;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 
     public String getTime() {
@@ -68,11 +86,13 @@ public class BeanCourse {
         isRepeat = repeat;
     }
 
-    public BeanCourse(String teacher, String name, String classroom, String week, String time) {
+    public BeanCourse(String teacher, String name, String classroom, String rawWeek, String week, String day, String time) {
         this.teacher = teacher;
         this.name = name;
         this.classroom = classroom;
+        this.rawWeek = rawWeek;
         this.week = week;
+        this.day = day;
         this.time = time;
     }
 
@@ -82,11 +102,20 @@ public class BeanCourse {
 
     /**
      * 去掉 电磁场与波(E0201440.12) 中括号的部分
-     * @param oldName
-     * @return
+     * @param oldName  电磁场与波(E0201440.12)
+     * @return  电磁场与波
      */
     private String  simpleName(String oldName) {
         int start = oldName.indexOf("(");
         return oldName.substring(0,start);
+    }
+
+    /**
+     * 重写toString方法， 方便保存
+     * @return
+     */
+    @Override
+    public String toString() {
+        return teacher + "#" + name + "#" + classroom + "#" + rawWeek + "#" + week + "#" + day + "#" + time;
     }
 }

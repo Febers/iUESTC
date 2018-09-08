@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.util.ThemeUtil;
 import com.febers.iuestc.view.custom.CustomProgressDialog;
 
@@ -55,7 +55,7 @@ public abstract class BaseActivity extends MySupportActivity implements BaseView
     protected abstract void initView();
 
     private void chooseTheme() {
-        int themeCode = CustomSharedPreferences.getInstance().get("theme_code", 9);
+        int themeCode = CustomSPUtil.getInstance().get("theme_code", 9);
         setTheme(ThemeUtil.getTheme(themeCode));
     }
 
@@ -110,6 +110,8 @@ public abstract class BaseActivity extends MySupportActivity implements BaseView
 
     @Override
     public void onError(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        runOnUiThread(()-> {
+            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        });
     }
 }

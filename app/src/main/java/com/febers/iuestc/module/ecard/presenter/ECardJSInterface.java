@@ -34,7 +34,7 @@ public class ECardJSInterface extends ECardContract.Presenter {
 
     @Override
     public void homePageResult(BaseEvent event) {
-        mEduView.showhomePageResult(event);
+        mEduView.showHomePageResult(event);
     }
 
     @Override

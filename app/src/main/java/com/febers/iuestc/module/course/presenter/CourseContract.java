@@ -19,6 +19,10 @@ import java.util.List;
 
 public interface CourseContract {
 
+    interface ICourseModel {
+        void updateCourseService(Boolean isRefresh) throws Exception;
+    }
+
     interface View extends BaseEduView {
         void showUnderCourse(BaseEvent<List<BeanCourse>> event);
     }

@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:liv_title="@string/app_version"
-                app:liv_subtitle="检查更新"
+                app:liv_subtitle="检查更新或通知"
                 app:liv_icon="@drawable/ic_about_about_black"
                 app:liv_displayMode="icon"
                 android:clickable="true"/>

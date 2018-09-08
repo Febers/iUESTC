@@ -114,8 +114,8 @@
                 android:id="@+id/iv_null_course"
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:src="@drawable/ic_null_black_line"
+                android:layout_height="70dp"
+                android:src="@mipmap/ic_no_data_gray"
                 android:gravity="center"
                 android:visibility="gone"/>
             <LinearLayout

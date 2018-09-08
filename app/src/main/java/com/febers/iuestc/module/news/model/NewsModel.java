@@ -33,7 +33,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class NewsModel implements INewsModel {
+public class NewsModel implements NewsContract.INewsModel {
 
     private static final String TAG = "NewsModel";
     private NewsContract.Presenter newsPresenter;
@@ -58,7 +58,6 @@ public class NewsModel implements INewsModel {
             newsPresenter.errorResult("获取公告失败");
             return;
         }
-
         try {
             Request request = new Request.Builder()
                     .url(url)
@@ -189,7 +188,7 @@ public class NewsModel implements INewsModel {
      * 在原html内添加适应移动端的meta
      * 并删除多余的text
      * @param sourceText 原网页
-     * @return
+     * @return 处理之后的网页
      */
     private String suitText(int type, String sourceText) {
         String result = sourceText;

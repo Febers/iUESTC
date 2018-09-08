@@ -17,6 +17,12 @@ import java.util.List;
 
 public interface LibraryContract {
 
+    interface ILibraryModel {
+        void readHistoryService(Boolean isRefresh, int page) throws Exception;
+        void queryBookService(String keyword, int type,int page) throws Exception;
+        void bookDetailService(String url) throws Exception;
+    }
+
     interface View extends BaseView {
         void showQuery(BaseEvent<List<BeanBook>> event);
         void showBookDetail(BaseEvent<String> event);

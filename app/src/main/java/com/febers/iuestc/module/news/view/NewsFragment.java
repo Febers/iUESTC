@@ -8,6 +8,7 @@
 
 package com.febers.iuestc.module.news.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +26,7 @@ import java.util.List;
 public class NewsFragment extends BaseFragment implements NewsContract.View{
 
     private NewsContract.Presenter newsPresenter;
-    private List<BeanNews> list = new ArrayList<>();
+    private List<BeanNews> mNewsList = new ArrayList<>();
     private RecyclerView rvNews;
     private AdapterNews adapterNews;
     private Boolean gotNews = false;
@@ -52,23 +53,37 @@ public class NewsFragment extends BaseFragment implements NewsContract.View{
         return R.layout.fragment_news_fragment;
     }
 
+
+    @Override
+    protected void initView() {
+        rvNews = findViewById(R.id.rv_news);
+        rvNews.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvNews.setNestedScrollingEnabled(false);
+        adapterNews = new AdapterNews(getContext(), mNewsList);
+        rvNews.setAdapter(adapterNews);
+        adapterNews.setOnItemClickListener((viewHolder, beanNews, i) -> {
+            Intent intent = new Intent(getContext(), NewsDetailActivity.class);
+            intent.putExtra("text", beanNews.getText());
+            intent.putExtra("title", beanNews.getTitle());
+            intent.putExtra("url", beanNews.getNewsId());
+            getActivity().startActivity(intent);
+        });
+    }
+
     @Override
     public void showNews(List<BeanNews> newsList) {
         dismissProgressDialog();
         if (newsList.size() != 0) {
             gotNews = true;
         }
-        list = newsList;
+        this.mNewsList = newsList;
         if (getActivity() == null) {
             return;
         }
         getActivity().runOnUiThread( ()-> {
             if (adapterNews != null) {
-                adapterNews.notifyDataSetChanged();
-                return;
+                adapterNews.setNewData(mNewsList);
             }
-            adapterNews = new AdapterNews(list);
-            rvNews.setAdapter(adapterNews);
         });
     }
 
@@ -80,12 +95,5 @@ public class NewsFragment extends BaseFragment implements NewsContract.View{
         }
         showProgressDialog();
         newsPresenter.newsRequest(true);
-    }
-
-    @Override
-    protected void initView() {
-        rvNews = findViewById(R.id.rv_news);
-        rvNews.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvNews.setNestedScrollingEnabled(false);
     }
 }

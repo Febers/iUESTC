@@ -46,10 +46,6 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
         intent.putExtra("type", mType);
         startActivity(intent);
         hideSoftInput();
-//        ((InputMethodManager) etLibFragment.getContext().getSystemService(
-//                getContext().INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
-//                getActivity().getCurrentFocus().getWindowToken(),
-//                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     @Override

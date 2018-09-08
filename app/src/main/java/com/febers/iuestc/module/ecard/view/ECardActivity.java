@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.adapter.AdapterUser;
-import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -29,7 +28,7 @@ import com.febers.iuestc.module.ecard.presenter.ECardContract;
 import com.febers.iuestc.module.ecard.presenter.ECardJSInterface;
 import com.febers.iuestc.module.login.view.LoginActivity;
 import com.febers.iuestc.net.WebViewConfigure;
-import com.febers.iuestc.util.DestroyWebViewUtil;
+import com.febers.iuestc.util.WebViewUtil;
 import com.febers.iuestc.view.custom.CustomListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -104,7 +103,7 @@ public class ECardActivity extends BaseSwipeActivity implements ECardContract.Vi
     }
 
     @Override
-    public void showhomePageResult(BaseEvent event) {
+    public void showHomePageResult(BaseEvent event) {
         runOnUiThread(()-> {
             webView.loadUrl("http://ecard.uestc.edu.cn/web/guest/personal");
         });
@@ -139,7 +138,7 @@ public class ECardActivity extends BaseSwipeActivity implements ECardContract.Vi
 
     @Override
     protected void onDestroy() {
-        DestroyWebViewUtil.destroy(webView);
+        WebViewUtil.destroyWebView(webView);
         super.onDestroy();
     }
 

@@ -16,20 +16,11 @@ import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanEduECard;
 import com.febers.iuestc.module.ecard.presenter.ECardJSInterface;
-import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.io.IOException;
-
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class ECardModel extends BaseModel implements IECardModel {
 
@@ -110,21 +101,21 @@ public class ECardModel extends BaseModel implements IECardModel {
     public void localDateService() throws Exception {
         Log.i(TAG, "localDateService: ");
         BeanEduECard eCard = new BeanEduECard();
-        eCard.setBalance(CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_balance), "..."));
-        eCard.setNumber(CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_number), "..."));
-        eCard.setStatus(CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_status), "..."));
-        eCard.setValueDate(CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_value_date), "..."));
-        eCard.setNoGet(CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_no_get), "..."));
+        eCard.setBalance(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_balance), "..."));
+        eCard.setNumber(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_number), "..."));
+        eCard.setStatus(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_status), "..."));
+        eCard.setValueDate(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_value_date), "..."));
+        eCard.setNoGet(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_no_get), "..."));
         eCardJSInterface.DetailPageResult(new BaseEvent<>(BaseCode.LOCAL, eCard));
     }
 
     private void saveECard(BeanEduECard eCard) {
         new Thread(()-> {
-            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_balance), eCard.getBalance());
-            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_number), eCard.getNumber());
-            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_status), eCard.getStatus());
-            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_value_date), eCard.getValueDate());
-            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_no_get), eCard.getNoGet());
+            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_balance), eCard.getBalance());
+            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_number), eCard.getNumber());
+            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_status), eCard.getStatus());
+            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_value_date), eCard.getValueDate());
+            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_no_get), eCard.getNoGet());
         }).start();
     }
 }

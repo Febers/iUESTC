@@ -12,7 +12,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/myBackgroundColor">
+    android:background="?attr/myBackgroundColorSecond">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -126,20 +126,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/myBackgroundColor"
-                    android:clickable="true"
-                    android:numColumns="2"></com.febers.iuestc.view.custom.CustomGridView>
-
+                    android:numColumns="2">
+                </com.febers.iuestc.view.custom.CustomGridView>
             </LinearLayout>
 
-            <include layout="@layout/layout_divide_line" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_user_setting1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="?attr/myBackgroundColor"
+                android:nestedScrollingEnabled="false">
+            </android.support.v7.widget.RecyclerView>
 
-            <com.febers.iuestc.view.custom.CustomListView
-                android:id="@+id/lv_user_setting"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_user_setting2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="60dp"
+                android:layout_marginTop="3dp"
                 android:background="?attr/myBackgroundColor"
-                android:nestedScrollingEnabled="false"></com.febers.iuestc.view.custom.CustomListView>
+                android:nestedScrollingEnabled="false">
+            </android.support.v7.widget.RecyclerView>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

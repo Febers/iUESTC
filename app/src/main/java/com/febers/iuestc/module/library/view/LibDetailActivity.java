@@ -19,7 +19,7 @@ import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.entity.BeanBook;
 import com.febers.iuestc.module.library.presenter.LibraryContract;
 import com.febers.iuestc.module.library.presenter.LibraryPresenterImp;
-import com.febers.iuestc.util.DestroyWebViewUtil;
+import com.febers.iuestc.util.WebViewUtil;
 
 import java.util.List;
 
@@ -67,7 +67,7 @@ public class LibDetailActivity extends BaseSwipeActivity implements LibraryContr
 
     @Override
     protected void onDestroy() {
-        DestroyWebViewUtil.destroy(webView);
+        WebViewUtil.destroyWebView(webView);
         super.onDestroy();
     }
 }

@@ -11,8 +11,7 @@ package com.febers.iuestc.module.library.presenter;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanBook;
-import com.febers.iuestc.module.library.model.ILibraryModel;
-import com.febers.iuestc.module.library.model.LibraryModel;
+import com.febers.iuestc.module.library.model.LibraryModelImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class LibraryPresenterImp extends LibraryContract.Presenter {
 
     private static final String TAG = "LibraryPresenterImp";
 
-    private ILibraryModel libraryModel = new LibraryModel(this);
+    private LibraryContract.ILibraryModel libraryModel = new LibraryModelImpl(this);
 
     public LibraryPresenterImp(LibraryContract.View view) {
         super(view);

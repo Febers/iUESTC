@@ -22,7 +22,7 @@ import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.module.service.presenter.CalPresenterImpl;
 import com.febers.iuestc.module.service.presenter.SchoolCalendarContact;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.view.custom.PinchImageView;
 
 public class CalActivity extends BaseSwipeActivity implements SchoolCalendarContact.View {
@@ -49,7 +49,7 @@ public class CalActivity extends BaseSwipeActivity implements SchoolCalendarCont
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         imageViewCal = findViewById(R.id.imgview_calender);
-        if (!CustomSharedPreferences.getInstance()
+        if (!CustomSPUtil.getInstance()
                 .get(BaseApplication.getContext().getString(R.string.sp_get_calender), false)) {
             dateRequest(true);
             return;

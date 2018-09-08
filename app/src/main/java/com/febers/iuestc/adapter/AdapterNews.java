@@ -2,78 +2,39 @@
  * Created by Febers 2018.
  * Copyright (c). All rights reserved.
  *
- * Last Modified 18-6-4 下午10:03
+ * Last Modified 18-9-8 下午3:36
  *
  */
 
 package com.febers.iuestc.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanNews;
-import com.febers.iuestc.module.news.view.NewsDetailActivity;
+import com.othershe.baseadapter.ViewHolder;
+import com.othershe.baseadapter.base.CommonBaseAdapter;
 
 import java.util.List;
 
-public class AdapterNews extends RecyclerView.Adapter<AdapterNews.ViewHolder> {
+public class AdapterNews extends CommonBaseAdapter<BeanNews> {
 
-    private static final String TAG = "AdapterNews";
-    private Context context;
-    private List<BeanNews> newsList;
-
-    public AdapterNews(List<BeanNews> newsList) {
-        this.newsList = newsList;
+    public AdapterNews(Context context, List<BeanNews> datas) {
+        this(context, datas, false);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNewsTitle;
-        TextView tvNewsDate;
-        CardView cvNews;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            tvNewsTitle = itemView.findViewById(R.id.tv_news_title);
-            tvNewsDate = itemView.findViewById(R.id.tv_news_date);
-            cvNews = itemView.findViewById(R.id.cv_news);
-        }
+    public AdapterNews(Context context, List<BeanNews> datas, boolean isOpenLoadMore) {
+        super(context, datas, isOpenLoadMore);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (context == null) {
-            context = parent.getContext();
-        }
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_news, parent, false);
-        AdapterNews.ViewHolder viewHolder = new AdapterNews.ViewHolder(view);
-        return viewHolder;
+    protected void convert(ViewHolder viewHolder, BeanNews beanNews, int i) {
+        viewHolder.setText(R.id.tv_news_title, beanNews.getTitle());
+        viewHolder.setText(R.id.tv_news_date, beanNews.getDate());
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        BeanNews news = newsList.get(position);
-        holder.tvNewsTitle.setText(news.getTitle());
-        holder.tvNewsDate.setText(news.getDate());
-        holder.cvNews.setOnClickListener(v-> {
-            Intent intent = new Intent(context, NewsDetailActivity.class);
-            intent.putExtra("text", news.getText());
-            intent.putExtra("title", news.getTitle());
-            intent.putExtra("url", news.getNewsId());
-            context.startActivity(intent);
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return newsList.size();
+    protected int getItemLayoutId() {
+        return R.layout.item_news;
     }
 }

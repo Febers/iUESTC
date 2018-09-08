@@ -18,7 +18,7 @@ import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanBook;
 import com.febers.iuestc.module.library.presenter.LibraryContract;
 import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.util.RandomUtil;
 
 import org.jsoup.Jsoup;
@@ -36,14 +36,14 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class LibraryModel implements ILibraryModel {
+public class LibraryModelImpl implements LibraryContract.ILibraryModel {
 
-    private static final String TAG = "LibraryModel";
+    private static final String TAG = "LibraryModelImpl";
     private LibraryContract.Presenter libraryPresenter;
     private OkHttpClient mClient;
     private List<BeanBook> bookList = new ArrayList<>();
 
-    public LibraryModel(LibraryContract.Presenter presenter) {
+    public LibraryModelImpl(LibraryContract.Presenter presenter) {
         libraryPresenter = presenter;
     }
 
@@ -54,12 +54,12 @@ public class LibraryModel implements ILibraryModel {
     public void readHistoryService(final Boolean isRefresh, final int page) {
         new Thread( () -> {
             if (page == 1 && (!isRefresh)) {
-                if (loadLoaclHistory()){
+                if (loadLocalHistory()){
                     return;
                 }
             }
-//            String stId = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_user_id), "");
-//            String stPw = CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_user_pw), "");
+//            String stId = CustomSPUtil.getInstance().get(context.getString(R.string.sp_user_id), "");
+//            String stPw = CustomSPUtil.getInstance().get(context.getString(R.string.sp_user_pw), "");
             OkHttpClient client = SingletonClient.getInstance();
             FormBody formLogin = new FormBody.Builder()
 //                    .add("extpatid", stId)
@@ -144,7 +144,7 @@ public class LibraryModel implements ILibraryModel {
             editor.putInt("size", i);
             editor.commit();
         }
-        CustomSharedPreferences.getInstance().put(BaseApplication.getContext()
+        CustomSPUtil.getInstance().put(BaseApplication.getContext()
                 .getString(R.string.sp_library_history), true);
         libraryPresenter.historyResult(bookList);
     }
@@ -238,7 +238,7 @@ public class LibraryModel implements ILibraryModel {
         }
     }
 
-    private Boolean loadLoaclHistory() {
+    private Boolean loadLocalHistory() {
         SharedPreferences preferences = BaseApplication.getContext().getSharedPreferences("book_history", 0);
         int size = preferences.getInt("size", 0);
         if (size == 0) {

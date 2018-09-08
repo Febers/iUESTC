@@ -19,7 +19,7 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.module.service.presenter.SchoolCalendarContact;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.util.ApiUtil;
 
 import org.jsoup.Jsoup;
@@ -78,7 +78,7 @@ public class CalModel implements ICalModel {
             byte[] imgBytes = response.body().bytes();
 
             saveImage(imgBytes);
-            CustomSharedPreferences.getInstance()
+            CustomSPUtil.getInstance()
                     .put(BaseApplication.getContext().getString(R.string.sp_get_calender), true);
             Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
             eventCode = BaseCode.UPDATE;

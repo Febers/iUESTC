@@ -8,9 +8,12 @@
 
 package com.febers.iuestc.module.more;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,7 +30,6 @@ public class UpdateActivity extends BaseActivity {
     private static final String TAG = "UpdateActivity";
     private CustomUpdateDialog updateDialog;
 
-
     @Override
     protected int setView() {
         return R.layout.activity_update;
@@ -38,6 +40,10 @@ public class UpdateActivity extends BaseActivity {
         UpgradeInfo upgradeInfo = Beta.getUpgradeInfo();
         if (upgradeInfo == null) {
             onError("当前已是最新版本");
+            return;
+        }
+        if (upgradeInfo.title.contains("通知")) {
+            createNoticeDialog(upgradeInfo.title, upgradeInfo.newFeature);
             return;
         }
         BeanUpdate update = new BeanUpdate();
@@ -54,17 +60,35 @@ public class UpdateActivity extends BaseActivity {
             updateDialog = new CustomUpdateDialog(this, update);
         }
         Button btnEnter = updateDialog.getBtnEnter();
-        Button btnCacal = updateDialog.getBtnCancal();
+        Button btnCancal = updateDialog.getBtnCancal();
         btnEnter.setOnClickListener((View v)-> {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(update.getDownloadUrl()));
             startActivity(intent);
         });
-        btnCacal.setOnClickListener((View v) -> {
+        btnCancal.setOnClickListener((View v) -> {
             updateDialog.dismiss();
             finish();
         });
         updateDialog.show();
     }
+
+    private void createNoticeDialog(String title, String content) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+                .setMessage(content)
+                .setPositiveButton("确定", (dialog, which) -> finish());
+        builder.show();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

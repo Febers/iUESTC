@@ -10,19 +10,21 @@ package com.febers.iuestc.module.library.view;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.febers.iuestc.adapter.AdapterQuery;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseSwipeActivity;
-import com.febers.iuestc.adapter.AdapterQuery;
 import com.febers.iuestc.module.library.presenter.LibraryContract;
 import com.febers.iuestc.entity.BeanBook;
 import com.febers.iuestc.module.library.presenter.LibraryPresenterImp;
@@ -35,7 +37,7 @@ import java.util.List;
 public class LibQueryActivity extends BaseSwipeActivity implements LibraryContract.View {
 
     private static final String TAG = "LibQueryActivity";
-    private List<BeanBook> bookList = new ArrayList<>();
+    private List<BeanBook> mBookList = new ArrayList<>();
     private LibraryContract.Presenter libraryPresenter;
     private SmartRefreshLayout smartRefreshLayout;
     private RecyclerView rvLibQuery;
@@ -71,22 +73,22 @@ public class LibQueryActivity extends BaseSwipeActivity implements LibraryContra
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-//        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
-//        toolbar.setNavigationOnClickListener( (View v) -> {
-//            Intent intent = new Intent(LibQueryActivity.this, HomeActivity.class);
-//            intent.putExtra("lib_activity", true);
-//            startActivity(intent);
-//            finish();
-//        });
-        LinearLayoutManager llmQueryBook = new LinearLayoutManager(this);
-        rvLibQuery.setLayoutManager(llmQueryBook);
 
+        rvLibQuery.setLayoutManager(new LinearLayoutManager(this));
+        rvLibQuery.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        adapterQuery = new AdapterQuery(this, mBookList);
+        rvLibQuery.setAdapter(adapterQuery);
+        adapterQuery.setOnItemClickListener((viewHolder, beanBook, i) -> {
+            Intent intent = new Intent(LibQueryActivity.this, LibDetailActivity.class);
+            intent.putExtra("url", beanBook.getUrl());
+            startActivity(intent);
+        });
         smartRefreshLayout.setEnableRefresh(false);
-        if (bookList.size() == 0) {
+        if (mBookList.size() == 0) {
             smartRefreshLayout.setEnableLoadMore(false);
         }
         smartRefreshLayout.setOnLoadMoreListener( (RefreshLayout refreshLayout) ->{
-            page = bookList.size() / 12 + 1;
+            page = mBookList.size() / 12 + 1;
             sendQueryRequest(true, keyword, type, page);
         });
         sendQueryRequest(false, keyword, type, page);
@@ -96,12 +98,17 @@ public class LibQueryActivity extends BaseSwipeActivity implements LibraryContra
     public void showQuery(BaseEvent<List<BeanBook>> event) {
         dismissProgressDialog();
         smartRefreshLayout.finishLoadMore();
-        bookList.addAll(event.getDate());
+        mBookList.addAll(event.getDate());
+        Log.i(TAG, "showQuery: " + mBookList.size());
+        for (BeanBook book : mBookList) {
+            Log.i(TAG, "showQuery: " + book.getName());
+        }
+        Log.i(TAG, "showQuery: " + (adapterQuery == null));
         if (!(event.getDate().size()<12)) {
             smartRefreshLayout.setEnableLoadMore(true);
         }
         runOnUiThread( () -> {
-            if (page ==1 && event.getCode() == BaseCode.ERROR) {
+            if (page == 1 && event.getCode() == BaseCode.ERROR) {
                 imgNull.setVisibility(View.VISIBLE);
                 return;
             }
@@ -109,8 +116,7 @@ public class LibQueryActivity extends BaseSwipeActivity implements LibraryContra
                 adapterQuery.notifyDataSetChanged();
                 return;
             }
-            adapterQuery = new AdapterQuery(bookList);
-            rvLibQuery.setAdapter(adapterQuery);
+            adapterQuery.setNewData(event.getDate());
         });
     }
 
@@ -128,6 +134,5 @@ public class LibQueryActivity extends BaseSwipeActivity implements LibraryContra
 
     @Override
     public void showBookDetail(BaseEvent<String> event) {
-
     }
 }

@@ -49,7 +49,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="50dp"
                     android:visibility="gone"
-                    android:src="@drawable/ic_null_black_line"/>
+                    android:src="@mipmap/ic_no_data_gray"/>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_lib_query"
                     android:layout_width="match_parent"

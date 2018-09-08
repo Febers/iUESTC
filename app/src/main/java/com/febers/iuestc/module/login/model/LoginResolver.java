@@ -15,7 +15,7 @@ import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.module.login.presenter.LoginContract;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -62,7 +62,7 @@ public class LoginResolver implements ILoginResolver{
      * @return js函数
      */
     private String  idAndPwFunc() {
-        String userId = CustomSharedPreferences.getInstance().get(BaseApplication.getContext()
+        String userId = CustomSPUtil.getInstance().get(BaseApplication.getContext()
                 .getString(R.string.sp_user_id), "");
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("javascript:function fun(){document.getElementById('mobileUsername').value='"+userId+"';");

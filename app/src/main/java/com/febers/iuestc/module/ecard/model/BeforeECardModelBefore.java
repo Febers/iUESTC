@@ -21,7 +21,7 @@ import com.febers.iuestc.entity.BeanElecBalance;
 import com.febers.iuestc.entity.BeanLoginECardResult;
 import com.febers.iuestc.module.ecard.presenter.BeforeECardContract;
 import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.util.ApiUtil;
 import com.febers.iuestc.util.UnicodeUtil;
 import com.google.gson.Gson;
@@ -77,10 +77,10 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
                     eCardPresenter.loginResult("登录失败");
                     return;
                 }
-                CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_user_phone), phone);
-                CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_user_pw), pw);
-                CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_is_login), true);
-                CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_user_id), userId);
+                CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_user_phone), phone);
+                CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_user_pw), pw);
+                CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_is_login), true);
+                CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_user_id), userId);
                 //获取一卡通学号等信息
                 FormBody bodyECard = new FormBody.Builder()
                         .add("userid", userId)
@@ -99,7 +99,7 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
                 String result = responseECard.body().string();
                 //获取绑定的学号
                 String stuNo = getStuNo(result);
-                CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_bind_number), stuNo);
+                CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_bind_number), stuNo);
                 eCardPresenter.loginResult(loginResultMsg);
             } catch (SocketTimeoutException e) {
                 serviceError(NET_TIMEOUT);
@@ -127,8 +127,8 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
     public void balanceService() {
         new Thread( () -> {
             OkHttpClient client = SingletonClient.getInstance();
-            String stuNo = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_bind_number), "null");
-            String userId = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_user_id), "null");
+            String stuNo = CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_bind_number), "null");
+            String userId = CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_user_id), "null");
             if (stuNo.equals("null") || userId.equals("null")) {
                 return;
             }
@@ -176,7 +176,7 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
     }
 
     private void getRecord() {
-        String stuNo = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_bind_number), "null");
+        String stuNo = CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_bind_number), "null");
         new Thread( () -> {
             try {
                 OkHttpClient client = SingletonClient.getInstance();
@@ -252,7 +252,7 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
                 return false;
             }
             //保存到本地
-            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_balance), data.getBalance());
+            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_balance), data.getBalance());
             eCardPresenter.eCardBalanceResult(data.getBalance());
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -273,7 +273,7 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
             }
             BeanElecBalance.data data = beanElecBalance.getData();
             //保存到本地
-            CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_ecard_el_balance), data.getAmount());
+            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_el_balance), data.getAmount());
             eCardPresenter.elecBalanceResult(data.getAmount());
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -302,11 +302,11 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
 
     @Override
     public void localDataService(int recordSize) {
-        if (!CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_is_login), false)) {
+        if (!CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_is_login), false)) {
             return;
         }
-        String localBalance = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_balance), "0.0");
-        String localElecBalance = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_el_balance), "0.0");
+        String localBalance = CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_balance), "0.0");
+        String localElecBalance = CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_el_balance), "0.0");
         eCardPresenter.eCardBalanceResult(localBalance);
         eCardPresenter.elecBalanceResult(localElecBalance);
 
@@ -381,11 +381,11 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
      */
     private Boolean reLogin() {
         Log.d(TAG, "reloginService: ");
-        if (!CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_is_login), false)) {
+        if (!CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_is_login), false)) {
             return false;
         }
-        String phone = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_user_phone), "");
-        String pw = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_ecard_user_pw), "");
+        String phone = CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_user_phone), "");
+        String pw = CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_user_pw), "");
         OkHttpClient client = SingletonClient.getInstance();
         //模拟喜付登录
         String loginResult = "";

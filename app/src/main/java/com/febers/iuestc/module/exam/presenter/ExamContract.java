@@ -18,9 +18,15 @@ import com.febers.iuestc.entity.BeanExam;
 import java.util.List;
 
 public interface ExamContract {
+
+    interface IExamModel {
+        void examService(Boolean isRefresh, int type) throws Exception;
+    }
+
     interface View extends BaseEduView {
         void showExam(BaseEvent<List<BeanExam>> event);
     }
+
     abstract class Presenter extends BaseEduPresenter<View> {
         public Presenter(View view) {
             super(view);

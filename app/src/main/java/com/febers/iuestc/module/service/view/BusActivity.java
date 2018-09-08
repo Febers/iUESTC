@@ -20,9 +20,7 @@ import android.widget.ProgressBar;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.net.WebViewConfigure;
-import com.febers.iuestc.util.DestroyWebViewUtil;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrConfig;
+import com.febers.iuestc.util.WebViewUtil;
 
 public class BusActivity extends BaseSwipeActivity {
 
@@ -105,7 +103,7 @@ public class BusActivity extends BaseSwipeActivity {
      */
     @Override
     protected void onDestroy() {
-        DestroyWebViewUtil.destroy(webView);
+        WebViewUtil.destroyWebView(webView);
         super.onDestroy();
     }
 }

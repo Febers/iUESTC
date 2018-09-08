@@ -16,7 +16,7 @@ import com.febers.iuestc.entity.BeanEduECard;
 public interface ECardContract {
 
     interface View extends BaseEduView {
-        void showhomePageResult(BaseEvent event);
+        void showHomePageResult(BaseEvent event);
         void showDetailPageResult(BaseEvent<BeanEduECard> event);
     }
 

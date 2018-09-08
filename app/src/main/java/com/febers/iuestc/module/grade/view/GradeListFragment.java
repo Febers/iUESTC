@@ -15,9 +15,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.febers.iuestc.adapter.AdapterGrade;
 import com.febers.iuestc.base.BaseApplication;
 import com.febers.iuestc.R;
-import com.febers.iuestc.adapter.AdapterGrade;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.module.grade.presenter.GradeContract;
@@ -25,7 +25,7 @@ import com.febers.iuestc.entity.BeanGradeSummary;
 import com.febers.iuestc.entity.BeanGrade;
 import com.febers.iuestc.module.grade.presenter.GradePresenterImpl;
 import com.febers.iuestc.module.login.view.LoginActivity;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
     private Context context = BaseApplication.getContext();
     private AdapterGrade adapterGrade;
     private GradeContract.Presenter gradePresenter = new GradePresenterImpl(this);
-    private List<BeanGrade> gradeList = new ArrayList<>();
+    private List<BeanGrade> mGradeList = new ArrayList<>();
 
     @Override
     protected int setContentView() {
@@ -53,13 +53,14 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
     @Override
     protected void initView() {
         recyclerView = findViewById(R.id.rv_grade_list);
-        LinearLayoutManager llmGrade = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(llmGrade);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapterGrade = new AdapterGrade(getContext(), mGradeList);
+        recyclerView.setAdapter(adapterGrade);
     }
 
     @Override
     public void dateRequest(Boolean isRefresh) {
-        if (!CustomSharedPreferences.getInstance().get(context.getString(R.string.sp_get_grade), false)) {
+        if (!CustomSPUtil.getInstance().get(context.getString(R.string.sp_get_grade), false)) {
             isRefresh = true;
         }
         if (isRefresh) {
@@ -74,31 +75,29 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
 
     @Override
     public void showGrade(List<BeanGradeSummary> allGrades, List<BeanGrade> grades) {
-        gradeList = grades;
+        mGradeList = grades;
         dismissProgressDialog();
         getActivity().runOnUiThread( () -> {
-            adapterGrade = new AdapterGrade(gradeList);
-            recyclerView.setAdapter(adapterGrade);
+            adapterGrade.setNewData(mGradeList);
         });
     }
 
     void showGradeByTime(String time) {
-        if (time == "ic_all_pink") {
-            showGrade(new ArrayList<BeanGradeSummary>(), gradeList);
+        if (time.equals("ic_all_pink")) {
+            showGrade(new ArrayList<>(), mGradeList);
             return;
         }
-        if (gradeList.size() == 0) {
+        if (mGradeList.size() == 0) {
             return;
         }
         final List<BeanGrade> tmpList = new ArrayList<>();
-        for (int i = 0; i < gradeList.size(); i++) {
-            if (gradeList.get(i).getSemester().contains(time)) {
-                tmpList.add(gradeList.get(i));
+        for (int i = 0; i < mGradeList.size(); i++) {
+            if (mGradeList.get(i).getSemester().contains(time)) {
+                tmpList.add(mGradeList.get(i));
             }
         }
         getActivity().runOnUiThread( () -> {
-            adapterGrade = new AdapterGrade(tmpList);
-            recyclerView.setAdapter(adapterGrade);
+            adapterGrade.setNewData(tmpList);
         });
     }
 

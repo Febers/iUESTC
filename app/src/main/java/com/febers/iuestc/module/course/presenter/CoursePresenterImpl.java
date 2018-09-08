@@ -12,10 +12,8 @@ import android.util.Log;
 
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanCourse;
-import com.febers.iuestc.module.course.model.CourseModel;
-import com.febers.iuestc.module.course.model.ICourseModel;
+import com.febers.iuestc.module.course.model.CourseModelImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CoursePresenterImpl extends CourseContract.Presenter{
@@ -28,7 +26,7 @@ public class CoursePresenterImpl extends CourseContract.Presenter{
 
     @Override
     public void courseRequest(Boolean isRefresh) {
-        ICourseModel courseModel = new CourseModel(this);
+        CourseContract.ICourseModel courseModel = new CourseModelImpl(this);
         try {
             courseModel.updateCourseService(isRefresh);
         } catch (Exception e) {

@@ -15,20 +15,20 @@ import com.febers.iuestc.base.BaseApplication;
 
 import java.util.Set;
 
-public class CustomSharedPreferences {
+public class CustomSPUtil {
 
     private SharedPreferences sharedPreferences;
 
-    public static CustomSharedPreferences getInstance() {
+    public static CustomSPUtil getInstance() {
         return SingletonHolder.INSTANCE;
     }
 
-    private CustomSharedPreferences() {
+    private CustomSPUtil() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(BaseApplication.getContext());
     }
 
     private static class SingletonHolder {
-        public static final CustomSharedPreferences INSTANCE = new CustomSharedPreferences();
+        public static final CustomSPUtil INSTANCE = new CustomSPUtil();
     }
 
     public boolean put(String key, String value) {

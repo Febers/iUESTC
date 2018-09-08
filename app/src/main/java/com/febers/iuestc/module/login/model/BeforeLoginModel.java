@@ -14,7 +14,7 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.module.login.presenter.LoginContract;
 import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.util.ApiUtil;
 
 import org.jsoup.Jsoup;
@@ -91,12 +91,12 @@ public class BeforeLoginModel extends BaseModel implements BeforeILoginModel {
     @Override
     public Boolean reloginService() {
         Boolean success = false;
-        if (!CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_is_login), false)) {
+        if (!CustomSPUtil.getInstance().get(getStringById(R.string.sp_is_login), false)) {
             return false;
         }
 
-        mId = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_user_id), "");
-        mPw = CustomSharedPreferences.getInstance().get(getStringById(R.string.sp_user_pw), "");
+        mId = CustomSPUtil.getInstance().get(getStringById(R.string.sp_user_id), "");
+        mPw = CustomSPUtil.getInstance().get(getStringById(R.string.sp_user_pw), "");
         try {
             mClient = SingletonClient.getInstance();
             Request request = new Request.Builder()
@@ -173,9 +173,9 @@ public class BeforeLoginModel extends BaseModel implements BeforeILoginModel {
             }
             for(Element e:elements) {
                 if (e.text().contains("个人") || e.text().contains("教务")){
-                    CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_user_id), mId);
-                    CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_user_pw), mPw);
-                    CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_is_login), true);
+                    CustomSPUtil.getInstance().put(getStringById(R.string.sp_user_id), mId);
+                    CustomSPUtil.getInstance().put(getStringById(R.string.sp_user_pw), mPw);
+                    CustomSPUtil.getInstance().put(getStringById(R.string.sp_is_login), true);
                     getDetailForName();
                     if (loginPresenter != null) {
                         //loginPresenter.loginResult(LoginResult.LOGIN_SUCCESS);
@@ -185,7 +185,7 @@ public class BeforeLoginModel extends BaseModel implements BeforeILoginModel {
                      * 然后保存
                      * 本科生(0)、研究生(1)
                      */
-                    CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_student_type), 0);
+                    CustomSPUtil.getInstance().put(getStringById(R.string.sp_student_type), 0);
                     return true;
                 }
             }
@@ -221,7 +221,7 @@ public class BeforeLoginModel extends BaseModel implements BeforeILoginModel {
                     return;
                 }
                 String[] detail = els.get(0).text().split(" ");
-                CustomSharedPreferences.getInstance().put(getStringById(R.string.sp_user_name), detail[4]);
+                CustomSPUtil.getInstance().put(getStringById(R.string.sp_user_name), detail[4]);
             } catch(Exception e) {
                 e.printStackTrace();
                 Log.d(TAG, "getDetailForName: 获取姓名失败");

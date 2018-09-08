@@ -14,9 +14,11 @@ import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -33,7 +35,7 @@ import com.febers.iuestc.module.service.view.BusActivity;
 import com.febers.iuestc.module.service.view.CalActivity;
 import com.febers.iuestc.module.service.view.ServiceActivity;
 import com.febers.iuestc.module.user.view.UserActivity;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.util.LogoutUtil;
 import com.febers.iuestc.view.custom.CustomGridView;
 
@@ -43,13 +45,8 @@ import java.util.Map;
 
 public class MoreFragment extends BaseFragment {
 
-    private List<BeanSetting> beanSettingList = new ArrayList<>();
-    private ListView mListView;
     private TextView tvName;
     private TextView tvId;
-    private CardView mCardView;
-    private CustomGridView mGridView;
-    private SimpleAdapter mAdapter;
 
     @Override
     protected int setContentView() {
@@ -68,17 +65,24 @@ public class MoreFragment extends BaseFragment {
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
         tvName = findViewById(R.id.tv_fragment_user_name);
         tvId = findViewById(R.id.tv_fragment_user_id);
-        mListView = findViewById(R.id.lv_user_setting);
-        AdapterSetting adapterSetting = new AdapterSetting(getActivity(),
-                R.layout.item_more_setting, beanSettingList);
-        mListView.setAdapter(adapterSetting);
-        mListView.setOnItemClickListener( (adapterView, view, i, l) ->{
-            onClickListViewItem(i);
-        });
 
-        mCardView = findViewById(R.id.cv_user);
+        RecyclerView rvMoreSetting1 = findViewById(R.id.rv_user_setting1);
+        rvMoreSetting1.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvMoreSetting1.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        AdapterSetting adapterSetting1 = new AdapterSetting(getContext(), initSettingList1());
+        rvMoreSetting1.setAdapter(adapterSetting1);
+        adapterSetting1.setOnItemClickListener((viewHolder, beanSetting, i) -> onClickListViewItem1(i));
+
+        RecyclerView rvMoreSetting2 = findViewById(R.id.rv_user_setting2);
+        rvMoreSetting2.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvMoreSetting2.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        AdapterSetting adapterSetting2 = new AdapterSetting(getContext(), initSettingList2());
+        rvMoreSetting2.setAdapter(adapterSetting2);
+        adapterSetting2.setOnItemClickListener((viewHolder, beanSetting, i) -> onClickListViewItem2(i));
+
+        CardView mCardView = findViewById(R.id.cv_user);
         mCardView.setOnClickListener(v ->  {
-            if (!CustomSharedPreferences.getInstance().get(getString(R.string.sp_is_login), false)) {
+            if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
                 startActivity(new Intent(getActivity(), LoginActivity.class));
             } else {
                 startActivity(new Intent(getActivity(), UserActivity.class));
@@ -87,13 +91,13 @@ public class MoreFragment extends BaseFragment {
 
         String[] from = {"image", "title"};
         int[] to = {R.id.user_grid_image, R.id.user_grid_text};
-        mGridView = findViewById(R.id.grid_view_user);
-        mAdapter = new SimpleAdapter(getActivity(), getGridList(), R.layout.item_user_grid, from, to);
+        CustomGridView mGridView = findViewById(R.id.grid_view_user);
+        SimpleAdapter mAdapter = new SimpleAdapter(getActivity(), getGridList(), R.layout.item_user_grid, from, to);
         mGridView.setAdapter(mAdapter);
         mGridView.setOnItemClickListener( (adapterView, view, i, l) -> {
             onClickGridViewItem(i);
         });
-        initSettingList();
+        initSettingList1();
         dateRequest(true);
     }
 
@@ -117,7 +121,7 @@ public class MoreFragment extends BaseFragment {
     }
 
     private void onClickGridViewItem(int position) {
-        if (!CustomSharedPreferences.getInstance().get(getString(R.string.sp_is_login), false)) {
+        if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
             return;
         }
         switch (position) {
@@ -138,7 +142,7 @@ public class MoreFragment extends BaseFragment {
         }
     }
 
-    private void onClickListViewItem(int position) {
+    private void onClickListViewItem1(int position) {
         switch (position) {
             case 0:
                 Intent intent = new Intent(getActivity(), ServiceActivity.class);
@@ -162,10 +166,17 @@ public class MoreFragment extends BaseFragment {
             case 4 - 1:
                 startActivity(new Intent(getActivity(), CalActivity.class));
                 break;
-            case 5 - 1:
+            default:
+                break;
+        }
+    }
+
+    private void onClickListViewItem2(int position) {
+        switch (position) {
+            case 0:
                 startActivity(new Intent(getActivity(), ThemeActivity.class));
                 break;
-            case 6 - 1:
+            case 1:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
                 break;
             default:
@@ -173,31 +184,37 @@ public class MoreFragment extends BaseFragment {
         }
     }
 
-    private void initSettingList() {
+    private List<BeanSetting> initSettingList1() {
+        List<BeanSetting> settingList = new ArrayList<>();
         BeanSetting stService = new BeanSetting("快捷查询", R.mipmap.ic_book_blue);
         BeanSetting stUnderJW = new BeanSetting("本科教务", R.mipmap.ic_news_red);
         BeanSetting stPostJW = new BeanSetting("研究生教务", R.mipmap.ic_news_purple);
         BeanSetting stBus = new BeanSetting("校车服务", R.mipmap.ic_bus_blue2);
         BeanSetting stCalendar = new BeanSetting("校历", R.mipmap.ic_cal_green2);
+        settingList.add(stService);
+        settingList.add(stUnderJW);
+//        beanSettingList.add(stPostJW);
+        settingList.add(stBus);
+        settingList.add(stCalendar);
+        return settingList;
+    }
+
+    private List<BeanSetting> initSettingList2() {
+        List<BeanSetting> settingList = new ArrayList<>();
         BeanSetting stTheme = new BeanSetting("主题风格", R.mipmap.ic_theme_red);
         BeanSetting stAbout = new BeanSetting("关于", R.mipmap.ic_about_blue2);
-
-        beanSettingList.add(stService);
-        beanSettingList.add(stUnderJW);
-//        beanSettingList.add(stPostJW);
-        beanSettingList.add(stBus);
-        beanSettingList.add(stCalendar);
-        beanSettingList.add(stTheme);
-        beanSettingList.add(stAbout);
+        settingList.add(stTheme);
+        settingList.add(stAbout);
+        return settingList;
     }
 
     @Override
     public void dateRequest(Boolean isRefresh) {
-        if (CustomSharedPreferences.getInstance()
+        if (CustomSPUtil.getInstance()
                 .get(getContext().getString(R.string.sp_is_login),false)) {
-            String userName = CustomSharedPreferences.getInstance()
+            String userName = CustomSPUtil.getInstance()
                     .get(getContext().getString(R.string.sp_user_name), "");
-            String userId = CustomSharedPreferences.getInstance()
+            String userId = CustomSPUtil.getInstance()
                     .get(getContext().getString(R.string.sp_user_id), "");
             if (userName.trim().isEmpty()) {
                 userName = "已登录";
@@ -214,7 +231,7 @@ public class MoreFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.user_menu_logout:
-                if (!CustomSharedPreferences.getInstance()
+                if (!CustomSPUtil.getInstance()
                         .get(getContext().getString(R.string.sp_is_login),false)) {
                     break;
                 }

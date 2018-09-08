@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanCourse;
-import com.febers.iuestc.util.CourseTimeUtil;
+import com.febers.iuestc.util.CourseUtil;
 
 public class CustomCourseDialog extends AlertDialog {
 
@@ -43,7 +43,7 @@ public class CustomCourseDialog extends AlertDialog {
         tvCourseName.setText(" "+course.getName());
         tvCourseClassRoom.setText("地点: "+course.getClassroom());
         tvCourseWeek.setText("周次:  "+ course.getWeek());
-        tvCourseTime.setText("时间:  "+ CourseTimeUtil.getTimeDes(course.getTime()));
+        tvCourseTime.setText("时间:  "+ CourseUtil.getTimeDescription(course));
         tvCourseTeacher.setText("老师: "+course.getTeacher());
         dialog.setView(view);
     }
@@ -68,13 +68,13 @@ public class CustomCourseDialog extends AlertDialog {
         tvCourseName.setText(" "+course1.getName());
         tvCourseClassRoom.setText("地点: "+course1.getClassroom());
         tvCourseWeek.setText("周次:  "+ course1.getWeek());
-        tvCourseTime.setText("时间:  "+ CourseTimeUtil.getTimeDes(course1.getTime()));
+        tvCourseTime.setText("时间:  "+ CourseUtil.getTimeDescription(course1));
         tvCourseTeacher.setText("老师: "+course1.getTeacher());
 
         tvCourseName2.setText(" "+course2.getName());
         tvCourseClassRoom2.setText("地点: "+course2.getClassroom());
         tvCourseWeek2.setText("周次:  "+ course2.getWeek());
-        tvCourseTime2.setText("时间:  "+ CourseTimeUtil.getTimeDes(course2.getTime()));
+        tvCourseTime2.setText("时间:  "+ CourseUtil.getTimeDescription(course2));
         tvCourseTeacher2.setText("老师: "+course2.getTeacher());
         dialog.setView(view);
     }

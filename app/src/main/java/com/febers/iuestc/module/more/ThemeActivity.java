@@ -19,10 +19,9 @@ import com.febers.iuestc.adapter.AdapterTheme;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.entity.BeanTheme;
 import com.febers.iuestc.entity.EventTheme;
-import com.febers.iuestc.util.CustomSharedPreferences;
+import com.febers.iuestc.util.CustomSPUtil;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +31,6 @@ public class ThemeActivity extends BaseSwipeActivity {
     @Override
     protected int setView() {
         return R.layout.activity_theme;
-    }
-
-    @Override
-    protected Boolean registerEventBus() {
-        return true;
     }
 
     @Override
@@ -52,8 +46,14 @@ public class ThemeActivity extends BaseSwipeActivity {
         rvTheme.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         rvTheme.setLayoutManager(new LinearLayoutManager(this));
-        AdapterTheme adapterTheme = new AdapterTheme(initThemeDate());
+        AdapterTheme adapterTheme = new AdapterTheme(this, initThemeDate());
         rvTheme.setAdapter(adapterTheme);
+        adapterTheme.setOnItemClickListener((viewHolder, beanTheme, i) -> {
+            if (!beanTheme.getUsing()) {
+                themeChange(i);
+                EventBus.getDefault().post(new EventTheme(true, i));
+            }
+        });
     }
 
     private List<BeanTheme> initThemeDate() {
@@ -78,14 +78,14 @@ public class ThemeActivity extends BaseSwipeActivity {
         themeList.add(teal);
         themeList.add(pink);
         themeList.add(blue);
-        int themeCode = CustomSharedPreferences.getInstance().get("theme_code", 9);
+        int themeCode = CustomSPUtil.getInstance().get("theme_code", 9);
         themeList.get(themeCode).setUsing(true);
         return themeList;
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void themeChange(EventTheme eventTheme) {
-        CustomSharedPreferences.getInstance().put("theme_code", eventTheme.getThemeCode());
+
+    private void themeChange(int code) {
+        CustomSPUtil.getInstance().put("theme_code", code);
         this.recreate();
     }
 }

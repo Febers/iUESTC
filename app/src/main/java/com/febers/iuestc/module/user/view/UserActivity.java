@@ -51,7 +51,6 @@ public class UserActivity extends BaseSwipeActivity implements UserContract.View
         }
         smartRefreshLayout = findViewById(R.id.srl_user);
         smartRefreshLayout.setEnableLoadMore(false);
-        smartRefreshLayout.autoRefresh();
         smartRefreshLayout.setOnRefreshListener( (RefreshLayout refreshLayout) -> {
             dateRequest(true);
         });
