@@ -35,9 +35,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class BaseApplication extends Application{
+public class MyApplication extends Application{
 
-    private static final String TAG = "BaseApplication";
+    private static final String TAG = "MyApplication";
     private static Context sContext;
 
     @Override
@@ -106,7 +106,7 @@ public class BaseApplication extends Application{
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);
                 } else {
-                    //Toast.makeText(BaseApplication.this, "没有更新", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MyApplication.this, "没有更新", Toast.LENGTH_LONG).show();
                 }
             }
         };

@@ -24,13 +24,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class UserModel extends BaseModel implements IUserModel {
+public class UserModel extends BaseModel implements UserContract.Model {
 
     private static final String TAG = "UserModel";
 
@@ -47,38 +45,33 @@ public class UserModel extends BaseModel implements IUserModel {
                 localDateService();
                 return;
             }
-            OkHttpClient client = SingletonClient.getInstance();
-            Request request = new Request.Builder()
-                    .url("http://eams.uestc.edu.cn/eams/stdDetail.action")
-                    .build();
-            try {
-                Response response = client.newCall(request).execute();
-                String result = response.body().string();
-                resolveHtml(result);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            getHttpData();
         }).start();
+    }
+
+    @Override
+    protected void getHttpData() {
+        OkHttpClient client = SingletonClient.getInstance();
+        Request request = new Request.Builder()
+                .url("http://eams.uestc.edu.cn/eams/stdDetail.action")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String result = response.body().string();
+            if (!userAuthenticate(result)) {
+                return;
+            }
+            resolveHtml(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            userPresenter.loginStatusFail();
+        }
     }
 
     private void resolveHtml(String html) {
         Document document = Jsoup.parse(html);
         Elements elements = document.select("table").select("td");
         BeanUser user = new BeanUser();
-        if (html.contains("重复登录")) {
-            if (TRY_TIMES <= 2) {
-                userDetailService(true);
-                TRY_TIMES++;
-            } else {
-                userPresenter.errorResult("获取个人信息失败");
-            }
-            return;
-        }
-        if (html.contains("登录规则")) {
-            userPresenter.loginStatusFail();
-            return;
-        }
         if (elements.size()<10) {
             userPresenter.userDetailResult(new BaseEvent<>(BaseCode.ERROR, user));
             return;

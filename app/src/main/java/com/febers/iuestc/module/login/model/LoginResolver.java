@@ -11,7 +11,7 @@ package com.febers.iuestc.module.login.model;
 import android.util.Log;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.module.login.presenter.LoginContract;
@@ -22,7 +22,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class LoginResolver implements ILoginResolver{
+public class LoginResolver implements LoginContract.Resolver{
 
     private static final String TAG = "LoginResolver";
     private LoginContract.Presenter loginPresenter;
@@ -62,11 +62,9 @@ public class LoginResolver implements ILoginResolver{
      * @return js函数
      */
     private String  idAndPwFunc() {
-        String userId = CustomSPUtil.getInstance().get(BaseApplication.getContext()
+        String userId = CustomSPUtil.getInstance().get(MyApplication.getContext()
                 .getString(R.string.sp_user_id), "");
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("javascript:function fun(){document.getElementById('mobileUsername').value='"+userId+"';");
-        stringBuffer.append("document.getElementById('mobilePassword').value='" + "" + "';}");
-        return stringBuffer.toString();
+        return "javascript:function fun(){document.getElementById('mobileUsername').value='" + userId + "';" +
+                "document.getElementById('mobilePassword').value='" + "" + "';}";
     }
 }

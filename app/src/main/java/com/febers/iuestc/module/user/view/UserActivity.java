@@ -13,7 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.adapter.AdapterUser;
+import com.febers.iuestc.view.adapter.AdapterUser;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseSwipeActivity;

@@ -25,7 +25,7 @@
     <string name="user_cal">校历</string>
     <string name="user_bus">校车</string>
 
-    <string name="sp_student_type">0</string>
+    <string name="sp_student_type">student_type</string>
     <string name="sp_is_login">is_login</string>
     <string name="sp_user_name">user_name</string>
     <string name="sp_user_id">user_id</string>

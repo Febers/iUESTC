@@ -8,6 +8,8 @@
 
 package com.febers.iuestc.module.course.model;
 
+import android.util.Log;
+
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -33,9 +35,7 @@ public class CourseModelImpl extends BaseModel implements CourseContract.ICourse
 
     private static final String TAG = "CourseModelImpl";
 
-    private List<BeanCourse> mCourseList = new ArrayList<>();
     private CourseContract.Presenter mCoursePresenter;
-    private String mCourseHtml;
 
     public CourseModelImpl(CourseContract.Presenter coursePresenter) {
         super(coursePresenter);
@@ -44,9 +44,6 @@ public class CourseModelImpl extends BaseModel implements CourseContract.ICourse
 
     @Override
     public void updateCourseService(Boolean isRefresh) {
-        if (!isLogin()) {
-            return;
-        }
         Boolean gotCourse = CustomSPUtil.getInstance().get(mContext
                 .getString(R.string.sp_get_course), false);
         new Thread( () ->{
@@ -54,25 +51,23 @@ public class CourseModelImpl extends BaseModel implements CourseContract.ICourse
                 getSavedCourse();
                 return;
             }
-            if (mStudentType == UNDERGRADUATE) {
-                getUnderCourseHtml();
-            } else if (mStudentType == POSTGRADUATE) {
-                getPostCourseHtml();
-            }
+            getHttpData();
         }).start();
     }
 
     /**
      * 获取本科生课表信息
      * post格式如下
-        ignoreHead:1
-        setting.kind:std
-        startWeek:1
-        semester.id:如果为0则表示当前学期
-        ids:143831
-        ids来自http://eams.uestc.edu.cn/eams/courseTableForStd.action里的一行代码
+     ignoreHead:1
+     setting.kind:std
+     startWeek:1
+     semester.id:如果为0则表示当前学期
+     ids:143831
+     ids来自http://eams.uestc.edu.cn/eams/courseTableForStd.action里的一行代码
      */
-    private void getUnderCourseHtml() {
+    @Override
+    protected void getHttpData() {
+        List<BeanCourse> courseList = new ArrayList<>();
         try {
             OkHttpClient client = SingletonClient.getInstance();
             Request request = new Request.Builder()
@@ -80,15 +75,8 @@ public class CourseModelImpl extends BaseModel implements CourseContract.ICourse
                     .build();
             Response response_ids = client.newCall(request).execute();
             String text_ids = response_ids.body().string();
-            if (text_ids.contains("重复登录")) {
-                if (TRY_TIMES <= 2) {
-                    getUnderCourseHtml();
-                    TRY_TIMES++;
-                    return;
-                } else {
-                    mCoursePresenter.loginStatusFail();
-                    return;
-                }
+            if (!userAuthenticate(text_ids)) {
+                return;
             }
             String ids = getUnderIds(text_ids);
 
@@ -104,27 +92,26 @@ public class CourseModelImpl extends BaseModel implements CourseContract.ICourse
                     .url(ApiUtil.UNDER_COURSE_TABLE_URL)
                     .build();
             Response response = client.newCall(request).execute();
-            mCourseHtml = response.body().string();
-            if (mCourseHtml.contains("登录规则")) {
-                mCoursePresenter.loginStatusFail();
+            String courseHtml = response.body().string();
+            if (!userAuthenticate(courseHtml)) {
                 return;
             }
-            mCourseList = CourseResolver.resolveUnderCourseHtml(new StringBuilder(mCourseHtml));
+            courseList = CourseResolver.resolveUnderCourseHtml(new StringBuilder(courseHtml));
 
         } catch (SocketTimeoutException e) {
             mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
             CustomSPUtil.getInstance().put("get_course", false);
-            serviceError(NET_TIMEOUT);
+            //serviceError(NET_TIMEOUT);
             return;
         } catch (Exception e) {
             e.printStackTrace();
             mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
             CustomSPUtil.getInstance().put("get_course", false);
-            serviceError(UNKONOW_ERROR);
+            //serviceError(UNKNOWN_ERROR);
             return;
         }
         CustomSPUtil.getInstance().put("get_course", true);
-        BaseEvent<List<BeanCourse>> event = new BaseEvent<>(BaseCode.UPDATE, resolveRepeatCourse(mCourseList));
+        BaseEvent<List<BeanCourse>> event = new BaseEvent<>(BaseCode.UPDATE, resolveRepeatCourse(courseList));
         mCoursePresenter.underCourseResult(event);
     }
 
@@ -147,9 +134,4 @@ public class CourseModelImpl extends BaseModel implements CourseContract.ICourse
         int end = sourceCode.indexOf("\"", start+1);
         return sourceCode.substring(start+1, end);
     }
-
-    private void getPostCourseHtml() {
-        //TODO 获取并解析研究生课表
-    }
-
 }

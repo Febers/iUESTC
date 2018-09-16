@@ -13,14 +13,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
-import com.febers.iuestc.adapter.AdapterExam;
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.view.adapter.AdapterExam;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -139,7 +138,7 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
 
     private void getExam(Boolean isRefresh, int type) {
         if (isRefresh) {
-            if (!BaseApplication.checkNetConnecting()) {
+            if (!MyApplication.checkNetConnecting()) {
                 onError("当前网络不可用");
                 return;
             }

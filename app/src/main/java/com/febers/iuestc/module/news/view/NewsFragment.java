@@ -10,11 +10,12 @@ package com.febers.iuestc.module.news.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.adapter.AdapterNews;
+import com.febers.iuestc.view.adapter.AdapterNews;
 import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.module.news.presenter.NewsContract;
 import com.febers.iuestc.module.news.presenter.NewsPresenterImpl;
@@ -59,6 +60,7 @@ public class NewsFragment extends BaseFragment implements NewsContract.View{
         rvNews = findViewById(R.id.rv_news);
         rvNews.setLayoutManager(new LinearLayoutManager(getContext()));
         rvNews.setNestedScrollingEnabled(false);
+        rvNews.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         adapterNews = new AdapterNews(getContext(), mNewsList);
         rvNews.setAdapter(adapterNews);
         adapterNews.setOnItemClickListener((viewHolder, beanNews, i) -> {

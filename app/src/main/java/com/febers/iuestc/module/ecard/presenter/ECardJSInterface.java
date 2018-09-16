@@ -26,7 +26,7 @@ public class ECardJSInterface extends ECardContract.Presenter {
     public void localDateRequest() {
         IECardModel eCardModel = new ECardModel(this);
         try {
-            eCardModel.localDateService();
+            eCardModel.localDataService();
         } catch (Exception e) {
             e.printStackTrace();
         }

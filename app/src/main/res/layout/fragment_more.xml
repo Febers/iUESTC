@@ -44,80 +44,74 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cv_user"
-                    style="@style/CardViewClick"
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/ll_user"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardElevation="0dp">
+                    android:layout_height="100dp"
+                    android:orientation="horizontal"
+                    android:background="?attr/myBackgroundColor"
+                    android:foreground="?attr/selectableItemBackgroundBorderless">
 
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/ll_user"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_fragment_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:text="未登录"
+                        android:textSize="30sp"
+                        android:textColor="?attr/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.271" />
 
-                        <TextView
-                            android:id="@+id/tv_fragment_user_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginStart="16dp"
-                            android:text="未登录"
-                            android:textSize="30sp"
-                            android:textColor="?attr/colorPrimary"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.271" />
+                    <TextView
+                        android:id="@+id/tv_fragment_user_id"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginStart="18dp"
+                        android:textColor="?attr/colorAccent"
+                        android:text="学号"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.802" />
 
-                        <TextView
-                            android:id="@+id/tv_fragment_user_id"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="18dp"
-                            android:layout_marginStart="18dp"
-                            android:textColor="?attr/colorAccent"
-                            android:text="学号"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.802" />
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="20dp" />
 
-                        <android.support.constraint.Guideline
-                            android:id="@+id/guideline"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            app:layout_constraintGuide_begin="20dp" />
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guideline4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="20dp" />
 
-                        <android.support.constraint.Guideline
-                            android:id="@+id/guideline4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            app:layout_constraintGuide_begin="20dp" />
-
-                        <TextView
-                            android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginStart="8dp"
-                            android:gravity="center"
-                            android:text="➭"
-                            android:textColor="?attr/colorPrimary"
-                            android:textSize="25dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.49" />
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="8dp"
+                        android:gravity="center"
+                        android:text="➭"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="25dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.49" />
+                </android.support.constraint.ConstraintLayout>
 
                 <include layout="@layout/layout_divide_line" />
 

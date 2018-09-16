@@ -17,6 +17,10 @@ import com.febers.iuestc.entity.BeanUser;
 
 public interface UserContract {
 
+    interface Model {
+        void userDetailService(Boolean isRefresh) throws Exception;
+    }
+
     interface View extends BaseEduView {
         void showUserDetail(BaseEvent<BeanUser> event);
     }

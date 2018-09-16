@@ -10,7 +10,7 @@ package com.febers.iuestc.net;
 
 import android.webkit.CookieManager;
 
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import okhttp3.HttpUrl;
 public class CustomCookiesManager implements CookieJar {
 
     private static final String TAG = "CustomCookiesManager";
-    private final PersistentCookieStore cookieStore = new PersistentCookieStore(BaseApplication.getContext());
+    private final PersistentCookieStore cookieStore = new PersistentCookieStore(MyApplication.getContext());
     private CookieManager mCookieManager = CookieManager.getInstance();
 
     @Override
@@ -30,7 +30,9 @@ public class CustomCookiesManager implements CookieJar {
         if (cookies != null && cookies.size() > 0) {
             for (Cookie item : cookies) {
                 cookieStore.add(url, item);
-                mCookieManager.setCookie(url.toString(), item.toString()); //为webview添加
+                mCookieManager.setCookie(url.toString(), item.toString());
+//                String cookieStr = item.name() + item.value()+";domain="+item.domain();
+//                mCookieManager.setCookie(url.toString(), cookieStr); //为webview添加
             }
         }
     }

@@ -25,6 +25,12 @@ import com.febers.iuestc.view.custom.CustomUpdateDialog;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.beta.UpgradeInfo;
 
+/**
+ * 显示更新和通知的Dialog
+ * 从Bugly接收到消息有两种形式
+ * 第一，以通知开头，逗号后面是通知的版本号
+ * 当通知的版本号高于本机版本号时，显示通知
+ */
 public class UpdateActivity extends BaseActivity {
 
     private static final String TAG = "UpdateActivity";

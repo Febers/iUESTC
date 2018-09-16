@@ -19,7 +19,7 @@ public class GradeUtil {
             if (Integer.valueOf(raw) >= 0 && Integer.valueOf(raw) <= 100) {
                 return Float.valueOf(raw);
             }
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return rate(raw);
         }

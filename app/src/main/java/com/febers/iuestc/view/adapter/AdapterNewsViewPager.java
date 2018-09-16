@@ -6,7 +6,7 @@
  *
  */
 
-package com.febers.iuestc.adapter;
+package com.febers.iuestc.view.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

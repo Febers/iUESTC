@@ -29,7 +29,7 @@ public class CourseResolver {
      * @throws Exception 如果解析条件不符，返回错误
      */
     static List<BeanCourse> resolveUnderCourseHtml(StringBuilder html) throws Exception{
-
+        mCourseList.clear();
         /*
          * 从网页源码中截断有关课表的代码
          */

@@ -11,23 +11,37 @@ package com.febers.iuestc.module.login.presenter;
 import com.febers.iuestc.base.BaseEduPresenter;
 import com.febers.iuestc.base.BaseEduView;
 import com.febers.iuestc.base.BaseEvent;
-import com.febers.iuestc.base.BasePresenter;
-import com.febers.iuestc.base.BaseView;
-import com.febers.iuestc.module.login.model.LoginResult;
+import com.febers.iuestc.base.BaseModel;
 
 public interface LoginContract {
 
-    interface View extends BaseEduView {
-        void loadIdAndPwFunc(BaseEvent<String> event);
-        void loginResult(BaseEvent event);
+    interface Resolver {
+        void resolve(String html);
     }
 
+    abstract class Model extends BaseModel<Presenter>{
+        public Model(Presenter p) {super(p);}
+        public Model(){}
+        public abstract void loginService(String id , String pw) throws Exception;
+        public abstract Boolean reloginService() throws Exception;
+    }
+
+    interface View extends BaseEduView {
+        default void loadIdAndPwFunc(BaseEvent<String> event){}
+        void loginResult(BaseEvent<String> event);
+    }
+
+    /*
+     * P类，其中sendIdAndPwFunc 是WebView登录时的方法
+     * loginRequest 是自定义登录时的方法
+     */
     abstract class Presenter extends BaseEduPresenter<View> {
         public Presenter(View view) {
             super(view);
         }
 
-        public abstract void sendIdAndPwFunc(BaseEvent<String> event);
-        public abstract void loginResult(BaseEvent event);
+        public void sendIdAndPwFunc(BaseEvent<String> event){}
+        public void loginRequest(String id , String pw){}
+        public abstract void loginResult(BaseEvent<String> event);
     }
 }

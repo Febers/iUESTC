@@ -47,6 +47,11 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
         eCardPresenter = presenter;
     }
 
+    @Override
+    protected void getHttpData() {
+
+    }
+
     /**
      * 登录返回数据如下:
      */
@@ -107,7 +112,7 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
                 e.printStackTrace();
                 serviceError(NET_ERROR);
             } catch (Exception e) {
-                serviceError(UNKONOW_ERROR);
+                serviceError(UNKNOWN_ERROR);
                 e.printStackTrace();
             }
         }).start();
@@ -416,7 +421,7 @@ public class BeforeECardModelBefore extends BaseModel implements BeforeIECardMod
         if (loginResult.contains("成功")) {
             return true;
         }
-        eCardPresenter.errorResult(LOGIN_STATUS_ERRO);
+        eCardPresenter.errorResult(LOGIN_STATUS_ERROR);
         return false;
     }
 }

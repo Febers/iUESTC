@@ -9,10 +9,12 @@
 package com.febers.iuestc.module.library.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -26,8 +28,6 @@ import com.febers.iuestc.base.BaseFragment;
 public class LibraryFragment extends BaseFragment implements EditText.OnEditorActionListener {
 
     private EditText etLibFragment;
-    private RadioGroup rgLibFragment;
-    private Button btnQuery;
     private int mType;
 
     @Override
@@ -50,12 +50,12 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
 
     @Override
     protected void initView() {
-        Toolbar mToolbar = findViewById(R.id.library_toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        Toolbar toolbar = findViewById(R.id.library_toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         etLibFragment = findViewById(R.id.et_library_fragemnt);
         etLibFragment.setOnEditorActionListener(this);
-        rgLibFragment = findViewById(R.id.rg_library_fragment);
+        RadioGroup rgLibFragment = findViewById(R.id.rg_library_fragment);
         rgLibFragment.setOnCheckedChangeListener((RadioGroup group, int checkedId) -> {
                     switch (checkedId) {
                         case R.id.rb_lib_keyword:
@@ -78,9 +78,16 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
                     }
                 }
         );
-        btnQuery = findViewById(R.id.btn_lib_query);
+        Button btnQuery = findViewById(R.id.btn_lib_query);
         btnQuery.setOnClickListener((View v) -> {
             dateRequest(true);
+        });
+        Button btnHistory = findViewById(R.id.btn_lib_history);
+        btnHistory.setOnClickListener( v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://222.197.165.97:8080/sms/opac/search/showSearch.action?xc=6"));
+            startActivity(Intent.createChooser(intent, "请选择浏览器"));
+            //startActivity(new Intent(getActivity(), LibHistoryActivity.class));
         });
     }
 

@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseFragment;
@@ -62,7 +62,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     @Override
     public void dateRequest(Boolean isRefresh) {
         if (isRefresh) {
-            if (!BaseApplication.checkNetConnecting()) {
+            if (!MyApplication.checkNetConnecting()) {
                 onError("当前网络不可用");
                 return;
             }
@@ -144,7 +144,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
         Boolean firstGet = CustomSPUtil.getInstance().get(mContext
                 .getString(R.string.sp_course_first_get), true);
         if (firstGet) {
-            if (!BaseApplication.checkNetConnecting()) {
+            if (!MyApplication.checkNetConnecting()) {
                 return;
             }
             dateRequest(true);
@@ -187,7 +187,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     private void setTitle(int week) {
         nowWeek = 1;
         if (week == 0) {
-            nowWeek = CustomSPUtil.getInstance().get(BaseApplication.getContext().getString(R.string.sp_now_week), 1);
+            nowWeek = CustomSPUtil.getInstance().get(MyApplication.getContext().getString(R.string.sp_now_week), 1);
             if (nowWeek == 0) nowWeek = 1;
         } else {
             nowWeek = week;

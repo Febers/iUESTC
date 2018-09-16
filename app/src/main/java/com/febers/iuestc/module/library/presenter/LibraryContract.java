@@ -17,7 +17,7 @@ import java.util.List;
 
 public interface LibraryContract {
 
-    interface ILibraryModel {
+    interface Model {
         void readHistoryService(Boolean isRefresh, int page) throws Exception;
         void queryBookService(String keyword, int type,int page) throws Exception;
         void bookDetailService(String url) throws Exception;

@@ -8,12 +8,10 @@
 
 package com.febers.iuestc.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.custom.CustomProgressDialog;
 
 
@@ -28,7 +27,7 @@ public abstract class BaseFragment extends MySupportFragament implements BaseVie
 
     private static final String TAG = "BaseFragment";
     protected static String PARAMTER_1 = "param1";
-    protected Context mContext = BaseApplication.getContext();
+    protected Context mContext = MyApplication.getContext();
     protected CustomProgressDialog mProgressDialog;
     private View view;
 
@@ -97,7 +96,10 @@ public abstract class BaseFragment extends MySupportFragament implements BaseVie
     public void onError(String error) {
         dismissProgressDialog();
         if (getActivity() != null) {
-            getActivity().runOnUiThread( () -> Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show());
+            getActivity().runOnUiThread( () ->
+                    //Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show()
+                    ToastUtil.showShortToast(error)
+            );
         }
     }
 }

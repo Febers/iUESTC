@@ -20,7 +20,7 @@ public class LibraryPresenterImp extends LibraryContract.Presenter {
 
     private static final String TAG = "LibraryPresenterImp";
 
-    private LibraryContract.ILibraryModel libraryModel = new LibraryModelImpl(this);
+    private LibraryContract.Model libraryModel = new LibraryModelImpl(this);
 
     public LibraryPresenterImp(LibraryContract.View view) {
         super(view);

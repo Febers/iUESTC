@@ -18,6 +18,10 @@ import java.util.List;
 
 public interface GradeContract {
 
+    interface Model {
+        void gradeService(Boolean isRefresh, String semester) throws Exception;
+    }
+
     interface View extends BaseEduView {
         void showGrade(List<BeanGradeSummary> allGrades, List<BeanGrade> grades);
     }

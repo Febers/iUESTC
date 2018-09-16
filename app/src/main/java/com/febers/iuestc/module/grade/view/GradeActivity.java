@@ -20,7 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.adapter.AdapterGradeViewPager;
+import com.febers.iuestc.view.adapter.AdapterGradeViewPager;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.view.custom.CustomViewPager;
 import com.febers.iuestc.view.manager.GradeFragmentManager;

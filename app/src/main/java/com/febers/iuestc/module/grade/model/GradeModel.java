@@ -14,9 +14,9 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanGradeSummary;
 import com.febers.iuestc.entity.BeanGrade;
-import com.febers.iuestc.module.login.model.BeforeILoginModel;
-import com.febers.iuestc.module.login.model.BeforeLoginModel;
+import com.febers.iuestc.module.login.model.LoginModelImpl;
 import com.febers.iuestc.module.grade.presenter.GradeContract;
+import com.febers.iuestc.module.login.presenter.LoginContract;
 import com.febers.iuestc.net.SingletonClient;
 import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.util.RepeatLoginUtil;
@@ -37,7 +37,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class GradeModel extends BaseModel implements IGradeModel {
+public class GradeModel extends BaseModel implements GradeContract.Model {
 
     private static final String TAG = "GradeModel";
     private GradeContract.Presenter gradePresenter;
@@ -49,23 +49,20 @@ public class GradeModel extends BaseModel implements IGradeModel {
 
     @Override
     public void gradeService(Boolean isRefresh, String semester) throws Exception {
-        if (!isRefresh) {
-            loadLocalGrade();
-            return;
-        }
-        new Thread( () -> {
-            if (mStudentType == UNDERGRADUATE) {
-                getUnderGrade();
-            } else if (mStudentType == POSTGRADUATE) {
-                getPostGrade();
+        new Thread(()-> {
+            if (!isRefresh) {
+                loadLocalGrade();
+                return;
             }
+            getHttpData();
         }).start();
     }
 
     /**
      * 本科生
      */
-    private void getUnderGrade() {
+    @Override
+    protected void getHttpData() {
         OkHttpClient client = SingletonClient.getInstance();
         try {
             Request request = new Request.Builder()
@@ -74,26 +71,8 @@ public class GradeModel extends BaseModel implements IGradeModel {
                     .build();
             Response response = client.newCall(request).execute();
             String stRes = response.body().string();
-            if (stRes.contains("登录规则")) {
-                BeforeILoginModel loginModel = new BeforeLoginModel();
-                if (FIRST_TRY) {
-                    Boolean reLogin  = loginModel.reloginService();
-                    if (!reLogin) {
-                        serviceError(LOGIN_STATUS_ERRO);
-                        return;
-                    }
-                    FIRST_TRY = false;
-                    getUnderGrade();
-                    return;
-                }
-            } else if (stRes.contains("重复登录")) {
-                String url = RepeatLoginUtil.check(stRes);
-                request = new Request.Builder()
-                        .url(url)
-                        .get()
-                        .build();
-                response = client.newCall(request).execute();
-                stRes = response.body().string();
+            if (!userAuthenticate(stRes)) {
+                return;
             }
             resolveUnderGradeHtml(stRes);
         } catch (SocketTimeoutException e) {
@@ -103,7 +82,7 @@ public class GradeModel extends BaseModel implements IGradeModel {
             serviceError(NET_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            serviceError(UNKONOW_ERROR);
+            serviceError(UNKNOWN_ERROR);
         }
     }
 
@@ -165,10 +144,6 @@ public class GradeModel extends BaseModel implements IGradeModel {
         }catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void getPostGrade() {
-        //TODO 研究生成绩
     }
 
     private void saveUnderGrade(String sourceCode) {

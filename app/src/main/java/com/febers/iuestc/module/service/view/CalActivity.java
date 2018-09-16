@@ -15,7 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -50,7 +50,7 @@ public class CalActivity extends BaseSwipeActivity implements SchoolCalendarCont
         }
         imageViewCal = findViewById(R.id.imgview_calender);
         if (!CustomSPUtil.getInstance()
-                .get(BaseApplication.getContext().getString(R.string.sp_get_calender), false)) {
+                .get(MyApplication.getContext().getString(R.string.sp_get_calender), false)) {
             dateRequest(true);
             return;
         }

@@ -15,7 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.adapter.AdapterTheme;
+import com.febers.iuestc.view.adapter.AdapterTheme;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.entity.BeanTheme;
 import com.febers.iuestc.entity.EventTheme;

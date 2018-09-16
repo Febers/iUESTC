@@ -15,10 +15,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.adapter.AdapterNewsViewPager;
-import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.view.adapter.AdapterNewsViewPager;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.view.custom.CustomViewPager;
+import com.febers.iuestc.view.manager.NewsFragmentManager;
 
 public class NewsActivity extends BaseSwipeActivity {
 
@@ -84,7 +84,7 @@ public class NewsActivity extends BaseSwipeActivity {
     //研究生
     private void initPostUI() {
         Toolbar toolbar = findViewById(R.id.tb_news);
-        toolbar.setTitle("本科教务通知");
+        toolbar.setTitle("研究生教务通知");
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -108,6 +108,6 @@ public class NewsActivity extends BaseSwipeActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //NewsFragmentManager.clearAllFragment();
+        NewsFragmentManager.clearAllFragment();
     }
 }

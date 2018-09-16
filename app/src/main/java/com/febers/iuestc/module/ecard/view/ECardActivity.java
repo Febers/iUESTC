@@ -17,8 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.adapter.AdapterUser;
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.view.adapter.AdapterUser;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseSwipeActivity;
@@ -89,7 +89,7 @@ public class ECardActivity extends BaseSwipeActivity implements ECardContract.Vi
             eCardJSInterface.localDateRequest();
             return;
         }
-        if (!BaseApplication.checkNetConnecting()) {
+        if (!MyApplication.checkNetConnecting()) {
             onError("当前网络无连接");
             return;
         }

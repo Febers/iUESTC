@@ -10,7 +10,6 @@ package com.febers.iuestc.module.user.presenter;
 
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanUser;
-import com.febers.iuestc.module.user.model.IUserModel;
 import com.febers.iuestc.module.user.model.UserModel;
 
 /**
@@ -26,7 +25,7 @@ public class UserPresenterImpl extends UserContract.Presenter{
 
     @Override
     public void userDetailRequest(Boolean isRefresh) {
-        IUserModel userModel = new UserModel(this);
+        UserContract.Model userModel = new UserModel(this);
         try {
             userModel.userDetailService(isRefresh);
         } catch (Exception e) {

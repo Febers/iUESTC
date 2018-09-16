@@ -15,8 +15,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.febers.iuestc.adapter.AdapterGrade;
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.view.adapter.AdapterGrade;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseFragment;
@@ -34,7 +34,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
 
     private static final String TAG = "GradeListFragment";
     private RecyclerView recyclerView;
-    private Context context = BaseApplication.getContext();
+    private Context context = MyApplication.getContext();
     private AdapterGrade adapterGrade;
     private GradeContract.Presenter gradePresenter = new GradePresenterImpl(this);
     private List<BeanGrade> mGradeList = new ArrayList<>();
@@ -64,7 +64,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
             isRefresh = true;
         }
         if (isRefresh) {
-            if (!BaseApplication.checkNetConnecting()) {
+            if (!MyApplication.checkNetConnecting()) {
                 onError("当前网络不可用");
                 return;
             }

@@ -8,8 +8,6 @@
 
 package com.febers.iuestc.module.exam.model;
 
-import android.util.Log;
-
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -50,23 +48,17 @@ public class ExamModelImpl extends BaseModel implements ExamContract.IExamModel 
     @Override
     public void examService(Boolean isRefresh, int type) {
         mType = type;
-        if (CustomSPUtil.getInstance().get("exam_"+mType, false) && (!isRefresh)) {
-            loadLocalExam();
-            return;
-        }
-        new Thread( () -> {
-            if (mStudentType == UNDERGRADUATE) {
-                getUnderExam();
-            } else if (mStudentType == POSTGRADUATE) {
-
+        new Thread(()-> {
+            if (CustomSPUtil.getInstance().get("exam_"+mType, false) && (!isRefresh)) {
+                loadLocalExam();
+                return;
             }
+            getHttpData();
         }).start();
     }
 
-    /**
-     * 本科生考试
-     */
-    private void getUnderExam() {
+    @Override
+    protected void getHttpData() {
         try {
             OkHttpClient client = SingletonClient.getInstance();
             String examUrl = "http://eams.uestc.edu.cn/eams/stdExamTable!examTable.action?" +
@@ -77,17 +69,7 @@ public class ExamModelImpl extends BaseModel implements ExamContract.IExamModel 
                     .build();
             Response examRes = client.newCall(request).execute();
             String result = examRes.body().string();
-            if (result.contains("重复登录")) {
-                if (TRY_TIMES <= 2) {
-                    getUnderExam();
-                    TRY_TIMES++;
-                } else {
-                    examPresenter.errorResult("获取考试信息出错");
-                }
-                return;
-            }
-            if (result.contains("登录规则")) {
-                examPresenter.loginStatusFail();
+            if (!userAuthenticate(result)) {
                 return;
             }
             mExamList = ExamResolver.resolveUnderExamHtml(result);
@@ -100,7 +82,7 @@ public class ExamModelImpl extends BaseModel implements ExamContract.IExamModel 
             serviceError(NET_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
-            serviceError(UNKONOW_ERROR);
+            serviceError(UNKNOWN_ERROR);
         }
     }
 

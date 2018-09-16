@@ -9,9 +9,8 @@
 package com.febers.iuestc.module.exam.model;
 
 import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
 import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.util.CustomSPUtil;
 
@@ -20,7 +19,7 @@ import java.util.List;
 
 public class ExamStore {
     static void save(List<BeanExam> examList, int type) {
-        SharedPreferences.Editor editor = BaseApplication.getContext().getSharedPreferences("exam_"+type,
+        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences("exam_"+type,
                 0).edit();
         editor.clear();
         editor.apply();
@@ -40,7 +39,7 @@ public class ExamStore {
         if (type == 2) {
             examName = "exam_2";
         }
-        SharedPreferences preferences = BaseApplication.getContext().getSharedPreferences(examName, 0);
+        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(examName, 0);
         int size = preferences.getInt("size", 0);
         for (int i = 0; i < size; i++) {
             BeanExam exam = new BeanExam();

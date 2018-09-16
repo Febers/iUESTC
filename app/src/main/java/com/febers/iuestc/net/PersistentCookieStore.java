@@ -83,12 +83,12 @@ public class PersistentCookieStore {
             SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
             prefsWriter.putString(url.host(), TextUtils.join(",", cookies.get(url.host()).keySet()));
             prefsWriter.putString(name, encodeCookie(new SerializableOkHttpCookies(cookie)));
-            prefsWriter.commit();
+            prefsWriter.apply();
         } else {
             SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
             prefsWriter.remove(url.host());
             prefsWriter.remove(name);
-            prefsWriter.commit();
+            prefsWriter.apply();
         }
     }
 
@@ -96,7 +96,7 @@ public class PersistentCookieStore {
         ArrayList<Cookie> ret = new ArrayList<>();
         if (cookies.containsKey(url.host()))
             ret.addAll(cookies.get(url.host()).values());
-        //Log.d(TAG, "get: " + ret.toString());
+//        Log.d(TAG, "get: " + ret.toString());
         return ret;
     }
 
@@ -131,7 +131,6 @@ public class PersistentCookieStore {
         ArrayList<Cookie> ret = new ArrayList<>();
         for (String key : cookies.keySet())
             ret.addAll(cookies.get(key).values());
-
         return ret;
     }
 

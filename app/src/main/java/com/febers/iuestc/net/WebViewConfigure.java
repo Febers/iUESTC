@@ -15,9 +15,8 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
-import android.webkit.DownloadListener;
+import android.webkit.CookieSyncManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -27,9 +26,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.febers.iuestc.base.BaseApplication;
-
 public class WebViewConfigure {
+
     private static final String TAG = "WebViewConfigure";
     private WebViewConfigure(){}
 
@@ -163,6 +161,11 @@ public class WebViewConfigure {
                     }
                 }
 
+                /**
+                 *  webveiw只能打开以http/https开头的网页
+                 *  遇到其他开头的url，比如一些scheme，比如打开其他应用
+                 *  以openapp开头的url时，就会报错，需要手动处理
+                 */
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
                     if (openUrlOut) {
@@ -172,6 +175,9 @@ public class WebViewConfigure {
                         }
                         return true;
                     } else {
+                        if (url.startsWith("openapp")) {
+                            return true;
+                        }
                         view.loadUrl(url);
                         return true;
                     }
@@ -187,6 +193,9 @@ public class WebViewConfigure {
                         }
                         return true;
                     } else {
+                        if (request.getUrl().toString().startsWith("openapp")) {
+                            return true;
+                        }
                         view.loadUrl(request.getUrl().toString());
                         return true;
                     }
@@ -247,6 +256,8 @@ public class WebViewConfigure {
                 }
             };
 
+            CookieSyncManager.createInstance(webView.getContext());
+            CookieSyncManager.getInstance().sync();
             //延迟加载图片,对于4.4直接加载
             if (Build.VERSION.SDK_INT >= 19) {
                 webSettings.setLoadsImagesAutomatically(true);
@@ -262,6 +273,4 @@ public class WebViewConfigure {
             return webView;
         }
     }
-
-
 }

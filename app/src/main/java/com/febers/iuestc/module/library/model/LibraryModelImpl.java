@@ -11,7 +11,7 @@ package com.febers.iuestc.module.library.model;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -36,7 +36,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class LibraryModelImpl implements LibraryContract.ILibraryModel {
+public class LibraryModelImpl implements LibraryContract.Model {
 
     private static final String TAG = "LibraryModelImpl";
     private LibraryContract.Presenter libraryPresenter;
@@ -133,7 +133,7 @@ public class LibraryModelImpl implements LibraryContract.ILibraryModel {
             bookList.add(book);
         }
         if (bookList.size() != 0) {
-            SharedPreferences preferences = BaseApplication.getContext()
+            SharedPreferences preferences = MyApplication.getContext()
                     .getSharedPreferences("book_history", 0);
             SharedPreferences.Editor editor = preferences.edit();
             int size = preferences.getInt("size", 0);
@@ -144,7 +144,7 @@ public class LibraryModelImpl implements LibraryContract.ILibraryModel {
             editor.putInt("size", i);
             editor.commit();
         }
-        CustomSPUtil.getInstance().put(BaseApplication.getContext()
+        CustomSPUtil.getInstance().put(MyApplication.getContext()
                 .getString(R.string.sp_library_history), true);
         libraryPresenter.historyResult(bookList);
     }
@@ -239,7 +239,7 @@ public class LibraryModelImpl implements LibraryContract.ILibraryModel {
     }
 
     private Boolean loadLocalHistory() {
-        SharedPreferences preferences = BaseApplication.getContext().getSharedPreferences("book_history", 0);
+        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences("book_history", 0);
         int size = preferences.getInt("size", 0);
         if (size == 0) {
             return false;

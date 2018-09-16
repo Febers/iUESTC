@@ -45,17 +45,16 @@ public class SingletonClient {
                 }
             }
         }
-
         return singletonClient;
     }
 
     public static void reset() {
         singletonClient = null;
         CookieManager.getInstance().removeAllCookie();
-        if (Build.VERSION.SDK_INT > 21) {
-            CookieManager.getInstance().removeAllCookies((Boolean value) -> {
-                    Log.i(TAG, "onReceiveValue: " + value);
-            });
-        }
+//        if (Build.VERSION.SDK_INT > 21) {
+//            CookieManager.getInstance().removeAllCookies((Boolean value) -> {
+//                    Log.i(TAG, "onReceiveValue: " + value);
+//            });
+//        }
     }
 }

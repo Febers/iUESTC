@@ -10,10 +10,10 @@ package com.febers.iuestc.module.more;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +23,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.adapter.AdapterSetting;
+import com.febers.iuestc.module.news.view.NoticeActivity;
+import com.febers.iuestc.view.adapter.AdapterSetting;
 import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.entity.BeanSetting;
 import com.febers.iuestc.module.ecard.view.ECardActivity;
@@ -60,9 +61,10 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        Toolbar mToolbar = findViewById(R.id.user_toolbar);
-        mToolbar.setTitle("i成电");
-        ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
+        Toolbar toolbar = findViewById(R.id.user_toolbar);
+        toolbar.setTitle("i成电");
+        toolbar.inflateMenu(R.menu.more_menu);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         tvName = findViewById(R.id.tv_fragment_user_name);
         tvId = findViewById(R.id.tv_fragment_user_id);
 
@@ -80,8 +82,8 @@ public class MoreFragment extends BaseFragment {
         rvMoreSetting2.setAdapter(adapterSetting2);
         adapterSetting2.setOnItemClickListener((viewHolder, beanSetting, i) -> onClickListViewItem2(i));
 
-        CardView mCardView = findViewById(R.id.cv_user);
-        mCardView.setOnClickListener(v ->  {
+        ConstraintLayout layout = findViewById(R.id.ll_user);
+        layout.setOnClickListener(v ->  {
             if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
                 startActivity(new Intent(getActivity(), LoginActivity.class));
             } else {
@@ -160,11 +162,14 @@ public class MoreFragment extends BaseFragment {
 //                startActivity(i2);
 //                HomeFragmentManager.clearFragment(99);
 //                break;
-            case 3 - 1:
+            case 2:
                 startActivity(new Intent(getActivity(), BusActivity.class));
                 break;
-            case 4 - 1:
+            case 3:
                 startActivity(new Intent(getActivity(), CalActivity.class));
+                break;
+            case 4:
+                startActivity(new Intent(getActivity(), NoticeActivity.class));
                 break;
             default:
                 break;
@@ -191,11 +196,13 @@ public class MoreFragment extends BaseFragment {
         BeanSetting stPostJW = new BeanSetting("研究生教务", R.mipmap.ic_news_purple);
         BeanSetting stBus = new BeanSetting("校车服务", R.mipmap.ic_bus_blue2);
         BeanSetting stCalendar = new BeanSetting("校历", R.mipmap.ic_cal_green2);
+        BeanSetting stNotice = new BeanSetting("通知公告", R.mipmap.ic_news_red);
         settingList.add(stService);
         settingList.add(stUnderJW);
 //        beanSettingList.add(stPostJW);
         settingList.add(stBus);
         settingList.add(stCalendar);
+//        settingList.add(stNotice);
         return settingList;
     }
 

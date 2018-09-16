@@ -11,12 +11,12 @@ package com.febers.iuestc.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.net.SingletonClient;
 
 public class LogoutUtil {
-    private static Context context = BaseApplication.getContext();
+    private static Context context = MyApplication.getContext();
 
     public static boolean logoutSchool() {
         CustomSPUtil.getInstance().put(context.getString(R.string.sp_is_login), false);
@@ -53,20 +53,6 @@ public class LogoutUtil {
         editor.clear();
         editor.apply();
         SingletonClient.reset();
-        return true;
-    }
-
-    public static boolean logoutECard() {
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_ecard_is_login), false);
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_ecard_user_id), "");
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_ecard_user_pw), "");
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_ecard_bind_number), "");
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_ecard_user_phone), "");
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_ecard_el_balance), "");
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_ecard_balance), "");
-        SharedPreferences.Editor editor = context.getSharedPreferences("local_pay_record", 0).edit();
-        editor.clear();
-        editor.commit();
         return true;
     }
 }

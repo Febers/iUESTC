@@ -6,18 +6,14 @@
  *
  */
 
-package com.febers.iuestc.adapter;
+package com.febers.iuestc.view.adapter;
 
 import android.content.Context;
-import android.view.View;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanTheme;
-import com.febers.iuestc.entity.EventTheme;
 import com.othershe.baseadapter.ViewHolder;
 import com.othershe.baseadapter.base.CommonBaseAdapter;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 

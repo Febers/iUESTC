@@ -9,5 +9,5 @@
 package com.febers.iuestc.base;
 
 public interface BaseEduView extends BaseView{
-    void statusToFail();
+    default void statusToFail(){}
 }

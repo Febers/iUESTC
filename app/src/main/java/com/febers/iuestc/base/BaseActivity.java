@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.febers.iuestc.R;
 import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.util.ThemeUtil;
+import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.custom.CustomProgressDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -111,7 +112,8 @@ public abstract class BaseActivity extends MySupportActivity implements BaseView
     @Override
     public void onError(String error) {
         runOnUiThread(()-> {
-            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+            ToastUtil.showShortToast(error);
         });
     }
 }

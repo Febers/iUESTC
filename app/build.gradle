@@ -57,7 +57,6 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-3'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'net.opacapp:multiline-collapsingtoolbar:27.1.1'
-    implementation 'com.r0adkll:slidableactivity:2.0.6'
     implementation 'com.lucasurbas:listitemview:1.1.1'
 
     implementation 'me.yokeyword:fragmentation:1.3.6'

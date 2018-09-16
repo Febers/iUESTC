@@ -11,7 +11,6 @@ package com.febers.iuestc.module.login.presenter;
 import android.webkit.JavascriptInterface;
 
 import com.febers.iuestc.base.BaseEvent;
-import com.febers.iuestc.module.login.model.ILoginResolver;
 import com.febers.iuestc.module.login.model.LoginResolver;
 
 /**
@@ -28,12 +27,12 @@ public class LoginJSInterface extends LoginContract.Presenter {
     @JavascriptInterface
     @SuppressWarnings("unused")
     public void processHTML(String html) {
-        ILoginResolver loginResolver = new LoginResolver(this);
+        LoginContract.Resolver loginResolver = new LoginResolver(this);
         loginResolver.resolve(html);
     }
 
     @Override
-    public void loginResult(BaseEvent event) {
+    public void loginResult(BaseEvent<String> event) {
         if (mEduView!=null) {
             mEduView.loginResult(event);
         }

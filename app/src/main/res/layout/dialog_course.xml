@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
     android:background="?attr/myBackgroundColor">
     <TextView
         android:id="@+id/tv_dialog_course_name"

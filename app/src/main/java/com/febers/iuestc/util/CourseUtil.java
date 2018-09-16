@@ -10,7 +10,7 @@ package com.febers.iuestc.util;
 
 import android.util.Log;
 
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanCourse;
 
@@ -138,7 +138,7 @@ public class CourseUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String time = sdf.format(new Date());
         //获取上次时间
-        String lastTime = CustomSPUtil.getInstance().get(BaseApplication.getContext().getString(R.string.sp_course_last_time), time);
+        String lastTime = CustomSPUtil.getInstance().get(MyApplication.getContext().getString(R.string.sp_course_last_time), time);
 
         try {
             date = sdf.parse(time);

@@ -11,6 +11,7 @@ package com.febers.iuestc.base;
 import android.content.Context;
 
 import com.febers.iuestc.R;
+import com.febers.iuestc.module.login.model.LoginModelImpl;
 import com.febers.iuestc.util.CustomSPUtil;
 
 public abstract class BaseModel<P extends BasePresenter> {
@@ -19,22 +20,25 @@ public abstract class BaseModel<P extends BasePresenter> {
     protected int TRY_TIMES = 1;
     protected P presenter;
 
-    public BaseModel(P presnter) {
-        this.presenter = presnter;
+    public BaseModel(P presenter) {
+        this.presenter = presenter;
     }
 
-    public BaseModel() {
+    protected BaseModel() {
     }
 
-    public static final String NET_TIMEOUT = "网络超时";
-    public static final String NET_ERROR = "网络错误";
-    public static final String UNKONOW_ERROR = "未知错误";
-    public static final String LOGIN_STATUS_ERRO = "登录状态改变，请重新登录";
+    protected static final String NET_TIMEOUT = "网络超时";
+    protected static final String NET_ERROR = "网络错误";
+    protected static final String UNKNOWN_ERROR = "未知错误";
+    protected static final String LOGIN_STATUS_ERROR = "登录状态改变，请重新登录";
+    protected static final String LOGIN_EXCEPTION = "登录出错";
+    protected static final String LOGIN_ADDITION_ERROR = "获取登录环境出错";
+    protected static final String LOGIN_PARAM_ERROR = "帐号或密码错误，请重新登录";
 
-    public static final int UNDERGRADUATE = 0;
-    public static final int POSTGRADUATE = 1;
+    protected static final int UNDERGRADUATE = 0;
+    protected static final int POSTGRADUATE = 1;
 
-    protected Context mContext = BaseApplication.getContext();
+    protected Context mContext = MyApplication.getContext();
 
     protected int mStudentType = CustomSPUtil.getInstance()
             .get(mContext.getString(R.string.sp_student_type), 0);
@@ -49,5 +53,50 @@ public abstract class BaseModel<P extends BasePresenter> {
 
     protected void serviceError(String error) {
         presenter.errorResult(error);
+    }
+
+    protected void getHttpData() {}
+
+    /**
+     * 由于教务系统的不稳定，Cookie的保持时间可能很短
+     * 因此当Cookie失效的时候，需要重新登录
+     * 借助LoginModelImpl的重新的登录功能更新Cookie
+     * @param html 源网页
+     * @return 如果出现重复登录，说明帐号在别处登录，此时一般再次发送请求即可，返回false
+     * 如果出现登录规则，说明需要重新登录，如果重新登录成功，那么再次请求页面
+     * TRY_TIMES用来标记请求的次数，一个实例只能有两次请求的机会
+     * 如果再次出现登录规则，则需要重新手动登录，调用P 的loginStatusFail方法
+     */
+    protected Boolean userAuthenticate(String html) {
+        if (html.contains("重复登录")) {
+            if (TRY_TIMES <= 2) {
+                getHttpData();
+                TRY_TIMES++;
+            } else {
+                presenter.errorResult("获取考试信息出错");
+            }
+            return false;
+        }
+        if (html.contains("登录规则")) {
+            if (TRY_TIMES <= 2) {
+                if (new LoginModelImpl().reloginService()) {
+                    getHttpData();
+                    return false;
+                } else {
+                    if (presenter instanceof BaseEduPresenter) {
+                        BaseEduPresenter p = (BaseEduPresenter)presenter;
+                        p.loginStatusFail();
+                    }
+                    return false;
+                }
+            } else {
+                if (presenter instanceof BaseEduPresenter) {
+                    BaseEduPresenter p = (BaseEduPresenter)presenter;
+                    p.loginStatusFail();
+                }
+                return false;
+            }
+        }
+        return true;
     }
 }

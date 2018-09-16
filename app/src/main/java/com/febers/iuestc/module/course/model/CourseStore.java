@@ -9,9 +9,8 @@
 package com.febers.iuestc.module.course.model;
 
 import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.febers.iuestc.base.BaseApplication;
+import com.febers.iuestc.base.MyApplication;
 import com.febers.iuestc.entity.BeanCourse;
 
 import com.febers.iuestc.util.CustomSPUtil;
@@ -29,7 +28,7 @@ public class CourseStore {
     static void save(List<BeanCourse> courseList) {
         //保存课程数目
         CustomSPUtil.getInstance().put("course_count", courseList.size());
-        SharedPreferences.Editor editor = BaseApplication.getContext()
+        SharedPreferences.Editor editor = MyApplication.getContext()
                 .getSharedPreferences("local_course", 0).edit();
         editor.clear();
         editor.apply();
@@ -42,7 +41,7 @@ public class CourseStore {
     static List<BeanCourse> get() {
         List<BeanCourse> courseList = new ArrayList<>();
         int course_count = CustomSPUtil.getInstance().get("course_count", 10);
-        SharedPreferences spLocalCourse = BaseApplication.getContext().getSharedPreferences("local_course", 0);
+        SharedPreferences spLocalCourse = MyApplication.getContext().getSharedPreferences("local_course", 0);
         for (int i = 0; i < course_count; i++) {
             String s = spLocalCourse.getString("bean_course" + i, "");
             String[] ss = s.split("#");

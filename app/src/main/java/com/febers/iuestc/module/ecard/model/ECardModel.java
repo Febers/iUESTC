@@ -98,8 +98,8 @@ public class ECardModel extends BaseModel implements IECardModel {
     }
 
     @Override
-    public void localDateService() throws Exception {
-        Log.i(TAG, "localDateService: ");
+    public void localDataService() throws Exception {
+        Log.i(TAG, "localDataService: ");
         BeanEduECard eCard = new BeanEduECard();
         eCard.setBalance(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_balance), "..."));
         eCard.setNumber(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_number), "..."));

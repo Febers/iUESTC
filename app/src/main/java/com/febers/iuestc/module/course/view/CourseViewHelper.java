@@ -11,6 +11,7 @@ package com.febers.iuestc.module.course.view;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -57,7 +58,8 @@ public class CourseViewHelper implements View.OnClickListener {
     }
 
     void create(List<BeanCourse> courseList, int nowWeek, List<Button> buttonList) {
-        mCourseList = courseList;
+        mCourseList.clear();
+        mCourseList.addAll(courseList);
         //与上次打开相比,更新周数
         int interval = CourseUtil.getWeekInterval();
         nowWeek = nowWeek + interval;
