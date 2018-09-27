@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  *时间工具
@@ -28,7 +29,7 @@ public class TimeUtil {
         System.out.println("\n结束时间:");
         String str2 = endTime;  //"yyyyMMdd"格式 如 20131022
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");//输入日期的格式
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.US);//输入日期的格式
         Date beginDate = null;
         Date endDate = null;
         try {

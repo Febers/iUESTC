@@ -9,7 +9,6 @@
 package com.febers.iuestc.view.custom;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 /**
  * 解决CoordinatorLayout下ViewPager嵌套recyclerview后无法滑动的问题
@@ -28,8 +26,8 @@ public class CustomViewPager extends ViewPager {
     /**
      * 保存position与对于的View
      */
-    private HashMap<Integer, Integer> maps = new HashMap<Integer, Integer>();
-    private boolean scrollble = true;
+    private HashMap<Integer, Integer> maps = new HashMap<>();
+    private boolean scrollable = true;
 
     public CustomViewPager(Context context) {
         super(context);
@@ -93,7 +91,7 @@ public class CustomViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (!scrollble) {
+        if (!scrollable) {
             return true;
         }
         return super.onTouchEvent(ev);

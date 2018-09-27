@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static com.febers.iuestc.module.course.model.CourseConstants.COURSE_NO_NOW;
 import static com.febers.iuestc.module.course.model.CourseConstants.COURSE_OUT_WEEK;
@@ -115,7 +116,7 @@ public class CourseViewHelper implements View.OnClickListener {
             btn.setVisibility(View.VISIBLE);
             btn.setOnClickListener(this);
             //获取当前标准格式的时间并保存
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
             String time = sdf.format(new Date());
             CustomSPUtil.getInstance().put(mActivity.getString(R.string.sp_course_last_time), time);
             CustomSPUtil.getInstance().put(mActivity.getString(R.string.sp_now_week), nowWeek);

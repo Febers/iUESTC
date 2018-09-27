@@ -8,6 +8,7 @@
 
 package com.febers.iuestc.view.custom;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -23,13 +24,14 @@ public class CustomCourseDialog extends AlertDialog {
     private static final String TAG = "CustomCourseDialog";
     private AlertDialog dialog;
     private View view;
-    private TextView tvCourseName, tvCourseName2;
-    private TextView tvCourseClassRoom, tvCourseClassRoom2;
-    private TextView tvCourseWeek, tvCourseWeek2;
-    private TextView tvCourseTime, tvCourseTime2;
-    private TextView tvCourseTeacher, tvCourseTeacher2;
+    private TextView tvCourseName;
+    private TextView tvCourseClassRoom;
+    private TextView tvCourseWeek;
+    private TextView tvCourseTime;
+    private TextView tvCourseTeacher;
     private Context context;
 
+    @SuppressLint("InflateParams")
     public CustomCourseDialog(Context context, BeanCourse course) {
         super(context, R.style.Theme_AppCompat_Dialog);
         dialog = new AlertDialog.Builder(context).create();
@@ -40,14 +42,15 @@ public class CustomCourseDialog extends AlertDialog {
         tvCourseWeek = view.findViewById(R.id.tv_dialog_course_week);
         tvCourseTime = view.findViewById(R.id.tv_dialog_course_time);
         tvCourseTeacher = view.findViewById(R.id.tv_dialog_course_teacher);
-        tvCourseName.setText(" "+course.getName());
-        tvCourseClassRoom.setText("地点: "+course.getClassroom());
-        tvCourseWeek.setText("周次:  "+ course.getWeek());
-        tvCourseTime.setText("时间:  "+ CourseUtil.getTimeDescription(course));
-        tvCourseTeacher.setText("老师: "+course.getTeacher());
+        tvCourseName.setText(String.format(" %s", course.getName()));
+        tvCourseClassRoom.setText(String.format("地点: %s", course.getClassroom()));
+        tvCourseWeek.setText(String.format("周次:  %s", course.getWeek()));
+        tvCourseTime.setText(String.format("时间:  %s", CourseUtil.getTimeDescription(course)));
+        tvCourseTeacher.setText(String.format("老师: %s", course.getTeacher()));
         dialog.setView(view);
     }
 
+    @SuppressLint("InflateParams")
     public CustomCourseDialog(Context context, BeanCourse course1, BeanCourse course2) {
         super(context, R.style.Theme_AppCompat_Dialog);
         dialog = new AlertDialog.Builder(context).create();
@@ -59,23 +62,23 @@ public class CustomCourseDialog extends AlertDialog {
         tvCourseTime = view.findViewById(R.id.tv_dialog_course_one_time);
         tvCourseTeacher = view.findViewById(R.id.tv_dialog_course_one_teacher);
 
-        tvCourseName2 = view.findViewById(R.id.tv_dialog_course_two_name);
-        tvCourseClassRoom2 = view.findViewById(R.id.tv_dialog_course_two_classroom);
-        tvCourseWeek2 = view.findViewById(R.id.tv_dialog_course_two_week);
-        tvCourseTime2 = view.findViewById(R.id.tv_dialog_course_two_time);
-        tvCourseTeacher2 = view.findViewById(R.id.tv_dialog_course_two_teacher);
+        TextView tvCourseName2 = view.findViewById(R.id.tv_dialog_course_two_name);
+        TextView tvCourseClassRoom2 = view.findViewById(R.id.tv_dialog_course_two_classroom);
+        TextView tvCourseWeek2 = view.findViewById(R.id.tv_dialog_course_two_week);
+        TextView tvCourseTime2 = view.findViewById(R.id.tv_dialog_course_two_time);
+        TextView tvCourseTeacher2 = view.findViewById(R.id.tv_dialog_course_two_teacher);
 
-        tvCourseName.setText(" "+course1.getName());
-        tvCourseClassRoom.setText("地点: "+course1.getClassroom());
-        tvCourseWeek.setText("周次:  "+ course1.getWeek());
-        tvCourseTime.setText("时间:  "+ CourseUtil.getTimeDescription(course1));
-        tvCourseTeacher.setText("老师: "+course1.getTeacher());
+        tvCourseName.setText(String.format(" %s", course1.getName()));
+        tvCourseClassRoom.setText(String.format("地点: %s", course1.getClassroom()));
+        tvCourseWeek.setText(String.format("周次:  %s", course1.getWeek()));
+        tvCourseTime.setText(String.format("时间:  %s", CourseUtil.getTimeDescription(course1)));
+        tvCourseTeacher.setText(String.format("老师: %s", course1.getTeacher()));
 
-        tvCourseName2.setText(" "+course2.getName());
-        tvCourseClassRoom2.setText("地点: "+course2.getClassroom());
-        tvCourseWeek2.setText("周次:  "+ course2.getWeek());
-        tvCourseTime2.setText("时间:  "+ CourseUtil.getTimeDescription(course2));
-        tvCourseTeacher2.setText("老师: "+course2.getTeacher());
+        tvCourseName2.setText(String.format(" %s", course2.getName()));
+        tvCourseClassRoom2.setText(String.format("地点: %s", course2.getClassroom()));
+        tvCourseWeek2.setText(String.format("周次:  %s", course2.getWeek()));
+        tvCourseTime2.setText(String.format("时间:  %s", CourseUtil.getTimeDescription(course2)));
+        tvCourseTeacher2.setText(String.format("老师: %s", course2.getTeacher()));
         dialog.setView(view);
     }
 

@@ -8,8 +8,6 @@
 
 package com.febers.iuestc.module.course.presenter;
 
-import android.util.Log;
-
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanCourse;
 import com.febers.iuestc.module.course.model.CourseModelImpl;
@@ -26,7 +24,7 @@ public class CoursePresenterImpl extends CourseContract.Presenter{
 
     @Override
     public void courseRequest(Boolean isRefresh) {
-        CourseContract.ICourseModel courseModel = new CourseModelImpl(this);
+        CourseContract.Model courseModel = new CourseModelImpl(this);
         try {
             courseModel.updateCourseService(isRefresh);
         } catch (Exception e) {

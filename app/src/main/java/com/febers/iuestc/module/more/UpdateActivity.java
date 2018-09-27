@@ -8,7 +8,6 @@
 
 package com.febers.iuestc.module.more;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -66,7 +65,7 @@ public class UpdateActivity extends BaseActivity {
             updateDialog = new CustomUpdateDialog(this, update);
         }
         Button btnEnter = updateDialog.getBtnEnter();
-        Button btnCancal = updateDialog.getBtnCancal();
+        Button btnCancal = updateDialog.getBtnCancel();
         btnEnter.setOnClickListener((View v)-> {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(update.getDownloadUrl()));
             startActivity(intent);

@@ -31,7 +31,7 @@ public class NewsPresenterImpl extends NewsContract.Presenter {
 
     @Override
     public void newsRequest(Boolean isRefresh) {
-        NewsContract.INewsModel newsModel = new NewsModel(this);
+        NewsContract.Model newsModel = new NewsModel(this);
         try {
             newsModel.newsService(isRefresh, type, position);
         } catch (Exception e) {

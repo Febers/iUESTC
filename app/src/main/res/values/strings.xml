@@ -8,7 +8,7 @@
 
 <resources>
     <string name="app_name">i成电</string>
-    <string name="app_version">beta 3.1</string>
+    <string name="app_version">beta 3.2</string>
     <string name="developer_name">Febers</string>
     <string name="developer_email">febers418@qq.com</string>
     <string name="app_web">http://app.febers.tech</string>

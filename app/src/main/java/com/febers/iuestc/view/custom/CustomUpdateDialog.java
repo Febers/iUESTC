@@ -8,6 +8,7 @@
 
 package com.febers.iuestc.view.custom;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -22,24 +23,24 @@ public class CustomUpdateDialog extends AlertDialog {
 
     private AlertDialog dialog;
     private Context context;
-    private View view;
-    private Button btnCancal;
+    private Button btnCancel;
     private Button btnEnter;
 
+    @SuppressLint("InflateParams")
     public CustomUpdateDialog(Context context, BeanUpdate update) {
         super(context);
         this.context = context;
         dialog = new AlertDialog.Builder(context).create();
-        view = LayoutInflater.from(context).inflate(R.layout.dialog_update, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_update, null);
         TextView tvTitle = view.findViewById(R.id.tv_update_title);
         TextView tvSubTitle = view.findViewById(R.id.tv_update_sub_title);
         TextView tvBody = view.findViewById(R.id.tv_update_detail);
-        btnCancal = view.findViewById(R.id.btn_update_cancal);
+        btnCancel = view.findViewById(R.id.btn_update_cancel);
         btnEnter = view.findViewById(R.id.btn_update_enter);
 
-        tvTitle.setText("新版本:"+update.getVersionName());
-        tvSubTitle.setText("大小:"+update.getSize());
-        tvBody.setText("更新说明:\n"+update.getBody());
+        tvTitle.setText(String.format("新版本:%s", update.getVersionName()));
+        tvSubTitle.setText(String.format("大小:%s", update.getSize()));
+        tvBody.setText(String.format("更新说明:\n%s", update.getBody()));
         dialog.setView(view);
     }
 
@@ -55,7 +56,7 @@ public class CustomUpdateDialog extends AlertDialog {
         return btnEnter;
     }
 
-    public Button getBtnCancal() {
-        return btnCancal;
+    public Button getBtnCancel() {
+        return btnCancel;
     }
 }

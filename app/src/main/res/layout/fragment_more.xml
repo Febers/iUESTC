@@ -130,7 +130,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="?attr/myBackgroundColor"
-                android:nestedScrollingEnabled="false">
+                android:nestedScrollingEnabled="false"
+                tools:ignore="UnusedAttribute">
             </android.support.v7.widget.RecyclerView>
 
             <android.support.v7.widget.RecyclerView
@@ -140,7 +141,8 @@
                 android:layout_marginBottom="60dp"
                 android:layout_marginTop="3dp"
                 android:background="?attr/myBackgroundColor"
-                android:nestedScrollingEnabled="false">
+                android:nestedScrollingEnabled="false"
+                tools:ignore="UnusedAttribute">
             </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>

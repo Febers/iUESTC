@@ -37,7 +37,6 @@ import java.io.IOException;
 
 public class MyApplication extends Application{
 
-    private static final String TAG = "MyApplication";
     private static Context sContext;
 
     @Override

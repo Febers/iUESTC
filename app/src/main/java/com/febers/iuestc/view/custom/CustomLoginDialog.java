@@ -8,8 +8,8 @@
 
 package com.febers.iuestc.view.custom;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -27,17 +27,16 @@ public class CustomLoginDialog extends AlertDialog{
     private TextInputEditText tieUserId, tieUserPw;
     private TextView tvTitle;
     private AlertDialog dialog;
-    private View view;
-    private Button btCancel, btEnter;
     private OnLoginListener loginListener = null;
     private String stId = "";
     private String stPw = "";
 
+    @SuppressLint("InflateParams")
     public CustomLoginDialog(Context context) {
         super(context, R.style.Theme_AppCompat_Dialog);
         this.context = context;
         dialog = new AlertDialog.Builder(context).create();
-        view = LayoutInflater.from(context).inflate(R.layout.dialog_login, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_login, null);
         tvTitle = view.findViewById(R.id.tv_dialog_title);
         tieUserId = view.findViewById(R.id.tie_user_id);
         tieUserId.addTextChangedListener(new TextWatcher() {
@@ -73,20 +72,10 @@ public class CustomLoginDialog extends AlertDialog{
                 stPw = s.toString();
             }
         });
-        btEnter = view.findViewById(R.id.bt_dialog_login_enter);
-        btCancel = view.findViewById(R.id.bt_dialog_login_cancel);
-        btEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginListener.onClick(view);
-            }
-        });
-        btCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginListener.onClick(view);
-            }
-        });
+        Button btnEnter = view.findViewById(R.id.bt_dialog_login_enter);
+        Button btnCancel = view.findViewById(R.id.bt_dialog_login_cancel);
+        btnEnter.setOnClickListener(view1 -> loginListener.onClick(view1));
+        btnCancel.setOnClickListener(view12 -> loginListener.onClick(view12));
         dialog.setView(view);
     }
 

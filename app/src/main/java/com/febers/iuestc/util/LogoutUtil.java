@@ -16,6 +16,7 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.net.SingletonClient;
 
 public class LogoutUtil {
+
     private static Context context = MyApplication.getContext();
 
     public static boolean logoutSchool() {

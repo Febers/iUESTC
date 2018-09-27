@@ -19,7 +19,7 @@ import java.util.List;
 
 public interface ExamContract {
 
-    interface IExamModel {
+    interface Model {
         void examService(Boolean isRefresh, int type) throws Exception;
     }
 

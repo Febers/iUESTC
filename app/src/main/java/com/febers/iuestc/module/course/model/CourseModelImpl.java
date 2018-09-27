@@ -8,8 +8,6 @@
 
 package com.febers.iuestc.module.course.model;
 
-import android.util.Log;
-
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -31,7 +29,7 @@ import okhttp3.Response;
 
 import static com.febers.iuestc.util.CourseUtil.resolveRepeatCourse;
 
-public class CourseModelImpl extends BaseModel implements CourseContract.ICourseModel {
+public class CourseModelImpl extends BaseModel implements CourseContract.Model {
 
     private static final String TAG = "CourseModelImpl";
 

@@ -19,7 +19,7 @@ import java.util.List;
 
 public interface CourseContract {
 
-    interface ICourseModel {
+    interface Model {
         void updateCourseService(Boolean isRefresh) throws Exception;
     }
 

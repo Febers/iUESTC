@@ -16,7 +16,7 @@ import java.util.List;
 
 public interface NewsContract {
 
-    interface INewsModel {
+    interface Model {
         void newsService(Boolean isRefresh, int type, int position) throws Exception;
     }
 

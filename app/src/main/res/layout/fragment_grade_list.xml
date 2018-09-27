@@ -19,7 +19,8 @@
             android:id="@+id/rv_grade_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false">
+            android:nestedScrollingEnabled="false"
+            tools:ignore="UnusedAttribute">
         </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static com.febers.iuestc.module.course.model.CourseConstants.WEEK_NORMAL;
 import static com.febers.iuestc.module.course.model.CourseConstants.WEEK_SINGLE;
@@ -135,7 +136,7 @@ public class CourseUtil {
         lastCalendar.setFirstDayOfWeek(Calendar.MONDAY);
 
         //获取当前标准格式的时间
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String time = sdf.format(new Date());
         //获取上次时间
         String lastTime = CustomSPUtil.getInstance().get(MyApplication.getContext().getString(R.string.sp_course_last_time), time);

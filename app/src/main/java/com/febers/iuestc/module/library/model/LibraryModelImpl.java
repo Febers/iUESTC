@@ -142,7 +142,7 @@ public class LibraryModelImpl implements LibraryContract.Model {
                 editor.putString("book"+i, bookList.get(i).getTitle() + "@" +bookList.get(i).getDate());
             }
             editor.putInt("size", i);
-            editor.commit();
+            editor.apply();
         }
         CustomSPUtil.getInstance().put(MyApplication.getContext()
                 .getString(R.string.sp_library_history), true);

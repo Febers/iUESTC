@@ -15,6 +15,7 @@ import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanEduECard;
+import com.febers.iuestc.module.ecard.presenter.ECardContract;
 import com.febers.iuestc.module.ecard.presenter.ECardJSInterface;
 import com.febers.iuestc.util.CustomSPUtil;
 
@@ -22,7 +23,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class ECardModel extends BaseModel implements IECardModel {
+public class ECardModel extends BaseModel implements ECardContract.Model {
 
     private static final String TAG = "ECardModel";
 
@@ -34,7 +35,6 @@ public class ECardModel extends BaseModel implements IECardModel {
 
     @Override
     public void resolveHtmlService(String html) {
-        Log.i(TAG, "resolveHtmlService: " + html);
         if (html.contains("身份认证")) {
             eCardJSInterface.loginStatusFail();
             return;
@@ -99,7 +99,6 @@ public class ECardModel extends BaseModel implements IECardModel {
 
     @Override
     public void localDataService() throws Exception {
-        Log.i(TAG, "localDataService: ");
         BeanEduECard eCard = new BeanEduECard();
         eCard.setBalance(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_balance), "..."));
         eCard.setNumber(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_number), "..."));

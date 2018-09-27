@@ -29,7 +29,7 @@ import okhttp3.Response;
 /**
  * 按照semester的形式获取、存储考试内容
  */
-public class ExamModelImpl extends BaseModel implements ExamContract.IExamModel {
+public class ExamModelImpl extends BaseModel implements ExamContract.Model {
 
     private static final String TAG = "ExamModelImpl";
     private ExamContract.Presenter examPresenter;

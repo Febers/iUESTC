@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginBottom="15dp"
-                android:clickable="true">
+                android:foreground="?android:attr/selectableItemBackground">
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -66,9 +66,9 @@
                 android:layout_height="wrap_content"
                 app:liv_title="@string/app_version"
                 app:liv_subtitle="检查更新或通知"
-                app:liv_icon="@drawable/ic_about_about_black"
+                app:liv_icon="@drawable/ic_about_black"
                 app:liv_displayMode="icon"
-                android:clickable="true"/>
+                android:foreground="?android:attr/selectableItemBackground"/>
             <com.lucasurbas.listitemview.ListItemView
                 android:id="@+id/item_view_web_home"
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                 app:liv_title="主页"
                 app:liv_icon="@drawable/ic_classroom_black"
                 app:liv_subtitle="@string/app_web"
-                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:liv_displayMode="icon" />
 
             <include layout="@layout/layout_divide_line"/>
@@ -87,8 +87,7 @@
                 android:text="开发者"
                 android:textSize="12dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:clickable="true"/>
+                android:layout_marginTop="10dp"/>
             <com.lucasurbas.listitemview.ListItemView
                 android:id="@+id/item_view_developer"
                 android:layout_width="match_parent"
@@ -97,7 +96,7 @@
                 app:liv_subtitle="UESTC"
                 app:liv_icon="@drawable/ic_person_black_24dp"
                 app:liv_displayMode="icon"
-                android:clickable="true"/>
+                android:foreground="?android:attr/selectableItemBackground"/>
             <com.lucasurbas.listitemview.ListItemView
                 android:id="@+id/item_view_email"
                 android:layout_width="match_parent"
@@ -106,7 +105,7 @@
                 app:liv_subtitle="@string/developer_email"
                 app:liv_icon="@drawable/ic_email_black_24dp"
                 app:liv_displayMode="icon"
-                android:clickable="true"/>
+                android:foreground="?android:attr/selectableItemBackground"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

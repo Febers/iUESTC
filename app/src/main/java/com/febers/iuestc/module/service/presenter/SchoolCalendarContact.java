@@ -16,6 +16,9 @@ import com.febers.iuestc.base.BaseView;
 
 public interface SchoolCalendarContact {
 
+
+
+
     interface View extends BaseView {
         void showCalender(BaseEvent baseEvent);
     }

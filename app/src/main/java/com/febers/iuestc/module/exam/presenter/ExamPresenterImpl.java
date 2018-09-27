@@ -8,8 +8,6 @@
 
 package com.febers.iuestc.module.exam.presenter;
 
-import android.util.Log;
-
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.module.exam.model.ExamModelImpl;
@@ -26,7 +24,7 @@ public class ExamPresenterImpl extends ExamContract.Presenter {
 
     @Override
     public void examRequest(Boolean isRefresh, int type) {
-        ExamContract.IExamModel examModel = new ExamModelImpl(this);
+        ExamContract.Model examModel = new ExamModelImpl(this);
         try {
             examModel.examService(isRefresh, type);
         } catch (Exception e) {

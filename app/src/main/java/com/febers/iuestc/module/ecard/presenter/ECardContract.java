@@ -15,6 +15,11 @@ import com.febers.iuestc.entity.BeanEduECard;
 
 public interface ECardContract {
 
+    interface Model {
+        void localDataService() throws Exception;
+        void resolveHtmlService(String html) throws Exception;
+    }
+
     interface View extends BaseEduView {
         void showHomePageResult(BaseEvent event);
         void showDetailPageResult(BaseEvent<BeanEduECard> event);

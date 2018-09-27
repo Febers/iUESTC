@@ -8,6 +8,7 @@
 
 package com.febers.iuestc.view.custom;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ public class CustomProgressDialog extends AlertDialog {
     }
 
 
+    @SuppressLint("InflateParams")
     public CustomProgressDialog(Context context, String title) {
         super(context, R.style.Theme_AppCompat_Dialog);
         this.context = context;

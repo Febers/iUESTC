@@ -9,6 +9,7 @@
 package com.febers.iuestc.base;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.module.login.model.LoginModelImpl;
@@ -16,6 +17,7 @@ import com.febers.iuestc.util.CustomSPUtil;
 
 public abstract class BaseModel<P extends BasePresenter> {
 
+    private static final String TAG = "BaseModel";
     protected Boolean FIRST_TRY = true;
     protected int TRY_TIMES = 1;
     protected P presenter;
@@ -83,6 +85,7 @@ public abstract class BaseModel<P extends BasePresenter> {
                     getHttpData();
                     return false;
                 } else {
+                    Log.i(TAG, "userAuthenticate: ");
                     if (presenter instanceof BaseEduPresenter) {
                         BaseEduPresenter p = (BaseEduPresenter)presenter;
                         p.loginStatusFail();
