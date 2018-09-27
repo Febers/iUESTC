@@ -1,6 +1,6 @@
 # iUESTC
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/app_icon.png" width = "40%" height = "40%" div align=center />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/app_icon.png" width = "90%" height = "100%" align=center />
 
 ## 一、关于
 
@@ -20,15 +20,15 @@ i成电 (iUESTC) 是一个为电子科技大学的学生提供生活和学习帮
 
 ## 使用截图
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen1.png" width = "40%" height = "40%" div align=center />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen3.png" width = "90%" height = "100%" />
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen2.png" width = "40%" height = "40%" div align=center />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen1.png" width = "90%" height = "100%" />
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen3.png" width = "40%" height = "40%" div align=center />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen2.png" width = "90%" height = "100%" />
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen4.png" width = "40%" height = "40%" div align=center />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen4.png" width = "90%" height = "100%" />
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen5.png" width = "40%" height = "40%" div align=center />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen5.png" width = "90%" height = "100%" />
 
 
 ## 四、项目实现
@@ -45,4 +45,10 @@ i成电 (iUESTC) 是一个为电子科技大学的学生提供生活和学习帮
 
 + “快捷查询”功能使用 *@Vizard* 提供的api：[uestc-api](https://github.com/Vizards/uestc-api)。
 
-##### 查看更多可访问 [主页](http://app.febers.tech)
+## 五、开源相关
++ [okhttp](https://github.com/square/okhttp)、[RecyclerViewAdapter](https://github.com/SheHuan/RecyclerViewAdapter)、[Fragmentation](https://github.com/YoKeyword/Fragmentation)、[ListItemView](https://github.com/lurbas/ListItemView)、
+[multiline-collapsingtoolbar](https://github.com/opacapp/multiline-collapsingtoolbar)、[MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)、[SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout)、
+[Android-PickerView](https://github.com/Bigkoo/Android-PickerView)、[BottomNavigation](https://github.com/Ashok-Varma/BottomNavigation)、[jsoup](https://github.com/jhy/jsoup)、[gson](https://github.com/google/gson)
+
+
+*查看更多可访问 [主页](http://app.febers.tech)*
