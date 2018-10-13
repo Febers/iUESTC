@@ -25,14 +25,7 @@ public class ExamPresenterImpl extends ExamContract.Presenter {
     @Override
     public void examRequest(Boolean isRefresh, int type) {
         ExamContract.Model examModel = new ExamModelImpl(this);
-        try {
-            examModel.examService(isRefresh, type);
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (mEduView != null) {
-                mEduView.onError("获取考试信息出现异常，请联系开发者");
-            }
-        }
+        examModel.examService(isRefresh, type);
     }
 
     @Override

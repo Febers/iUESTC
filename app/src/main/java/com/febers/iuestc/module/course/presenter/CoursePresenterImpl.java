@@ -16,8 +16,6 @@ import java.util.List;
 
 public class CoursePresenterImpl extends CourseContract.Presenter{
 
-    private static final String TAG = "CoursePresenterImpl";
-
     public CoursePresenterImpl(CourseContract.View view) {
         super(view);
     }
@@ -25,14 +23,7 @@ public class CoursePresenterImpl extends CourseContract.Presenter{
     @Override
     public void courseRequest(Boolean isRefresh) {
         CourseContract.Model courseModel = new CourseModelImpl(this);
-        try {
-            courseModel.updateCourseService(isRefresh);
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (mEduView != null) {
-                mEduView.onError("获取课表出错, 请联系开发者");
-            }
-        }
+        courseModel.updateCourseService(isRefresh);
     }
 
     //网络请求获得的课程列表

@@ -16,8 +16,8 @@ import com.febers.iuestc.entity.BeanEduECard;
 public interface ECardContract {
 
     interface Model {
-        void localDataService() throws Exception;
-        void resolveHtmlService(String html) throws Exception;
+        void localDataService();
+        void resolveHtmlService(String html);
     }
 
     interface View extends BaseEduView {

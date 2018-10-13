@@ -98,7 +98,7 @@ public class ECardModel extends BaseModel implements ECardContract.Model {
     }
 
     @Override
-    public void localDataService() throws Exception {
+    public void localDataService() {
         BeanEduECard eCard = new BeanEduECard();
         eCard.setBalance(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_balance), "..."));
         eCard.setNumber(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_number), "..."));

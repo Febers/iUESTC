@@ -20,7 +20,7 @@ import java.util.List;
 public interface CourseContract {
 
     interface Model {
-        void updateCourseService(Boolean isRefresh) throws Exception;
+        void updateCourseService(Boolean isRefresh);
     }
 
     interface View extends BaseEduView {

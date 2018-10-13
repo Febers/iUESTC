@@ -19,7 +19,7 @@ import java.util.List;
 public interface GradeContract {
 
     interface Model {
-        void gradeService(Boolean isRefresh, String semester) throws Exception;
+        void gradeService(Boolean isRefresh, String semester);
     }
 
     interface View extends BaseEduView {

@@ -14,7 +14,7 @@ android {
         applicationId "com.febers.iuestc"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 15
+        versionCode 16
         versionName "beta3.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {

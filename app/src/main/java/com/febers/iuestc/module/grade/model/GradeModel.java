@@ -48,7 +48,7 @@ public class GradeModel extends BaseModel implements GradeContract.Model {
     }
 
     @Override
-    public void gradeService(Boolean isRefresh, String semester) throws Exception {
+    public void gradeService(Boolean isRefresh, String semester) {
         new Thread(()-> {
             if (!isRefresh) {
                 loadLocalGrade();

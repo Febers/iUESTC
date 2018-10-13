@@ -28,6 +28,7 @@ public class GradeUtil {
 
 
     public static float changeSemester(String term) {
+        if (term == null) return 0f;
         switch (term) {
             case "2013-20141":
                 return 1314.1f;
@@ -63,6 +64,7 @@ public class GradeUtil {
     }
 
     private static float rate(String rate) {
+        if (rate == null) return 0f;
         switch (rate) {
             case "A+":
                 return 95f;

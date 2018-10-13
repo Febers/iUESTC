@@ -11,7 +11,6 @@ package com.febers.iuestc.module.course.view;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -38,7 +37,7 @@ public class CourseViewHelper implements View.OnClickListener {
 
     private static final String TAG = "CourseViewHelper";
 
-    private int[][] mButtomIdArray = {
+    private int[][] mButtonIdArray = {
             {R.id.bt_course_001, R.id.bt_course_023, R.id.bt_course_045, R.id.bt_course_067, R.id.bt_course_089, R.id.bt_course_01011},
             {R.id.bt_course_101, R.id.bt_course_123, R.id.bt_course_145, R.id.bt_course_167, R.id.bt_course_189, R.id.bt_course_11011},
             {R.id.bt_course_201, R.id.bt_course_223, R.id.bt_course_245, R.id.bt_course_267, R.id.bt_course_289, R.id.bt_course_21011},
@@ -51,10 +50,9 @@ public class CourseViewHelper implements View.OnClickListener {
             R.drawable.cornerbg_teal, R.drawable.cornerbg_cyan, R.drawable.cornerbg_red};
 
     private List<BeanCourse> mCourseList = new ArrayList<>();
-    private CustomCourseDialog customCourseDialog;
     private FragmentActivity mActivity;
 
-    public CourseViewHelper(FragmentActivity mActivity) {
+    CourseViewHelper(FragmentActivity mActivity) {
         this.mActivity = mActivity;
     }
 
@@ -85,7 +83,7 @@ public class CourseViewHelper implements View.OnClickListener {
                 positionTime = 5;
             }
 
-            Button btn = mActivity.findViewById(mButtomIdArray[positionDay][positionTime]);
+            Button btn = mActivity.findViewById(mButtonIdArray[positionDay][positionTime]);
             setButtonHeight(btn, 1f);
             btn.setTag(R.id.btn_course_day_time, course.getDay()+course.getTime());
             //修改高度
@@ -130,6 +128,7 @@ public class CourseViewHelper implements View.OnClickListener {
         for (int i = 0; i < mCourseList.size(); i++) {
             BeanCourse course1 = mCourseList.get(i);
             if ((course1.getDay()+course1.getTime()).equals(nameAndDayAndTime)) {
+                CustomCourseDialog customCourseDialog;
                 if (!mCourseList.get(i).getRepeat()) {
                     customCourseDialog = new CustomCourseDialog(mActivity, course1);
                     customCourseDialog.show();

@@ -25,19 +25,14 @@ public class GradePresenterImpl extends GradeContract.Presenter {
     @Override
     public void gradeRequest(Boolean isRefresh) {
         GradeContract.Model gradeModel = new GradeModel(this);
-        try {
-            gradeModel.gradeService(isRefresh, "");
-        } catch (Exception e) {
-            e.printStackTrace();
-            mView.onError("获取成绩出现错误");
-        }
+        gradeModel.gradeService(isRefresh, "");
+
     }
 
     @Override
     public void gradeResult(String status, List<BeanGradeSummary> allGrades, List<BeanGrade> gradeList) {
-        if (mView == null) {
-            return;
+        if (mView != null) {
+            mView.showGrade(allGrades, gradeList);
         }
-        mView.showGrade(allGrades, gradeList);
     }
 }

@@ -112,16 +112,15 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Boolean isLogin = CustomSPUtil.getInstance().get("is_login", false);
         switch (item.getItemId()) {
             case R.id.item_course_choose_week:
-                if (!isLogin) {
+                if (!isLogin()) {
                     break;
                 }
                 mPickerView.show();
                 break;
             case R.id.item_course_refresh:
-                if (!isLogin) {
+                if (!isLogin()) {
                     break;
                 }
                 dateRequest(true);
@@ -136,8 +135,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     public void onSupportVisible() {
         super.onSupportVisible();
         buttonList.clear();
-        Boolean isLogin = CustomSPUtil.getInstance().get(mContext.getString(R.string.sp_is_login), false);
-        if (!isLogin) {
+        if (!isLogin()) {
             showUnderCourse(new BaseEvent<>(BaseCode.CLEAR, new ArrayList<>()));
             return;
         }
@@ -193,6 +191,10 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
             nowWeek = week;
         }
         Objects.requireNonNull(getActivity()).runOnUiThread(()-> tvNowWeek.setText("第" + nowWeek + "周"));
+    }
+
+    private Boolean isLogin() {
+        return CustomSPUtil.getInstance().get(mContext.getString(R.string.sp_is_login), false);
     }
 
     public static CourseFragment newInstance(String param1) {

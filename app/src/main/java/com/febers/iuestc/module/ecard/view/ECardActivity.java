@@ -46,7 +46,6 @@ public class ECardActivity extends BaseSwipeActivity implements ECardContract.Vi
     private AdapterUser adapterECard;
     private WebView webView;
     private TextView tvBalance;
-    private Button btnLost;
     private SmartRefreshLayout smartRefreshLayout;
     private BeanUserItem item1, item2, item3, item4;
 
@@ -66,7 +65,7 @@ public class ECardActivity extends BaseSwipeActivity implements ECardContract.Vi
 
         smartRefreshLayout = findViewById(R.id.srl_ecard);
         tvBalance = findViewById(R.id.tv_ecard__act_bal);
-        btnLost = findViewById(R.id.btn_ecard_lost);
+        Button btnLost = findViewById(R.id.btn_ecard_lost);
         webView = findViewById(R.id.web_ecard);
         CustomListView listView = findViewById(R.id.lv_ecard_item);
         adapterECard = new AdapterUser(this, R.layout.item_user_detail, initList());

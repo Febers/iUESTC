@@ -99,13 +99,13 @@ public class CourseModelImpl extends BaseModel implements CourseContract.Model {
         } catch (SocketTimeoutException e) {
             mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
             CustomSPUtil.getInstance().put("get_course", false);
-            //serviceError(NET_TIMEOUT);
+            serviceError(NET_TIMEOUT);
             return;
         } catch (Exception e) {
             e.printStackTrace();
             mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
             CustomSPUtil.getInstance().put("get_course", false);
-            //serviceError(UNKNOWN_ERROR);
+            serviceError(UNKNOWN_ERROR);
             return;
         }
         CustomSPUtil.getInstance().put("get_course", true);

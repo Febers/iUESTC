@@ -24,11 +24,7 @@ public class ECardJSInterface extends ECardContract.Presenter {
     @Override
     public void localDateRequest() {
         ECardContract.Model eCardModel = new ECardModel(this);
-        try {
-            eCardModel.localDataService();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        eCardModel.localDataService();
     }
 
     @Override

@@ -80,6 +80,8 @@ public abstract class BaseFragment extends MySupportFragament implements BaseVie
         if (mProgressDialog == null) {
             mProgressDialog = new CustomProgressDialog(getContext());
         }
+        if (getActivity() == null) return;
+        if (getActivity().isFinishing()) return;
         mProgressDialog.show();
     }
 
