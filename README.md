@@ -1,6 +1,6 @@
 # iUESTC
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/app_icon.png" width = "90%" height = "100%" align=center />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/app_icon.png" align=center />
 
 ## 一、关于
 
@@ -20,15 +20,15 @@ i成电 (iUESTC) 是一个为电子科技大学的学生提供生活和学习帮
 
 ## 使用截图
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen3.png" width = "90%" height = "100%" />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen3.png" />
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen1.png" width = "90%" height = "100%" />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen1.png" />
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen2.png" width = "90%" height = "100%" />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen2.png" />
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen4.png" width = "90%" height = "100%" />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen4.png" />
 
-<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen5.png" width = "90%" height = "100%" />
+<img src="https://github.com/Febers/iUESTC/blob/master/picture/sreen5.png" />
 
 
 ## 四、项目实现
