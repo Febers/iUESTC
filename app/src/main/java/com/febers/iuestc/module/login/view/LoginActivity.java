@@ -52,7 +52,7 @@ public class LoginActivity extends BaseSwipeActivity {
         }
         mFragmentList.add(0, new LoginViewCustom());
         mFragmentList.add(1, new LoginViewWeb());
-        loadMultipleRootFragment(R.id.container_activity_login, 0,
+        loadMultipleRootFragment(R.id.container_activity_login, 1,
                 mFragmentList.get(0), mFragmentList.get(1));
     }
 
@@ -62,6 +62,8 @@ public class LoginActivity extends BaseSwipeActivity {
      * @param event 有两个参数，第一个判断是否登录成功，第二个判断是否需要跳转至webView登录
      * 如果登录成功，返回结果，否则，如果需要跳转到webView登录，则切换Fragment的显示
      * 如果不需要，返回结果
+     *
+     * 目前教务系统已经添加了验证码，所以默认web登录
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginStatusChange(BaseEvent<BeanLoginStatus> event) {

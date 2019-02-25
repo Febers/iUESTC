@@ -11,7 +11,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/user_menu_logout"
-        android:icon="@drawable/ic_logout_white"
+        android:icon="@drawable/ic_out_white_24dp"
         android:title="注销"
         app:showAsAction="always"/>
 </menu>

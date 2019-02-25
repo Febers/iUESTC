@@ -8,6 +8,8 @@
 
 package com.febers.iuestc.module.exam.model;
 
+import android.util.Log;
+
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -62,8 +64,9 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
     protected void getHttpData() {
         try {
             OkHttpClient client = SingletonClient.getInstance();
+            String semesterId = SemesterUtil.getSemesterId();
             String examUrl = "http://eams.uestc.edu.cn/eams/stdExamTable!examTable.action?" +
-                    "semester.id=" + SemesterUtil.getSemesterId() + "&examType.id=" + mType;
+                    "semester.id=" + semesterId + "&examType.id=" + mType;
             Request request = new Request.Builder()
                     .url(examUrl)
                     .get()

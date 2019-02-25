@@ -74,6 +74,10 @@ public class UserActivity extends BaseSwipeActivity implements UserContract.View
             smartRefreshLayout.finishRefresh(true);
         }
         BeanUser user = event.getDate();
+        if (event.getCode() == BaseCode.LOCAL && user.getChineseName().isEmpty()) {
+            smartRefreshLayout.autoRefresh();
+            return;
+        }
         item1.setValue(user.getChineseName());
         item2.setValue(user.getEnglishName());
         item3.setValue(user.getId());

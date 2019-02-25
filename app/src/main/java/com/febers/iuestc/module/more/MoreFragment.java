@@ -83,14 +83,14 @@ public class MoreFragment extends BaseFragment {
         rvMoreSetting2.setAdapter(adapterSetting2);
         adapterSetting2.setOnItemClickListener((viewHolder, beanSetting, i) -> onClickListViewItem2(i));
 
-//        ConstraintLayout layout = findViewById(R.id.ll_user);
-//        layout.setOnClickListener(v ->  {
-//            if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
-//                startActivity(new Intent(getActivity(), LoginActivity.class));
-//            } else {
-//                startActivity(new Intent(getActivity(), UserActivity.class));
-//            }
-//        });
+        ConstraintLayout layout = findViewById(R.id.ll_user);
+        layout.setOnClickListener(v ->  {
+            if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+            } else {
+                //startActivity(new Intent(getActivity(), UserActivity.class));
+            }
+        });
 
         String[] from = {"image", "title"};
         int[] to = {R.id.user_grid_image, R.id.user_grid_text};

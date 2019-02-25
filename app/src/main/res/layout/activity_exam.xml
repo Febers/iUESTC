@@ -77,10 +77,10 @@
                 </LinearLayout>
                 <ImageView
                     android:id="@+id/iv_exam_empty"
-                    android:layout_width="70dp"
+                    android:layout_width="80dp"
                     android:layout_height="200dp"
                     android:layout_gravity="center"
-                    android:src="@mipmap/ic_no_data_gray"
+                    android:src="@drawable/ic_sentiment_very_dissatisfied_gray_24dp"
                     android:visibility="visible"/>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_exam"

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.adapter.AdapterExam;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
@@ -84,28 +85,29 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
         }
         adapterExam = new AdapterExam(this, mExamList);
         rvExam.setLayoutManager(new LinearLayoutManager(this));
-        rvExam.setNestedScrollingEnabled(false);
         rvExam.setAdapter(adapterExam);
         rgExam.setOnCheckedChangeListener( (RadioGroup group, int checkedId) -> {
                 switch (checkedId) {
                     case R.id.rb_exam_final:
                         mType = 1;
-                        dateRequest(false);
+//                        dateRequest(false);
+                        smartRefreshLayout.autoRefresh();
                         break;
                     case R.id.rb_exam_middle:
                         mType = 2;
-                        dateRequest(false);
+                        smartRefreshLayout.autoRefresh();
+//                        dateRequest(false);
                         break;
                     default:
                         break;
                 }
         });
 
-        dateRequest(false);
+        dateRequest(false);     //获取上次保存信息
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.autoRefresh();
         smartRefreshLayout.setOnRefreshListener( (RefreshLayout refreshLayout) -> {
-           dateRequest(true);
+           dateRequest(true);   //获取新的考试信息
         });
     }
 
@@ -114,6 +116,7 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
         runOnUiThread( () -> {
             if (event.getDate().size() == 0) {
                 ivEmpty.setVisibility(View.VISIBLE);
+                ToastUtil.showShortToast("考试情况未发布");
             } else {
                 ivEmpty.setVisibility(View.GONE);
             }

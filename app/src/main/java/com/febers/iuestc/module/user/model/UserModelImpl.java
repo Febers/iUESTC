@@ -28,13 +28,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class UserModel extends BaseModel implements UserContract.Model {
+public class UserModelImpl extends BaseModel implements UserContract.Model {
 
-    private static final String TAG = "UserModel";
+    private static final String TAG = "UserModelImpl";
 
     private UserContract.Presenter userPresenter;
 
-    public UserModel(UserContract.Presenter userPresenter) {
+    public UserModelImpl(UserContract.Presenter userPresenter) {
         this.userPresenter = userPresenter;
     }
 

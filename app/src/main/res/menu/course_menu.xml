@@ -11,7 +11,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/item_course_choose_week"
-        android:icon="@drawable/ic_choose_white"
+        android:icon="@drawable/ic_event_white_24dp"
         android:title="设置当前周数"
         app:showAsAction="always"/>
     <item
