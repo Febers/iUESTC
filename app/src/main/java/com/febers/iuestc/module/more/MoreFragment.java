@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.module.news.view.NoticeActivity;
+import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.adapter.AdapterSetting;
 import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.entity.BeanSetting;
@@ -70,26 +71,26 @@ public class MoreFragment extends BaseFragment {
 
         RecyclerView rvMoreSetting1 = findViewById(R.id.rv_user_setting1);
         rvMoreSetting1.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvMoreSetting1.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        //rvMoreSetting1.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         AdapterSetting adapterSetting1 = new AdapterSetting(getContext(), initSettingList1());
         rvMoreSetting1.setAdapter(adapterSetting1);
         adapterSetting1.setOnItemClickListener((viewHolder, beanSetting, i) -> onClickListViewItem1(i));
 
         RecyclerView rvMoreSetting2 = findViewById(R.id.rv_user_setting2);
         rvMoreSetting2.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvMoreSetting2.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        //rvMoreSetting2.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         AdapterSetting adapterSetting2 = new AdapterSetting(getContext(), initSettingList2());
         rvMoreSetting2.setAdapter(adapterSetting2);
         adapterSetting2.setOnItemClickListener((viewHolder, beanSetting, i) -> onClickListViewItem2(i));
 
-        ConstraintLayout layout = findViewById(R.id.ll_user);
-        layout.setOnClickListener(v ->  {
-            if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-            } else {
-                startActivity(new Intent(getActivity(), UserActivity.class));
-            }
-        });
+//        ConstraintLayout layout = findViewById(R.id.ll_user);
+//        layout.setOnClickListener(v ->  {
+//            if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
+//                startActivity(new Intent(getActivity(), LoginActivity.class));
+//            } else {
+//                startActivity(new Intent(getActivity(), UserActivity.class));
+//            }
+//        });
 
         String[] from = {"image", "title"};
         int[] to = {R.id.user_grid_image, R.id.user_grid_text};
@@ -137,7 +138,8 @@ public class MoreFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), UserActivity.class));
                 break;
             case 3:
-                startActivity(new Intent(getActivity(), ECardActivity.class));
+                //startActivity(new Intent(getActivity(), ECardActivity.class));
+                ToastUtil.showShortToast("一卡通功能暂不开放");
                 break;
             default:
                 break;

@@ -42,9 +42,15 @@ public class UpdateActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        UpgradeInfo upgradeInfo = Beta.getUpgradeInfo();
+        UpgradeInfo upgradeInfo = null;
+        //服务器不稳定时，无法检测到更新，重复一次
+        for (int i = 0; i < 2; i++) {
+            upgradeInfo = Beta.getUpgradeInfo();
+            if (upgradeInfo != null) {
+                break;
+            }
+        }
         if (upgradeInfo == null) {
-            onError("当前已是最新版本");
             return;
         }
         if (upgradeInfo.title.contains("通知")) {
@@ -65,12 +71,12 @@ public class UpdateActivity extends BaseActivity {
             updateDialog = new CustomUpdateDialog(this, update);
         }
         Button btnEnter = updateDialog.getBtnEnter();
-        Button btnCancal = updateDialog.getBtnCancel();
+        Button btnCancel = updateDialog.getBtnCancel();
         btnEnter.setOnClickListener((View v)-> {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(update.getDownloadUrl()));
             startActivity(intent);
         });
-        btnCancal.setOnClickListener((View v) -> {
+        btnCancel.setOnClickListener((View v) -> {
             updateDialog.dismiss();
             finish();
         });

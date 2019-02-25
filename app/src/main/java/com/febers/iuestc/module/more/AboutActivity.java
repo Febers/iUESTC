@@ -68,13 +68,22 @@ public class AboutActivity extends BaseSwipeActivity implements ListItemView.OnC
                 startActivity(Intent.createChooser(i2, "访问开发者Github主页"));
                 break;
             case R.id.item_view_email:
-                Intent i3 = new Intent(Intent.ACTION_SENDTO);
-                i3.setData(Uri.parse("mailto:febers418@qq.com"));
-                i3.putExtra(Intent.EXTRA_SUBJECT, "i成电用户反馈");
-                startActivity(i3);
+                sendMail();
                 break;
             default:
                 break;
+        }
+    }
+
+    private void sendMail() {
+        try {
+            Intent i3 = new Intent(Intent.ACTION_SENDTO);
+            i3.setData(Uri.parse("mailto:febers418@qq.com"));
+            i3.putExtra(Intent.EXTRA_SUBJECT, "i成电用户反馈");
+            startActivity(i3);
+        } catch (Exception e) {
+            //说明没有安装邮箱应用
+            e.printStackTrace();
         }
     }
 }

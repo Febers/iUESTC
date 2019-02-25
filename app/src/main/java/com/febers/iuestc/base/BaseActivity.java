@@ -112,7 +112,6 @@ public abstract class BaseActivity extends MySupportActivity implements BaseView
     @Override
     public void onError(String error) {
         runOnUiThread(()-> {
-            //Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
             ToastUtil.showShortToast(error);
         });
     }

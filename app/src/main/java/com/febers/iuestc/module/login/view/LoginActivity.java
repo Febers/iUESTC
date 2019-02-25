@@ -58,6 +58,7 @@ public class LoginActivity extends BaseSwipeActivity {
 
     /**
      * 接收来自Fragment的消息
+     *
      * @param event 有两个参数，第一个判断是否登录成功，第二个判断是否需要跳转至webView登录
      * 如果登录成功，返回结果，否则，如果需要跳转到webView登录，则切换Fragment的显示
      * 如果不需要，返回结果

@@ -16,6 +16,7 @@ import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.module.exam.presenter.ExamContract;
 import com.febers.iuestc.net.SingletonClient;
 import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SemesterUtil;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -62,7 +63,7 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
         try {
             OkHttpClient client = SingletonClient.getInstance();
             String examUrl = "http://eams.uestc.edu.cn/eams/stdExamTable!examTable.action?" +
-                    "semester.id="+getStringById(R.string.sp_semester)+"&examType.id="+mType;
+                    "semester.id=" + SemesterUtil.getSemesterId() + "&examType.id=" + mType;
             Request request = new Request.Builder()
                     .url(examUrl)
                     .get()
