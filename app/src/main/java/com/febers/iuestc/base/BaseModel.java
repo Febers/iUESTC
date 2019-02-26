@@ -9,10 +9,9 @@
 package com.febers.iuestc.base;
 
 import android.content.Context;
-import android.util.Log;
 
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.R;
-import com.febers.iuestc.module.login.model.LoginModelImpl;
 import com.febers.iuestc.util.CustomSPUtil;
 
 public abstract class BaseModel<P extends BasePresenter> {
@@ -68,6 +67,8 @@ public abstract class BaseModel<P extends BasePresenter> {
      * 如果出现登录规则，说明需要重新登录，如果重新登录成功，那么再次请求页面
      * TRY_TIMES用来标记请求的次数，一个实例只能有两次请求的机会
      * 如果再次出现登录规则，则需要重新手动登录，调用P 的loginStatusFail方法
+     *
+     * 上面已废弃，如果出现登录规则，直接重新手动登录
      */
     protected Boolean userAuthenticate(String html) {
         if (html.contains("重复登录")) {
@@ -79,26 +80,12 @@ public abstract class BaseModel<P extends BasePresenter> {
             }
             return false;
         }
-        if (html.contains("登录规则")) {
-            if (TRY_TIMES <= 2) {
-                if (new LoginModelImpl().reloginService()) {
-                    getHttpData();
-                    return false;
-                } else {
-                    Log.i(TAG, "userAuthenticate: ");
-                    if (presenter instanceof BaseEduPresenter) {
-                        BaseEduPresenter p = (BaseEduPresenter)presenter;
-                        p.loginStatusFail();
-                    }
-                    return false;
-                }
-            } else {
-                if (presenter instanceof BaseEduPresenter) {
-                    BaseEduPresenter p = (BaseEduPresenter)presenter;
-                    p.loginStatusFail();
-                }
-                return false;
+        if (html.contains("用户登录")) {
+            if (presenter instanceof BaseEduPresenter) {
+                BaseEduPresenter p = (BaseEduPresenter)presenter;
+                p.loginStatusFail();
             }
+            return false;
         }
         return true;
     }

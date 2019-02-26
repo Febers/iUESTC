@@ -23,13 +23,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class ECardModel extends BaseModel implements ECardContract.Model {
+public class ECardModelImpl extends BaseModel implements ECardContract.Model {
 
-    private static final String TAG = "ECardModel";
+    private static final String TAG = "ECardModelImpl";
 
     private ECardJSInterface eCardJSInterface;
 
-    public ECardModel(ECardJSInterface eCardJSInterface) {
+    public ECardModelImpl(ECardJSInterface eCardJSInterface) {
         this.eCardJSInterface = eCardJSInterface;
     }
 

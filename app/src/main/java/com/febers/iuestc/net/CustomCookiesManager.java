@@ -10,7 +10,7 @@ package com.febers.iuestc.net;
 
 import android.webkit.CookieManager;
 
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;

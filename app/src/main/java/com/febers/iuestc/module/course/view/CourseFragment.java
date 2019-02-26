@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseFragment;
@@ -60,7 +60,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
         if (isRefresh) {
             if (!MyApplication.checkNetConnecting()) {
                 onError("当前网络不可用");
@@ -123,7 +123,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
                 if (!isLogin()) {
                     break;
                 }
-                dateRequest(true);
+                dataRequest(true);
                 break;
             default:
                 break;
@@ -145,12 +145,12 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
             if (!MyApplication.checkNetConnecting()) {
                 return;
             }
-            dateRequest(true);
+            dataRequest(true);
             CustomSPUtil.getInstance().put(mContext
                     .getString(R.string.sp_course_first_get), false);
             return;
         }
-        dateRequest(false);
+        dataRequest(false);
     }
 
     @Override
@@ -171,7 +171,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
             CustomSPUtil.getInstance().put(mContext.getString(R.string.sp_now_week), (options1+1));
             CustomSPUtil.getInstance().put("set_week", true);
             setTitle(options1+1);
-            dateRequest(false);
+            dataRequest(false);
         })
                 .setTitleText("选择当前周数")
                 .setOutSideCancelable(false)

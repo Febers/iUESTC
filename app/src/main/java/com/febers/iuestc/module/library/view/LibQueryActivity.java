@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.view.adapter.AdapterQuery;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;

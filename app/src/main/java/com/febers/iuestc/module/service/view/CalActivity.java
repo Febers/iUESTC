@@ -15,7 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -51,14 +51,14 @@ public class CalActivity extends BaseSwipeActivity implements SchoolCalendarCont
         imageViewCal = findViewById(R.id.imgview_calender);
         if (!CustomSPUtil.getInstance()
                 .get(MyApplication.getContext().getString(R.string.sp_get_calender), false)) {
-            dateRequest(true);
+            dataRequest(true);
             return;
         }
-        dateRequest(false);
+        dataRequest(false);
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
         if (isRefresh) {
             showProgressDialog();
         }
@@ -83,7 +83,7 @@ public class CalActivity extends BaseSwipeActivity implements SchoolCalendarCont
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_calender_refresh:
-                dateRequest(true);
+                dataRequest(true);
                 break;
             case R.id.item_calender_open_web:
                 Intent intent = new Intent(Intent.ACTION_VIEW,

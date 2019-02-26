@@ -10,7 +10,7 @@ package com.febers.iuestc.module.grade.presenter;
 
 import com.febers.iuestc.entity.BeanGradeSummary;
 import com.febers.iuestc.entity.BeanGrade;
-import com.febers.iuestc.module.grade.model.GradeModel;
+import com.febers.iuestc.module.grade.model.GradeModelImpl;
 
 import java.util.List;
 
@@ -24,9 +24,8 @@ public class GradePresenterImpl extends GradeContract.Presenter {
 
     @Override
     public void gradeRequest(Boolean isRefresh) {
-        GradeContract.Model gradeModel = new GradeModel(this);
+        GradeContract.Model gradeModel = new GradeModelImpl(this);
         gradeModel.gradeService(isRefresh, "");
-
     }
 
     @Override

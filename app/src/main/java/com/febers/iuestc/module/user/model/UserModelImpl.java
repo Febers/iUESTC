@@ -10,6 +10,7 @@ package com.febers.iuestc.module.user.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;

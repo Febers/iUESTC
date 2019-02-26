@@ -11,7 +11,7 @@ package com.febers.iuestc.util;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 
 import java.util.Set;
 

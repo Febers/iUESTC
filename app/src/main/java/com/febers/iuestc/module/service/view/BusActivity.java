@@ -53,30 +53,20 @@ public class BusActivity extends BaseSwipeActivity {
         new WebViewConfigure.Builder(this, webView)
                 .setSupportLoadingBar(true, progressBar)
                 .builder();
-//        WebSettings webSettings = webView.getSettings();
-//        webSettings.setJavaScriptEnabled(true);
-//        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-//        webSettings.setAppCacheEnabled(true);//开启 Application Caches 功能
-//        String cacheDirPath = getFilesDir().getAbsolutePath() + "_cache";
-//        webSettings.setAppCachePath(cacheDirPath); //设置  Application Caches 缓存目录
-//        webSettings.setDomStorageEnabled(true);
-//        webSettings.setDatabaseEnabled(true);
-//
-//        webSettings.setUseWideViewPort(true);  //将图片调整到适当的大小
-//
-        dateRequest(true);
+
+        dataRequest(true);
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
-        webView.loadUrl("https://uestc.ga/api/extra/traffic");
+    public void dataRequest(Boolean isRefresh) {
+        webView.loadUrl("http://bbs.uestc.edu.cn/forum.php?mod=viewthread&tid=1430861");
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_calender_refresh:
-                webView.loadUrl("https://uestc.ga/api/extra/traffic");
+                webView.loadUrl("http://bbs.uestc.edu.cn/forum.php?mod=viewthread&tid=1430861");
                 break;
             case R.id.item_calender_open_web:
                 Intent intent = new Intent(Intent.ACTION_VIEW,

@@ -79,11 +79,11 @@ public class ServiceActivity extends BaseSwipeActivity implements NavigationView
                 .setSupportWindow(true)
                 .setSupportLoadingBar(true, progressBar)
                 .builder();
-        dateRequest(true);
+        dataRequest(true);
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
         webView.loadUrl(PToUrlUtil.getUrl(position));
     }
 

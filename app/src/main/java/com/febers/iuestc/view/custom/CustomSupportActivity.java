@@ -6,7 +6,7 @@
  *
  */
 
-package com.febers.iuestc.base;
+package com.febers.iuestc.view.custom;
 
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -22,7 +22,7 @@ import me.yokeyword.fragmentation.SupportActivityDelegate;
 import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-public abstract class MySupportActivity extends AppCompatActivity implements ISupportActivity {
+public abstract class CustomSupportActivity extends AppCompatActivity implements ISupportActivity {
 
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
 

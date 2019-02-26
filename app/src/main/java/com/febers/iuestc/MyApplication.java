@@ -6,7 +6,7 @@
  *
  */
 
-package com.febers.iuestc.base;
+package com.febers.iuestc;
 
 import android.app.Application;
 import android.content.Context;

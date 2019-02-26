@@ -15,7 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.view.adapter.AdapterGrade;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
@@ -47,7 +47,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        dateRequest(false);
+        dataRequest(false);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
         if (!CustomSPUtil.getInstance().get(context.getString(R.string.sp_get_grade), false)) {
             isRefresh = true;
         }

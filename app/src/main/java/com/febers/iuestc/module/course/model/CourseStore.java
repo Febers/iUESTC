@@ -10,7 +10,7 @@ package com.febers.iuestc.module.course.model;
 
 import android.content.SharedPreferences;
 
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.entity.BeanCourse;
 
 import com.febers.iuestc.util.CustomSPUtil;

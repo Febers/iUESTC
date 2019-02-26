@@ -39,11 +39,6 @@
             android:layout_margin="7dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/ll_user"
                     android:layout_width="match_parent"
@@ -93,37 +88,17 @@
                         android:orientation="vertical"
                         app:layout_constraintGuide_begin="20dp" />
 
-                    <TextView
-                        android:id="@+id/imageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginStart="8dp"
-                        android:gravity="center"
-                        android:text="➭"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="25dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.49"
-                        android:visibility="gone"/>
                 </android.support.constraint.ConstraintLayout>
 
-                <include layout="@layout/layout_divide_line" />
-
-                <com.febers.iuestc.view.custom.CustomGridView
-                    android:id="@+id/grid_view_user"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/myBackgroundColor"
-                    android:numColumns="2">
-                </com.febers.iuestc.view.custom.CustomGridView>
-            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_user_setting0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="?attr/myBackgroundColor"
+                android:nestedScrollingEnabled="false"
+                tools:ignore="UnusedAttribute">
+            </android.support.v7.widget.RecyclerView>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_user_setting1"

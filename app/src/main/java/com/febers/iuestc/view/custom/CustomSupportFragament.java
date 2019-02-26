@@ -6,7 +6,7 @@
  *
  */
 
-package com.febers.iuestc.base;
+package com.febers.iuestc.view.custom;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -25,7 +25,7 @@ import me.yokeyword.fragmentation.SupportFragmentDelegate;
 import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-public abstract class MySupportFragament extends Fragment implements ISupportFragment {
+public abstract class CustomSupportFragament extends Fragment implements ISupportFragment {
 
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
     protected FragmentActivity _mActivity;

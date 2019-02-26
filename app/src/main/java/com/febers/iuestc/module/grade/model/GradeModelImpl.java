@@ -37,12 +37,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class GradeModel extends BaseModel implements GradeContract.Model {
+public class GradeModelImpl extends BaseModel implements GradeContract.Model {
 
-    private static final String TAG = "GradeModel";
+    private static final String TAG = "GradeModelImpl";
     private GradeContract.Presenter gradePresenter;
 
-    public GradeModel(GradeContract.Presenter gradePresenter) {
+    public GradeModelImpl(GradeContract.Presenter gradePresenter) {
         super(gradePresenter);
         this.gradePresenter = gradePresenter;
     }

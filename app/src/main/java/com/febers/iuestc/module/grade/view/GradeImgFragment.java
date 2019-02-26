@@ -58,11 +58,11 @@ public class GradeImgFragment extends BaseFragment implements GradeContract.View
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        dateRequest(false);
+        dataRequest(false);
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
         gradePresenter.gradeRequest(isRefresh);
     }
 

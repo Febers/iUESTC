@@ -11,7 +11,7 @@ package com.febers.iuestc.module.library.model;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;

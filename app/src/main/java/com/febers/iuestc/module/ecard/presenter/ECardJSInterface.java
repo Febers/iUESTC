@@ -12,7 +12,7 @@ import android.webkit.JavascriptInterface;
 
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanEduECard;
-import com.febers.iuestc.module.ecard.model.ECardModel;
+import com.febers.iuestc.module.ecard.model.ECardModelImpl;
 
 public class ECardJSInterface extends ECardContract.Presenter {
 
@@ -23,7 +23,7 @@ public class ECardJSInterface extends ECardContract.Presenter {
 
     @Override
     public void localDateRequest() {
-        ECardContract.Model eCardModel = new ECardModel(this);
+        ECardContract.Model eCardModel = new ECardModelImpl(this);
         eCardModel.localDataService();
     }
 
@@ -40,7 +40,7 @@ public class ECardJSInterface extends ECardContract.Presenter {
     @JavascriptInterface
     @SuppressWarnings("unused")
     public void processHTML(String html) {
-        ECardContract.Model eCardModel = new ECardModel(this);
+        ECardContract.Model eCardModel = new ECardModelImpl(this);
         try {
             eCardModel.resolveHtmlService(html);
         } catch (Exception e) {

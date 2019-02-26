@@ -12,13 +12,18 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.webkit.WebView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.entity.BeanLoginStatus;
+import com.febers.iuestc.module.login.presenter.LoginContract;
+import com.febers.iuestc.module.login.presenter.LoginJSInterface;
+import com.febers.iuestc.net.WebViewConfigure;
 import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.WebViewUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -28,18 +33,14 @@ import java.util.List;
 
 import me.yokeyword.fragmentation.ISupportFragment;
 
-public class LoginActivity extends BaseSwipeActivity {
+public class LoginActivity extends BaseSwipeActivity implements LoginContract.View {
 
     private static final String TAG = "LoginActivity";
-    private List<ISupportFragment> mFragmentList = new ArrayList<>();
+    private WebView webView;
+
     @Override
     protected int setView() {
         return R.layout.activity_login;
-    }
-
-    @Override
-    protected Boolean registerEventBus() {
-        return true;
     }
 
     @Override
@@ -50,44 +51,43 @@ public class LoginActivity extends BaseSwipeActivity {
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        mFragmentList.add(0, new LoginViewCustom());
-        mFragmentList.add(1, new LoginViewWeb());
-        loadMultipleRootFragment(R.id.container_activity_login, 1,
-                mFragmentList.get(0), mFragmentList.get(1));
+        webView = findViewById(R.id.web_login);
+
+        dataRequest(true);
     }
 
-    /**
-     * 接收来自Fragment的消息
-     *
-     * @param event 有两个参数，第一个判断是否登录成功，第二个判断是否需要跳转至webView登录
-     * 如果登录成功，返回结果，否则，如果需要跳转到webView登录，则切换Fragment的显示
-     * 如果不需要，返回结果
-     *
-     * 目前教务系统已经添加了验证码，所以默认web登录
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoginStatusChange(BaseEvent<BeanLoginStatus> event) {
-        Log.i(TAG, "onLoginStatusChange: Data: " + event.getDate()+" Code: " + event.getCode());
+    @Override
+    public void dataRequest(Boolean isRefresh) {
+        LoginJSInterface loginJSInterface = new LoginJSInterface(this);
+        new WebViewConfigure.Builder(this, webView)
+                .setOpenUrlOut(false)
+                .setProcessHtml(true, loginJSInterface, "HTMLOUT")
+                .builder();
+        webView.loadUrl("http://portal.uestc.edu.cn");
+    }
+
+    @Override
+    public void loadIdAndPwFunc(BaseEvent<String> event) {
+        runOnUiThread( () -> {
+            webView.loadUrl(event.getDate());
+            webView.loadUrl("javascript:fun();");
+        });
+    }
+
+    @Override
+    public void loginResult(BaseEvent<String> event) {
         if (event.getCode() == BaseCode.UPDATE) {
-            sendLoginResult(true);
-            return;
-        }
-        if (event.getDate().getToWebView()) {
-            showHideFragment(mFragmentList.get(1));
-        } else {
-            sendLoginResult(false);
+            CustomSPUtil.getInstance().put(getString(R.string.sp_is_login), true);
+            Intent intent = new Intent();
+            intent.putExtra("status", true);
+            this.setResult(BaseCode.STATUS, intent);
+            finish();
         }
     }
 
-    private void sendLoginResult(Boolean isSuccess) {
-        Intent intent = new Intent();
-        if (isSuccess) {
-            CustomSPUtil.getInstance().put(getString(R.string.sp_is_login), true);
-            intent.putExtra("status", true);
-        } else {
-            intent.putExtra("status", false);
-        }
-        this.setResult(BaseCode.STATUS, intent);
-        finish();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WebViewUtil.destroyWebView(webView);
     }
 }

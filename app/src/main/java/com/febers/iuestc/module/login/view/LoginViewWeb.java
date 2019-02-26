@@ -13,7 +13,6 @@ import android.support.annotation.Nullable;
 import android.webkit.WebView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.entity.BeanLoginStatus;
@@ -41,7 +40,7 @@ public class LoginViewWeb extends BaseFragment implements LoginContract.View {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        dateRequest(true);
+        dataRequest(true);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class LoginViewWeb extends BaseFragment implements LoginContract.View {
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
         LoginJSInterface loginJSInterface = new LoginJSInterface(this);
         new WebViewConfigure.Builder(getContext(), webView)
                 .setOpenUrlOut(false)

@@ -12,7 +12,7 @@ import android.content.Context;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 
 public class ToastUtil {
 

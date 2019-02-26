@@ -14,6 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/myBackgroundColor">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,11 +30,31 @@
             app:layout_scrollFlags="enterAlways"/>
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/container_activity_login"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </FrameLayout>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progressbar_login"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/progressbar_bg"
+                android:visibility="gone"/>
+            <WebView
+                android:id="@+id/web_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </WebView>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

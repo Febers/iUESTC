@@ -83,7 +83,7 @@ public class GradeActivity extends BaseSwipeActivity implements NavigationView.O
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
     }
 
     @Override
@@ -145,7 +145,7 @@ public class GradeActivity extends BaseSwipeActivity implements NavigationView.O
             case R.id.item_grade_refresh:
                 navigationView.setCheckedItem(R.id.item_grade_all);
                 GradeListFragment listFragment = (GradeListFragment) GradeFragmentManager.getInstance(0);
-                listFragment.dateRequest(true);
+                listFragment.dataRequest(true);
                 break;
             default:
                 break;

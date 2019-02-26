@@ -14,7 +14,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -28,7 +27,6 @@ import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.adapter.AdapterSetting;
 import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.entity.BeanSetting;
-import com.febers.iuestc.module.ecard.view.ECardActivity;
 import com.febers.iuestc.module.exam.view.ExamActivity;
 import com.febers.iuestc.module.grade.view.GradeActivity;
 import com.febers.iuestc.module.login.view.LoginActivity;
@@ -69,16 +67,20 @@ public class MoreFragment extends BaseFragment {
         tvName = findViewById(R.id.tv_fragment_user_name);
         tvId = findViewById(R.id.tv_fragment_user_id);
 
+        RecyclerView rvMoreSetting0 = findViewById(R.id.rv_user_setting0);
+        rvMoreSetting0.setLayoutManager(new LinearLayoutManager(getContext()));
+        AdapterSetting adapterSetting0 = new AdapterSetting(getContext(), initSettingList0());
+        rvMoreSetting0.setAdapter(adapterSetting0);
+        adapterSetting0.setOnItemClickListener((viewHolder, beanSetting, i) -> onClickListViewItem0(i));
+
         RecyclerView rvMoreSetting1 = findViewById(R.id.rv_user_setting1);
         rvMoreSetting1.setLayoutManager(new LinearLayoutManager(getContext()));
-        //rvMoreSetting1.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         AdapterSetting adapterSetting1 = new AdapterSetting(getContext(), initSettingList1());
         rvMoreSetting1.setAdapter(adapterSetting1);
         adapterSetting1.setOnItemClickListener((viewHolder, beanSetting, i) -> onClickListViewItem1(i));
 
         RecyclerView rvMoreSetting2 = findViewById(R.id.rv_user_setting2);
         rvMoreSetting2.setLayoutManager(new LinearLayoutManager(getContext()));
-        //rvMoreSetting2.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         AdapterSetting adapterSetting2 = new AdapterSetting(getContext(), initSettingList2());
         rvMoreSetting2.setAdapter(adapterSetting2);
         adapterSetting2.setOnItemClickListener((viewHolder, beanSetting, i) -> onClickListViewItem2(i));
@@ -88,60 +90,21 @@ public class MoreFragment extends BaseFragment {
             if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
                 startActivity(new Intent(getActivity(), LoginActivity.class));
             } else {
-                //startActivity(new Intent(getActivity(), UserActivity.class));
+                startActivity(new Intent(getActivity(), UserActivity.class));
             }
         });
 
-        String[] from = {"image", "title"};
-        int[] to = {R.id.user_grid_image, R.id.user_grid_text};
-        CustomGridView mGridView = findViewById(R.id.grid_view_user);
-        SimpleAdapter mAdapter = new SimpleAdapter(getActivity(), getGridList(), R.layout.item_user_grid, from, to);
-        mGridView.setAdapter(mAdapter);
-        mGridView.setOnItemClickListener( (adapterView, view, i, l) -> {
-            onClickGridViewItem(i);
-        });
-        initSettingList1();
-        dateRequest(true);
+        dataRequest(true);
     }
 
-    /**
-     * GridView显示
-     */
-    private List<Map<String, Object>> getGridList() {
-        List<Map<String, Object>> gridList= new ArrayList<>();
 
-        String[] titles = {getString(R.string.user_exam), getString(R.string.user_grade),
-                getString(R.string.user_detail), getString(R.string.user_ecard)};
-        int[] images = {R.mipmap.ic_pen_yellow,  R.mipmap.ic_tend_pink,
-                R.mipmap.ic_id_card_blue, R.mipmap.ic_money_green};
-        for (int i = 0; i < titles.length; i++) {
-            Map<String , Object> map = new ArrayMap<>();
-            map.put("image", images[i]);
-            map.put("title", titles[i]);
-            gridList.add(map);
-        }
-        return gridList;
-    }
-
-    private void onClickGridViewItem(int position) {
-        if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
-            return;
-        }
+    private void onClickListViewItem0(int position) {
         switch (position) {
             case 0:
                 startActivity(new Intent(getActivity(), ExamActivity.class));
                 break;
             case 1:
                 startActivity(new Intent(getActivity(), GradeActivity.class));
-                break;
-            case 2:
-                startActivity(new Intent(getActivity(), UserActivity.class));
-                break;
-            case 3:
-                //startActivity(new Intent(getActivity(), ECardActivity.class));
-                ToastUtil.showShortToast("一卡通功能暂不开放");
-                break;
-            default:
                 break;
         }
     }
@@ -158,12 +121,6 @@ public class MoreFragment extends BaseFragment {
                 i1.putExtra("type", 0);
                 startActivity(i1);
                 break;
-//            case 2:
-//                Intent i2 = new Intent(getActivity(), NewsActivity.class);
-//                i2.putExtra("type", 1);
-//                startActivity(i2);
-//                HomeFragmentManager.clearFragment(99);
-//                break;
             case 2:
                 startActivity(new Intent(getActivity(), BusActivity.class));
                 break;
@@ -191,6 +148,15 @@ public class MoreFragment extends BaseFragment {
         }
     }
 
+    private List<BeanSetting> initSettingList0() {
+        List<BeanSetting> settingList = new ArrayList<>();
+        BeanSetting stExam = new BeanSetting("考试安排", R.mipmap.ic_pen_yellow);
+        BeanSetting stGrade = new BeanSetting("我的成绩", R.mipmap.ic_tend_pink);
+        settingList.add(stExam);
+        settingList.add(stGrade);
+        return settingList;
+    }
+
     private List<BeanSetting> initSettingList1() {
         List<BeanSetting> settingList = new ArrayList<>();
         BeanSetting stService = new BeanSetting("快捷查询", R.mipmap.ic_book_blue);
@@ -199,6 +165,7 @@ public class MoreFragment extends BaseFragment {
         BeanSetting stBus = new BeanSetting("校车服务", R.mipmap.ic_bus_blue2);
         BeanSetting stCalendar = new BeanSetting("校历", R.mipmap.ic_cal_green2);
         BeanSetting stNotice = new BeanSetting("通知公告", R.mipmap.ic_news_red);
+
         settingList.add(stService);
         settingList.add(stUnderJW);
 //        beanSettingList.add(stPostJW);
@@ -218,7 +185,7 @@ public class MoreFragment extends BaseFragment {
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
         if (CustomSPUtil.getInstance()
                 .get(getContext().getString(R.string.sp_is_login),false)) {
             String userName = CustomSPUtil.getInstance()
@@ -262,7 +229,7 @@ public class MoreFragment extends BaseFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        dateRequest(true);
+        dataRequest(true);
     }
 
     private void logout() {

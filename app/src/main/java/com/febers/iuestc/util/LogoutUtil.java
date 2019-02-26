@@ -11,7 +11,7 @@ package com.febers.iuestc.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.net.SingletonClient;
 

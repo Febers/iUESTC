@@ -11,7 +11,7 @@ package com.febers.iuestc.module.login.model;
 import android.util.Log;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.module.login.presenter.LoginContract;
@@ -22,7 +22,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class LoginResolver implements LoginContract.Resolver{
+public class LoginResolver implements LoginContract.Resolver {
 
     private static final String TAG = "LoginResolver";
     private LoginContract.Presenter loginPresenter;

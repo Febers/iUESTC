@@ -17,13 +17,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.custom.CustomProgressDialog;
+import com.febers.iuestc.view.custom.CustomSupportFragament;
 
 
-public abstract class BaseFragment extends MySupportFragament implements BaseView {
+public abstract class BaseFragment extends CustomSupportFragament implements BaseView {
 
     private static final String TAG = "BaseFragment";
     protected static String PARAMTER_1 = "param1";

@@ -52,18 +52,18 @@ public class UserActivity extends BaseSwipeActivity implements UserContract.View
         smartRefreshLayout = findViewById(R.id.srl_user);
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setOnRefreshListener( (RefreshLayout refreshLayout) -> {
-            dateRequest(true);
+            dataRequest(true);
         });
 
         lvUserDetail = findViewById(R.id.list_view_user);
         adapterUser = new AdapterUser(this,
                 R.layout.item_user_detail, initList());
         lvUserDetail.setAdapter(adapterUser);
-        dateRequest(false);
+        dataRequest(false);
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
         UserContract.Presenter presenter = new UserPresenterImpl(this);
         presenter.userDetailRequest(isRefresh);
     }

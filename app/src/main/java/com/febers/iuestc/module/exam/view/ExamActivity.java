@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.adapter.AdapterExam;
 import com.febers.iuestc.R;
@@ -51,10 +51,8 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
     private ImageView ivEmpty;
     private Toolbar mToolbar;
 
-
     private RadioGroup rgExam;
     private int mType = 1;
-    private String examName = "exam_1";
 
     @Override
     protected int setView() {
@@ -90,24 +88,22 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
                 switch (checkedId) {
                     case R.id.rb_exam_final:
                         mType = 1;
-//                        dateRequest(false);
                         smartRefreshLayout.autoRefresh();
                         break;
                     case R.id.rb_exam_middle:
                         mType = 2;
                         smartRefreshLayout.autoRefresh();
-//                        dateRequest(false);
                         break;
                     default:
                         break;
                 }
         });
 
-        dateRequest(false);     //获取上次保存信息
+        dataRequest(false);     //获取上次保存信息
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.autoRefresh();
         smartRefreshLayout.setOnRefreshListener( (RefreshLayout refreshLayout) -> {
-           dateRequest(true);   //获取新的考试信息
+           dataRequest(true);   //获取新的考试信息
         });
     }
 
@@ -116,7 +112,9 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
         runOnUiThread( () -> {
             if (event.getDate().size() == 0) {
                 ivEmpty.setVisibility(View.VISIBLE);
-                ToastUtil.showShortToast("考试情况未发布");
+                if (event.getCode() == BaseCode.UPDATE) {
+                    ToastUtil.showShortToast("考试情况未发布");
+                }
             } else {
                 ivEmpty.setVisibility(View.GONE);
             }
@@ -128,7 +126,7 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
         if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
             if (isRefresh) {
                 statusToFail();

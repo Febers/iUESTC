@@ -13,17 +13,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.util.ThemeUtil;
 import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.custom.CustomProgressDialog;
+import com.febers.iuestc.view.custom.CustomSupportActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
-public abstract class BaseActivity extends MySupportActivity implements BaseView {
+public abstract class BaseActivity extends CustomSupportActivity implements BaseView {
 
     protected CustomProgressDialog mProgressDialog;
 
@@ -103,9 +103,10 @@ public abstract class BaseActivity extends MySupportActivity implements BaseView
         try {
             isLogin = data.getBooleanExtra("status", false);
         } catch (Exception e) {
+            //只有在需要登录的界面中才需要这个回调
         }
         if (isLogin) {
-            dateRequest(true);
+            dataRequest(true);
         }
     }
 

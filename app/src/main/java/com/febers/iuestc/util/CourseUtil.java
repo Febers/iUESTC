@@ -8,9 +8,7 @@
 
 package com.febers.iuestc.util;
 
-import android.util.Log;
-
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanCourse;
 

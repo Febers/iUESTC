@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.MyApplication;
+import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.view.adapter.AdapterUser;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -76,13 +76,13 @@ public class ECardActivity extends BaseSwipeActivity implements ECardContract.Vi
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.autoRefresh();
         smartRefreshLayout.setOnRefreshListener((RefreshLayout refreshLayout) -> {
-                dateRequest(true);
+                dataRequest(true);
         });
-        dateRequest(false);
+        dataRequest(false);
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
         ECardJSInterface eCardJSInterface = new ECardJSInterface(this);
         if (!isRefresh) {
             eCardJSInterface.localDateRequest();

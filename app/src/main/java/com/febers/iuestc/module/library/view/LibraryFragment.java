@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -36,7 +35,7 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
     }
 
     @Override
-    public void dateRequest(Boolean isRefresh) {
+    public void dataRequest(Boolean isRefresh) {
         String keyword = etLibFragment.getText().toString();
         if (keyword == null || keyword.trim().isEmpty()) {
             return;
@@ -80,7 +79,7 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
         );
         Button btnQuery = findViewById(R.id.btn_lib_query);
         btnQuery.setOnClickListener((View v) -> {
-            dateRequest(true);
+            dataRequest(true);
         });
         Button btnHistory = findViewById(R.id.btn_lib_history);
         btnHistory.setOnClickListener( v -> {
@@ -94,7 +93,7 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            dateRequest(true);
+            dataRequest(true);
             return true;
         }
         return false;
