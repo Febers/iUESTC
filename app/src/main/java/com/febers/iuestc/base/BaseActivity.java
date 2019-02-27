@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.ThemeUtil;
 import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.custom.CustomProgressDialog;
@@ -56,7 +56,7 @@ public abstract class BaseActivity extends CustomSupportActivity implements Base
     protected abstract void initView();
 
     private void chooseTheme() {
-        int themeCode = CustomSPUtil.getInstance().get("theme_code", 9);
+        int themeCode = SPUtil.getInstance().get("theme_code", 9);
         setTheme(ThemeUtil.getTheme(themeCode));
     }
 

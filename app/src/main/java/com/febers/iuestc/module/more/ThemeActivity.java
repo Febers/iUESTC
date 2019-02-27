@@ -15,11 +15,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.febers.iuestc.R;
+import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.view.adapter.AdapterTheme;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.entity.BeanTheme;
 import com.febers.iuestc.entity.EventTheme;
-import com.febers.iuestc.util.CustomSPUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -78,14 +78,14 @@ public class ThemeActivity extends BaseSwipeActivity {
         themeList.add(teal);
         themeList.add(pink);
         themeList.add(blue);
-        int themeCode = CustomSPUtil.getInstance().get("theme_code", 9);
+        int themeCode = SPUtil.getInstance().get("theme_code", 9);
         themeList.get(themeCode).setUsing(true);
         return themeList;
     }
 
 
     private void themeChange(int code) {
-        CustomSPUtil.getInstance().put("theme_code", code);
+        SPUtil.getInstance().put("theme_code", code);
         this.recreate();
     }
 }

@@ -18,7 +18,7 @@ import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanBook;
 import com.febers.iuestc.module.library.presenter.LibraryContract;
 import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.RandomUtil;
 
 import org.jsoup.Jsoup;
@@ -58,12 +58,8 @@ public class LibraryModelImpl implements LibraryContract.Model {
                     return;
                 }
             }
-//            String stId = CustomSPUtil.getInstance().get(context.getString(R.string.sp_user_id), "");
-//            String stPw = CustomSPUtil.getInstance().get(context.getString(R.string.sp_user_pw), "");
             OkHttpClient client = SingletonClient.getInstance();
             FormBody formLogin = new FormBody.Builder()
-//                    .add("extpatid", stId)
-//                    .add("extpatpw", stPw)
                     .add("code", "")
                     .add("pin", "")
                     .add("submit.x", RandomUtil.getRandomFrom0(100)+"")
@@ -107,15 +103,12 @@ public class LibraryModelImpl implements LibraryContract.Model {
             } catch (SocketTimeoutException e) {
                 e.printStackTrace();
                 libraryPresenter.errorResult("请求超时,可能需要校园网");
-                return;
             } catch (IOException e) {
                 e.printStackTrace();
                 libraryPresenter.errorResult("获取历史记录失败");
-                return;
             } catch (Exception e) {
                 e.printStackTrace();
                 libraryPresenter.errorResult("图书馆登录出现异常");
-                return;
             }
         }).start();
     }
@@ -144,7 +137,7 @@ public class LibraryModelImpl implements LibraryContract.Model {
             editor.putInt("size", i);
             editor.apply();
         }
-        CustomSPUtil.getInstance().put(MyApplication.getContext()
+        SPUtil.getInstance().put(MyApplication.getContext()
                 .getString(R.string.sp_library_history), true);
         libraryPresenter.historyResult(bookList);
     }

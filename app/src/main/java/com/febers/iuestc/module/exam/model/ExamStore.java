@@ -12,12 +12,66 @@ import android.content.SharedPreferences;
 
 import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.entity.BeanExam;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.FileUtil;
+import com.febers.iuestc.util.SPUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExamStore {
+
+    static void saveToFile(List<BeanExam> examList, int type) {
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(FileUtil.appDataDir + "/exam" + type);
+            fileWriter.write(new Gson().toJson(examList));
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileWriter.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    static List<BeanExam> getByFile(int type) {
+        StringBuilder builder = new StringBuilder();
+        FileReader fileReader = null;
+        try {
+            fileReader = new FileReader(FileUtil.appDataDir + "exam" + type);
+            char[] chars = new char[1];
+            while (fileReader.read(chars) != -1) {
+                builder.append(chars);
+            }
+            if (builder.toString().isEmpty()) {
+                return new ArrayList<>();
+            }
+            Type type1 = new TypeToken<List<BeanExam>>(){}.getType();
+            return new Gson().fromJson(builder.toString(), type1);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        } finally {
+            try {
+                fileReader.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * @deprecated 用sp保存，极其浪费内存
+     */
     static void save(List<BeanExam> examList, int type) {
         SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences("exam_"+type,
                 0).edit();
@@ -30,9 +84,12 @@ public class ExamStore {
         }
         editor.putInt("size", examList.size());
         editor.apply();
-        CustomSPUtil.getInstance().put("exam_"+type, true);
+        SPUtil.getInstance().put("exam_"+type, true);
     }
 
+    /**
+     * @deprecated 用sp保存，极其浪费内存
+     */
     static List<BeanExam> get(int type) {
         List<BeanExam> list = new ArrayList<>();
         String examName = "exam_1";

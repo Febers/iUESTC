@@ -9,6 +9,7 @@
 package com.febers.iuestc.util;
 
 public class UnicodeUtil {
+
     public static String UnicodeToChinese(String unicodeStr) {
         if (unicodeStr == null) {
             return null;

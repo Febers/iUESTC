@@ -14,12 +14,9 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanGradeSummary;
 import com.febers.iuestc.entity.BeanGrade;
-import com.febers.iuestc.module.login.model.LoginModelImpl;
 import com.febers.iuestc.module.grade.presenter.GradeContract;
-import com.febers.iuestc.module.login.presenter.LoginContract;
 import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.util.CustomSPUtil;
-import com.febers.iuestc.util.RepeatLoginUtil;
+import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.ApiUtil;
 
 import org.jsoup.Jsoup;
@@ -135,13 +132,11 @@ public class GradeModelImpl extends BaseModel implements GradeContract.Model {
                 }
                 gradeList.add(grade);
             }
-            saveUnderGrade(souceCode);
-            CustomSPUtil.getInstance().put(getStringById(R.string.sp_get_grade), true);
+            GradeStore.saveSourceCode(souceCode);
+            SPUtil.getInstance().put(getStringById(R.string.sp_get_grade), true);
             Collections.sort(allGradeList);
             gradePresenter.gradeResult("成功", allGradeList, gradeList);
-        }catch (NullPointerException e) {
-            e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -154,9 +149,9 @@ public class GradeModelImpl extends BaseModel implements GradeContract.Model {
 
     private void loadLocalGrade() {
         new Thread(()-> {
-            SharedPreferences preferences = mContext.getSharedPreferences(getStringById(R.string.sp_grade), 0);
-            String sourceCode = preferences.getString("sourceCode", "");
-            resolveUnderGradeHtml(sourceCode);
+//            SharedPreferences preferences = mContext.getSharedPreferences(getStringById(R.string.sp_grade), 0);
+//            String sourceCode = preferences.getString("sourceCode", "");
+            resolveUnderGradeHtml(GradeStore.getSourceCode());
         }).start();
     }
 }

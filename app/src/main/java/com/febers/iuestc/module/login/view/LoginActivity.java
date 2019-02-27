@@ -11,27 +11,17 @@ package com.febers.iuestc.module.login.view;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.webkit.WebView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseSwipeActivity;
-import com.febers.iuestc.entity.BeanLoginStatus;
 import com.febers.iuestc.module.login.presenter.LoginContract;
 import com.febers.iuestc.module.login.presenter.LoginJSInterface;
 import com.febers.iuestc.net.WebViewConfigure;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.WebViewUtil;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import me.yokeyword.fragmentation.ISupportFragment;
 
 public class LoginActivity extends BaseSwipeActivity implements LoginContract.View {
 
@@ -77,7 +67,7 @@ public class LoginActivity extends BaseSwipeActivity implements LoginContract.Vi
     @Override
     public void loginResult(BaseEvent<String> event) {
         if (event.getCode() == BaseCode.UPDATE) {
-            CustomSPUtil.getInstance().put(getString(R.string.sp_is_login), true);
+            SPUtil.getInstance().put(getString(R.string.sp_is_login), true);
             Intent intent = new Intent();
             intent.putExtra("status", true);
             this.setResult(BaseCode.STATUS, intent);

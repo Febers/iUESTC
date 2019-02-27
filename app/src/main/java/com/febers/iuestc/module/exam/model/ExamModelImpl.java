@@ -8,16 +8,13 @@
 
 package com.febers.iuestc.module.exam.model;
 
-import android.util.Log;
-
-import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.module.exam.presenter.ExamContract;
 import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.SemesterUtil;
 
 import java.io.IOException;
@@ -52,7 +49,7 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
     public void examService(Boolean isRefresh, int type) {
         mType = type;
         new Thread(()-> {
-            if (CustomSPUtil.getInstance().get("exam_"+mType, false) && (!isRefresh)) {
+            if (SPUtil.getInstance().get("exam_"+mType, false) && (!isRefresh)) {
                 loadLocalExam();
                 return;
             }
@@ -78,7 +75,7 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
             }
             mExamList = ExamResolver.resolveUnderExamHtml(result);
             examPresenter.examResult(new BaseEvent<>(BaseCode.UPDATE, getPostExams(mExamList)));
-            ExamStore.save(mExamList, mType);
+            ExamStore.saveToFile(mExamList, mType);
         } catch (SocketTimeoutException e) {
             serviceError(NET_TIMEOUT);
         } catch (IOException e) {
@@ -91,7 +88,7 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
     }
 
     private void loadLocalExam() {
-        mExamList = ExamStore.get(mType);
+        mExamList = ExamStore.getByFile(mType);
         examPresenter.examResult(new BaseEvent<>(BaseCode.LOCAL, getPostExams(mExamList)));
     }
 

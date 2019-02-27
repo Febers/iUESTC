@@ -15,13 +15,16 @@ import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.module.login.presenter.LoginContract;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+/**
+ * 该类用来解析webView登录的结果
+ */
 public class LoginResolver implements LoginContract.Resolver {
 
     private static final String TAG = "LoginResolver";
@@ -31,6 +34,12 @@ public class LoginResolver implements LoginContract.Resolver {
         loginPresenter = presenter;
     }
 
+    /**
+     * 该方法提供一个解析webView源网页代码的功能
+     * 源码由JS交互接口提供
+     *
+     * @param html 网页源码
+     */
     @Override
     public void resolve(String html) {
         try {
@@ -47,7 +56,7 @@ public class LoginResolver implements LoginContract.Resolver {
             for(Element e:elements) {
                 if (e.text().contains("个人") || e.text().contains("教务")){
                     Log.i(TAG, "checkLoginResult: 登录成功");
-                    loginPresenter.loginResult(new BaseEvent(BaseCode.UPDATE, "成功"));
+                    loginPresenter.loginResult(new BaseEvent<>(BaseCode.UPDATE, "成功"));
                 }
             }
 
@@ -62,7 +71,7 @@ public class LoginResolver implements LoginContract.Resolver {
      * @return js函数
      */
     private String  idAndPwFunc() {
-        String userId = CustomSPUtil.getInstance().get(MyApplication.getContext()
+        String userId = SPUtil.getInstance().get(MyApplication.getContext()
                 .getString(R.string.sp_user_id), "");
         return "javascript:function fun(){document.getElementById('mobileUsername').value='" + userId + "';" +
                 "document.getElementById('mobilePassword').value='" + "" + "';}";

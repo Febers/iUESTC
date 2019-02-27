@@ -8,8 +8,8 @@
 
 package com.febers.iuestc.module.login.presenter;
 
-import com.febers.iuestc.base.BaseEduPresenter;
-import com.febers.iuestc.base.BaseEduView;
+import com.febers.iuestc.edu.EduPresenter;
+import com.febers.iuestc.edu.EduView;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseModel;
 
@@ -19,14 +19,11 @@ public interface LoginContract {
         void resolve(String html);
     }
 
-    abstract class Model extends BaseModel<Presenter>{
-        public Model(Presenter p) {super(p);}
-        public Model(){}
+    abstract class Model extends BaseModel<EduPresenter> {
         public abstract void loginService(String id , String pw) throws Exception;
-        public abstract Boolean reloginService() throws Exception;
     }
 
-    interface View extends BaseEduView {
+    interface View extends EduView {
         default void loadIdAndPwFunc(BaseEvent<String> event){}
         void loginResult(BaseEvent<String> event);
     }
@@ -35,13 +32,16 @@ public interface LoginContract {
      * P类，其中sendIdAndPwFunc 是WebView登录时的方法
      * loginRequest 是自定义登录时的方法
      */
-    abstract class Presenter extends BaseEduPresenter<View> {
+    abstract class Presenter extends EduPresenter<View> {
+
         public Presenter(View view) {
             super(view);
         }
 
         public void sendIdAndPwFunc(BaseEvent<String> event){}
-        public void loginRequest(String id , String pw){}
+
         public abstract void loginResult(BaseEvent<String> event);
+
+        public void loginRequest(String id , String pw){}
     }
 }

@@ -9,9 +9,9 @@
 package com.febers.iuestc.entity;
 
 public class BeanUser {
-    private String ChineseName;
+    private String ChineseName = "";
     private String EnglishName;
-    private String id;
+    private String id = "";
     private String sex;
     private String grade;   //年级
     private String studyYear;   //学制

@@ -8,13 +8,13 @@
 
 package com.febers.iuestc.util;
 
-public class TermToNumUtil {
+public class TermUtil {
     /**
      * 把本科学年转换为相应的semester.id
      * @param term 学年,上学期为0，下学年为1
      * @return  semester.id
      */
-    public static String toNumber(String term) {
+    public static String getTermCode(String term) {
         switch (term) {
             case "13140":
                 return "1";
@@ -47,10 +47,6 @@ public class TermToNumUtil {
             default:
                 break;
         }
-        return "";
-    }
-
-    public static String dependOnDate() {
         return "";
     }
 }

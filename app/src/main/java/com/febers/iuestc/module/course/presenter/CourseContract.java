@@ -8,11 +8,9 @@
 
 package com.febers.iuestc.module.course.presenter;
 
-import com.febers.iuestc.base.BaseEduPresenter;
-import com.febers.iuestc.base.BaseEduView;
+import com.febers.iuestc.edu.EduPresenter;
+import com.febers.iuestc.edu.EduView;
 import com.febers.iuestc.base.BaseEvent;
-import com.febers.iuestc.base.BasePresenter;
-import com.febers.iuestc.base.BaseView;
 import com.febers.iuestc.entity.BeanCourse;
 
 import java.util.List;
@@ -23,11 +21,11 @@ public interface CourseContract {
         void updateCourseService(Boolean isRefresh);
     }
 
-    interface View extends BaseEduView {
+    interface View extends EduView {
         void showUnderCourse(BaseEvent<List<BeanCourse>> event);
     }
 
-    abstract class Presenter extends BaseEduPresenter<CourseContract.View> {
+    abstract class Presenter extends EduPresenter<View> {
 
         public Presenter(View view) {
             super(view);

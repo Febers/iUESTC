@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.adapter.AdapterExam;
 import com.febers.iuestc.R;
@@ -29,7 +30,6 @@ import com.febers.iuestc.module.exam.presenter.ExamContract;
 import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.module.exam.presenter.ExamPresenterImpl;
 import com.febers.iuestc.module.login.view.LoginActivity;
-import com.febers.iuestc.util.CustomSPUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -127,7 +127,7 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
 
     @Override
     public void dataRequest(Boolean isRefresh) {
-        if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
+        if (!SPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
             if (isRefresh) {
                 statusToFail();
                 return;

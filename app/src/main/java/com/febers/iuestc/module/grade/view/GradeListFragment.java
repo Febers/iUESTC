@@ -25,7 +25,7 @@ import com.febers.iuestc.entity.BeanGradeSummary;
 import com.febers.iuestc.entity.BeanGrade;
 import com.febers.iuestc.module.grade.presenter.GradePresenterImpl;
 import com.febers.iuestc.module.login.view.LoginActivity;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
 
     @Override
     public void dataRequest(Boolean isRefresh) {
-        if (!CustomSPUtil.getInstance().get(context.getString(R.string.sp_get_grade), false)) {
+        if (!SPUtil.getInstance().get(context.getString(R.string.sp_get_grade), false)) {
             isRefresh = true;
         }
         if (isRefresh) {

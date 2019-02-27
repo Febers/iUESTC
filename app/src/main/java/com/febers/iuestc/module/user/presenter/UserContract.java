@@ -8,11 +8,9 @@
 
 package com.febers.iuestc.module.user.presenter;
 
-import com.febers.iuestc.base.BaseEduPresenter;
-import com.febers.iuestc.base.BaseEduView;
+import com.febers.iuestc.edu.EduPresenter;
+import com.febers.iuestc.edu.EduView;
 import com.febers.iuestc.base.BaseEvent;
-import com.febers.iuestc.base.BasePresenter;
-import com.febers.iuestc.base.BaseView;
 import com.febers.iuestc.entity.BeanUser;
 
 public interface UserContract {
@@ -21,11 +19,11 @@ public interface UserContract {
         void userDetailService(Boolean isRefresh) throws Exception;
     }
 
-    interface View extends BaseEduView {
+    interface View extends EduView {
         void showUserDetail(BaseEvent<BeanUser> event);
     }
 
-    abstract class Presenter extends BaseEduPresenter<View> {
+    abstract class Presenter extends EduPresenter<View> {
 
         public Presenter(View view) {
             super(view);

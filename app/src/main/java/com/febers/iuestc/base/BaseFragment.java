@@ -27,14 +27,14 @@ import com.febers.iuestc.view.custom.CustomSupportFragament;
 public abstract class BaseFragment extends CustomSupportFragament implements BaseView {
 
     private static final String TAG = "BaseFragment";
-    protected static String PARAMTER_1 = "param1";
+    protected static String PARAMETER = "param1";
     protected Context mContext = MyApplication.getContext();
     protected CustomProgressDialog mProgressDialog;
     private View view;
 
     protected abstract int setContentView();
 
-    protected int setMenu(){return -1;}
+    protected int setMenu(){ return -1; }
 
     protected  void initView() {}
 
@@ -100,7 +100,6 @@ public abstract class BaseFragment extends CustomSupportFragament implements Bas
         dismissProgressDialog();
         if (getActivity() != null) {
             getActivity().runOnUiThread( () ->
-                    //Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show()
                     ToastUtil.showShortToast(error)
             );
         }

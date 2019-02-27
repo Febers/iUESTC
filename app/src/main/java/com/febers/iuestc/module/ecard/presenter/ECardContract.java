@@ -8,8 +8,8 @@
 
 package com.febers.iuestc.module.ecard.presenter;
 
-import com.febers.iuestc.base.BaseEduPresenter;
-import com.febers.iuestc.base.BaseEduView;
+import com.febers.iuestc.edu.EduPresenter;
+import com.febers.iuestc.edu.EduView;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanEduECard;
 
@@ -20,12 +20,12 @@ public interface ECardContract {
         void resolveHtmlService(String html);
     }
 
-    interface View extends BaseEduView {
+    interface View extends EduView {
         void showHomePageResult(BaseEvent event);
         void showDetailPageResult(BaseEvent<BeanEduECard> event);
     }
 
-    abstract class Presenter extends BaseEduPresenter<ECardContract.View> {
+    abstract class Presenter extends EduPresenter<View> {
         public Presenter(View view) {
             super(view);
         }

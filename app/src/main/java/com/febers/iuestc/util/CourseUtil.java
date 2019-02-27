@@ -137,7 +137,7 @@ public class CourseUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String time = sdf.format(new Date());
         //获取上次时间
-        String lastTime = CustomSPUtil.getInstance().get(MyApplication.getContext().getString(R.string.sp_course_last_time), time);
+        String lastTime = SPUtil.getInstance().get(MyApplication.getContext().getString(R.string.sp_course_last_time), time);
 
         try {
             date = sdf.parse(time);

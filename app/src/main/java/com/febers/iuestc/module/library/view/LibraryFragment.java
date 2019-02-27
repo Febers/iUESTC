@@ -101,7 +101,7 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
 
     public static LibraryFragment newInstance(String param1) {
         Bundle args = new Bundle();
-        args.putString(PARAMTER_1, param1);
+        args.putString(PARAMETER, param1);
         LibraryFragment fragment = new LibraryFragment();
         fragment.setArguments(args);
         return fragment;

@@ -6,13 +6,15 @@
  *
  */
 
-package com.febers.iuestc.base;
+package com.febers.iuestc.edu;
 
-public abstract class BaseEduPresenter<V extends BaseEduView> extends BasePresenter{
+import com.febers.iuestc.base.BasePresenter;
+
+public abstract class EduPresenter<V extends EduView> extends BasePresenter {
 
     protected V mEduView;
 
-    public BaseEduPresenter(V view) {
+    public EduPresenter(V view) {
         super(view);
         mEduView = view;
     }

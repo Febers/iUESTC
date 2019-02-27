@@ -8,9 +8,8 @@
 
 package com.febers.iuestc.module.grade.presenter;
 
-import com.febers.iuestc.base.BaseEduView;
+import com.febers.iuestc.edu.EduView;
 import com.febers.iuestc.base.BasePresenter;
-import com.febers.iuestc.base.BaseView;
 import com.febers.iuestc.entity.BeanGradeSummary;
 import com.febers.iuestc.entity.BeanGrade;
 
@@ -22,7 +21,7 @@ public interface GradeContract {
         void gradeService(Boolean isRefresh, String semester);
     }
 
-    interface View extends BaseEduView {
+    interface View extends EduView {
         void showGrade(List<BeanGradeSummary> allGrades, List<BeanGrade> grades);
     }
 

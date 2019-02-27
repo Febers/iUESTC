@@ -11,19 +11,17 @@ package com.febers.iuestc.module.more;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.module.news.view.NoticeActivity;
-import com.febers.iuestc.util.ToastUtil;
+import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.view.adapter.AdapterSetting;
 import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.entity.BeanSetting;
@@ -35,13 +33,10 @@ import com.febers.iuestc.module.service.view.BusActivity;
 import com.febers.iuestc.module.service.view.CalActivity;
 import com.febers.iuestc.module.service.view.ServiceActivity;
 import com.febers.iuestc.module.user.view.UserActivity;
-import com.febers.iuestc.util.CustomSPUtil;
 import com.febers.iuestc.util.LogoutUtil;
-import com.febers.iuestc.view.custom.CustomGridView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class MoreFragment extends BaseFragment {
 
@@ -87,7 +82,7 @@ public class MoreFragment extends BaseFragment {
 
         ConstraintLayout layout = findViewById(R.id.ll_user);
         layout.setOnClickListener(v ->  {
-            if (!CustomSPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
+            if (!SPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
                 startActivity(new Intent(getActivity(), LoginActivity.class));
             } else {
                 startActivity(new Intent(getActivity(), UserActivity.class));
@@ -186,11 +181,11 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     public void dataRequest(Boolean isRefresh) {
-        if (CustomSPUtil.getInstance()
+        if (SPUtil.getInstance()
                 .get(getContext().getString(R.string.sp_is_login),false)) {
-            String userName = CustomSPUtil.getInstance()
+            String userName = SPUtil.getInstance()
                     .get(getContext().getString(R.string.sp_user_name), "");
-            String userId = CustomSPUtil.getInstance()
+            String userId = SPUtil.getInstance()
                     .get(getContext().getString(R.string.sp_user_id), "");
             if (userName.trim().isEmpty()) {
                 userName = "已登录";
@@ -207,7 +202,7 @@ public class MoreFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.user_menu_logout:
-                if (!CustomSPUtil.getInstance()
+                if (!SPUtil.getInstance()
                         .get(getContext().getString(R.string.sp_is_login),false)) {
                     break;
                 }
@@ -240,7 +235,7 @@ public class MoreFragment extends BaseFragment {
 
     public static MoreFragment newInstance(String param1) {
         Bundle args = new Bundle();
-        args.putString(PARAMTER_1, param1);
+        args.putString(PARAMETER, param1);
         MoreFragment fragment = new MoreFragment();
         fragment.setArguments(args);
         return fragment;

@@ -20,19 +20,19 @@ public class LogoutUtil {
     private static Context context = MyApplication.getContext();
 
     public static boolean logoutSchool() {
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_is_login), false);
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_user_name), "");
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_user_id), "");
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_user_pw), "");
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_exam_final), false);
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_exam_middle), false);
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_course_count), 0);
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_get_course), false);
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_course_last_time), "");
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_now_week), 0);
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_library_history), false);
-        CustomSPUtil.getInstance().put(context.getString(R.string.sp_get_grade), false);
-        CustomSPUtil.getInstance().put(context
+        SPUtil.getInstance().put(context.getString(R.string.sp_is_login), false);
+        SPUtil.getInstance().put(context.getString(R.string.sp_user_name), "");
+        SPUtil.getInstance().put(context.getString(R.string.sp_user_id), "");
+        SPUtil.getInstance().put(context.getString(R.string.sp_user_pw), "");
+        SPUtil.getInstance().put(context.getString(R.string.sp_exam_final), false);
+        SPUtil.getInstance().put(context.getString(R.string.sp_exam_middle), false);
+        SPUtil.getInstance().put(context.getString(R.string.sp_course_count), 0);
+        SPUtil.getInstance().put(context.getString(R.string.sp_get_course), false);
+        SPUtil.getInstance().put(context.getString(R.string.sp_course_last_time), "");
+        SPUtil.getInstance().put(context.getString(R.string.sp_now_week), 0);
+        SPUtil.getInstance().put(context.getString(R.string.sp_library_history), false);
+        SPUtil.getInstance().put(context.getString(R.string.sp_get_grade), false);
+        SPUtil.getInstance().put(context
                 .getString(R.string.sp_course_first_get), true);
 
         SharedPreferences.Editor editor = context.getSharedPreferences("local_course", 0).edit();

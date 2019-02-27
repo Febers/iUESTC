@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanCourse;
 import com.febers.iuestc.util.CourseUtil;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.RandomUtil;
 import com.febers.iuestc.view.custom.CustomCourseDialog;
 
@@ -116,8 +116,8 @@ public class CourseViewHelper implements View.OnClickListener {
             //获取当前标准格式的时间并保存
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
             String time = sdf.format(new Date());
-            CustomSPUtil.getInstance().put(mActivity.getString(R.string.sp_course_last_time), time);
-            CustomSPUtil.getInstance().put(mActivity.getString(R.string.sp_now_week), nowWeek);
+            SPUtil.getInstance().put(mActivity.getString(R.string.sp_course_last_time), time);
+            SPUtil.getInstance().put(mActivity.getString(R.string.sp_now_week), nowWeek);
             buttonList.add(btn);
         }
     }

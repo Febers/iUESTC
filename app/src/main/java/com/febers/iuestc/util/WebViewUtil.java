@@ -13,9 +13,10 @@ import android.view.ViewParent;
 import android.webkit.WebView;
 
 public class WebViewUtil {
-    public static Boolean destroyWebView(WebView webView) {
+
+    public static void destroyWebView(WebView webView) {
         if (webView != null) {
-            // 如果先调用destroy()方法，则会命中if (isDestroyed()) return;这一行代码
+            // 如果先调用destroy()方法，则会触发if (isDestroyed()) return;这一行代码
             // 需要先onDetachedFromWindow()，再destory()
             ViewParent parent = webView.getParent();
             if (parent != null) {
@@ -30,6 +31,5 @@ public class WebViewUtil {
             webView.removeAllViews();
             webView.destroy();
         }
-        return true;
     }
 }

@@ -19,7 +19,7 @@ import android.widget.Button;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.entity.BeanUpdate;
-import com.febers.iuestc.util.NetFileSizeUtil;
+import com.febers.iuestc.util.FileSizeUtil;
 import com.febers.iuestc.view.custom.CustomUpdateDialog;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.beta.UpgradeInfo;
@@ -60,9 +60,9 @@ public class UpdateActivity extends BaseActivity {
         BeanUpdate update = new BeanUpdate();
         update.setBody(upgradeInfo.newFeature);
         if (Build.VERSION.SDK_INT > 24) {
-            update.setSize(NetFileSizeUtil.getDescriptionUp24(upgradeInfo.fileSize));
+            update.setSize(FileSizeUtil.getDescriptionUp24(upgradeInfo.fileSize));
         } else {
-            update.setSize(NetFileSizeUtil.getDescription(upgradeInfo.fileSize));
+            update.setSize(FileSizeUtil.getDescription(upgradeInfo.fileSize));
         }
         update.setVersionName(upgradeInfo.versionName);
         update.setDownloadUrl(upgradeInfo.apkUrl);

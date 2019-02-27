@@ -12,7 +12,8 @@ import android.content.Context;
 
 import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.R;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.edu.EduPresenter;
+import com.febers.iuestc.util.SPUtil;
 
 public abstract class BaseModel<P extends BasePresenter> {
 
@@ -41,11 +42,11 @@ public abstract class BaseModel<P extends BasePresenter> {
 
     protected Context mContext = MyApplication.getContext();
 
-    protected int mStudentType = CustomSPUtil.getInstance()
+    protected int mStudentType = SPUtil.getInstance()
             .get(mContext.getString(R.string.sp_student_type), 0);
 
     protected Boolean isLogin() {
-        return CustomSPUtil.getInstance().get(mContext.getString(R.string.sp_is_login), false);
+        return SPUtil.getInstance().get(mContext.getString(R.string.sp_is_login), false);
     }
 
     protected String getStringById(int id) {
@@ -81,8 +82,8 @@ public abstract class BaseModel<P extends BasePresenter> {
             return false;
         }
         if (html.contains("用户登录")) {
-            if (presenter instanceof BaseEduPresenter) {
-                BaseEduPresenter p = (BaseEduPresenter)presenter;
+            if (presenter instanceof EduPresenter) {
+                EduPresenter p = (EduPresenter)presenter;
                 p.loginStatusFail();
             }
             return false;

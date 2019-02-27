@@ -11,7 +11,7 @@ package com.febers.iuestc.util;
 import android.annotation.TargetApi;
 import android.icu.text.DecimalFormat;
 
-public class NetFileSizeUtil {
+public class FileSizeUtil {
 
     public static String getDescription(long size) {
         //如果字节数少于1024，则直接以B为单位

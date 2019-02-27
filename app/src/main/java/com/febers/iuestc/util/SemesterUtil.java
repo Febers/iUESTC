@@ -22,7 +22,7 @@ public class SemesterUtil {
                 .build();
         try {
             Response idRes = client.newCall(request).execute();
-            String id = idRes.body().string();;;;;
+            String id = idRes.body().string();
             if (id == null) {
                 return "";
             }

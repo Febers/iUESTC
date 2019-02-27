@@ -10,7 +10,6 @@ package com.febers.iuestc.module.user.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
@@ -19,7 +18,7 @@ import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanUser;
 import com.febers.iuestc.module.user.presenter.UserContract;
 import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -73,7 +72,7 @@ public class UserModelImpl extends BaseModel implements UserContract.Model {
         Document document = Jsoup.parse(html);
         Elements elements = document.select("table").select("td");
         BeanUser user = new BeanUser();
-        if (elements.size()<10) {
+        if (elements.size() < 10) {
             userPresenter.userDetailResult(new BaseEvent<>(BaseCode.ERROR, user));
             return;
         }
@@ -146,45 +145,14 @@ public class UserModelImpl extends BaseModel implements UserContract.Model {
             }
         }
         userPresenter.userDetailResult(new BaseEvent<>(BaseCode.UPDATE, user));
-        CustomSPUtil.getInstance()
+        SPUtil.getInstance()
                 .put(getStringById(R.string.sp_user_name), user.getChineseName());
-        CustomSPUtil.getInstance()
+        SPUtil.getInstance()
                 .put(getStringById(R.string.sp_user_id), user.getId());
-        saveUser(user);
-    }
-
-    private void saveUser(BeanUser user) {
-        SharedPreferences.Editor editor = mContext.getSharedPreferences("user", Context.MODE_PRIVATE).edit();
-        editor.putString(getStringById(R.string.sp_user_name), user.getChineseName());
-        editor.putString(getStringById(R.string.sp_user_en_name), user.getEnglishName());
-        editor.putString(getStringById(R.string.sp_user_id), user.getId());
-        editor.putString(getStringById(R.string.sp_user_type), user.getType());
-        editor.putString(getStringById(R.string.sp_user_school), user.getSchool());
-        editor.putString(getStringById(R.string.sp_user_major), user.getMajor());
-        editor.putString(getStringById(R.string.sp_user_class), user.getUserClass());
-        editor.putString(getStringById(R.string.sp_user_in_time), user.getIntoTime());
-        editor.putString(getStringById(R.string.sp_user_out_time), user.getOutTime());
-        editor.putString(getStringById(R.string.sp_user_position), user.getPosition());
-        editor.putString(getStringById(R.string.sp_user_phone), user.getPhone());
-        editor.putString(getStringById(R.string.sp_user_address), user.getAddress());
-        editor.apply();
+        UserStore.saveUserToFile(user);
     }
 
     private void localDateService() {
-        SharedPreferences spUser = mContext.getSharedPreferences("user", Context.MODE_PRIVATE);
-        BeanUser user = new BeanUser();
-        user.setChineseName(spUser.getString(getStringById(R.string.sp_user_name), ""));
-        user.setEnglishName(spUser.getString(getStringById(R.string.sp_user_en_name), ""));
-        user.setId(spUser.getString(getStringById(R.string.sp_user_id), ""));
-        user.setType(spUser.getString(getStringById(R.string.sp_user_type), ""));
-        user.setSchool(spUser.getString(getStringById(R.string.sp_user_school), ""));
-        user.setMajor(spUser.getString(getStringById(R.string.sp_user_major), ""));
-        user.setUserClass(spUser.getString(getStringById(R.string.sp_user_class), ""));
-        user.setIntoTime(spUser.getString(getStringById(R.string.sp_user_in_time), ""));
-        user.setOutTime(spUser.getString(getStringById(R.string.sp_user_out_time), ""));
-        user.setPosition(spUser.getString(getStringById(R.string.sp_user_position), ""));
-        user.setPhone(spUser.getString(getStringById(R.string.sp_user_phone), ""));
-        user.setAddress(spUser.getString(getStringById(R.string.sp_user_address), ""));
-        userPresenter.userDetailResult(new BaseEvent<>(BaseCode.LOCAL, user));
+        userPresenter.userDetailResult(new BaseEvent<>(BaseCode.LOCAL, UserStore.getUserByFile()));
     }
 }

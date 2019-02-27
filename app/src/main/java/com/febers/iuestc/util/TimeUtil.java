@@ -24,17 +24,12 @@ public class TimeUtil {
      */
     public static int getDateInteval(String beginTime, String endTime) {
 
-        System.out.print("开始时间:");
-        String str1 = beginTime;  //"yyyyMMdd"格式 如 20131022
-        System.out.println("\n结束时间:");
-        String str2 = endTime;  //"yyyyMMdd"格式 如 20131022
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.US);//输入日期的格式
         Date beginDate = null;
         Date endDate = null;
         try {
-            beginDate = simpleDateFormat.parse(str1);
-            endDate = simpleDateFormat.parse(str2);
+            beginDate = simpleDateFormat.parse(beginTime);
+            endDate = simpleDateFormat.parse(endTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }

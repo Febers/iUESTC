@@ -17,7 +17,7 @@ import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanEduECard;
 import com.febers.iuestc.module.ecard.presenter.ECardContract;
 import com.febers.iuestc.module.ecard.presenter.ECardJSInterface;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -100,21 +100,21 @@ public class ECardModelImpl extends BaseModel implements ECardContract.Model {
     @Override
     public void localDataService() {
         BeanEduECard eCard = new BeanEduECard();
-        eCard.setBalance(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_balance), "..."));
-        eCard.setNumber(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_number), "..."));
-        eCard.setStatus(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_status), "..."));
-        eCard.setValueDate(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_value_date), "..."));
-        eCard.setNoGet(CustomSPUtil.getInstance().get(getStringById(R.string.sp_ecard_no_get), "..."));
+        eCard.setBalance(SPUtil.getInstance().get(getStringById(R.string.sp_ecard_balance), "..."));
+        eCard.setNumber(SPUtil.getInstance().get(getStringById(R.string.sp_ecard_number), "..."));
+        eCard.setStatus(SPUtil.getInstance().get(getStringById(R.string.sp_ecard_status), "..."));
+        eCard.setValueDate(SPUtil.getInstance().get(getStringById(R.string.sp_ecard_value_date), "..."));
+        eCard.setNoGet(SPUtil.getInstance().get(getStringById(R.string.sp_ecard_no_get), "..."));
         eCardJSInterface.DetailPageResult(new BaseEvent<>(BaseCode.LOCAL, eCard));
     }
 
     private void saveECard(BeanEduECard eCard) {
         new Thread(()-> {
-            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_balance), eCard.getBalance());
-            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_number), eCard.getNumber());
-            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_status), eCard.getStatus());
-            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_value_date), eCard.getValueDate());
-            CustomSPUtil.getInstance().put(getStringById(R.string.sp_ecard_no_get), eCard.getNoGet());
+            SPUtil.getInstance().put(getStringById(R.string.sp_ecard_balance), eCard.getBalance());
+            SPUtil.getInstance().put(getStringById(R.string.sp_ecard_number), eCard.getNumber());
+            SPUtil.getInstance().put(getStringById(R.string.sp_ecard_status), eCard.getStatus());
+            SPUtil.getInstance().put(getStringById(R.string.sp_ecard_value_date), eCard.getValueDate());
+            SPUtil.getInstance().put(getStringById(R.string.sp_ecard_no_get), eCard.getNoGet());
         }).start();
     }
 }

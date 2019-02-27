@@ -23,7 +23,7 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.entity.EventTheme;
 import com.febers.iuestc.module.service.view.ServiceActivity;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -64,7 +64,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     protected void initView() {
         int openPosition = 0;
-        if (!CustomSPUtil.getInstance().get("is_login", false)) {
+        if (!SPUtil.getInstance().get("is_login", false)) {
             openPosition = 2;
         }
 

@@ -64,7 +64,7 @@ public class CourseResolver {
         for (int i = 0; i < partList.size(); i++) {
             getPerUnderCourse(new StringBuilder(partList.get(i)), i);
         }
-        CourseStore.save(mCourseList);
+        CourseStore.saveToFile(mCourseList);
         return mCourseList;
     }
 

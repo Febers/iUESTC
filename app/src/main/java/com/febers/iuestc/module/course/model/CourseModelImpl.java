@@ -15,7 +15,7 @@ import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanCourse;
 import com.febers.iuestc.module.course.presenter.CourseContract;
 import com.febers.iuestc.net.SingletonClient;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.ApiUtil;
 
 import java.net.SocketTimeoutException;
@@ -42,7 +42,7 @@ public class CourseModelImpl extends BaseModel implements CourseContract.Model {
 
     @Override
     public void updateCourseService(Boolean isRefresh) {
-        Boolean gotCourse = CustomSPUtil.getInstance().get(mContext
+        Boolean gotCourse = SPUtil.getInstance().get(mContext
                 .getString(R.string.sp_get_course), false);
         new Thread( () ->{
             if (gotCourse && (!isRefresh)) {
@@ -98,17 +98,17 @@ public class CourseModelImpl extends BaseModel implements CourseContract.Model {
 
         } catch (SocketTimeoutException e) {
             mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
-            CustomSPUtil.getInstance().put("get_course", false);
+            SPUtil.getInstance().put("get_course", false);
             serviceError(NET_TIMEOUT);
             return;
         } catch (Exception e) {
             e.printStackTrace();
             mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
-            CustomSPUtil.getInstance().put("get_course", false);
+            SPUtil.getInstance().put("get_course", false);
             serviceError(UNKNOWN_ERROR);
             return;
         }
-        CustomSPUtil.getInstance().put("get_course", true);
+        SPUtil.getInstance().put("get_course", true);
         BaseEvent<List<BeanCourse>> event = new BaseEvent<>(BaseCode.UPDATE, resolveRepeatCourse(courseList));
         mCoursePresenter.underCourseResult(event);
     }
@@ -116,7 +116,7 @@ public class CourseModelImpl extends BaseModel implements CourseContract.Model {
     //加载本地文件获得的课程列表
     private void getSavedCourse() {
         try {
-            List<BeanCourse> courseList = CourseStore.get();
+            List<BeanCourse> courseList = CourseStore.getByFile();
             mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.LOCAL, resolveRepeatCourse(courseList)));
         } catch (Exception e) {
             e.printStackTrace();

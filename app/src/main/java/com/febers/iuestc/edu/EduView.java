@@ -6,8 +6,10 @@
  *
  */
 
-package com.febers.iuestc.base;
+package com.febers.iuestc.edu;
 
-public interface BaseEduView extends BaseView{
+import com.febers.iuestc.base.BaseView;
+
+public interface EduView extends BaseView {
     default void statusToFail(){}
 }

@@ -30,7 +30,7 @@ import com.febers.iuestc.entity.BeanCourse;
 import com.febers.iuestc.module.course.presenter.CourseContract;
 import com.febers.iuestc.module.course.presenter.CoursePresenterImpl;
 import com.febers.iuestc.module.login.view.LoginActivity;
-import com.febers.iuestc.util.CustomSPUtil;
+import com.febers.iuestc.util.SPUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,14 +139,14 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
             showUnderCourse(new BaseEvent<>(BaseCode.CLEAR, new ArrayList<>()));
             return;
         }
-        Boolean firstGet = CustomSPUtil.getInstance().get(mContext
+        Boolean firstGet = SPUtil.getInstance().get(mContext
                 .getString(R.string.sp_course_first_get), true);
         if (firstGet) {
             if (!MyApplication.checkNetConnecting()) {
                 return;
             }
             dataRequest(true);
-            CustomSPUtil.getInstance().put(mContext
+            SPUtil.getInstance().put(mContext
                     .getString(R.string.sp_course_first_get), false);
             return;
         }
@@ -168,15 +168,14 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
         }
         mPickerView = new OptionsPickerBuilder(getContext(), (options1, options2, options3, v) -> {
             Toast.makeText(getContext(), "当前周数已设置为第" + (options1+1) + "周", Toast.LENGTH_SHORT).show();
-            CustomSPUtil.getInstance().put(mContext.getString(R.string.sp_now_week), (options1+1));
-            CustomSPUtil.getInstance().put("set_week", true);
+            SPUtil.getInstance().put(mContext.getString(R.string.sp_now_week), (options1+1));
+            SPUtil.getInstance().put("set_week", true);
             setTitle(options1+1);
             dataRequest(false);
         })
                 .setTitleText("选择当前周数")
                 .setOutSideCancelable(false)
                 .setCyclic(true, false, false)
-                //.setCancelColor(AttrUtil.getColor(getContext(), R.color.colorAccent))
                 .setBgColor(getResources().getColor(R.color.lightgray))
                 .build();
         mPickerView.setPicker(weeks);
@@ -185,7 +184,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     private void setTitle(int week) {
         nowWeek = 1;
         if (week == 0) {
-            nowWeek = CustomSPUtil.getInstance().get(MyApplication.getContext().getString(R.string.sp_now_week), 1);
+            nowWeek = SPUtil.getInstance().get(MyApplication.getContext().getString(R.string.sp_now_week), 1);
             if (nowWeek == 0) nowWeek = 1;
         } else {
             nowWeek = week;
@@ -194,12 +193,12 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     }
 
     private Boolean isLogin() {
-        return CustomSPUtil.getInstance().get(mContext.getString(R.string.sp_is_login), false);
+        return SPUtil.getInstance().get(mContext.getString(R.string.sp_is_login), false);
     }
 
     public static CourseFragment newInstance(String param1) {
         Bundle args = new Bundle();
-        args.putString(PARAMTER_1, param1);
+        args.putString(PARAMETER, param1);
         CourseFragment fragment = new CourseFragment();
         fragment.setArguments(args);
         return fragment;
