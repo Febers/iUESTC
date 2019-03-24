@@ -49,7 +49,7 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
     public void examService(Boolean isRefresh, int type) {
         mType = type;
         new Thread(()-> {
-            if (SPUtil.getInstance().get("exam_"+mType, false) && (!isRefresh)) {
+            if (SPUtil.getInstance().get("exam_" + mType, false) && (!isRefresh)) {
                 loadLocalExam();
                 return;
             }

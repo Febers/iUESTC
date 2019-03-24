@@ -26,11 +26,16 @@ import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseFragment;
+import com.febers.iuestc.base.Constants;
 import com.febers.iuestc.entity.BeanCourse;
+import com.febers.iuestc.entity.BeanUserStatus;
 import com.febers.iuestc.module.course.presenter.CourseContract;
 import com.febers.iuestc.module.course.presenter.CoursePresenterImpl;
 import com.febers.iuestc.module.login.view.LoginActivity;
 import com.febers.iuestc.util.SPUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +65,11 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     }
 
     @Override
+    protected Boolean registerEventBus() {
+        return true;
+    }
+
+    @Override
     public void dataRequest(Boolean isRefresh) {
         if (isRefresh) {
             if (!MyApplication.checkNetConnecting()) {
@@ -75,18 +85,19 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     protected void initView() {
         Toolbar toolbar = findViewById(R.id.tb_course);
         toolbar.setTitle("");
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)mActivity).setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.course_menu);    //防止activity销毁之后menu消失
         initPicker();
         tvNowWeek = findViewById(R.id.tv_course_title);
         ivNull = findViewById(R.id.iv_null_course);
         setTitle(0);
+        dataRequest(false);
     }
 
     @Override
     public void showUnderCourse(BaseEvent<List<BeanCourse>> event) {
         dismissProgressDialog();
-        getActivity().runOnUiThread( () -> {
+        mActivity.runOnUiThread( () -> {
             if (event.getCode() == BaseCode.ERROR) {
                 onError("刷新课表出错,请尝试再次获取");
                 return;
@@ -105,7 +116,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
                 ivNull.setVisibility(View.GONE);
                 onError("刷新课表成功");
             }
-            CourseViewHelper helper = new CourseViewHelper(_mActivity);
+            CourseViewHelper helper = new CourseViewHelper(mActivity);
             helper.create(event.getDate(), nowWeek, buttonList);
         });
     }
@@ -134,23 +145,27 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        buttonList.clear();
-        if (!isLogin()) {
-            showUnderCourse(new BaseEvent<>(BaseCode.CLEAR, new ArrayList<>()));
-            return;
-        }
-        Boolean firstGet = SPUtil.getInstance().get(mContext
-                .getString(R.string.sp_course_first_get), true);
+//        buttonList.clear();
+//        if (!isLogin()) {
+//            showUnderCourse(new BaseEvent<>(BaseCode.CLEAR, new ArrayList<>()));
+//            return;
+//        }
+        Boolean firstGet = SPUtil.getInstance().get(Constants.COURSE_FIRST_GET, true);
         if (firstGet) {
-            if (!MyApplication.checkNetConnecting()) {
-                return;
-            }
             dataRequest(true);
             SPUtil.getInstance().put(mContext
                     .getString(R.string.sp_course_first_get), false);
-            return;
         }
-        dataRequest(false);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void userStatusChanged(BaseEvent<BeanUserStatus> event) {
+        if (event.getCode() == BaseCode.UPDATE) {
+            //刷新课表
+            dataRequest(true);
+        } else {
+            showUnderCourse(new BaseEvent<>(BaseCode.CLEAR, new ArrayList<>()));
+        }
     }
 
     @Override
@@ -184,7 +199,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     private void setTitle(int week) {
         nowWeek = 1;
         if (week == 0) {
-            nowWeek = SPUtil.getInstance().get(MyApplication.getContext().getString(R.string.sp_now_week), 1);
+            nowWeek = SPUtil.getInstance().get(Constants.NOW_WEEK, 1);
             if (nowWeek == 0) nowWeek = 1;
         } else {
             nowWeek = week;
@@ -193,7 +208,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     }
 
     private Boolean isLogin() {
-        return SPUtil.getInstance().get(mContext.getString(R.string.sp_is_login), false);
+        return SPUtil.getInstance().get(Constants.IS_LOGIN, false);
     }
 
     public static CourseFragment newInstance(String param1) {

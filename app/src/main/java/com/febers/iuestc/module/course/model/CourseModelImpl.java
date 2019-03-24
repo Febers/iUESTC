@@ -65,7 +65,7 @@ public class CourseModelImpl extends BaseModel implements CourseContract.Model {
      */
     @Override
     protected void getHttpData() {
-        List<BeanCourse> courseList = new ArrayList<>();
+        List<BeanCourse> courseList;
         try {
             OkHttpClient client = SingletonClient.getInstance();
             Request request = new Request.Builder()

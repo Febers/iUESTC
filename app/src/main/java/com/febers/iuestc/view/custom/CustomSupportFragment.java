@@ -10,13 +10,10 @@ package com.febers.iuestc.view.custom;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 
 import me.yokeyword.fragmentation.ExtraTransaction;
@@ -25,10 +22,10 @@ import me.yokeyword.fragmentation.SupportFragmentDelegate;
 import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-public abstract class CustomSupportFragament extends Fragment implements ISupportFragment {
+public abstract class CustomSupportFragment extends Fragment implements ISupportFragment {
 
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
-    protected FragmentActivity _mActivity;
+    protected FragmentActivity mActivity;
 
     @Override
     public SupportFragmentDelegate getSupportDelegate() {
@@ -48,7 +45,7 @@ public abstract class CustomSupportFragament extends Fragment implements ISuppor
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mDelegate.onAttach(activity);
-        _mActivity = mDelegate.getActivity();
+        mActivity = mDelegate.getActivity();
     }
 
     @Override

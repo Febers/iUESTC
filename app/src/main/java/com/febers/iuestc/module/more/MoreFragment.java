@@ -33,7 +33,7 @@ import com.febers.iuestc.module.service.view.BusActivity;
 import com.febers.iuestc.module.service.view.CalActivity;
 import com.febers.iuestc.module.service.view.ServiceActivity;
 import com.febers.iuestc.module.user.view.UserActivity;
-import com.febers.iuestc.util.LogoutUtil;
+import com.febers.iuestc.module.login.model.LogoutHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -228,7 +228,7 @@ public class MoreFragment extends BaseFragment {
     }
 
     private void logout() {
-        LogoutUtil.logoutSchool();
+        LogoutHelper.logout();
         tvName.setText("未登录");
         tvId.setText("");
     }

@@ -23,6 +23,7 @@ import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.module.service.presenter.CalPresenterImpl;
 import com.febers.iuestc.module.service.presenter.SchoolCalendarContact;
 import com.febers.iuestc.util.SPUtil;
+import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.custom.PinchImageView;
 
 public class CalActivity extends BaseSwipeActivity implements SchoolCalendarContact.View {
@@ -52,10 +53,12 @@ public class CalActivity extends BaseSwipeActivity implements SchoolCalendarCont
         if (!SPUtil.getInstance()
                 .get(MyApplication.getContext().getString(R.string.sp_get_calender), false)) {
             dataRequest(true);
-            return;
+        } else {
+            ToastUtil.showShortToast("正在加载本地校历");
+            dataRequest(false);
         }
-        dataRequest(false);
     }
+
 
     @Override
     public void dataRequest(Boolean isRefresh) {
@@ -70,8 +73,8 @@ public class CalActivity extends BaseSwipeActivity implements SchoolCalendarCont
         dismissProgressDialog();
         Bitmap bitmap = (Bitmap) baseEvent.getDate();
         int eventCode = baseEvent.getCode();
-        if (eventCode != BaseCode.UPDATE) {
-            onError("获取校历出错");
+        if (eventCode == BaseCode.ERROR) {
+            onError("获取校历出错，请刷新或访问源网页");
             return;
         }
         runOnUiThread( () ->

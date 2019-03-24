@@ -97,18 +97,18 @@ public abstract class BaseActivity extends CustomSupportActivity implements Base
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Boolean isLogin = false;
-        try {
-            isLogin = data.getBooleanExtra("status", false);
-        } catch (Exception e) {
-            //只有在需要登录的界面中才需要这个回调
-        }
-        if (isLogin) {
-            dataRequest(true);
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Boolean isLogin = false;
+//        try {
+//            isLogin = data.getBooleanExtra("status", false);
+//        } catch (Exception e) {
+//            //只有在需要登录的界面中才需要这个回调
+//        }
+//        if (isLogin) {
+//            dataRequest(true);
+//        }
+//    }
 
     @Override
     public void onError(String error) {

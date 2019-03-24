@@ -17,11 +17,15 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseSwipeActivity;
+import com.febers.iuestc.base.Constants;
+import com.febers.iuestc.entity.BeanUserStatus;
 import com.febers.iuestc.module.login.presenter.LoginContract;
 import com.febers.iuestc.module.login.presenter.LoginJSInterface;
 import com.febers.iuestc.net.WebViewConfigure;
 import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.WebViewUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class LoginActivity extends BaseSwipeActivity implements LoginContract.View {
 
@@ -67,10 +71,11 @@ public class LoginActivity extends BaseSwipeActivity implements LoginContract.Vi
     @Override
     public void loginResult(BaseEvent<String> event) {
         if (event.getCode() == BaseCode.UPDATE) {
-            SPUtil.getInstance().put(getString(R.string.sp_is_login), true);
-            Intent intent = new Intent();
-            intent.putExtra("status", true);
-            this.setResult(BaseCode.STATUS, intent);
+            SPUtil.getInstance().put(Constants.IS_LOGIN, true);
+//            Intent intent = new Intent();
+//            intent.putExtra("status", true);
+//            this.setResult(BaseCode.STATUS, intent);
+            EventBus.getDefault().post(new BaseEvent<>(BaseCode.UPDATE, new BeanUserStatus(BaseCode.UPDATE)));
             finish();
         }
     }

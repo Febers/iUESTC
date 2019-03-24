@@ -47,7 +47,7 @@ public class ExamStore {
         StringBuilder builder = new StringBuilder();
         FileReader fileReader = null;
         try {
-            fileReader = new FileReader(FileUtil.appDataDir + "exam" + type);
+            fileReader = new FileReader(FileUtil.appDataDir + "/exam" + type);
             char[] chars = new char[1];
             while (fileReader.read(chars) != -1) {
                 builder.append(chars);
