@@ -9,12 +9,13 @@
 package com.febers.iuestc.module.news.view;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseSwipeActivity;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 public class NoticeActivity extends BaseSwipeActivity {
 

@@ -10,7 +10,6 @@ package com.febers.iuestc.view.custom;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +17,8 @@ import android.widget.TextView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanUpdate;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class CustomUpdateDialog extends AlertDialog {
 

@@ -8,9 +8,6 @@
 
 package com.febers.iuestc.module.login.view;
 
-import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
 
 import com.febers.iuestc.R;
@@ -26,6 +23,9 @@ import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.WebViewUtil;
 
 import org.greenrobot.eventbus.EventBus;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 public class LoginActivity extends BaseSwipeActivity implements LoginContract.View {
 

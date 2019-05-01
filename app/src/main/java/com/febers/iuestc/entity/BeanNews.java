@@ -8,7 +8,7 @@
 
 package com.febers.iuestc.entity;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class BeanNews implements Comparable<BeanNews>{
     private String title;

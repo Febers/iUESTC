@@ -10,8 +10,6 @@ package com.febers.iuestc.view.custom;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -20,6 +18,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
+import com.google.android.material.textfield.TextInputEditText;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class CustomLoginDialog extends AlertDialog{
 

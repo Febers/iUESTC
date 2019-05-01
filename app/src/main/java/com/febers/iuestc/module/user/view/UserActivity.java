@@ -9,8 +9,6 @@
 package com.febers.iuestc.module.user.view;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.view.adapter.AdapterUser;
@@ -28,6 +26,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 public class UserActivity extends BaseSwipeActivity implements UserContract.View {
 

@@ -9,10 +9,6 @@
 package com.febers.iuestc.module.news.view;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
@@ -20,6 +16,9 @@ import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.net.WebViewConfigure;
 import com.febers.iuestc.util.WebViewUtil;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 public class NoticeDetailActivity extends BaseSwipeActivity {
 

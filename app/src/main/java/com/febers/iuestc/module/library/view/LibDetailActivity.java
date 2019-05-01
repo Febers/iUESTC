@@ -9,8 +9,6 @@
 package com.febers.iuestc.module.library.view;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
 
 import com.febers.iuestc.R;
@@ -22,6 +20,9 @@ import com.febers.iuestc.module.library.presenter.LibraryPresenterImp;
 import com.febers.iuestc.util.WebViewUtil;
 
 import java.util.List;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 public class LibDetailActivity extends BaseSwipeActivity implements LibraryContract.View {
 

@@ -8,13 +8,6 @@
 
 package com.febers.iuestc.module.grade.view;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +17,15 @@ import com.febers.iuestc.view.adapter.AdapterGradeViewPager;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.view.custom.CustomViewPager;
 import com.febers.iuestc.view.manager.GradeFragmentManager;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 public class GradeActivity extends BaseSwipeActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -129,7 +131,7 @@ public class GradeActivity extends BaseSwipeActivity implements NavigationView.O
             default:
                 break;
         }
-        drawerLayout.closeDrawer(Gravity.END);
+        drawerLayout.closeDrawer(GravityCompat.END);
         return true;
     }
 

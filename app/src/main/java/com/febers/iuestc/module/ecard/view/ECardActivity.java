@@ -9,9 +9,8 @@
 package com.febers.iuestc.module.ecard.view;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,6 +34,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 /**
  * 直接使用userDetail的Adapter

@@ -9,11 +9,12 @@
 package com.febers.iuestc.home.view;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseFragment;
 import com.febers.iuestc.module.course.view.CourseFragment;
+
+import androidx.annotation.Nullable;
 
 public class HomeFirstContainer extends BaseFragment {
     @Override

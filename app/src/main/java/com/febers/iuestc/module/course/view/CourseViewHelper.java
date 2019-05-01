@@ -10,7 +10,6 @@ package com.febers.iuestc.module.course.view;
 
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v4.app.FragmentActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.fragment.app.FragmentActivity;
 
 import static com.febers.iuestc.module.course.model.CourseConstants.COURSE_NO_NOW;
 import static com.febers.iuestc.module.course.model.CourseConstants.COURSE_OUT_WEEK;

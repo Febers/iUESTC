@@ -9,13 +9,14 @@
 package com.febers.iuestc.view.custom;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import java.util.HashMap;
+
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * 解决CoordinatorLayout下ViewPager嵌套recyclerview后无法滑动的问题

@@ -28,7 +28,7 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -39,7 +39,7 @@
             android:layout_margin="7dp"
             android:orientation="vertical">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.ConstraintLayout
                     android:id="@+id/ll_user"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
@@ -88,7 +88,7 @@
                         android:orientation="vertical"
                         app:layout_constraintGuide_begin="20dp" />
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.ConstraintLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_user_setting0"
@@ -122,5 +122,5 @@
             </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

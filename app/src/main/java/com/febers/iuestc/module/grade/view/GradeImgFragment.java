@@ -9,7 +9,6 @@
 package com.febers.iuestc.module.grade.view;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseFragment;
@@ -35,6 +34,8 @@ import com.github.mikephil.charting.utils.EntryXComparator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 public class GradeImgFragment extends BaseFragment implements GradeContract.View{
 

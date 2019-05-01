@@ -8,9 +8,7 @@
 
 package com.febers.iuestc.base;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -22,6 +20,8 @@ import com.febers.iuestc.view.custom.CustomProgressDialog;
 import com.febers.iuestc.view.custom.CustomSupportActivity;
 
 import org.greenrobot.eventbus.EventBus;
+
+import androidx.annotation.Nullable;
 
 public abstract class BaseActivity extends CustomSupportActivity implements BaseView {
 

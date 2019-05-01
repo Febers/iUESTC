@@ -10,10 +10,6 @@ package com.febers.iuestc.home.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
 
@@ -24,6 +20,7 @@ import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.entity.EventTheme;
 import com.febers.iuestc.module.service.view.ServiceActivity;
 import com.febers.iuestc.util.SPUtil;
+import com.google.android.material.navigation.NavigationView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -31,6 +28,9 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.drawerlayout.widget.DrawerLayout;
 import me.yokeyword.fragmentation.ISupportFragment;
 
 public class HomeActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener

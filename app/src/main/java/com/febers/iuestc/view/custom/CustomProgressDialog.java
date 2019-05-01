@@ -10,13 +10,14 @@ package com.febers.iuestc.view.custom;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
+
+import androidx.appcompat.app.AlertDialog;
 
 
 public class CustomProgressDialog extends AlertDialog {

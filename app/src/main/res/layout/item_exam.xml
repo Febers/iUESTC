@@ -7,7 +7,7 @@
   ~
   -->
 
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -94,4 +94,4 @@
         <!--android:layout_height="wrap_content"-->
         <!--android:text="座位:"-->
         <!--android:textSize="15dp" />-->
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.ConstraintLayout>

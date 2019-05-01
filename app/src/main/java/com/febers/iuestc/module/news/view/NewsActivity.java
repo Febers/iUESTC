@@ -9,16 +9,17 @@
 package com.febers.iuestc.module.news.view;
 
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.view.adapter.AdapterNewsViewPager;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.view.custom.CustomViewPager;
 import com.febers.iuestc.view.manager.NewsFragmentManager;
+import com.google.android.material.tabs.TabLayout;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 public class NewsActivity extends BaseSwipeActivity {
 

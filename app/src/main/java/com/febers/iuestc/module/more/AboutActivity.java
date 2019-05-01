@@ -10,8 +10,6 @@ package com.febers.iuestc.module.more;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.febers.iuestc.R;
@@ -19,6 +17,9 @@ import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.view.custom.CustomUpdateDialog;
 import com.lucasurbas.listitemview.ListItemView;
 import com.tencent.bugly.beta.Beta;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 public class AboutActivity extends BaseSwipeActivity implements ListItemView.OnClickListener {
 

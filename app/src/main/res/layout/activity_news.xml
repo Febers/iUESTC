@@ -36,7 +36,7 @@
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
@@ -51,6 +51,6 @@
                 android:layout_height="wrap_content">
             </com.febers.iuestc.view.custom.CustomViewPager>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

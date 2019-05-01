@@ -8,10 +8,10 @@
 
 package com.febers.iuestc.view.manager;
 
-import android.support.v4.app.Fragment;
-
 import com.febers.iuestc.module.grade.view.GradeImgFragment;
 import com.febers.iuestc.module.grade.view.GradeListFragment;
+
+import androidx.fragment.app.Fragment;
 
 public class GradeFragmentManager {
     private static final String TAG = "GradeFragmentManager";

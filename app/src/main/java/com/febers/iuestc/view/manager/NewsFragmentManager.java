@@ -9,9 +9,9 @@
 package com.febers.iuestc.view.manager;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-
 import com.febers.iuestc.module.news.view.NewsFragment;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * 返回三个Fragment

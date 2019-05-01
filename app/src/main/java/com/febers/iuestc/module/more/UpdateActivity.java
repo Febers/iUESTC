@@ -11,7 +11,6 @@ package com.febers.iuestc.module.more;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +22,8 @@ import com.febers.iuestc.util.FileSizeUtil;
 import com.febers.iuestc.view.custom.CustomUpdateDialog;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.beta.UpgradeInfo;
+
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * 显示更新和通知的Dialog

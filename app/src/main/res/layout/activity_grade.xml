@@ -7,7 +7,7 @@
   ~
   -->
 
-<android.support.v4.widget.DrawerLayout
+<androidx.core.widget.DrawerLayout
     android:id="@+id/dl_grade"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -68,4 +68,4 @@
         app:headerLayout="@layout/layout_grade_header"
         >
     </android.support.design.widget.NavigationView>
-</android.support.v4.widget.DrawerLayout>
+</androidx.core.widget.DrawerLayout>

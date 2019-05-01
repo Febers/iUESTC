@@ -11,9 +11,6 @@ package com.febers.iuestc.module.grade.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.view.adapter.AdapterGrade;
@@ -29,6 +26,10 @@ import com.febers.iuestc.util.SPUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class GradeListFragment extends BaseFragment implements GradeContract.View{
 

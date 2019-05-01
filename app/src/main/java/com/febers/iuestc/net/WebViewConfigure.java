@@ -8,13 +8,13 @@
 
 package com.febers.iuestc.net;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.webkit.CookieSyncManager;
 import android.webkit.SslErrorHandler;
@@ -25,6 +25,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+
+import androidx.annotation.Nullable;
 
 public class WebViewConfigure {
 
@@ -63,6 +65,7 @@ public class WebViewConfigure {
             return this;
         }
 
+        @SuppressLint("JavascriptInterface")
         public Builder addJSInterface(Object object, String name) {
             enableJS(true);
             webView.addJavascriptInterface(object, name);

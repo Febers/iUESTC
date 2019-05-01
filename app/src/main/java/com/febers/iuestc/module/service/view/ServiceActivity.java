@@ -10,11 +10,6 @@ package com.febers.iuestc.module.service.view;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -26,6 +21,13 @@ import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.net.WebViewConfigure;
 import com.febers.iuestc.util.WebViewUtil;
 import com.febers.iuestc.util.PToUrlUtil;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 public class ServiceActivity extends BaseSwipeActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -89,8 +91,8 @@ public class ServiceActivity extends BaseSwipeActivity implements NavigationView
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (drawerLayout.isDrawerOpen(Gravity.END)) {
-            drawerLayout.closeDrawer(Gravity.END);
+        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            drawerLayout.closeDrawer(GravityCompat.END);
             return true;
         }
         if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
@@ -108,31 +110,31 @@ public class ServiceActivity extends BaseSwipeActivity implements NavigationView
                 webView.clearHistory();
                 mUrl = PToUrlUtil.getUrl(0);
                 navigationView.setCheckedItem(R.id.item_nav_query_classroom);
-                drawerLayout.closeDrawer(Gravity.END);
+                drawerLayout.closeDrawer(GravityCompat.END);
                 break;
             case R.id.item_nav_query_today_class:
                 webView.clearHistory();
                 mUrl = PToUrlUtil.getUrl(1);
                 navigationView.setCheckedItem(R.id.item_nav_query_today_class);
-                drawerLayout.closeDrawer(Gravity.END);
+                drawerLayout.closeDrawer(GravityCompat.END);
                 break;
             case R.id.item_nav_query_all_class:
                 webView.clearHistory();
                 mUrl = PToUrlUtil.getUrl(2);
                 navigationView.setCheckedItem(R.id.item_nav_query_all_class);
-                drawerLayout.closeDrawer(Gravity.END);
+                drawerLayout.closeDrawer(GravityCompat.END);
                 break;
             case R.id.item_nav_query_teacher:
                 webView.clearHistory();
                 mUrl = PToUrlUtil.getUrl(3);
                 navigationView.setCheckedItem(R.id.item_nav_query_teacher);
-                drawerLayout.closeDrawer(Gravity.END);
+                drawerLayout.closeDrawer(GravityCompat.END);
                 break;
             case R.id.item_nav_lxfs:
                 webView.clearHistory();
                 mUrl = PToUrlUtil.getUrl(9);
                 navigationView.setCheckedItem(R.id.item_nav_lxfs);
-                drawerLayout.closeDrawer(Gravity.END);
+                drawerLayout.closeDrawer(GravityCompat.END);
                 break;
             case R.id.item_nav_exit:
                 finish();

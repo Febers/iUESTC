@@ -10,9 +10,6 @@ package com.febers.iuestc.module.news.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.view.adapter.AdapterNews;
@@ -23,6 +20,10 @@ import com.febers.iuestc.entity.BeanNews;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class NewsFragment extends BaseFragment implements NewsContract.View{
 

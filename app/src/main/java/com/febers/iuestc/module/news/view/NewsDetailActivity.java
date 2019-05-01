@@ -10,18 +10,18 @@ package com.febers.iuestc.module.news.view;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.BaseActivity;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.net.WebViewConfigure;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 public class NewsDetailActivity extends BaseSwipeActivity {
 
