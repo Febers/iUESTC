@@ -112,8 +112,6 @@ public abstract class BaseActivity extends CustomSupportActivity implements Base
 
     @Override
     public void onError(String error) {
-        runOnUiThread(()-> {
-            ToastUtil.showShortToast(error);
-        });
+        runOnUiThread(()-> ToastUtil.showShortToast(error));
     }
 }

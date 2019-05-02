@@ -9,11 +9,9 @@
 package com.febers.iuestc.module.login.model;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.R;
-import com.febers.iuestc.base.Constants;
 import com.febers.iuestc.net.SingletonClient;
 import com.febers.iuestc.util.SPUtil;
 
@@ -27,7 +25,7 @@ import static com.febers.iuestc.base.Constants.USER_PW;
 
 public class LogoutHelper {
 
-    private static Context context = MyApplication.getContext();
+    private static Context context = MyApp.getContext();
 
     public static void logout() {
         SPUtil.getInstance().put(IS_LOGIN, false);

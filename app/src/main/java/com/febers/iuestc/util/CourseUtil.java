@@ -8,7 +8,7 @@
 
 package com.febers.iuestc.util;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanCourse;
 
@@ -137,7 +137,7 @@ public class CourseUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String time = sdf.format(new Date());
         //获取上次时间
-        String lastTime = SPUtil.getInstance().get(MyApplication.getContext().getString(R.string.sp_course_last_time), time);
+        String lastTime = SPUtil.getInstance().get(MyApp.getContext().getString(R.string.sp_course_last_time), time);
 
         try {
             date = sdf.parse(time);

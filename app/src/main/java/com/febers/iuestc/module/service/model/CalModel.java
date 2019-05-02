@@ -14,7 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -40,7 +40,7 @@ public class CalModel implements ICalModel {
 
     private static final String TAG = "CalModel";
     private SchoolCalendarContact.Presenter calPresenter;
-    private Context context = MyApplication.getContext();
+    private Context context = MyApp.getContext();
 
     public CalModel(SchoolCalendarContact.Presenter presenter) {
         calPresenter = presenter;
@@ -79,7 +79,7 @@ public class CalModel implements ICalModel {
 
             byte[] imgBytes = response.body().bytes();
             SPUtil.getInstance()
-                    .put(MyApplication.getContext().getString(R.string.sp_get_calender), true);
+                    .put(MyApp.getContext().getString(R.string.sp_get_calender), true);
             Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
             BaseEvent<Bitmap> calEvent = new BaseEvent<>(BaseCode.UPDATE, bitmap);
             calPresenter.calendarResult(calEvent);

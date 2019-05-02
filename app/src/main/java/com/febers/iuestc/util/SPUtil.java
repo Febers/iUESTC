@@ -11,7 +11,7 @@ package com.febers.iuestc.util;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 
 import java.util.Set;
 
@@ -24,7 +24,7 @@ public class SPUtil {
     }
 
     private SPUtil() {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MyApplication.getContext());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MyApp.getContext());
     }
 
     private static class SingletonHolder {

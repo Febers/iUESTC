@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.adapter.AdapterExam;
@@ -130,7 +130,7 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
     public void dataRequest(Boolean isRefresh) {
         if (!SPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
             if (isRefresh) {
-                statusToFail();
+                statusLoss();
                 return;
             }
             return;
@@ -140,7 +140,7 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
 
     private void getExam(Boolean isRefresh, int type) {
         if (isRefresh) {
-            if (!MyApplication.checkNetConnecting()) {
+            if (!MyApp.checkNetConnecting()) {
                 onError("当前网络不可用");
                 return;
             }
@@ -161,7 +161,7 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
     }
 
     @Override
-    public void statusToFail() {
+    public void statusLoss() {
         smartRefreshLayout.finishRefresh(false);
         startActivityForResult(new Intent(ExamActivity.this, LoginActivity.class), BaseCode.STATUS);
     }

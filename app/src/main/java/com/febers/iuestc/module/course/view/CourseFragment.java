@@ -19,8 +19,8 @@ import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.R;
-import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseFragment;
@@ -73,7 +73,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     @Override
     public void dataRequest(Boolean isRefresh) {
         if (isRefresh) {
-            if (!MyApplication.checkNetConnecting()) {
+            if (!MyApp.checkNetConnecting()) {
                 onError("当前网络不可用");
                 return;
             }
@@ -170,7 +170,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     }
 
     @Override
-    public void statusToFail() {
+    public void statusLoss() {
         startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 

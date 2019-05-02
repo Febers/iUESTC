@@ -8,9 +8,6 @@
 
 package com.febers.iuestc.module.user.model;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -64,7 +61,7 @@ public class UserModelImpl extends BaseModel implements UserContract.Model {
             resolveHtml(result);
         } catch (Exception e) {
             e.printStackTrace();
-            userPresenter.loginStatusFail();
+            userPresenter.loginStatusLoss();
         }
     }
 

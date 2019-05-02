@@ -10,13 +10,12 @@ package com.febers.iuestc.module.ecard.view;
 
 import android.content.Intent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.febers.iuestc.R;
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.view.adapter.AdapterUser;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -90,7 +89,7 @@ public class ECardActivity extends BaseSwipeActivity implements ECardContract.Vi
             eCardJSInterface.localDateRequest();
             return;
         }
-        if (!MyApplication.checkNetConnecting()) {
+        if (!MyApp.checkNetConnecting()) {
             onError("当前网络无连接");
             return;
         }
@@ -132,7 +131,7 @@ public class ECardActivity extends BaseSwipeActivity implements ECardContract.Vi
     }
 
     @Override
-    public void statusToFail() {
+    public void statusLoss() {
         smartRefreshLayout.finishRefresh(false);
         startActivityForResult(new Intent(ECardActivity.this, LoginActivity.class), BaseCode.STATUS);
     }

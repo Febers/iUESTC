@@ -13,7 +13,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.MenuItem;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -52,7 +52,7 @@ public class CalActivity extends BaseSwipeActivity implements SchoolCalendarCont
         }
         imageViewCal = findViewById(R.id.imgview_calender);
         if (!SPUtil.getInstance()
-                .get(MyApplication.getContext().getString(R.string.sp_get_calender), false)) {
+                .get(MyApp.getContext().getString(R.string.sp_get_calender), false)) {
             dataRequest(true);
         } else {
             ToastUtil.showShortToast("正在加载本地校历");

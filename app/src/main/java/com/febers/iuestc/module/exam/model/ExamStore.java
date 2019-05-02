@@ -10,7 +10,7 @@ package com.febers.iuestc.module.exam.model;
 
 import android.content.SharedPreferences;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.entity.BeanExam;
 import com.febers.iuestc.util.FileUtil;
 import com.febers.iuestc.util.SPUtil;
@@ -73,7 +73,7 @@ public class ExamStore {
      * @deprecated 用sp保存，极其浪费内存
      */
     static void save(List<BeanExam> examList, int type) {
-        SharedPreferences.Editor editor = MyApplication.getContext().getSharedPreferences("exam_"+type,
+        SharedPreferences.Editor editor = MyApp.getContext().getSharedPreferences("exam_"+type,
                 0).edit();
         editor.clear();
         editor.apply();
@@ -96,7 +96,7 @@ public class ExamStore {
         if (type == 2) {
             examName = "exam_2";
         }
-        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences(examName, 0);
+        SharedPreferences preferences = MyApp.getContext().getSharedPreferences(examName, 0);
         int size = preferences.getInt("size", 0);
         for (int i = 0; i < size; i++) {
             BeanExam exam = new BeanExam();

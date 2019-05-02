@@ -149,6 +149,6 @@ public class GradeImgFragment extends BaseFragment implements GradeContract.View
     }
 
     @Override
-    public void statusToFail() {
+    public void statusLoss() {
     }
 }

@@ -10,7 +10,7 @@ package com.febers.iuestc.net;
 
 import android.webkit.CookieManager;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import okhttp3.HttpUrl;
 public class CustomCookiesManager implements CookieJar {
 
     private static final String TAG = "CustomCookiesManager";
-    private final PersistentCookieStore cookieStore = new PersistentCookieStore(MyApplication.getContext());
+    private final PersistentCookieStore cookieStore = new PersistentCookieStore(MyApp.getContext());
     private CookieManager mCookieManager = CookieManager.getInstance();
 
     @Override

@@ -1,51 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Created by Febers 2018.
-  ~ Copyright (c). All rights reserved.
-  ~
-  ~ Last Modified 18-5-27 下午9:37
-  ~
-  -->
-
-<androidx.core.widget.DrawerLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/dl_home"
-    tools:context="com.febers.iuestc.home.view.HomeActivity">
-
-    <android.support.design.widget.CoordinatorLayout
+    android:fitsSystemWindows="true">
+    <FrameLayout
+        android:id="@+id/home_fragment_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-        <FrameLayout
-            android:id="@+id/home_fragment_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/myBackgroundColor">
-        </FrameLayout>
+        android:background="?attr/myBackgroundColor">
+    </FrameLayout>
 
-        <com.ashokvarma.bottomnavigation.BottomNavigationBar
-            android:id="@+id/bottom_navigation_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            app:bnbBackgroundColor="?attr/myBackgroundColor">
-        </com.ashokvarma.bottomnavigation.BottomNavigationBar>
-    </android.support.design.widget.CoordinatorLayout>
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        app:bnbBackgroundColor="?attr/myBackgroundColor">
+    </com.ashokvarma.bottomnavigation.BottomNavigationBar>
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nv_home"
-        android:layout_gravity="right"
-        android:background="@color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:menu="@menu/home_nav_menu"
-        app:itemIconTint="?attr/colorAccent"
-        app:headerLayout="@layout/layout_home_header">
-    </android.support.design.widget.NavigationView>
-</androidx.core.widget.DrawerLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 

@@ -10,13 +10,13 @@ package com.febers.iuestc.home.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseActivity;
+import com.febers.iuestc.base.Constants;
 import com.febers.iuestc.entity.EventTheme;
 import com.febers.iuestc.module.service.view.ServiceActivity;
 import com.febers.iuestc.util.SPUtil;
@@ -30,6 +30,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import me.yokeyword.fragmentation.ISupportFragment;
 
@@ -64,7 +65,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     protected void initView() {
         int openPosition = 0;
-        if (!SPUtil.getInstance().get("is_login", false)) {
+        if (!SPUtil.getInstance().get(Constants.IS_LOGIN, false)) {
             openPosition = 2;
         }
 
@@ -102,27 +103,27 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
             case R.id.item_nav_query_classroom:
                 intent.putExtra("position", 0);
                 startActivity(intent);
-                mDrawerLayout.closeDrawer(Gravity.END);
+                mDrawerLayout.closeDrawer(GravityCompat.END);
                 break;
             case R.id.item_nav_query_today_class:
                 intent.putExtra("position", 1);
                 startActivity(intent);
-                mDrawerLayout.closeDrawer(Gravity.END);
+                mDrawerLayout.closeDrawer(GravityCompat.END);
                 break;
             case R.id.item_nav_query_all_class:
                 intent.putExtra("position", 2);
                 startActivity(intent);
-                mDrawerLayout.closeDrawer(Gravity.END);
+                mDrawerLayout.closeDrawer(GravityCompat.END);
                 break;
             case R.id.item_nav_query_teacher:
                 intent.putExtra("position", 3);
                 startActivity(intent);
-                mDrawerLayout.closeDrawer(Gravity.END);
+                mDrawerLayout.closeDrawer(GravityCompat.END);
                 break;
             case R.id.item_nav_lxfs:
                 intent.putExtra("position", 9);
                 startActivity(intent);
-                mDrawerLayout.closeDrawer(Gravity.END);
+                mDrawerLayout.closeDrawer(GravityCompat.END);
                 break;
             case R.id.item_nav_exit:
                 finish();
@@ -150,14 +151,14 @@ public class HomeActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("theme_change", mThemeChange);
+        outState.putBoolean(Constants.THEME_CHANGED, mThemeChange);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            mThemeChange = savedInstanceState.getBoolean("theme_change", false);
+            mThemeChange = savedInstanceState.getBoolean(Constants.THEME_CHANGED, false);
             if (mThemeChange) {
                 mBottomNavigationBar.selectTab(2);
             }

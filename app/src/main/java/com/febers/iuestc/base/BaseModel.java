@@ -10,7 +10,7 @@ package com.febers.iuestc.base;
 
 import android.content.Context;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.R;
 import com.febers.iuestc.edu.EduPresenter;
 import com.febers.iuestc.util.SPUtil;
@@ -40,7 +40,7 @@ public abstract class BaseModel<P extends BasePresenter> {
     protected static final int UNDERGRADUATE = 0;
     protected static final int POSTGRADUATE = 1;
 
-    protected Context mContext = MyApplication.getContext();
+    protected Context mContext = MyApp.getContext();
 
     protected int mStudentType = SPUtil.getInstance()
             .get(mContext.getString(R.string.sp_student_type), 0);
@@ -84,7 +84,7 @@ public abstract class BaseModel<P extends BasePresenter> {
         if (html.contains("用户登录")) {
             if (presenter instanceof EduPresenter) {
                 EduPresenter p = (EduPresenter)presenter;
-                p.loginStatusFail();
+                p.loginStatusLoss();
             }
             return false;
         }

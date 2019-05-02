@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.view.adapter.AdapterQuery;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
@@ -122,7 +122,7 @@ public class LibQueryActivity extends BaseSwipeActivity implements LibraryContra
     }
 
     private void sendQueryRequest(Boolean isLoadMore, String keyword, int type, int page) {
-        if (!MyApplication.checkNetConnecting()) {
+        if (!MyApp.checkNetConnecting()) {
             Toast.makeText(LibQueryActivity.this, "当前网络不可用", Toast.LENGTH_SHORT).show();
             return;
         }

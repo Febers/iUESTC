@@ -36,7 +36,7 @@ public class ECardModelImpl extends BaseModel implements ECardContract.Model {
     @Override
     public void resolveHtmlService(String html) {
         if (html.contains("身份认证")) {
-            eCardJSInterface.loginStatusFail();
+            eCardJSInterface.loginStatusLoss();
             return;
         }
         if (html.contains("没有所需角色")) {

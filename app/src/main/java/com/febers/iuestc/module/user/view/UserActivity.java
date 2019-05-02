@@ -97,7 +97,7 @@ public class UserActivity extends BaseSwipeActivity implements UserContract.View
     }
 
     @Override
-    public void statusToFail() {
+    public void statusLoss() {
         smartRefreshLayout.finishRefresh(false);
         startActivityForResult(new Intent(UserActivity.this, LoginActivity.class), BaseCode.STATUS);
     }

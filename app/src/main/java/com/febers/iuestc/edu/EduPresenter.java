@@ -19,7 +19,7 @@ public abstract class EduPresenter<V extends EduView> extends BasePresenter {
         mEduView = view;
     }
 
-    public void loginStatusFail() {
-        mEduView.statusToFail();
+    public void loginStatusLoss() {
+        mEduView.statusLoss();
     }
 }

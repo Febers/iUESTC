@@ -16,7 +16,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.custom.CustomProgressDialog;
 import com.febers.iuestc.view.custom.CustomSupportFragment;
@@ -29,7 +29,7 @@ public abstract class BaseFragment extends CustomSupportFragment implements Base
 
     private static final String TAG = "BaseFragment";
     protected static String PARAMETER = "param1";
-    protected Context mContext = MyApplication.getContext();
+    protected Context mContext = MyApp.getContext();
     protected CustomProgressDialog mProgressDialog;
     private View view;
 

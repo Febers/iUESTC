@@ -10,8 +10,8 @@ package com.febers.iuestc.module.login.model;
 
 import android.util.Log;
 
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.R;
-import com.febers.iuestc.MyApplication;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.module.login.presenter.LoginContract;
@@ -71,7 +71,7 @@ public class LoginResolver implements LoginContract.Resolver {
      * @return js函数
      */
     private String  idAndPwFunc() {
-        String userId = SPUtil.getInstance().get(MyApplication.getContext()
+        String userId = SPUtil.getInstance().get(MyApp.getContext()
                 .getString(R.string.sp_user_id), "");
         return "javascript:function fun(){document.getElementById('mobileUsername').value='" + userId + "';" +
                 "document.getElementById('mobilePassword').value='" + "" + "';}";

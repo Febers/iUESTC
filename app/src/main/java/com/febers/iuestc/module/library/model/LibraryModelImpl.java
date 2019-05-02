@@ -11,7 +11,7 @@ package com.febers.iuestc.module.library.model;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
@@ -126,7 +126,7 @@ public class LibraryModelImpl implements LibraryContract.Model {
             bookList.add(book);
         }
         if (bookList.size() != 0) {
-            SharedPreferences preferences = MyApplication.getContext()
+            SharedPreferences preferences = MyApp.getContext()
                     .getSharedPreferences("book_history", 0);
             SharedPreferences.Editor editor = preferences.edit();
             int size = preferences.getInt("size", 0);
@@ -137,7 +137,7 @@ public class LibraryModelImpl implements LibraryContract.Model {
             editor.putInt("size", i);
             editor.apply();
         }
-        SPUtil.getInstance().put(MyApplication.getContext()
+        SPUtil.getInstance().put(MyApp.getContext()
                 .getString(R.string.sp_library_history), true);
         libraryPresenter.historyResult(bookList);
     }
@@ -232,7 +232,7 @@ public class LibraryModelImpl implements LibraryContract.Model {
     }
 
     private Boolean loadLocalHistory() {
-        SharedPreferences preferences = MyApplication.getContext().getSharedPreferences("book_history", 0);
+        SharedPreferences preferences = MyApp.getContext().getSharedPreferences("book_history", 0);
         int size = preferences.getInt("size", 0);
         if (size == 0) {
             return false;

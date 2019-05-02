@@ -12,7 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.febers.iuestc.MyApplication;
+import com.febers.iuestc.MyApp;
 import com.febers.iuestc.view.adapter.AdapterGrade;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
@@ -35,7 +35,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
 
     private static final String TAG = "GradeListFragment";
     private RecyclerView recyclerView;
-    private Context context = MyApplication.getContext();
+    private Context context = MyApp.getContext();
     private AdapterGrade adapterGrade;
     private GradeContract.Presenter gradePresenter = new GradePresenterImpl(this);
     private List<BeanGrade> mGradeList = new ArrayList<>();
@@ -65,7 +65,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
             isRefresh = true;
         }
         if (isRefresh) {
-            if (!MyApplication.checkNetConnecting()) {
+            if (!MyApp.checkNetConnecting()) {
                 onError("当前网络不可用");
                 return;
             }
@@ -103,7 +103,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
     }
 
     @Override
-    public void statusToFail() {
+    public void statusLoss() {
         startActivityForResult(new Intent(getActivity(), LoginActivity.class), BaseCode.STATUS);
     }
 }

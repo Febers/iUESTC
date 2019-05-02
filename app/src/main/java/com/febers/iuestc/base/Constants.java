@@ -5,6 +5,7 @@ public final class Constants {
     public static final String USER_ID = "user_id";
     public static final String USER_PW = "user_pw";
     public static final String IS_LOGIN = "is_login";
+    public static final String THEME_CHANGED = "theme_changed";
 
     public static final String EXAM_FIRST_TERM = "exam_first_exam";
     public static final String EXAM_SECOND_TERM = "exam_second_exam";

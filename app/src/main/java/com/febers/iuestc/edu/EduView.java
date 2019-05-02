@@ -11,5 +11,5 @@ package com.febers.iuestc.edu;
 import com.febers.iuestc.base.BaseView;
 
 public interface EduView extends BaseView {
-    default void statusToFail(){}
+    default void statusLoss(){ }
 }
