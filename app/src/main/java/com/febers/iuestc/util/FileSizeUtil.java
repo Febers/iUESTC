@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-8-9 下午3:45
- *
- */
-
 package com.febers.iuestc.util;
 
 import android.annotation.TargetApi;

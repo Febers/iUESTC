@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-21 下午8:14
- *
- */
-
 package com.febers.iuestc.module.service.presenter;
 
 import android.graphics.Bitmap;
@@ -14,16 +6,17 @@ import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BasePresenter;
 import com.febers.iuestc.base.BaseView;
 
-public interface SchoolCalendarContact {
+public interface CalenderContact {
 
-
-
+    interface Model {
+        void calendarService(Boolean isRefresh) throws Exception;
+    }
 
     interface View extends BaseView {
         void showCalender(BaseEvent baseEvent);
     }
 
-    abstract class Presenter extends BasePresenter<SchoolCalendarContact.View> {
+    abstract class Presenter extends BasePresenter<CalenderContact.View> {
 
         public Presenter(View view) {
             super(view);

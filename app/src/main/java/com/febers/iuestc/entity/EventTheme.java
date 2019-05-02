@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-4 下午8:28
- *
- */
-
 package com.febers.iuestc.entity;
 
 public class EventTheme {

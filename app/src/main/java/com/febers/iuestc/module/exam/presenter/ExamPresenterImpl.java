@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.exam.presenter;
 
 import com.febers.iuestc.base.BaseEvent;
@@ -30,8 +22,8 @@ public class ExamPresenterImpl extends ExamContract.Presenter {
 
     @Override
     public void examResult(BaseEvent<List<BeanExam>> event) {
-        if (mEduView != null) {
-            mEduView.showExam(event);
+        if (eduView != null) {
+            eduView.showExam(event);
         }
     }
 }

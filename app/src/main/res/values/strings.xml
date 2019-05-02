@@ -1,11 +1,4 @@
-<!--
-  ~ Created by Febers 2018.
-  ~ Copyright (c). All rights reserved.
-  ~
-  ~ Last Modified 18-6-7 下午12:40
-  ~
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">i成电</string>
     <string name="app_version">beta 3.2.3</string>
@@ -41,40 +34,13 @@
     <string name="sp_user_position">user_position</string>
     <string name="sp_user_address">user_address</string>
 
-    <string name="sp_ecard_is_login">ecard_is_login</string>
-    <string name="sp_ecard_user_id">ecard_user_id</string>
-    <string name="sp_ecard_user_phone">ecard_user_phone</string>
-    <string name="sp_ecard_user_pw">ecard_user_pw</string>
-    <string name="sp_ecard_balance">ecard_balance</string>
-    <string name="sp_ecard_number">ecard_number</string>
-    <string name="sp_ecard_status">ecard_status</string>
-    <string name="sp_ecard_value_date">ecard_value_date</string>
-    <string name="sp_ecard_no_get">ecard_no_get</string>
-    <string name="sp_ecard_el_balance">el_balance</string>
-    <string name="sp_ecard_bind_number">ecard_bind_number</string>
-
-    <string name="sp_exam_final">exam_1</string>
-    <string name="sp_exam_middle">exam_2</string>
-
     <string name="sp_semester">203</string>
-    <string name="sp_now_week">now_week</string>
-    <string name="sp_course_count">course_count</string>
-    <string name="sp_get_course">get_course</string>
-
-    <string name="sp_course_last_time">course_last_time</string>
-    <string name="sp_course_first_get">course_first_get</string>
 
     <string name="sp_library_history">library_history</string>
     <string name="sp_library_school_net">library_school_net</string>
 
     <string name="navigation_drawer_open">open_drawer</string>
     <string name="navigation_drawer_close">close_drawer</string>
-
-    <string name="sp_grade">grade</string>
-    <string name="sp_get_grade">get_grade</string>
-    <string name="sp_get_calender">get_calender</string>
-    <string name="sp_get_bus">get_bus</string>
-    <string name="sp_history_url">history_url</string>
 
     <item name="btn_course_day_time" type="id" />
 </resources>

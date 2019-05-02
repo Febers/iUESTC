@@ -1,14 +1,5 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.course.model;
 
-import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseModel;
@@ -27,29 +18,29 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.febers.iuestc.base.Constants.COURSE_GET;
 import static com.febers.iuestc.util.CourseUtil.resolveRepeatCourse;
 
 public class CourseModelImpl extends BaseModel implements CourseContract.Model {
 
     private static final String TAG = "CourseModelImpl";
 
-    private CourseContract.Presenter mCoursePresenter;
+    private CourseContract.Presenter coursePresenter;
 
     public CourseModelImpl(CourseContract.Presenter coursePresenter) {
         super(coursePresenter);
-        mCoursePresenter = coursePresenter;
+        this.coursePresenter = coursePresenter;
     }
 
     @Override
     public void updateCourseService(Boolean isRefresh) {
-        Boolean gotCourse = SPUtil.getInstance().get(mContext
-                .getString(R.string.sp_get_course), false);
+        Boolean courseGot = SPUtil.INSTANCE().get(COURSE_GET, false);
         new Thread( () ->{
-            if (gotCourse && (!isRefresh)) {
+            if (courseGot && (!isRefresh)) {
                 getSavedCourse();
-                return;
+            } else {
+                getHttpData();
             }
-            getHttpData();
         }).start();
     }
 
@@ -97,27 +88,27 @@ public class CourseModelImpl extends BaseModel implements CourseContract.Model {
             courseList = CourseResolver.resolveUnderCourseHtml(new StringBuilder(courseHtml));
 
         } catch (SocketTimeoutException e) {
-            mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
-            SPUtil.getInstance().put("get_course", false);
+            coursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
+            SPUtil.INSTANCE().put(COURSE_GET, false);
             serviceError(NET_TIMEOUT);
             return;
         } catch (Exception e) {
             e.printStackTrace();
-            mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
-            SPUtil.getInstance().put("get_course", false);
+            coursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
+            SPUtil.INSTANCE().put(COURSE_GET, false);
             serviceError(UNKNOWN_ERROR);
             return;
         }
-        SPUtil.getInstance().put("get_course", true);
+        SPUtil.INSTANCE().put(COURSE_GET, true);
         BaseEvent<List<BeanCourse>> event = new BaseEvent<>(BaseCode.UPDATE, resolveRepeatCourse(courseList));
-        mCoursePresenter.underCourseResult(event);
+        coursePresenter.underCourseResult(event);
     }
 
     //加载本地文件获得的课程列表
     private void getSavedCourse() {
         try {
             List<BeanCourse> courseList = CourseStore.getByFile();
-            mCoursePresenter.underCourseResult(new BaseEvent<>(BaseCode.LOCAL, resolveRepeatCourse(courseList)));
+            coursePresenter.underCourseResult(new BaseEvent<>(BaseCode.LOCAL, resolveRepeatCourse(courseList)));
         } catch (Exception e) {
             e.printStackTrace();
         }

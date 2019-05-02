@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.login.presenter;
 
 import com.febers.iuestc.edu.EduPresenter;
@@ -24,7 +16,7 @@ public interface LoginContract {
     }
 
     interface View extends EduView {
-        default void loadIdAndPwFunc(BaseEvent<String> event){}
+        default void loadIdAndPwFunc(BaseEvent<String> event){ }
         void loginResult(BaseEvent<String> event);
     }
 

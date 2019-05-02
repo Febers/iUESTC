@@ -1,11 +1,4 @@
-<!--
-  ~ Created by Febers 2018.
-  ~ Copyright (c). All rights reserved.
-  ~
-  ~ Last Modified 18-5-6 上午3:01
-  ~
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Declare custom theme attributes that allow changing which styles are

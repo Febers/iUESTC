@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-7 下午4:05
- *
- */
-
 package com.febers.iuestc.module.course.view;
 
 import android.graphics.Color;
@@ -30,9 +22,10 @@ import java.util.Locale;
 
 import androidx.fragment.app.FragmentActivity;
 
-import static com.febers.iuestc.module.course.model.CourseConstants.COURSE_NO_NOW;
-import static com.febers.iuestc.module.course.model.CourseConstants.COURSE_OUT_WEEK;
-
+import static com.febers.iuestc.base.Constants.COURSE_LAST_TIME;
+import static com.febers.iuestc.base.Constants.COURSE_NOW_WEEK;
+import static com.febers.iuestc.base.Constants.COURSE_NO_NOW;
+import static com.febers.iuestc.base.Constants.COURSE_OUT_WEEK;
 
 public class CourseViewHelper implements View.OnClickListener {
 
@@ -50,24 +43,24 @@ public class CourseViewHelper implements View.OnClickListener {
     private int[] mBackground = {R.drawable.cornerbg_blue, R.drawable.cornerbg_green, R.drawable.cornerbg_orange,
             R.drawable.cornerbg_teal, R.drawable.cornerbg_cyan, R.drawable.cornerbg_red};
 
-    private List<BeanCourse> mCourseList = new ArrayList<>();
-    private FragmentActivity mActivity;
+    private List<BeanCourse> courseList = new ArrayList<>();
+    private FragmentActivity activity;
 
-    CourseViewHelper(FragmentActivity mActivity) {
-        this.mActivity = mActivity;
+    CourseViewHelper(FragmentActivity activity) {
+        this.activity = activity;
     }
 
     void create(List<BeanCourse> courseList, int nowWeek, List<Button> buttonList) {
-        mCourseList.clear();
-        mCourseList.addAll(courseList);
+        this.courseList.clear();
+        this.courseList.addAll(courseList);
         //与上次打开相比,更新周数
         int interval = CourseUtil.getWeekInterval();
         nowWeek = nowWeek + interval;
 
-        for (int i = 0; i < mCourseList.size(); i++) {
-            BeanCourse course = mCourseList.get(i);
+        for (int i = 0; i < this.courseList.size(); i++) {
+            BeanCourse course = this.courseList.get(i);
             //通过判断周数判断是否要显示课程
-            String week = mCourseList.get(i).getWeek();
+            String week = this.courseList.get(i).getWeek();
             String result = CourseUtil.checkIsInNowWeek(week, nowWeek);
             if (result.equals(COURSE_NO_NOW)) {
                 continue;
@@ -84,7 +77,7 @@ public class CourseViewHelper implements View.OnClickListener {
                 positionTime = 5;
             }
 
-            Button btn = mActivity.findViewById(mButtonIdArray[positionDay][positionTime]);
+            Button btn = activity.findViewById(mButtonIdArray[positionDay][positionTime]);
             setButtonHeight(btn, 1f);
             btn.setTag(R.id.btn_course_day_time, course.getDay()+course.getTime());
             //修改高度
@@ -101,7 +94,7 @@ public class CourseViewHelper implements View.OnClickListener {
                 btn.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             }
 
-            if (mCourseList.get(i).getRepeat()) {
+            if (this.courseList.get(i).getRepeat()) {
                 btn.setBackgroundResource(R.drawable.corner_with_rectangle);
             } else {
                 btn.setBackgroundResource(mBackground[RandomUtil.getRandomFrom0(6)]);
@@ -117,8 +110,8 @@ public class CourseViewHelper implements View.OnClickListener {
             //获取当前标准格式的时间并保存
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
             String time = sdf.format(new Date());
-            SPUtil.getInstance().put(mActivity.getString(R.string.sp_course_last_time), time);
-            SPUtil.getInstance().put(mActivity.getString(R.string.sp_now_week), nowWeek);
+            SPUtil.INSTANCE().put(COURSE_LAST_TIME, time);
+            SPUtil.INSTANCE().put(COURSE_NOW_WEEK, nowWeek);
             buttonList.add(btn);
         }
     }
@@ -126,23 +119,23 @@ public class CourseViewHelper implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         String nameAndDayAndTime = v.getTag(R.id.btn_course_day_time).toString();
-        for (int i = 0; i < mCourseList.size(); i++) {
-            BeanCourse course1 = mCourseList.get(i);
+        for (int i = 0; i < courseList.size(); i++) {
+            BeanCourse course1 = courseList.get(i);
             if ((course1.getDay()+course1.getTime()).equals(nameAndDayAndTime)) {
                 CustomCourseDialog customCourseDialog;
-                if (!mCourseList.get(i).getRepeat()) {
-                    customCourseDialog = new CustomCourseDialog(mActivity, course1);
+                if (!courseList.get(i).getRepeat()) {
+                    customCourseDialog = new CustomCourseDialog(activity, course1);
                     customCourseDialog.show();
                     return;
                 } else {
-                    for (int j = 0; j < mCourseList.size(); j++) {
-                        BeanCourse course2 = mCourseList.get(j);
+                    for (int j = 0; j < courseList.size(); j++) {
+                        BeanCourse course2 = courseList.get(j);
                         if (i == j) {
                             continue;
                         }
                         if ((course1.getDay()+course1.getTime())
                                 .equals(course2.getDay()+course2.getTime())) {
-                            customCourseDialog = new CustomCourseDialog(mActivity,
+                            customCourseDialog = new CustomCourseDialog(activity,
                                     course1, course2);
                             customCourseDialog.show();
                             return;
@@ -156,7 +149,7 @@ public class CourseViewHelper implements View.OnClickListener {
     private void setButtonHeight(Button button, float multi) {
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) button.getLayoutParams();
         params.height = ((int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, multi*96, mActivity.getResources().getDisplayMetrics()));
+                TypedValue.COMPLEX_UNIT_DIP, multi*96, activity.getResources().getDisplayMetrics()));
         button.setLayoutParams(params);
     }
 }

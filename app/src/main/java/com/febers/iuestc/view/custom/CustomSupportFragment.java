@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-3 下午10:50
- *
- */
-
 package com.febers.iuestc.view.custom;
 
 import android.app.Activity;
@@ -24,12 +16,12 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 public abstract class CustomSupportFragment extends Fragment implements ISupportFragment {
 
-    final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
-    protected FragmentActivity mActivity;
+    final SupportFragmentDelegate delegate = new SupportFragmentDelegate(this);
+    protected FragmentActivity activity;
 
     @Override
     public SupportFragmentDelegate getSupportDelegate() {
-        return mDelegate;
+        return delegate;
     }
 
     /**
@@ -38,73 +30,73 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public ExtraTransaction extraTransaction() {
-        return mDelegate.extraTransaction();
+        return delegate.extraTransaction();
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mDelegate.onAttach(activity);
-        mActivity = mDelegate.getActivity();
+        delegate.onAttach(activity);
+        this.activity = delegate.getActivity();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDelegate.onCreate(savedInstanceState);
+        delegate.onCreate(savedInstanceState);
     }
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        return mDelegate.onCreateAnimation(transit, enter, nextAnim);
+        return delegate.onCreateAnimation(transit, enter, nextAnim);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mDelegate.onActivityCreated(savedInstanceState);
+        delegate.onActivityCreated(savedInstanceState);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mDelegate.onSaveInstanceState(outState);
+        delegate.onSaveInstanceState(outState);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mDelegate.onResume();
+        delegate.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mDelegate.onPause();
+        delegate.onPause();
     }
 
     @Override
     public void onDestroyView() {
-        mDelegate.onDestroyView();
+        delegate.onDestroyView();
         super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        mDelegate.onDestroy();
+        delegate.onDestroy();
         super.onDestroy();
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        mDelegate.onHiddenChanged(hidden);
+        delegate.onHiddenChanged(hidden);
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        mDelegate.setUserVisibleHint(isVisibleToUser);
+        delegate.setUserVisibleHint(isVisibleToUser);
     }
 
     /**
@@ -119,7 +111,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
     @Deprecated
     @Override
     public void enqueueAction(Runnable runnable) {
-        mDelegate.enqueueAction(runnable);
+        delegate.enqueueAction(runnable);
     }
 
     /**
@@ -131,7 +123,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public void post(Runnable runnable) {
-        mDelegate.post(runnable);
+        delegate.post(runnable);
     }
 
     /**
@@ -140,7 +132,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        mDelegate.onEnterAnimationEnd(savedInstanceState);
+        delegate.onEnterAnimationEnd(savedInstanceState);
     }
 
 
@@ -151,7 +143,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        mDelegate.onLazyInitView(savedInstanceState);
+        delegate.onLazyInitView(savedInstanceState);
     }
 
     /**
@@ -162,7 +154,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public void onSupportVisible() {
-        mDelegate.onSupportVisible();
+        delegate.onSupportVisible();
     }
 
     /**
@@ -172,7 +164,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public void onSupportInvisible() {
-        mDelegate.onSupportInvisible();
+        delegate.onSupportInvisible();
     }
 
     /**
@@ -180,7 +172,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     final public boolean isSupportVisible() {
-        return mDelegate.isSupportVisible();
+        return delegate.isSupportVisible();
     }
 
     /**
@@ -189,7 +181,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
-        return mDelegate.onCreateFragmentAnimator();
+        return delegate.onCreateFragmentAnimator();
     }
 
     /**
@@ -199,7 +191,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public FragmentAnimator getFragmentAnimator() {
-        return mDelegate.getFragmentAnimator();
+        return delegate.getFragmentAnimator();
     }
 
     /**
@@ -207,7 +199,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public void setFragmentAnimator(FragmentAnimator fragmentAnimator) {
-        mDelegate.setFragmentAnimator(fragmentAnimator);
+        delegate.setFragmentAnimator(fragmentAnimator);
     }
 
     /**
@@ -217,7 +209,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public boolean onBackPressedSupport() {
-        return mDelegate.onBackPressedSupport();
+        return delegate.onBackPressedSupport();
     }
 
     /**
@@ -229,7 +221,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public void setFragmentResult(int resultCode, Bundle bundle) {
-        mDelegate.setFragmentResult(resultCode, bundle);
+        delegate.setFragmentResult(resultCode, bundle);
     }
 
     /**
@@ -241,7 +233,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
-        mDelegate.onFragmentResult(requestCode, resultCode, data);
+        delegate.onFragmentResult(requestCode, resultCode, data);
     }
 
     /**
@@ -255,7 +247,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public void onNewBundle(Bundle args) {
-        mDelegate.onNewBundle(args);
+        delegate.onNewBundle(args);
     }
 
     /**
@@ -265,7 +257,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      */
     @Override
     public void putNewBundle(Bundle newBundle) {
-        mDelegate.putNewBundle(newBundle);
+        delegate.putNewBundle(newBundle);
     }
 
 
@@ -275,14 +267,14 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      * 隐藏软键盘
      */
     protected void hideSoftInput() {
-        mDelegate.hideSoftInput();
+        delegate.hideSoftInput();
     }
 
     /**
      * 显示软键盘,调用该方法后,会在onPause时自动隐藏软键盘
      */
     protected void showSoftInput(final View view) {
-        mDelegate.showSoftInput(view);
+        delegate.showSoftInput(view);
     }
 
     /**
@@ -292,18 +284,18 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      * @param toFragment  目标Fragment
      */
     public void loadRootFragment(int containerId, ISupportFragment toFragment) {
-        mDelegate.loadRootFragment(containerId, toFragment);
+        delegate.loadRootFragment(containerId, toFragment);
     }
 
     public void loadRootFragment(int containerId, ISupportFragment toFragment, boolean addToBackStack, boolean allowAnim) {
-        mDelegate.loadRootFragment(containerId, toFragment, addToBackStack, allowAnim);
+        delegate.loadRootFragment(containerId, toFragment, addToBackStack, allowAnim);
     }
 
     /**
      * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
      */
     public void loadMultipleRootFragment(int containerId, int showPosition, ISupportFragment... toFragments) {
-        mDelegate.loadMultipleRootFragment(containerId, showPosition, toFragments);
+        delegate.loadMultipleRootFragment(containerId, showPosition, toFragments);
     }
 
     /**
@@ -315,39 +307,39 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      * @param showFragment 需要show的Fragment
      */
     public void showHideFragment(ISupportFragment showFragment) {
-        mDelegate.showHideFragment(showFragment);
+        delegate.showHideFragment(showFragment);
     }
 
     /**
      * show一个Fragment,hide一个Fragment ; 主要用于类似微信主页那种 切换tab的情况
      */
     public void showHideFragment(ISupportFragment showFragment, ISupportFragment hideFragment) {
-        mDelegate.showHideFragment(showFragment, hideFragment);
+        delegate.showHideFragment(showFragment, hideFragment);
     }
 
     public void start(ISupportFragment toFragment) {
-        mDelegate.start(toFragment);
+        delegate.start(toFragment);
     }
 
     /**
      * @param launchMode Similar to Activity's LaunchMode.
      */
     public void start(final ISupportFragment toFragment, @LaunchMode int launchMode) {
-        mDelegate.start(toFragment, launchMode);
+        delegate.start(toFragment, launchMode);
     }
 
     /**
      * Launch an fragment for which you would like a result when it poped.
      */
     public void startForResult(ISupportFragment toFragment, int requestCode) {
-        mDelegate.startForResult(toFragment, requestCode);
+        delegate.startForResult(toFragment, requestCode);
     }
 
     /**
      * Start the target Fragment and pop itself
      */
     public void startWithPop(ISupportFragment toFragment) {
-        mDelegate.startWithPop(toFragment);
+        delegate.startWithPop(toFragment);
     }
 
     /**
@@ -356,23 +348,23 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      * @see #start(ISupportFragment)
      */
     public void startWithPopTo(ISupportFragment toFragment, Class<?> targetFragmentClass, boolean includeTargetFragment) {
-        mDelegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment);
+        delegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment);
     }
 
 
     public void replaceFragment(ISupportFragment toFragment, boolean addToBackStack) {
-        mDelegate.replaceFragment(toFragment, addToBackStack);
+        delegate.replaceFragment(toFragment, addToBackStack);
     }
 
     public void pop() {
-        mDelegate.pop();
+        delegate.pop();
     }
 
     /**
      * Pop the child fragment.
      */
     public void popChild() {
-        mDelegate.popChild();
+        delegate.popChild();
     }
 
     /**
@@ -385,7 +377,7 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      * @param includeTargetFragment 是否包含该fragment
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment) {
-        mDelegate.popTo(targetFragmentClass, includeTargetFragment);
+        delegate.popTo(targetFragmentClass, includeTargetFragment);
     }
 
     /**
@@ -393,23 +385,23 @@ public abstract class CustomSupportFragment extends Fragment implements ISupport
      * 如果你想在出栈后, 立刻进行FragmentTransaction操作，请使用该方法
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable) {
-        mDelegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable);
+        delegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable);
     }
 
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable, int popAnim) {
-        mDelegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim);
+        delegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim);
     }
 
     public void popToChild(Class<?> targetFragmentClass, boolean includeTargetFragment) {
-        mDelegate.popToChild(targetFragmentClass, includeTargetFragment);
+        delegate.popToChild(targetFragmentClass, includeTargetFragment);
     }
 
     public void popToChild(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable) {
-        mDelegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable);
+        delegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable);
     }
 
     public void popToChild(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable, int popAnim) {
-        mDelegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim);
+        delegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim);
     }
 
     /**

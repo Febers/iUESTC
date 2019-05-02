@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-4 下午6:18
- *
- */
-
 package com.febers.iuestc.home.view;
 
 import android.os.Bundle;

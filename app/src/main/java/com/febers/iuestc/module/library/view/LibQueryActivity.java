@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-7 下午4:53
- *
- */
-
 package com.febers.iuestc.module.library.view;
 
 import android.content.Intent;
@@ -15,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.febers.iuestc.MyApp;
+import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.adapter.AdapterQuery;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
@@ -38,7 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class LibQueryActivity extends BaseSwipeActivity implements LibraryContract.View {
 
     private static final String TAG = "LibQueryActivity";
-    private List<BeanBook> mBookList = new ArrayList<>();
+    private List<BeanBook> bookList = new ArrayList<>();
     private LibraryContract.Presenter libraryPresenter;
     private SmartRefreshLayout smartRefreshLayout;
     private RecyclerView rvLibQuery;
@@ -51,6 +44,16 @@ public class LibQueryActivity extends BaseSwipeActivity implements LibraryContra
     @Override
     protected int setView() {
         return R.layout.activity_lib_query;
+    }
+
+    @Override
+    protected int setToolbar() {
+        return R.id.tb_lib_query;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return "图书检索";
     }
 
     @Override
@@ -67,17 +70,9 @@ public class LibQueryActivity extends BaseSwipeActivity implements LibraryContra
         keyword = getIntent().getStringExtra("keyword");
         type = getIntent().getIntExtra("type", 0);
 
-        Toolbar toolbar = findViewById(R.id.tb_lib_query);
-        toolbar.setTitle("图书检索");
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
         rvLibQuery.setLayoutManager(new LinearLayoutManager(this));
         rvLibQuery.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        adapterQuery = new AdapterQuery(this, mBookList);
+        adapterQuery = new AdapterQuery(this, bookList);
         rvLibQuery.setAdapter(adapterQuery);
         adapterQuery.setOnItemClickListener((viewHolder, beanBook, i) -> {
             Intent intent = new Intent(LibQueryActivity.this, LibDetailActivity.class);
@@ -85,11 +80,11 @@ public class LibQueryActivity extends BaseSwipeActivity implements LibraryContra
             startActivity(intent);
         });
         smartRefreshLayout.setEnableRefresh(false);
-        if (mBookList.size() == 0) {
+        if (bookList.size() == 0) {
             smartRefreshLayout.setEnableLoadMore(false);
         }
         smartRefreshLayout.setOnLoadMoreListener( (RefreshLayout refreshLayout) ->{
-            page = mBookList.size() / 12 + 1;
+            page = bookList.size() / 12 + 1;
             sendQueryRequest(true, keyword, type, page);
         });
         sendQueryRequest(false, keyword, type, page);
@@ -99,12 +94,8 @@ public class LibQueryActivity extends BaseSwipeActivity implements LibraryContra
     public void showQuery(BaseEvent<List<BeanBook>> event) {
         dismissProgressDialog();
         smartRefreshLayout.finishLoadMore();
-        mBookList.addAll(event.getDate());
-        Log.i(TAG, "showQuery: " + mBookList.size());
-        for (BeanBook book : mBookList) {
-            Log.i(TAG, "showQuery: " + book.getName());
-        }
-        Log.i(TAG, "showQuery: " + (adapterQuery == null));
+        bookList.addAll(event.getDate());
+
         if (!(event.getDate().size()<12)) {
             smartRefreshLayout.setEnableLoadMore(true);
         }
@@ -123,7 +114,7 @@ public class LibQueryActivity extends BaseSwipeActivity implements LibraryContra
 
     private void sendQueryRequest(Boolean isLoadMore, String keyword, int type, int page) {
         if (!MyApp.checkNetConnecting()) {
-            Toast.makeText(LibQueryActivity.this, "当前网络不可用", Toast.LENGTH_SHORT).show();
+            ToastUtil.showShortToast("当前网络不可用");
             return;
         }
         if (!isLoadMore) {
@@ -131,7 +122,6 @@ public class LibQueryActivity extends BaseSwipeActivity implements LibraryContra
         }
         libraryPresenter.queryRequest(keyword, type, page);
     }
-
 
     @Override
     public void showBookDetail(BaseEvent<String> event) {

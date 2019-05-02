@@ -1,11 +1,4 @@
-<!--
-  ~ Created by Febers 2018.
-  ~ Copyright (c). All rights reserved.
-  ~
-  ~ Last Modified 18-6-6 下午10:02
-  ~
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="course_btn_height">96dp</dimen>

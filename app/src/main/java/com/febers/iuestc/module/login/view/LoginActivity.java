@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-28 下午5:55
- *
- */
-
 package com.febers.iuestc.module.login.view;
 
 import android.webkit.WebView;
@@ -24,9 +16,6 @@ import com.febers.iuestc.util.WebViewUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-
 public class LoginActivity extends BaseSwipeActivity implements LoginContract.View {
 
     private static final String TAG = "LoginActivity";
@@ -38,15 +27,18 @@ public class LoginActivity extends BaseSwipeActivity implements LoginContract.Vi
     }
 
     @Override
-    protected void initView() {
-        Toolbar toolbar = findViewById(R.id.tb_login);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        webView = findViewById(R.id.web_login);
+    protected int setToolbar() {
+        return R.id.tb_login;
+    }
 
+    @Override
+    protected String setToolbarTitle() {
+        return "登录";
+    }
+
+    @Override
+    protected void initView() {
+        webView = findViewById(R.id.web_login);
         dataRequest(true);
     }
 
@@ -71,7 +63,7 @@ public class LoginActivity extends BaseSwipeActivity implements LoginContract.Vi
     @Override
     public void loginResult(BaseEvent<String> event) {
         if (event.getCode() == BaseCode.UPDATE) {
-            SPUtil.getInstance().put(Constants.IS_LOGIN, true);
+            SPUtil.INSTANCE().put(Constants.IS_LOGIN, true);
 //            Intent intent = new Intent();
 //            intent.putExtra("status", true);
 //            this.setResult(BaseCode.STATUS, intent);

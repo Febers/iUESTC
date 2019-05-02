@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-23 上午11:29
- *
- */
-
 package com.febers.iuestc.module.user.presenter;
 
 import com.febers.iuestc.edu.EduPresenter;
@@ -30,6 +22,7 @@ public interface UserContract {
         }
 
         public abstract void userDetailRequest(Boolean isRefresh);
+
         public abstract void userDetailResult(BaseEvent<BeanUser> event);
     }
 }

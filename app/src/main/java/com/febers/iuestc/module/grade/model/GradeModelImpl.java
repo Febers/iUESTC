@@ -1,16 +1,5 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.grade.model;
 
-import android.content.SharedPreferences;
-
-import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseModel;
 import com.febers.iuestc.entity.BeanGradeSummary;
 import com.febers.iuestc.entity.BeanGrade;
@@ -25,7 +14,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +21,8 @@ import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static com.febers.iuestc.base.Constants.GRADE_GOT;
 
 public class GradeModelImpl extends BaseModel implements GradeContract.Model {
 
@@ -48,10 +38,10 @@ public class GradeModelImpl extends BaseModel implements GradeContract.Model {
     public void gradeService(Boolean isRefresh, String semester) {
         new Thread(()-> {
             if (!isRefresh) {
-                loadLocalGrade();
-                return;
+                loadSavedGrade();
+            } else {
+                getHttpData();
             }
-            getHttpData();
         }).start();
     }
 
@@ -72,8 +62,6 @@ public class GradeModelImpl extends BaseModel implements GradeContract.Model {
                 return;
             }
             resolveUnderGradeHtml(stRes);
-        } catch (SocketTimeoutException e) {
-            serviceError(NET_TIMEOUT);
         } catch (IOException e) {
             e.printStackTrace();
             serviceError(NET_ERROR);
@@ -83,15 +71,15 @@ public class GradeModelImpl extends BaseModel implements GradeContract.Model {
         }
     }
 
-    private void resolveUnderGradeHtml(String souceCode) {
+    private void resolveUnderGradeHtml(String sourceCode) {
         List<BeanGradeSummary> allGradeList = new ArrayList<>();
         List<BeanGrade> gradeList = new ArrayList<>();
-        if (souceCode.equals("")) {
+        if (sourceCode.equals("")) {
             gradePresenter.gradeResult("无", allGradeList, gradeList);
             return;
         }
         try {
-            Document document = Jsoup.parse(souceCode);
+            Document document = Jsoup.parse(sourceCode);
             Elements elements = document.select("table[class=\"gridtable\"]");
             Element all = elements.get(0);
             Element per = elements.get(1);
@@ -132,25 +120,19 @@ public class GradeModelImpl extends BaseModel implements GradeContract.Model {
                 }
                 gradeList.add(grade);
             }
-            GradeStore.saveSourceCode(souceCode);
-            SPUtil.getInstance().put(getStringById(R.string.sp_get_grade), true);
+            GradeStore.saveSourceCode(sourceCode);
+            SPUtil.INSTANCE().put(GRADE_GOT, true);
+
             Collections.sort(allGradeList);
             gradePresenter.gradeResult("成功", allGradeList, gradeList);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void saveUnderGrade(String sourceCode) {
-        SharedPreferences.Editor editor = mContext.getSharedPreferences(getStringById(R.string.sp_grade), 0).edit();
-        editor.putString("sourceCode", sourceCode); //暂时先保存源码,偷懒
-        editor.apply();
-    }
-
-    private void loadLocalGrade() {
+    private void loadSavedGrade() {
         new Thread(()-> {
-//            SharedPreferences preferences = mContext.getSharedPreferences(getStringById(R.string.sp_grade), 0);
-//            String sourceCode = preferences.getString("sourceCode", "");
             resolveUnderGradeHtml(GradeStore.getSourceCode());
         }).start();
     }

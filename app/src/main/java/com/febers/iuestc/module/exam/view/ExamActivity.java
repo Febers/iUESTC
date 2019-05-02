@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.exam.view;
 
 import android.content.Intent;
@@ -32,32 +24,39 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * mType 1为期末考试， 2为期中考试
+ * examType 1为期末考试， 2为期中考试
  */
 public class ExamActivity extends BaseSwipeActivity implements ExamContract.View{
 
     private static final String TAG = "ExamActivity";
 
     private ExamContract.Presenter examPresenter = new ExamPresenterImpl(this);
-    private List<BeanExam> mExamList = new ArrayList<>();
+    private List<BeanExam> examList = new ArrayList<>();
     private SmartRefreshLayout smartRefreshLayout;
     private AdapterExam adapterExam;
     private RecyclerView rvExam;
     private ImageView ivEmpty;
-    private Toolbar mToolbar;
 
     private RadioGroup rgExam;
-    private int mType = 1;
+    private int examType = 1;
 
     @Override
     protected int setView() {
         return R.layout.activity_exam;
+    }
+
+    @Override
+    protected int setToolbar() {
+        return R.id.tb_exam;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return "我的考试";
     }
 
     @Override
@@ -67,7 +66,6 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
 
     @Override
     protected void findViewById() {
-        mToolbar = findViewById(R.id.tb_exam);
         rvExam = findViewById(R.id.rv_exam);
         rgExam = findViewById(R.id.rg_exam);
         ivEmpty = findViewById(R.id.iv_exam_empty);
@@ -76,23 +74,17 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
 
     @Override
     protected void initView() {
-        mToolbar.setTitle("我的考试");
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        adapterExam = new AdapterExam(this, mExamList);
+        adapterExam = new AdapterExam(this, examList);
         rvExam.setLayoutManager(new LinearLayoutManager(this));
         rvExam.setAdapter(adapterExam);
         rgExam.setOnCheckedChangeListener( (RadioGroup group, int checkedId) -> {
                 switch (checkedId) {
                     case R.id.rb_exam_final:
-                        mType = 1;
+                        examType = 1;
                         smartRefreshLayout.autoRefresh();
                         break;
                     case R.id.rb_exam_middle:
-                        mType = 2;
+                        examType = 2;
                         smartRefreshLayout.autoRefresh();
                         break;
                     default:
@@ -128,14 +120,14 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
 
     @Override
     public void dataRequest(Boolean isRefresh) {
-        if (!SPUtil.getInstance().get(getString(R.string.sp_is_login), false)) {
+        if (!SPUtil.INSTANCE().get(getString(R.string.sp_is_login), false)) {
             if (isRefresh) {
                 statusLoss();
                 return;
             }
             return;
         }
-        getExam(isRefresh, mType);
+        getExam(isRefresh, examType);
     }
 
     private void getExam(Boolean isRefresh, int type) {
@@ -152,7 +144,7 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_exam_refresh:
-                getExam(true, mType);
+                getExam(true, examType);
                 break;
             default:
                 break;

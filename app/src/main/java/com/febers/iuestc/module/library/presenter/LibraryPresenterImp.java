@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.library.presenter;
 
 import com.febers.iuestc.base.BaseCode;
@@ -32,8 +24,8 @@ public class LibraryPresenterImp extends LibraryContract.Presenter {
             libraryModel.queryBookService(keyword, type, page);
         } catch (Exception e) {
             e.printStackTrace();
-            if (mView != null) {
-                mView.onError("查询图书出现异常");
+            if (view != null) {
+                view.onError("查询图书出现异常");
                 queryResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
             }
         }
@@ -41,8 +33,8 @@ public class LibraryPresenterImp extends LibraryContract.Presenter {
 
     @Override
     public void queryResult(BaseEvent<List<BeanBook>> event) {
-        if (mView != null) {
-            mView.showQuery(event);
+        if (view != null) {
+            view.showQuery(event);
         }
     }
 
@@ -57,7 +49,7 @@ public class LibraryPresenterImp extends LibraryContract.Presenter {
 
     @Override
     public void historyResult(List<BeanBook> list) {
-        if (mView != null) {
+        if (view != null) {
         }
     }
 
@@ -67,14 +59,14 @@ public class LibraryPresenterImp extends LibraryContract.Presenter {
             libraryModel.bookDetailService(url);
         } catch (Exception e) {
             e.printStackTrace();
-            mView.onError("获取图书详情失败");
+            view.onError("获取图书详情失败");
         }
     }
 
     @Override
     public void bookDetailResult(BaseEvent<String> event) {
-        if (mView != null) {
-            mView.showBookDetail(event);
+        if (view != null) {
+            view.showBookDetail(event);
         }
     }
 }

@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-31 下午5:14
- *
- */
-
 package com.febers.iuestc.module.login.model;
 
 import android.util.Log;
@@ -28,6 +20,7 @@ import org.jsoup.select.Elements;
 public class LoginResolver implements LoginContract.Resolver {
 
     private static final String TAG = "LoginResolver";
+
     private LoginContract.Presenter loginPresenter;
 
     public LoginResolver(LoginContract.Presenter presenter) {
@@ -59,9 +52,9 @@ public class LoginResolver implements LoginContract.Resolver {
                     loginPresenter.loginResult(new BaseEvent<>(BaseCode.UPDATE, "成功"));
                 }
             }
-
         } catch (Exception e) {
             Log.i(TAG, "checkLoginResult: 登录出错");
+            loginPresenter.loginResult(new BaseEvent<>(BaseCode.ERROR, "失败"));
         }
     }
 
@@ -71,7 +64,7 @@ public class LoginResolver implements LoginContract.Resolver {
      * @return js函数
      */
     private String  idAndPwFunc() {
-        String userId = SPUtil.getInstance().get(MyApp.getContext()
+        String userId = SPUtil.INSTANCE().get(MyApp.getContext()
                 .getString(R.string.sp_user_id), "");
         return "javascript:function fun(){document.getElementById('mobileUsername').value='" + userId + "';" +
                 "document.getElementById('mobilePassword').value='" + "" + "';}";

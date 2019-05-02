@@ -1,14 +1,5 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-7 下午4:53
- *
- */
-
 package com.febers.iuestc.module.grade.view;
 
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,8 +12,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -30,7 +19,6 @@ import androidx.viewpager.widget.ViewPager;
 public class GradeActivity extends BaseSwipeActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = "GradeActivity";
-    private Toolbar toolbar;
     private TabLayout tlGrade;
     private CustomViewPager vpGrade;
     private AdapterGradeViewPager adapterGradeViewPager;
@@ -43,22 +31,24 @@ public class GradeActivity extends BaseSwipeActivity implements NavigationView.O
     }
 
     @Override
-    protected void findViewById() {
-        toolbar = findViewById(R.id.tb_grade);
-        vpGrade = findViewById(R.id.vp_grade);
+    protected int setToolbar() {
+        return R.id.tb_grade;
+    }
 
+    @Override
+    protected String setToolbarTitle() {
+        return "我的成绩";
+    }
+
+    @Override
+    protected void findViewById() {
+        vpGrade = findViewById(R.id.vp_grade);
         tlGrade = findViewById(R.id.tl_grade);
         navigationView = findViewById(R.id.nv_grade);
     }
 
     @Override
     protected void initView() {
-        toolbar.setTitle("我的成绩");
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
         vpGrade.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.exam.model;
 
 import com.febers.iuestc.base.BaseCode;
@@ -18,7 +10,6 @@ import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.SemesterUtil;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +24,8 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
 
     private static final String TAG = "ExamModelImpl";
     private ExamContract.Presenter examPresenter;
-    private List<BeanExam> mExamList = new ArrayList<>();
-    private int mType;
+    private List<BeanExam> examList = new ArrayList<>();
+    private int examType;
 
     public ExamModelImpl(ExamContract.Presenter presenter) {
         super(presenter);
@@ -43,17 +34,18 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
 
     /**
      * 获取我的考试
+     *
      * @param type  2表示期中， 1表示期末(默认)
      */
     @Override
     public void examService(Boolean isRefresh, int type) {
-        mType = type;
+        examType = type;
         new Thread(()-> {
-            if (SPUtil.getInstance().get("exam_" + mType, false) && (!isRefresh)) {
-                loadLocalExam();
-                return;
+            if (SPUtil.INSTANCE().get("exam_" + examType, false) && (!isRefresh)) {
+                loadSavedExams();
+            } else {
+                getHttpData();
             }
-            getHttpData();
         }).start();
     }
 
@@ -63,7 +55,7 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
             OkHttpClient client = SingletonClient.getInstance();
             String semesterId = SemesterUtil.getSemesterId();
             String examUrl = "http://eams.uestc.edu.cn/eams/stdExamTable!examTable.action?" +
-                    "semester.id=" + semesterId + "&examType.id=" + mType;
+                    "semester.id=" + semesterId + "&examType.id=" + examType;
             Request request = new Request.Builder()
                     .url(examUrl)
                     .get()
@@ -73,11 +65,9 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
             if (!userAuthenticate(result)) {
                 return;
             }
-            mExamList = ExamResolver.resolveUnderExamHtml(result);
-            examPresenter.examResult(new BaseEvent<>(BaseCode.UPDATE, getPostExams(mExamList)));
-            ExamStore.saveToFile(mExamList, mType);
-        } catch (SocketTimeoutException e) {
-            serviceError(NET_TIMEOUT);
+            examList = ExamResolver.resolveUnderExamHtml(result);
+            examPresenter.examResult(new BaseEvent<>(BaseCode.UPDATE, getPostExams(examList)));
+            ExamStore.saveToFile(examList, examType);
         } catch (IOException e) {
             e.printStackTrace();
             serviceError(NET_ERROR);
@@ -87,13 +77,14 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
         }
     }
 
-    private void loadLocalExam() {
-        mExamList = ExamStore.getByFile(mType);
-        examPresenter.examResult(new BaseEvent<>(BaseCode.LOCAL, getPostExams(mExamList)));
+    private void loadSavedExams() {
+        examList = ExamStore.getByFile(examType);
+        examPresenter.examResult(new BaseEvent<>(BaseCode.LOCAL, getPostExams(examList)));
     }
 
     /**
      * 筛选已发布考试情况的科目，其他隐藏
+     *
      * @param allExam 所有科目
      * @return 已发布
      */

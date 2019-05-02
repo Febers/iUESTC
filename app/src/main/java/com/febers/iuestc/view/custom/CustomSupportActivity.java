@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-3 下午10:56
- *
- */
-
 package com.febers.iuestc.view.custom;
 
 import android.os.Bundle;
@@ -59,7 +51,7 @@ public abstract class CustomSupportActivity extends AppCompatActivity implements
     }
 
     /**
-     * Note： return mDelegate.dispatchTouchEvent(ev) || super.dispatchTouchEvent(ev);
+     * Note： return delegate.dispatchTouchEvent(ev) || super.dispatchTouchEvent(ev);
      */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

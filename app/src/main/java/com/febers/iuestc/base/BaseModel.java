@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-13 下午3:02
- *
- */
-
 package com.febers.iuestc.base;
 
 import android.content.Context;
@@ -42,16 +34,16 @@ public abstract class BaseModel<P extends BasePresenter> {
 
     protected Context mContext = MyApp.getContext();
 
-    protected int mStudentType = SPUtil.getInstance()
+    protected int mStudentType = SPUtil.INSTANCE()
             .get(mContext.getString(R.string.sp_student_type), 0);
 
     protected Boolean isLogin() {
-        return SPUtil.getInstance().get(mContext.getString(R.string.sp_is_login), false);
+        return SPUtil.INSTANCE().get(mContext.getString(R.string.sp_is_login), false);
     }
 
-    protected String getStringById(int id) {
-        return mContext.getString(id);
-    }
+//    protected String getStringById(int id) {
+//        return mContext.getString(id);
+//    }
 
     protected void serviceError(String error) {
         presenter.errorResult(error);

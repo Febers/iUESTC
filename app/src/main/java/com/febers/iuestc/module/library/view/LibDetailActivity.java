@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-8-2 下午8:10
- *
- */
-
 package com.febers.iuestc.module.library.view;
 
 import android.content.Intent;
@@ -21,9 +13,6 @@ import com.febers.iuestc.util.WebViewUtil;
 
 import java.util.List;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-
 public class LibDetailActivity extends BaseSwipeActivity implements LibraryContract.View {
 
     private WebView webView;
@@ -34,13 +23,17 @@ public class LibDetailActivity extends BaseSwipeActivity implements LibraryContr
     }
 
     @Override
+    protected int setToolbar() {
+        return R.id.tb_lib_detail;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return "图书详情";
+    }
+
+    @Override
     protected void initView() {
-        Toolbar toolbar = findViewById(R.id.tb_lib_detail);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
         webView = findViewById(R.id.webview_lib_detail);
@@ -60,10 +53,8 @@ public class LibDetailActivity extends BaseSwipeActivity implements LibraryContr
     @Override
     public void showBookDetail(BaseEvent<String> event) {
         dismissProgressDialog();
-        runOnUiThread(()-> {
-            webView.loadDataWithBaseURL(null, event.getDate(),
-                    "text/html","UTF-8", null);
-        });
+        runOnUiThread(()-> webView.loadDataWithBaseURL(null, event.getDate(),
+                "text/html","UTF-8", null));
     }
 
     @Override

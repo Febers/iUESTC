@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-13 下午2:35
- *
- */
-
 package com.febers.iuestc.entity;
 
 /**

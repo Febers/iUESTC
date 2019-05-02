@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-8-2 上午1:58
- *
- */
-
 package com.febers.iuestc.module.more;
 
 import com.febers.iuestc.R;
@@ -20,11 +12,11 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.febers.iuestc.base.Constants.THEME_CODE;
 
 public class ThemeActivity extends BaseSwipeActivity {
 
@@ -34,14 +26,17 @@ public class ThemeActivity extends BaseSwipeActivity {
     }
 
     @Override
-    protected void initView() {
-        Toolbar toolbar = findViewById(R.id.tb_theme);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+    protected int setToolbar() {
+        return R.id.tb_theme;
+    }
 
+    @Override
+    protected String setToolbarTitle() {
+        return "主题风格";
+    }
+
+    @Override
+    protected void initView() {
         RecyclerView rvTheme = findViewById(R.id.rv_theme);
         rvTheme.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
@@ -78,14 +73,14 @@ public class ThemeActivity extends BaseSwipeActivity {
         themeList.add(teal);
         themeList.add(pink);
         themeList.add(blue);
-        int themeCode = SPUtil.getInstance().get("theme_code", 9);
+        int themeCode = SPUtil.INSTANCE().get(THEME_CODE, 9);
         themeList.get(themeCode).setUsing(true);
         return themeList;
     }
 
 
     private void themeChange(int code) {
-        SPUtil.getInstance().put("theme_code", code);
+        SPUtil.INSTANCE().put(THEME_CODE, code);
         this.recreate();
     }
 }

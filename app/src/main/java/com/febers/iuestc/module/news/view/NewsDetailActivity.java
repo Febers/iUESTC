@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.news.view;
 
 import android.content.Intent;
@@ -42,13 +34,12 @@ public class NewsDetailActivity extends BaseSwipeActivity {
     }
 
     @Override
+    protected int setToolbar() {
+        return R.id.tb_news_detail;
+    }
+
+    @Override
     protected void initView() {
-        Toolbar toolbar = findViewById(R.id.tb_news_detail);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
         collapsingToolbarLayout = findViewById(R.id.ctl_news);
         collapsingToolbarLayout.setTitle(newsTitle);
         webView = findViewById(R.id.webview_news);

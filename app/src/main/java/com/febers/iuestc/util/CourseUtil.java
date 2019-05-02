@@ -1,15 +1,5 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-6 下午7:35
- *
- */
-
 package com.febers.iuestc.util;
 
-import com.febers.iuestc.MyApp;
-import com.febers.iuestc.R;
 import com.febers.iuestc.entity.BeanCourse;
 
 import java.text.ParseException;
@@ -19,12 +9,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.febers.iuestc.module.course.model.CourseConstants.WEEK_NORMAL;
-import static com.febers.iuestc.module.course.model.CourseConstants.WEEK_SINGLE;
-import static com.febers.iuestc.module.course.model.CourseConstants.WEEK_DOUBLE;
-import static com.febers.iuestc.module.course.model.CourseConstants.COURSE_NOW_WEEK;
-import static com.febers.iuestc.module.course.model.CourseConstants.COURSE_NO_NOW;
-import static com.febers.iuestc.module.course.model.CourseConstants.COURSE_OUT_WEEK;
+import static com.febers.iuestc.base.Constants.COURSE_LAST_TIME;
+import static com.febers.iuestc.base.Constants.COURSE_NOW_WEEK;
+import static com.febers.iuestc.base.Constants.COURSE_NO_NOW;
+import static com.febers.iuestc.base.Constants.COURSE_OUT_WEEK;
+import static com.febers.iuestc.base.Constants.WEEK_DOUBLE;
+import static com.febers.iuestc.base.Constants.WEEK_NORMAL;
+import static com.febers.iuestc.base.Constants.WEEK_SINGLE;
+
 
 /**
  *方法一
@@ -137,7 +129,7 @@ public class CourseUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String time = sdf.format(new Date());
         //获取上次时间
-        String lastTime = SPUtil.getInstance().get(MyApp.getContext().getString(R.string.sp_course_last_time), time);
+        String lastTime = SPUtil.INSTANCE().get(COURSE_LAST_TIME, time);
 
         try {
             date = sdf.parse(time);

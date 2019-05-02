@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-8-3 上午12:54
- *
- */
-
 package com.febers.iuestc.util;
 
 import android.view.ViewGroup;

@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-7 下午4:05
- *
- */
-
 package com.febers.iuestc.module.course.model;
 
 import com.febers.iuestc.entity.BeanCourse;
@@ -20,16 +12,16 @@ import java.util.List;
 public class CourseResolver {
 
     private static final String TAG = "CourseResolver";
-    private static List<BeanCourse> mCourseList = new ArrayList<>();
+    private static List<BeanCourse> courseList = new ArrayList<>();
 
     /**
      *
      * @param html  网页源码
-     * @return mCourseList 课程列表
+     * @return courseList 课程列表
      * @throws Exception 如果解析条件不符，返回错误
      */
     static List<BeanCourse> resolveUnderCourseHtml(StringBuilder html) throws Exception{
-        mCourseList.clear();
+        courseList.clear();
         /*
          * 从网页源码中截断有关课表的代码
          */
@@ -64,8 +56,8 @@ public class CourseResolver {
         for (int i = 0; i < partList.size(); i++) {
             getPerUnderCourse(new StringBuilder(partList.get(i)), i);
         }
-        CourseStore.saveToFile(mCourseList);
-        return mCourseList;
+        CourseStore.saveToFile(courseList);
+        return courseList;
     }
 
     /**
@@ -122,6 +114,6 @@ public class CourseResolver {
         BeanCourse beanCourse = new BeanCourse(courseDetail.get(1), courseDetail.get(3), courseDetail.get(5),
                 courseDetail.get(6), CourseUtil.getSimpleWeeks(courseDetail.get(6)),
                 courseDetail.get(7), courseDetail.get(8));
-        mCourseList.add(beanCourse);
+        courseList.add(beanCourse);
     }
 }

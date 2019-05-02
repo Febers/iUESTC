@@ -1,21 +1,11 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-7 上午11:30
- *
- */
-
 package com.febers.iuestc;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
-import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
 import com.febers.iuestc.module.more.UpdateActivity;

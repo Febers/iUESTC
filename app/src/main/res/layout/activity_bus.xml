@@ -10,14 +10,10 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:elevation="0dp">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tb_bus"
-            app:title="校车"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/Theme.AppCompat.Light"
-            app:layout_scrollFlags="scroll|enterAlways|snap"/>
+
+        <include layout="@layout/layout_toolbar"
+            android:id="@+id/tb_bus" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView

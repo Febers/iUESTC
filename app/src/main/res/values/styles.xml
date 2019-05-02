@@ -1,11 +1,4 @@
-<!--
-  ~ Created by Febers 2018.
-  ~ Copyright (c). All rights reserved.
-  ~
-  ~ Last Modified 18-6-6 下午11:02
-  ~
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->

@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-8-10 上午1:07
- *
- */
-
 package com.febers.iuestc.module.more;
 
 import android.content.Intent;

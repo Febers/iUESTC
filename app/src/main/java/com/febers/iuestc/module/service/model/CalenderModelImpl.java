@@ -1,24 +1,12 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-23 上午11:03
- *
- */
-
 package com.febers.iuestc.module.service.model;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
-import com.febers.iuestc.MyApp;
-import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
-import com.febers.iuestc.module.service.presenter.SchoolCalendarContact;
+import com.febers.iuestc.module.service.presenter.CalenderContact;
 import com.febers.iuestc.util.FileUtil;
 import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.ApiUtil;
@@ -36,18 +24,20 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class CalModel implements ICalModel {
+import static com.febers.iuestc.base.Constants.CALENDER_GOT;
 
-    private static final String TAG = "CalModel";
-    private SchoolCalendarContact.Presenter calPresenter;
-    private Context context = MyApp.getContext();
+public class CalenderModelImpl implements CalenderContact.Model {
 
-    public CalModel(SchoolCalendarContact.Presenter presenter) {
+    private static final String TAG = "CalenderModelImpl";
+
+    private CalenderContact.Presenter calPresenter;
+
+    public CalenderModelImpl(CalenderContact.Presenter presenter) {
         calPresenter = presenter;
     }
 
     @Override
-    public void getCalendar(Boolean isRefresh) throws Exception {
+    public void calendarService(Boolean isRefresh) throws Exception {
         if (!isRefresh) {
             new Thread(this::getFromFile).start();
         } else {
@@ -78,8 +68,8 @@ public class CalModel implements ICalModel {
             response = client.newCall(request).execute();
 
             byte[] imgBytes = response.body().bytes();
-            SPUtil.getInstance()
-                    .put(MyApp.getContext().getString(R.string.sp_get_calender), true);
+            SPUtil.INSTANCE().put(CALENDER_GOT, true);
+
             Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
             BaseEvent<Bitmap> calEvent = new BaseEvent<>(BaseCode.UPDATE, bitmap);
             calPresenter.calendarResult(calEvent);
@@ -151,26 +141,5 @@ public class CalModel implements ICalModel {
                 e.printStackTrace();
             }
         }
-    }
-
-    /**
-     * @deprecated 浪费内存
-     */
-    private void saveImage(byte[] bytes) {
-        SharedPreferences.Editor editor = context.getSharedPreferences("calender_bitmap", 0).edit();
-        editor.putString("bitmap", Base64.encodeToString(bytes, Base64.DEFAULT));
-        editor.apply();
-    }
-
-    /**
-     * @deprecated 浪费内存
-     */
-    private void loadLocalImage() {
-        SharedPreferences preferences = context.getSharedPreferences("calender_bitmap", 0);
-        String s = preferences.getString("bitmap","");
-        byte[] bytes = Base64.decode(s, Base64.DEFAULT);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        BaseEvent<Bitmap> calEvent = new BaseEvent<>(BaseCode.LOCAL, bitmap);
-        calPresenter.calendarResult(calEvent);
     }
 }

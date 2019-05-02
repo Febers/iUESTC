@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-31 下午4:55
- *
- */
-
 package com.febers.iuestc.entity;
 
 public class BeanUser {

@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-30 上午11:29
- *
- */
-
 package com.febers.iuestc.module.more;
 
 import android.content.Intent;
@@ -14,22 +6,27 @@ import android.view.View;
 
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseSwipeActivity;
-import com.febers.iuestc.view.custom.CustomUpdateDialog;
 import com.lucasurbas.listitemview.ListItemView;
 import com.tencent.bugly.beta.Beta;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 
 public class AboutActivity extends BaseSwipeActivity implements ListItemView.OnClickListener {
 
     private static final String TAG = "AboutActivity";
     private ListItemView itemViewWebHome, itemViewUpdate, itemViewDeveloper, itemViewEmail;
-    private CustomUpdateDialog updateDialog;
 
     @Override
     protected int setView() {
         return R.layout.activity_about;
+    }
+
+    @Override
+    protected int setToolbar() {
+        return R.id.tb_about;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return "关于";
     }
 
     @Override
@@ -42,12 +39,6 @@ public class AboutActivity extends BaseSwipeActivity implements ListItemView.OnC
 
     @Override
     protected void initView() {
-        Toolbar toolbar = findViewById(R.id.tb_about);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
         itemViewUpdate.setOnClickListener(this);
         itemViewWebHome.setOnClickListener(this);
         itemViewDeveloper.setOnClickListener(this);

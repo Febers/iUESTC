@@ -1,14 +1,5 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.grade.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -31,14 +22,14 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.febers.iuestc.base.Constants.GRADE_GOT;
+
 public class GradeListFragment extends BaseFragment implements GradeContract.View{
 
-    private static final String TAG = "GradeListFragment";
     private RecyclerView recyclerView;
-    private Context context = MyApp.getContext();
     private AdapterGrade adapterGrade;
     private GradeContract.Presenter gradePresenter = new GradePresenterImpl(this);
-    private List<BeanGrade> mGradeList = new ArrayList<>();
+    private List<BeanGrade> gradeList = new ArrayList<>();
 
     @Override
     protected int setContentView() {
@@ -55,13 +46,13 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
     protected void initView() {
         recyclerView = findViewById(R.id.rv_grade_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapterGrade = new AdapterGrade(getContext(), mGradeList);
+        adapterGrade = new AdapterGrade(getContext(), gradeList);
         recyclerView.setAdapter(adapterGrade);
     }
 
     @Override
     public void dataRequest(Boolean isRefresh) {
-        if (!SPUtil.getInstance().get(context.getString(R.string.sp_get_grade), false)) {
+        if (!SPUtil.INSTANCE().get(GRADE_GOT, false)) {
             isRefresh = true;
         }
         if (isRefresh) {
@@ -76,25 +67,25 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
 
     @Override
     public void showGrade(List<BeanGradeSummary> allGrades, List<BeanGrade> grades) {
-        mGradeList = grades;
+        gradeList = grades;
         dismissProgressDialog();
         getActivity().runOnUiThread( () -> {
-            adapterGrade.setNewData(mGradeList);
+            adapterGrade.setNewData(gradeList);
         });
     }
 
     void showGradeByTime(String time) {
         if (time.equals("ic_all_pink")) {
-            showGrade(new ArrayList<>(), mGradeList);
+            showGrade(new ArrayList<>(), gradeList);
             return;
         }
-        if (mGradeList.size() == 0) {
+        if (gradeList.size() == 0) {
             return;
         }
         final List<BeanGrade> tmpList = new ArrayList<>();
-        for (int i = 0; i < mGradeList.size(); i++) {
-            if (mGradeList.get(i).getSemester().contains(time)) {
-                tmpList.add(mGradeList.get(i));
+        for (int i = 0; i < gradeList.size(); i++) {
+            if (gradeList.get(i).getSemester().contains(time)) {
+                tmpList.add(gradeList.get(i));
             }
         }
         getActivity().runOnUiThread( () -> {

@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.grade.presenter;
 
 import com.febers.iuestc.entity.BeanGradeSummary;
@@ -30,8 +22,8 @@ public class GradePresenterImpl extends GradeContract.Presenter {
 
     @Override
     public void gradeResult(String status, List<BeanGradeSummary> allGrades, List<BeanGrade> gradeList) {
-        if (mView != null) {
-            mView.showGrade(allGrades, gradeList);
+        if (view != null) {
+            view.showGrade(allGrades, gradeList);
         }
     }
 }

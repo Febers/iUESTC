@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-23 上午11:29
- *
- */
-
 package com.febers.iuestc.module.user.presenter;
 
 import com.febers.iuestc.base.BaseEvent;
@@ -17,7 +9,6 @@ import com.febers.iuestc.module.user.model.UserModelImpl;
  */
 
 public class UserPresenterImpl extends UserContract.Presenter{
-
 
     public UserPresenterImpl(UserContract.View view) {
         super(view);
@@ -35,6 +26,6 @@ public class UserPresenterImpl extends UserContract.Presenter{
 
     @Override
     public void userDetailResult(BaseEvent<BeanUser> event) {
-        mEduView.showUserDetail(event);
+        eduView.showUserDetail(event);
     }
 }

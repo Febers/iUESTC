@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.course.presenter;
 
 import com.febers.iuestc.edu.EduPresenter;
@@ -32,6 +24,7 @@ public interface CourseContract {
         }
 
         public abstract void courseRequest(Boolean isRefresh);
+
         public abstract void underCourseResult(BaseEvent<List<BeanCourse>> event);
     }
 }

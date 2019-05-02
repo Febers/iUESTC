@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-5 下午11:22
- *
- */
-
 package com.febers.iuestc.home.view;
 
 import android.content.Intent;
@@ -18,6 +10,7 @@ import com.febers.iuestc.R;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

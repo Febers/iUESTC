@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.exam.presenter;
 
 import com.febers.iuestc.edu.EduPresenter;
@@ -29,7 +21,9 @@ public interface ExamContract {
         public Presenter(View view) {
             super(view);
         }
+
         public abstract void examRequest(Boolean isRefresh, int type);
+
         public abstract void examResult(BaseEvent<List<BeanExam>> event);
     }
 }

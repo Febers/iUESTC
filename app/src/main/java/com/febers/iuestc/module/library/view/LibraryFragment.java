@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-5 下午7:40
- *
- */
-
 package com.febers.iuestc.module.library.view;
 
 import android.content.Intent;
@@ -28,7 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 public class LibraryFragment extends BaseFragment implements EditText.OnEditorActionListener {
 
     private EditText etLibFragment;
-    private int mType;
+    private int type;
 
     @Override
     protected int setContentView() {
@@ -43,35 +35,37 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
         }
         Intent intent = new Intent(getActivity(), LibQueryActivity.class);
         intent.putExtra("keyword", keyword);
-        intent.putExtra("type", mType);
+        intent.putExtra("type", type);
         startActivity(intent);
         hideSoftInput();
     }
 
     @Override
-    protected void initView() {
-        Toolbar toolbar = findViewById(R.id.library_toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+    protected int setToolbar() {
+        return R.id.library_toolbar;
+    }
 
+    @Override
+    protected void initView() {
         etLibFragment = findViewById(R.id.et_library_fragemnt);
         etLibFragment.setOnEditorActionListener(this);
         RadioGroup rgLibFragment = findViewById(R.id.rg_library_fragment);
         rgLibFragment.setOnCheckedChangeListener((RadioGroup group, int checkedId) -> {
                     switch (checkedId) {
                         case R.id.rb_lib_keyword:
-                            mType = 0;
+                            type = 0;
                             break;
                         case R.id.rb_lib_author:
-                            mType = 1;
+                            type = 1;
                             break;
                         case R.id.rb_lib_title:
-                            mType = 2;
+                            type = 2;
                             break;
                         case R.id.rb_lib_theme:
-                            mType = 3;
+                            type = 3;
                             break;
                         case R.id.rb_lib_isbn:
-                            mType = 4;
+                            type = 4;
                             break;
                         default:
                             break;

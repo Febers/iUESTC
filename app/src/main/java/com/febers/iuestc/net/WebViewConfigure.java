@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-8-5 下午1:42
- *
- */
-
 package com.febers.iuestc.net;
 
 import android.annotation.SuppressLint;

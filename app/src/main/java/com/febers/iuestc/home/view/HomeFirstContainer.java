@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-4 下午6:17
- *
- */
-
 package com.febers.iuestc.home.view;
 
 import android.os.Bundle;
@@ -17,6 +9,7 @@ import com.febers.iuestc.module.course.view.CourseFragment;
 import androidx.annotation.Nullable;
 
 public class HomeFirstContainer extends BaseFragment {
+
     @Override
     protected int setContentView() {
         return R.layout.container_home_first;

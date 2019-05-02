@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-30 下午1:41
- *
- */
-
 package com.febers.iuestc.module.user.view;
 
 import android.content.Intent;
@@ -27,9 +19,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-
 public class UserActivity extends BaseSwipeActivity implements UserContract.View {
 
     private List<BeanUserItem> userItemList = new ArrayList<>();
@@ -37,26 +26,35 @@ public class UserActivity extends BaseSwipeActivity implements UserContract.View
     private CustomListView lvUserDetail;
     private SmartRefreshLayout smartRefreshLayout;
     BeanUserItem item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12;
+
     @Override
     protected int setView() {
         return R.layout.activity_user;
     }
 
     @Override
-    protected void initView() {
-        Toolbar toolbar = findViewById(R.id.tb_user);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+    protected void findViewById() {
         smartRefreshLayout = findViewById(R.id.srl_user);
+        lvUserDetail = findViewById(R.id.list_view_user);
+    }
+
+    @Override
+    protected int setToolbar() {
+        return R.id.tb_user;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return "账户信息";
+    }
+
+    @Override
+    protected void initView() {
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setOnRefreshListener( (RefreshLayout refreshLayout) -> {
             dataRequest(true);
         });
 
-        lvUserDetail = findViewById(R.id.list_view_user);
         adapterUser = new AdapterUser(this,
                 R.layout.item_user_detail, initList());
         lvUserDetail.setAdapter(adapterUser);

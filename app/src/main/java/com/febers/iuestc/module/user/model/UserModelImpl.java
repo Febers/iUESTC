@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-30 下午2:05
- *
- */
-
 package com.febers.iuestc.module.user.model;
 
 import com.febers.iuestc.R;
@@ -24,6 +16,9 @@ import org.jsoup.select.Elements;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static com.febers.iuestc.base.Constants.USER_ID;
+import static com.febers.iuestc.base.Constants.USER_NAME;
 
 public class UserModelImpl extends BaseModel implements UserContract.Model {
 
@@ -142,10 +137,8 @@ public class UserModelImpl extends BaseModel implements UserContract.Model {
             }
         }
         userPresenter.userDetailResult(new BaseEvent<>(BaseCode.UPDATE, user));
-        SPUtil.getInstance()
-                .put(getStringById(R.string.sp_user_name), user.getChineseName());
-        SPUtil.getInstance()
-                .put(getStringById(R.string.sp_user_id), user.getId());
+        SPUtil.INSTANCE().put(USER_NAME, user.getChineseName());
+        SPUtil.INSTANCE().put(USER_ID, user.getId());
         UserStore.saveUserToFile(user);
     }
 

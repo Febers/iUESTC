@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.news.model;
 
 import android.util.Log;
@@ -32,14 +24,14 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class NewsModel implements NewsContract.Model {
+public class NewsModelImpl implements NewsContract.Model {
 
-    private static final String TAG = "NewsModel";
+    private static final String TAG = "NewsModelImpl";
     private NewsContract.Presenter newsPresenter;
     private List<BeanNews> newsList = Collections.synchronizedList(new ArrayList<>());  //解决多线程中list add方法的数组越界问题
     private int tmp = 0;   //这是一个标志位，记录是否已获取全部新闻
 
-    public NewsModel(NewsContract.Presenter newsPresenter) {
+    public NewsModelImpl(NewsContract.Presenter newsPresenter) {
         this.newsPresenter = newsPresenter;
     }
 

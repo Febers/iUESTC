@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-6 下午7:35
- *
- */
-
 package com.febers.iuestc.util;
 
 import android.content.SharedPreferences;
@@ -19,7 +11,7 @@ public class SPUtil {
 
     private SharedPreferences sharedPreferences;
 
-    public static SPUtil getInstance() {
+    public static SPUtil INSTANCE() {
         return SingletonHolder.INSTANCE;
     }
 

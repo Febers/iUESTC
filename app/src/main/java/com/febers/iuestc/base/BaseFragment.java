@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-3 下午10:31
- *
- */
-
 package com.febers.iuestc.base;
 
 import android.content.Context;
@@ -23,6 +15,8 @@ import com.febers.iuestc.view.custom.CustomSupportFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 
 public abstract class BaseFragment extends CustomSupportFragment implements BaseView {
@@ -35,7 +29,17 @@ public abstract class BaseFragment extends CustomSupportFragment implements Base
 
     protected abstract int setContentView();
 
-    protected int setMenu(){ return -1; }
+    protected int setToolbar() {
+        return -1;
+    }
+
+    protected String setToolbarTitle() {
+        return null;
+    }
+
+    protected int setMenu() {
+        return -1;
+    }
 
     protected  void initView() {}
 
@@ -67,6 +71,18 @@ public abstract class BaseFragment extends CustomSupportFragment implements Base
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findView();
+
+        if (setToolbar() != -1) {
+            Toolbar toolbar = findViewById(setToolbar());
+            ((AppCompatActivity) activity).setSupportActionBar(toolbar);
+            if (setMenu() != -1) {
+                toolbar.inflateMenu(setMenu());    //防止activity销毁之后menu消失
+            }
+            if (setToolbarTitle() != null) {
+                toolbar.setTitle(setToolbarTitle());
+            }
+        }
+
         initView();
     }
 

@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-21 下午8:11
- *
- */
-
 package com.febers.iuestc.module.service.view;
 
 import android.content.Intent;
@@ -13,28 +5,41 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.MenuItem;
 
-import com.febers.iuestc.MyApp;
 import com.febers.iuestc.R;
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.module.service.presenter.CalPresenterImpl;
-import com.febers.iuestc.module.service.presenter.SchoolCalendarContact;
+import com.febers.iuestc.module.service.presenter.CalenderContact;
 import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.custom.PinchImageView;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
+import static com.febers.iuestc.base.Constants.CALENDER_GOT;
 
-public class CalActivity extends BaseSwipeActivity implements SchoolCalendarContact.View {
+public class CalenderActivity extends BaseSwipeActivity implements CalenderContact.View {
 
-    private SchoolCalendarContact.Presenter calPresenter = new CalPresenterImpl(this);
+    private CalenderContact.Presenter calPresenter = new CalPresenterImpl(this);
     private PinchImageView imageViewCal;
 
     @Override
     protected int setView() {
         return R.layout.activity_cal;
+    }
+
+    @Override
+    protected void findViewById() {
+        imageViewCal = findViewById(R.id.imgview_calender);
+    }
+
+    @Override
+    protected int setToolbar() {
+        return R.id.tb_calender;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return "校历";
     }
 
     @Override
@@ -44,15 +49,7 @@ public class CalActivity extends BaseSwipeActivity implements SchoolCalendarCont
 
     @Override
     protected void initView() {
-        Toolbar toolbar = findViewById(R.id.tb_calender);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        imageViewCal = findViewById(R.id.imgview_calender);
-        if (!SPUtil.getInstance()
-                .get(MyApp.getContext().getString(R.string.sp_get_calender), false)) {
+        if (!SPUtil.INSTANCE().get(CALENDER_GOT, false)) {
             dataRequest(true);
         } else {
             ToastUtil.showShortToast("正在加载本地校历");
@@ -78,8 +75,7 @@ public class CalActivity extends BaseSwipeActivity implements SchoolCalendarCont
             onError("获取校历出错，请刷新或访问源网页");
             return;
         }
-        runOnUiThread( () ->
-                imageViewCal.setImageBitmap(bitmap)
+        runOnUiThread(() -> imageViewCal.setImageBitmap(bitmap)
         );
     }
 

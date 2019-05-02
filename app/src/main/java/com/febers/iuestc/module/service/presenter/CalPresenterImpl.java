@@ -1,31 +1,22 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-21 下午8:14
- *
- */
-
 package com.febers.iuestc.module.service.presenter;
 
 import android.graphics.Bitmap;
 
 import com.febers.iuestc.base.BaseEvent;
-import com.febers.iuestc.module.service.model.CalModel;
-import com.febers.iuestc.module.service.model.ICalModel;
+import com.febers.iuestc.module.service.model.CalenderModelImpl;
 
-public class CalPresenterImpl extends SchoolCalendarContact.Presenter {
+public class CalPresenterImpl extends CalenderContact.Presenter {
 
-    private ICalModel calModel = new CalModel(this);
+    private CalenderContact.Model calModel = new CalenderModelImpl(this);
 
-    public CalPresenterImpl(SchoolCalendarContact.View view) {
+    public CalPresenterImpl(CalenderContact.View view) {
         super(view);
     }
 
     @Override
     public void calendarRequest(Boolean isRefresh) {
         try {
-            calModel.getCalendar(isRefresh);
+            calModel.calendarService(isRefresh);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,8 +24,8 @@ public class CalPresenterImpl extends SchoolCalendarContact.Presenter {
 
     @Override
     public void calendarResult(BaseEvent<Bitmap> baseEvent) {
-        if (mView != null) {
-            mView.showCalender(baseEvent);
+        if (view != null) {
+            view.showCalender(baseEvent);
         }
     }
 }

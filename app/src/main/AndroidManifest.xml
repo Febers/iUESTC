@@ -47,7 +47,6 @@
         </provider>
 
         <activity android:name=".module.grade.view.GradeActivity" />
-        <activity android:name=".module.service.view.ServiceActivity" />
         <activity android:name=".module.service.view.BusActivity" />
         <activity
             android:name=".home.view.SplashActivity"
@@ -58,21 +57,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.service.view.CalActivity" />
+        <activity android:name=".module.service.view.CalenderActivity" />
         <activity android:name=".module.news.view.NewsActivity" />
         <activity android:name=".module.news.view.NewsDetailActivity" />
         <activity android:name=".module.more.AboutActivity" />
         <activity android:name=".module.login.view.LoginActivity" />
-        <activity android:name=".module.ecard.view.ECardActivity" />
         <activity android:name=".module.user.view.UserActivity" />
         <activity android:name=".module.more.ThemeActivity" />
         <activity android:name=".module.library.view.LibDetailActivity" />
         <activity
             android:name=".module.more.UpdateActivity"
             android:theme="@style/UpdateTheme" />
-        <activity android:name=".module.news.view.NoticeActivity" />
-        <activity android:name=".module.news.view.NoticeDetailActivity" />
-        <activity android:name=".module.library.view.LibHistoryActivity"></activity>
     </application>
 
 </manifest>

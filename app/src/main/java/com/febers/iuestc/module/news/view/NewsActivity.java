@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-7 下午4:53
- *
- */
-
 package com.febers.iuestc.module.news.view;
 
 import android.content.Intent;
@@ -24,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 public class NewsActivity extends BaseSwipeActivity {
 
     private static final String TAG = "NewsActivity";
+
     private int type = 0;
     private CustomViewPager viewPager;
     private TabLayout tabLayout;
@@ -48,17 +41,24 @@ public class NewsActivity extends BaseSwipeActivity {
         }
     }
 
+    @Override
+    protected int setToolbar() {
+        return R.id.tb_news;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        if (type == 0) {
+            return "本科教务通知";
+        }
+        if (type == 1) {
+            return "研究生教务通知";
+        }
+        return "教务通知";
+    }
 
     //本科生
     private void initUnderUI() {
-        Toolbar toolbar = findViewById(R.id.tb_news);
-        toolbar.setTitle("本科教务通知");
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
         viewPager = findViewById(R.id.vp_news);
         viewPager.setOffscreenPageLimit(3);//非常重要
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -84,14 +84,6 @@ public class NewsActivity extends BaseSwipeActivity {
 
     //研究生
     private void initPostUI() {
-        Toolbar toolbar = findViewById(R.id.tb_news);
-        toolbar.setTitle("研究生教务通知");
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
         viewPager = findViewById(R.id.vp_news);
         viewPager.setOffscreenPageLimit(3);
         tabLayout = findViewById(R.id.tl_news);

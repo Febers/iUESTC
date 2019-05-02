@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.service.view;
 
 import android.content.Intent;
@@ -20,14 +12,10 @@ import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.net.WebViewConfigure;
 import com.febers.iuestc.util.WebViewUtil;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-
 public class BusActivity extends BaseSwipeActivity {
 
     private static final String TAG = "BusActivity";
     private WebView webView;
-    private Toolbar toolbar;
     private ProgressBar progressBar;
 
     @Override
@@ -41,16 +29,23 @@ public class BusActivity extends BaseSwipeActivity {
     }
 
     @Override
-    protected void initView() {
-        toolbar = findViewById(R.id.tb_bus);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+    protected void findViewById() {
         progressBar = findViewById(R.id.progressbar_bus);
         webView = findViewById(R.id.web_bus);
+    }
 
+    @Override
+    protected int setToolbar() {
+        return R.id.tb_bus;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return "校车";
+    }
+
+    @Override
+    protected void initView() {
         new WebViewConfigure.Builder(this, webView)
                 .setSupportLoadingBar(true, progressBar)
                 .builder();

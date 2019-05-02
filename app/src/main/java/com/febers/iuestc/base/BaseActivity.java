@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-3 下午11:02
- *
- */
-
 package com.febers.iuestc.base;
 
 import android.os.Bundle;
@@ -22,14 +14,24 @@ import com.febers.iuestc.view.custom.CustomSupportActivity;
 import org.greenrobot.eventbus.EventBus;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 public abstract class BaseActivity extends CustomSupportActivity implements BaseView {
 
-    protected CustomProgressDialog mProgressDialog;
+    protected CustomProgressDialog progressDialog;
 
     protected abstract int setView();
 
-    protected void findViewById(){}
+    protected void findViewById(){ }
+
+    protected int setToolbar() {
+        return -1;
+    }
+
+    protected String setToolbarTitle() {
+        return null;
+    }
 
     protected int setMenu() {
         return R.menu.default_menu;
@@ -45,7 +47,21 @@ public abstract class BaseActivity extends CustomSupportActivity implements Base
         chooseTheme();
         setContentView(setView());
         findViewById();
+
+        if (setToolbar() != -1) {
+            Toolbar toolbar = findViewById(setToolbar());
+            setSupportActionBar(toolbar);
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null){
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
+            if (setToolbarTitle() != null) {
+                toolbar.setTitle(setToolbarTitle());
+            }
+        }
+
         initView();
+
         if (registerEventBus()) {
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this);
@@ -56,7 +72,7 @@ public abstract class BaseActivity extends CustomSupportActivity implements Base
     protected abstract void initView();
 
     private void chooseTheme() {
-        int themeCode = SPUtil.getInstance().get("theme_code", 9);
+        int themeCode = SPUtil.INSTANCE().get("theme_code", 9);
         setTheme(ThemeUtil.getTheme(themeCode));
     }
 
@@ -79,15 +95,15 @@ public abstract class BaseActivity extends CustomSupportActivity implements Base
     }
 
     protected void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new CustomProgressDialog(this);
+        if (progressDialog == null) {
+            progressDialog = new CustomProgressDialog(this);
         }
-        mProgressDialog.show();
+        progressDialog.show();
     }
 
     protected void dismissProgressDialog() {
-        if (mProgressDialog != null) {
-            runOnUiThread( () -> mProgressDialog.dismiss());
+        if (progressDialog != null) {
+            runOnUiThread( () -> progressDialog.dismiss());
         }
     }
 
@@ -96,19 +112,6 @@ public abstract class BaseActivity extends CustomSupportActivity implements Base
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        Boolean isLogin = false;
-//        try {
-//            isLogin = data.getBooleanExtra("status", false);
-//        } catch (Exception e) {
-//            //只有在需要登录的界面中才需要这个回调
-//        }
-//        if (isLogin) {
-//            dataRequest(true);
-//        }
-//    }
 
     @Override
     public void onError(String error) {

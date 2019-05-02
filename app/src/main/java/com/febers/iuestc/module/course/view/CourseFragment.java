@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-4 下午6:24
- *
- */
-
 package com.febers.iuestc.module.course.view;
 
 import android.content.Intent;
@@ -39,18 +31,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 public class CourseFragment extends BaseFragment implements CourseContract.View {
 
     private static final String TAG = "CourseFragment";
 
-    private CourseContract.Presenter mPresenter = new CoursePresenterImpl(this);
+    private CourseContract.Presenter presenter = new CoursePresenterImpl(this);
 
     private List<Button> buttonList = new ArrayList<>();
     private List<Integer> weeks = new ArrayList<>();
-    private OptionsPickerView mPickerView;
+    private OptionsPickerView pickerView;
     private TextView tvNowWeek;
     private ImageView ivNull;
     private int nowWeek;
@@ -58,6 +47,16 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     @Override
     protected int setContentView() {
         return R.layout.fragment_course;
+    }
+
+    @Override
+    protected int setToolbar() {
+        return R.id.tb_course;
+    }
+
+    @Override
+    protected String setToolbarTitle() {
+        return "";
     }
 
     @Override
@@ -79,15 +78,11 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
             }
             showProgressDialog();
         }
-        mPresenter.courseRequest(isRefresh);
+        presenter.courseRequest(isRefresh);
     }
 
     @Override
     protected void initView() {
-        Toolbar toolbar = findViewById(R.id.tb_course);
-        toolbar.setTitle("");
-        ((AppCompatActivity)mActivity).setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.course_menu);    //防止activity销毁之后menu消失
         initPicker();
         tvNowWeek = findViewById(R.id.tv_course_title);
         ivNull = findViewById(R.id.iv_null_course);
@@ -98,7 +93,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     @Override
     public void showUnderCourse(BaseEvent<List<BeanCourse>> event) {
         dismissProgressDialog();
-        mActivity.runOnUiThread( () -> {
+        activity.runOnUiThread( () -> {
             if (event.getCode() == BaseCode.ERROR) {
                 onError("刷新课表出错,请尝试再次获取");
                 return;
@@ -117,7 +112,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
                 ivNull.setVisibility(View.GONE);
                 onError("刷新课表成功");
             }
-            CourseViewHelper helper = new CourseViewHelper(mActivity);
+            CourseViewHelper helper = new CourseViewHelper(activity);
             helper.create(event.getDate(), nowWeek, buttonList);
         });
     }
@@ -129,7 +124,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
                 if (!isLogin()) {
                     break;
                 }
-                mPickerView.show();
+                pickerView.show();
                 break;
             case R.id.item_course_refresh:
                 if (!isLogin()) {
@@ -146,16 +141,10 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-//        buttonList.clear();
-//        if (!isLogin()) {
-//            showUnderCourse(new BaseEvent<>(BaseCode.CLEAR, new ArrayList<>()));
-//            return;
-//        }
-        Boolean firstGet = SPUtil.getInstance().get(Constants.COURSE_FIRST_GET, true);
+        Boolean firstGet = SPUtil.INSTANCE().get(Constants.COURSE_FIRST_GET, true);
         if (firstGet) {
             dataRequest(true);
-            SPUtil.getInstance().put(mContext
-                    .getString(R.string.sp_course_first_get), false);
+            SPUtil.INSTANCE().put(Constants.COURSE_FIRST_GET, false);
         }
     }
 
@@ -182,10 +171,10 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
         for (int i = 1; i < 21; i++) {
             weeks.add(i);
         }
-        mPickerView = new OptionsPickerBuilder(getContext(), (options1, options2, options3, v) -> {
+        pickerView = new OptionsPickerBuilder(getContext(), (options1, options2, options3, v) -> {
             Toast.makeText(getContext(), "当前周数已设置为第" + (options1+1) + "周", Toast.LENGTH_SHORT).show();
-            SPUtil.getInstance().put(mContext.getString(R.string.sp_now_week), (options1+1));
-            SPUtil.getInstance().put("set_week", true);
+            SPUtil.INSTANCE().put(Constants.COURSE_NOW_WEEK, (options1+1));
+            SPUtil.INSTANCE().put("set_week", true);
             setTitle(options1+1);
             dataRequest(false);
         })
@@ -194,13 +183,13 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
                 .setCyclic(true, false, false)
                 .setBgColor(getResources().getColor(R.color.lightgray))
                 .build();
-        mPickerView.setPicker(weeks);
+        pickerView.setPicker(weeks);
     }
 
     private void setTitle(int week) {
         nowWeek = 1;
         if (week == 0) {
-            nowWeek = SPUtil.getInstance().get(Constants.NOW_WEEK, 1);
+            nowWeek = SPUtil.INSTANCE().get(Constants.COURSE_NOW_WEEK, 1);
             if (nowWeek == 0) nowWeek = 1;
         } else {
             nowWeek = week;
@@ -209,7 +198,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     }
 
     private Boolean isLogin() {
-        return SPUtil.getInstance().get(Constants.IS_LOGIN, false);
+        return SPUtil.INSTANCE().get(Constants.IS_LOGIN, false);
     }
 
     public static CourseFragment newInstance(String param1) {

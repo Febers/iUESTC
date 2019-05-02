@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-9-8 上午11:22
- *
- */
-
 package com.febers.iuestc.module.exam.model;
 
 import com.febers.iuestc.entity.BeanExam;

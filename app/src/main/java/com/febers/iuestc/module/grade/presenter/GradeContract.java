@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.grade.presenter;
 
 import com.febers.iuestc.edu.EduView;
@@ -29,7 +21,9 @@ public interface GradeContract {
         public Presenter(View view) {
             super(view);
         }
+
         public abstract void gradeRequest(Boolean isRefresh);
+
         public abstract void gradeResult(String status, List<BeanGradeSummary> allGrades,
                                          List<BeanGrade> gradeList);
     }

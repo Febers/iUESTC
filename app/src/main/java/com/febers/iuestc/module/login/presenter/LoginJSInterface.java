@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-7-31 下午4:57
- *
- */
-
 package com.febers.iuestc.module.login.presenter;
 
 import android.webkit.JavascriptInterface;
@@ -33,15 +25,15 @@ public class LoginJSInterface extends LoginContract.Presenter {
 
     @Override
     public void loginResult(BaseEvent<String> event) {
-        if (mEduView!=null) {
-            mEduView.loginResult(event);
+        if (eduView !=null) {
+            eduView.loginResult(event);
         }
     }
 
     @Override
     public void sendIdAndPwFunc(BaseEvent<String> event) {
-        if (mEduView != null) {
-            mEduView.loadIdAndPwFunc(event);
+        if (eduView != null) {
+            eduView.loadIdAndPwFunc(event);
         }
     }
 }

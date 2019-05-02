@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-17 下午2:22
- *
- */
-
 package com.febers.iuestc.module.news.presenter;
 
 import com.febers.iuestc.base.BasePresenter;
@@ -28,8 +20,8 @@ public interface NewsContract {
 
         public Presenter(View view) {
             super(view);
+        }
 
-    }
         public abstract void newsRequest(Boolean isRefresh);
 
         public abstract void newsResult(List<BeanNews> newsList);

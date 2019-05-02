@@ -1,11 +1,3 @@
-/*
- * Created by Febers 2018.
- * Copyright (c). All rights reserved.
- *
- * Last Modified 18-6-4 下午10:04
- *
- */
-
 package com.febers.iuestc.net;
 
 import android.os.Build;
@@ -52,7 +44,7 @@ public class SingletonClient {
         singletonClient = null;
         CookieManager.getInstance().removeAllCookie();
 //        if (Build.VERSION.SDK_INT > 21) {
-//            CookieManager.getInstance().removeAllCookies((Boolean value) -> {
+//            CookieManager.INSTANCE().removeAllCookies((Boolean value) -> {
 //                    Log.i(TAG, "onReceiveValue: " + value);
 //            });
 //        }
