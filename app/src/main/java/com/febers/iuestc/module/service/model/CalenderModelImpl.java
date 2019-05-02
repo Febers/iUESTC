@@ -6,7 +6,7 @@ import android.util.Base64;
 
 import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
-import com.febers.iuestc.module.service.presenter.CalenderContact;
+import com.febers.iuestc.module.service.presenter.CalenderContract;
 import com.febers.iuestc.util.FileUtil;
 import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.ApiUtil;
@@ -15,9 +15,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.SocketTimeoutException;
 
 import okhttp3.OkHttpClient;
@@ -26,20 +30,20 @@ import okhttp3.Response;
 
 import static com.febers.iuestc.base.Constants.CALENDER_GOT;
 
-public class CalenderModelImpl implements CalenderContact.Model {
+public class CalenderModelImpl implements CalenderContract.Model {
 
     private static final String TAG = "CalenderModelImpl";
 
-    private CalenderContact.Presenter calPresenter;
+    private CalenderContract.Presenter calPresenter;
 
-    public CalenderModelImpl(CalenderContact.Presenter presenter) {
+    public CalenderModelImpl(CalenderContract.Presenter presenter) {
         calPresenter = presenter;
     }
 
     @Override
     public void calendarService(Boolean isRefresh) throws Exception {
         if (!isRefresh) {
-            new Thread(this::getFromFile).start();
+            new Thread(this::getSavedCalender).start();
         } else {
             new Thread(this::getCalenderImageFromWeb).start();
         }
@@ -67,17 +71,18 @@ public class CalenderModelImpl implements CalenderContact.Model {
                     .build();
             response = client.newCall(request).execute();
 
-            byte[] imgBytes = response.body().bytes();
-            SPUtil.INSTANCE().put(CALENDER_GOT, true);
+            InputStream imageStream = response.body().byteStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
 
-            Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
             BaseEvent<Bitmap> calEvent = new BaseEvent<>(BaseCode.UPDATE, bitmap);
             calPresenter.calendarResult(calEvent);
-            saveImageToFile(imgBytes);
+
+            saveCalender(bitmap);
+            SPUtil.INSTANCE().put(CALENDER_GOT, true);
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
             calPresenter.errorResult("网络连接超时");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             calPresenter.errorResult("获取校历失败");
         }
@@ -97,49 +102,33 @@ public class CalenderModelImpl implements CalenderContact.Model {
         return url;
     }
 
-    private void saveImageToFile(byte[] bytes) {
-        FileWriter fileWriter = null;
+    private void  saveCalender(Bitmap bitmap) {
+        File file = new File(FileUtil.appDataDir + "/cal.png");
         try {
-            fileWriter = new FileWriter(FileUtil.appDataDir + "/cal");
-            fileWriter.write(Base64.encodeToString(bytes, Base64.DEFAULT));
-            fileWriter.flush();
+            if (!file.exists()) {
+                if (file.createNewFile()) {
+                    return;
+                }
+            }
+            FileOutputStream fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                fileWriter.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
-    private void getFromFile() {
-        StringBuilder builder = new StringBuilder();
-        FileReader fileReader = null;
-        Bitmap bitmap = null;
+    private void getSavedCalender() {
         try {
-            fileReader = new FileReader(FileUtil.appDataDir + "/cal");
-            char[] chars = new char[1];
-            while (fileReader.read(chars) != -1) {
-                builder.append(chars);
+            File file = new File(FileUtil.appDataDir + "/cal.png");
+            if (!file.exists()) {
+                return;
             }
-
-            byte[] bytes = Base64.decode(builder.toString(), Base64.DEFAULT);
-            if (bytes.length <= 0) {
-                calPresenter.calendarResult(new BaseEvent<>(BaseCode.ERROR, bitmap));
-            }
-            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            Bitmap bitmap = BitmapFactory.decodeFile(FileUtil.appDataDir + "/cal.png");
             calPresenter.calendarResult(new BaseEvent<>(BaseCode.LOCAL, bitmap));
-        } catch (IOException e) {
-            e.printStackTrace();
-            calPresenter.calendarResult(new BaseEvent<>(BaseCode.ERROR, bitmap));
-        } finally {
-            try {
-                fileReader.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            calPresenter.calendarResult(new BaseEvent<>(BaseCode.ERROR, null));
         }
     }
 }

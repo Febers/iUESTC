@@ -10,16 +10,16 @@ import com.febers.iuestc.base.BaseCode;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BaseSwipeActivity;
 import com.febers.iuestc.module.service.presenter.CalPresenterImpl;
-import com.febers.iuestc.module.service.presenter.CalenderContact;
+import com.febers.iuestc.module.service.presenter.CalenderContract;
 import com.febers.iuestc.util.SPUtil;
 import com.febers.iuestc.util.ToastUtil;
 import com.febers.iuestc.view.custom.PinchImageView;
 
 import static com.febers.iuestc.base.Constants.CALENDER_GOT;
 
-public class CalenderActivity extends BaseSwipeActivity implements CalenderContact.View {
+public class CalenderActivity extends BaseSwipeActivity implements CalenderContract.View {
 
-    private CalenderContact.Presenter calPresenter = new CalPresenterImpl(this);
+    private CalenderContract.Presenter calPresenter = new CalPresenterImpl(this);
     private PinchImageView imageViewCal;
 
     @Override

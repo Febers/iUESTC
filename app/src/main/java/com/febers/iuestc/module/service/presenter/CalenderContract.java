@@ -6,7 +6,7 @@ import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.base.BasePresenter;
 import com.febers.iuestc.base.BaseView;
 
-public interface CalenderContact {
+public interface CalenderContract {
 
     interface Model {
         void calendarService(Boolean isRefresh) throws Exception;
@@ -16,7 +16,7 @@ public interface CalenderContact {
         void showCalender(BaseEvent baseEvent);
     }
 
-    abstract class Presenter extends BasePresenter<CalenderContact.View> {
+    abstract class Presenter extends BasePresenter<CalenderContract.View> {
 
         public Presenter(View view) {
             super(view);

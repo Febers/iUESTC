@@ -5,11 +5,11 @@ import android.graphics.Bitmap;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.module.service.model.CalenderModelImpl;
 
-public class CalPresenterImpl extends CalenderContact.Presenter {
+public class CalPresenterImpl extends CalenderContract.Presenter {
 
-    private CalenderContact.Model calModel = new CalenderModelImpl(this);
+    private CalenderContract.Model calModel = new CalenderModelImpl(this);
 
-    public CalPresenterImpl(CalenderContact.View view) {
+    public CalPresenterImpl(CalenderContract.View view) {
         super(view);
     }
 
