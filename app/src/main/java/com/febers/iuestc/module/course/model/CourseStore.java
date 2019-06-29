@@ -17,7 +17,7 @@ import java.util.List;
  * 课表的保存类，保存在sp目录下的"local_course"文件中
  * 每节课以“bean_course”开头， 原始字符串以#分隔
  */
-public class CourseStore {
+class CourseStore {
 
     static void saveToFile(List<BeanCourse> courseList) {
         FileWriter fileWriter = null;

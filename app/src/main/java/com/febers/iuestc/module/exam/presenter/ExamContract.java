@@ -1,7 +1,7 @@
 package com.febers.iuestc.module.exam.presenter;
 
-import com.febers.iuestc.edu.EduPresenter;
-import com.febers.iuestc.edu.EduView;
+import com.febers.iuestc.base.edu.EduPresenter;
+import com.febers.iuestc.base.edu.EduView;
 import com.febers.iuestc.base.BaseEvent;
 import com.febers.iuestc.entity.BeanExam;
 

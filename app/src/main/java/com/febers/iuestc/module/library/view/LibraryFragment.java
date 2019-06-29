@@ -30,7 +30,7 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
     @Override
     public void dataRequest(Boolean isRefresh) {
         String keyword = etLibFragment.getText().toString();
-        if (keyword == null || keyword.trim().isEmpty()) {
+        if (keyword.trim().isEmpty()) {
             return;
         }
         Intent intent = new Intent(getActivity(), LibQueryActivity.class);
@@ -73,9 +73,7 @@ public class LibraryFragment extends BaseFragment implements EditText.OnEditorAc
                 }
         );
         Button btnQuery = findViewById(R.id.btn_lib_query);
-        btnQuery.setOnClickListener((View v) -> {
-            dataRequest(true);
-        });
+        btnQuery.setOnClickListener((View v) -> dataRequest(true));
         Button btnHistory = findViewById(R.id.btn_lib_history);
         btnHistory.setOnClickListener( v -> {
             Intent intent = new Intent(Intent.ACTION_VIEW,

@@ -64,7 +64,7 @@ public class LibraryModelImpl implements LibraryContract.Model {
                     .build();
             try {
                 Response response = client.newCall(request).execute();
-                String result = response.body().string();
+                String result = response.body()+"";
                 //验证登录
                 Document document = Jsoup.parse(result);
                 Elements els = document.select("span[class=\"loggedInMessage\"]");
@@ -89,7 +89,7 @@ public class LibraryModelImpl implements LibraryContract.Model {
                         .url("https://webpac.uestc.edu.cn"+historyUrl+"&page="+page)
                         .build();
                 response = client.newCall(request).execute();
-                result = response.body().string();
+                result = response.body()+"";
                 resolveHistory(result);
 
             } catch (SocketTimeoutException e) {
@@ -149,7 +149,7 @@ public class LibraryModelImpl implements LibraryContract.Model {
                     .build();
             try {
                 Response response = mClient.newCall(request).execute();
-                String result = response.body().string();
+                String result = response.body()+"";
                 resolveQueryHtml(page, result);
             } catch (SocketTimeoutException e) {
                 libraryPresenter.errorResult("请求超时");
@@ -195,7 +195,7 @@ public class LibraryModelImpl implements LibraryContract.Model {
                     .build();
             try {
                 Response response = mClient.newCall(request).execute();
-                String result = response.body().string();
+                String result = response.body()+"";
                 resolveBookDetail(result);
             } catch (SocketTimeoutException e) {
                 libraryPresenter.errorResult("请求超时");

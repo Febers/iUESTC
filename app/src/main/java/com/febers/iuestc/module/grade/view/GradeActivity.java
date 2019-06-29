@@ -133,14 +133,10 @@ public class GradeActivity extends BaseSwipeActivity implements NavigationView.O
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.item_grade_refresh:
-                navigationView.setCheckedItem(R.id.item_grade_all);
-                GradeListFragment listFragment = (GradeListFragment) GradeFragmentManager.getInstance(0);
-                listFragment.dataRequest(true);
-                break;
-            default:
-                break;
+        if (item.getItemId() == R.id.item_grade_refresh) {
+            navigationView.setCheckedItem(R.id.item_grade_all);
+            GradeListFragment listFragment = (GradeListFragment) GradeFragmentManager.getInstance(0);
+            listFragment.dataRequest(true);
         }
         return super.onOptionsItemSelected(item);
     }

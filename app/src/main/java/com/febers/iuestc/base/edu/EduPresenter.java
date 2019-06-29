@@ -1,4 +1,4 @@
-package com.febers.iuestc.edu;
+package com.febers.iuestc.base.edu;
 
 import com.febers.iuestc.base.BasePresenter;
 

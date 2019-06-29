@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExamStore {
+class ExamStore {
 
     static void saveToFile(List<BeanExam> examList, int type) {
         FileWriter fileWriter = null;

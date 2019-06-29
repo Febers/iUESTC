@@ -141,7 +141,7 @@ public class CourseFragment extends BaseFragment implements CourseContract.View 
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        Boolean firstGet = SPUtil.INSTANCE().get(Constants.COURSE_FIRST_GET, true);
+        boolean firstGet = SPUtil.INSTANCE().get(Constants.COURSE_FIRST_GET, true);
         if (firstGet) {
             dataRequest(true);
             SPUtil.INSTANCE().put(Constants.COURSE_FIRST_GET, false);

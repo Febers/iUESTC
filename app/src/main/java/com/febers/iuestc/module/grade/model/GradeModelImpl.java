@@ -57,14 +57,11 @@ public class GradeModelImpl extends BaseModel implements GradeContract.Model {
                     .get()
                     .build();
             Response response = client.newCall(request).execute();
-            String stRes = response.body().string();
+            String stRes = response.body()+"";
             if (!userAuthenticate(stRes)) {
                 return;
             }
             resolveUnderGradeHtml(stRes);
-        } catch (IOException e) {
-            e.printStackTrace();
-            serviceError(NET_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
             serviceError(UNKNOWN_ERROR);
@@ -132,8 +129,6 @@ public class GradeModelImpl extends BaseModel implements GradeContract.Model {
     }
 
     private void loadSavedGrade() {
-        new Thread(()-> {
-            resolveUnderGradeHtml(GradeStore.getSourceCode());
-        }).start();
+        new Thread(()-> resolveUnderGradeHtml(GradeStore.getSourceCode())).start();
     }
 }

@@ -10,7 +10,7 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExamResolver {
+class ExamResolver {
 
     static List<BeanExam> resolveUnderExamHtml(String html) {
         List<BeanExam> examList = new ArrayList<>();

@@ -61,12 +61,6 @@ public abstract class BaseActivity extends CustomSupportActivity implements Base
         }
 
         initView();
-
-        if (registerEventBus()) {
-            if (!EventBus.getDefault().isRegistered(this)) {
-                EventBus.getDefault().register(this);
-            }
-        }
     }
 
     protected abstract void initView();
@@ -78,12 +72,9 @@ public abstract class BaseActivity extends CustomSupportActivity implements Base
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -108,9 +99,21 @@ public abstract class BaseActivity extends CustomSupportActivity implements Base
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    protected void onStart() {
+        super.onStart();
+        if (registerEventBus()) {
+            if (!EventBus.getDefault().isRegistered(this)) {
+                EventBus.getDefault().register(this);
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     @Override

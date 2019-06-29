@@ -34,8 +34,8 @@ public class CourseModelImpl extends BaseModel implements CourseContract.Model {
 
     @Override
     public void updateCourseService(Boolean isRefresh) {
-        Boolean courseGot = SPUtil.INSTANCE().get(COURSE_GET, false);
-        new Thread( () ->{
+        boolean courseGot = SPUtil.INSTANCE().get(COURSE_GET, false);
+        new Thread( () -> {
             if (courseGot && (!isRefresh)) {
                 getSavedCourse();
             } else {
@@ -87,11 +87,6 @@ public class CourseModelImpl extends BaseModel implements CourseContract.Model {
             }
             courseList = CourseResolver.resolveUnderCourseHtml(new StringBuilder(courseHtml));
 
-        } catch (SocketTimeoutException e) {
-            coursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));
-            SPUtil.INSTANCE().put(COURSE_GET, false);
-            serviceError(NET_TIMEOUT);
-            return;
         } catch (Exception e) {
             e.printStackTrace();
             coursePresenter.underCourseResult(new BaseEvent<>(BaseCode.ERROR, new ArrayList<>()));

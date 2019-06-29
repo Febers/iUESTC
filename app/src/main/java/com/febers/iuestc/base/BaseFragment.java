@@ -23,8 +23,7 @@ public abstract class BaseFragment extends CustomSupportFragment implements Base
 
     private static final String TAG = "BaseFragment";
     protected static String PARAMETER = "param1";
-    protected Context mContext = MyApp.getContext();
-    protected CustomProgressDialog mProgressDialog;
+    protected CustomProgressDialog progressDialog;
     private View view;
 
     protected abstract int setContentView();
@@ -41,9 +40,9 @@ public abstract class BaseFragment extends CustomSupportFragment implements Base
         return -1;
     }
 
-    protected  void initView() {}
+    protected  void initView() { }
 
-    protected void findView() {}
+    protected void findView() { }
 
     protected Boolean registerEventBus() {
         return false;
@@ -95,20 +94,20 @@ public abstract class BaseFragment extends CustomSupportFragment implements Base
     }
 
     protected void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new CustomProgressDialog(getContext());
+        if (progressDialog == null) {
+            progressDialog = new CustomProgressDialog(getContext());
         }
         if (getActivity() == null) return;
         if (getActivity().isFinishing()) return;
-        mProgressDialog.show();
+        progressDialog.show();
     }
 
     protected void dismissProgressDialog() {
-        if (mProgressDialog == null) {
+        if (progressDialog == null) {
             return;
         }
         if (getActivity() != null) {
-            getActivity().runOnUiThread( () -> mProgressDialog.dismiss());
+            getActivity().runOnUiThread( () -> progressDialog.dismiss());
         }
     }
 

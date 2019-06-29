@@ -1,6 +1,6 @@
 package com.febers.iuestc.module.grade.presenter;
 
-import com.febers.iuestc.edu.EduView;
+import com.febers.iuestc.base.edu.EduView;
 import com.febers.iuestc.base.BasePresenter;
 import com.febers.iuestc.entity.BeanGradeSummary;
 import com.febers.iuestc.entity.BeanGrade;

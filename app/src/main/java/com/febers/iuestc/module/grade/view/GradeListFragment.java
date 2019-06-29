@@ -88,9 +88,7 @@ public class GradeListFragment extends BaseFragment implements GradeContract.Vie
                 tmpList.add(gradeList.get(i));
             }
         }
-        getActivity().runOnUiThread( () -> {
-            adapterGrade.setNewData(tmpList);
-        });
+        getActivity().runOnUiThread( () -> adapterGrade.setNewData(tmpList));
     }
 
     @Override

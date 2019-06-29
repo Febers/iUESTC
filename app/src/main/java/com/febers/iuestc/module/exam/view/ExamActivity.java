@@ -142,12 +142,8 @@ public class ExamActivity extends BaseSwipeActivity implements ExamContract.View
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.item_exam_refresh:
-                getExam(true, examType);
-                break;
-            default:
-                break;
+        if (item.getItemId() == R.id.item_exam_refresh) {
+            getExam(true, examType);
         }
         return super.onOptionsItemSelected(item);
     }

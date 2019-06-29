@@ -61,16 +61,13 @@ public class ExamModelImpl extends BaseModel implements ExamContract.Model {
                     .get()
                     .build();
             Response examRes = client.newCall(request).execute();
-            String result = examRes.body().string();
+            String result = examRes.body()+"";
             if (!userAuthenticate(result)) {
                 return;
             }
             examList = ExamResolver.resolveUnderExamHtml(result);
             examPresenter.examResult(new BaseEvent<>(BaseCode.UPDATE, getPostExams(examList)));
             ExamStore.saveToFile(examList, examType);
-        } catch (IOException e) {
-            e.printStackTrace();
-            serviceError(NET_ERROR);
         } catch (Exception e) {
             e.printStackTrace();
             serviceError(UNKNOWN_ERROR);

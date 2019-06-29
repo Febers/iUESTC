@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 通过网页源码解析获取课表
  */
-public class CourseResolver {
+class CourseResolver {
 
     private static final String TAG = "CourseResolver";
     private static List<BeanCourse> courseList = new ArrayList<>();

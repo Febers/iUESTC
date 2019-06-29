@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class GradeStore {
+class GradeStore {
 
     static void saveSourceCode(String source) {
         FileWriter fileWriter = null;
