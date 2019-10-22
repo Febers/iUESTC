@@ -96,6 +96,7 @@
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/lightgray</item>
         <item name="colorAccent">@color/lightgray</item>
+        <item name="android:windowBackground">@color/white</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
